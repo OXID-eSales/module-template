@@ -1,0 +1,4 @@
+name: OXID Module Template migrations (oe_moduletemplate)
+migrations_namespace: OxidEsales\ModuleTemplate\Migrations
+table_name: oxmigrations_oe_moduletemplate
+migrations_directory: data

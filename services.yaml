@@ -1,0 +1,9 @@
+services:
+
+  _defaults:
+    public: false
+    autowire: true
+
+  OxidEsales\ModuleTemplate\Service\:
+    resource: 'src/Service/*'
+    public: true

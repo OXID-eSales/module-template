@@ -1,0 +1,218 @@
+name: Development
+
+on: [ push, pull_request ]
+
+jobs:
+  install_shop_with_module:
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0' ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone testing environment v3.0.0
+        run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git . && git reset --hard v3.0.0
+
+      - name: Clone the shop
+        run: git clone --depth 1 https://github.com/OXID-eSales/oxideshop_ce.git --branch b-6.5.x --single-branch source
+
+      - name: Cache current installation
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./*
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+
+      - name: Prepare container configuration
+        run: |
+          make setup
+          make addbasicservices
+          perl -pi\
+            -e "s#PHP_VERSION=.*#PHP_VERSION='${{ matrix.php }}'#g;"\
+            .env
+
+          perl -pi\
+            -e 's#display_errors =.*#display_errors = false#g;'\
+            -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
+            containers/php-fpm/custom.ini
+
+          perl -pi\
+            -e 's#/var/www/#/var/www/source/#g;'\
+            containers/httpd/project.conf
+
+      - name: Prepare shop configuration
+        run: |
+          cp source/source/config.inc.php.dist source/source/config.inc.php
+          sed -i "1s+^+SetEnvIf Authorization "\(.*\)" HTTP_AUTHORIZATION=\$1\n\n+" source/source/.htaccess
+          sed -i -e 's/<dbHost>/mysql/'\
+                 -e 's/<dbUser>/root/'\
+                 -e 's/<dbName>/example/'\
+                 -e 's/<dbPwd>/root/'\
+                 -e 's/<dbPort>/3306/'\
+                 -e 's/<sShopURL>/http:\/\/localhost.local\//'\
+                 -e 's/<sShopDir>/\/var\/www\/source\//'\
+                 -e 's/<sCompileDir>/\/var\/www\/source\/tmp\//'\
+              source/source/config.inc.php
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
+
+      - name: Checkout current module
+        uses: actions/checkout@v2
+        with:
+          path: source/test-module
+
+      - name: Install module
+        run: |
+          docker-compose exec -T \
+            php composer config repositories.oxid-esales/module-template \
+            --json '{"type":"path", "url":"./test-module", "options": {"symlink": true}}'
+          docker-compose exec -T \
+            php composer require oxid-esales/module-template:* --no-interaction --no-update
+
+      - name: Install dependencies and reset shop
+        run: |
+          docker-compose exec -T php composer update --no-interaction
+          docker-compose exec -T php php vendor/bin/reset-shop
+
+      - name: Stop containers
+        run: |
+          docker-compose down
+          sleep 2
+
+  styles:
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0' ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current module
+        uses: actions/checkout@v2
+        with:
+          path: source/test-module
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          extensions: gd, zip
+
+      - name: Install module dependencies
+        id: dependencies
+        run: |
+          cd source/test-module
+          composer install
+
+      - name: Syntax Test
+        id: syntax
+        if: steps.dependencies.outcome == 'success'
+        continue-on-error: true
+        run: |
+          cd source/test-module
+          composer test:syntax
+
+      - name: Lint Test
+        id: lint
+        if: steps.dependencies.outcome == 'success'
+        continue-on-error: true
+        run: |
+          cd source/test-module
+          composer test:lint
+
+      - name: Static Analyzer
+        id: static
+        if: steps.dependencies.outcome == 'success'
+        continue-on-error: true
+        run: |
+          cd source/test-module
+          composer test:static
+
+      - name: Fail if any of styles status is not fine
+        if: |
+          steps.syntax.outcome != 'success' ||
+          steps.lint.outcome != 'success' ||
+          steps.static.outcome != 'success'
+        run: exit 1
+
+  unit_tests:
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0' ]
+    needs: [ install_shop_with_module ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load current installation from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./*
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          restore-keys: |
+            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
+
+      - name: Run tests
+        continue-on-error: true
+        run: |
+          docker-compose exec -T \
+            -e PARTIAL_MODULE_PATHS=oe/moduletemplate \
+            -e ACTIVATE_ALL_MODULES=1 \
+            -e RUN_TESTS_FOR_SHOP=0 \
+            -e RUN_TESTS_FOR_MODULES=0 \
+            -e XDEBUG_MODE=coverage \
+            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
+            php php vendor/bin/runtests
+
+  codeception_tests:
+    strategy:
+      matrix:
+        php: [ '7.4', '8.0' ]
+        group:
+          - 'address'
+          - 'basket'
+          - 'customer'
+          - 'order'
+          - 'other'
+    needs: [ install_shop_with_module ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load current installation from cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./*
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          restore-keys: |
+            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
+
+      - name: Install codeception dependencies
+        run: |
+          docker-compose exec -T php composer require codeception/c3 --dev --no-update
+          docker-compose exec -T php composer require codeception/module-rest:^1.4.2 --dev --no-update
+          docker-compose exec -T php composer require codeception/module-phpbrowser:^1.0.2 --dev --no-update
+          docker-compose exec -T php composer require symfony/dotenv ^5.1 --dev --no-update
+          docker-compose exec -T php composer update
+          sed -i 's/<?php/<?php\n\nrequire(__DIR__ . "\/..\/c3.php");/' source/source/bootstrap.php
+
+      - name: Run tests
+        continue-on-error: true
+        run: |
+          docker-compose exec -T \
+            -e PARTIAL_MODULE_PATHS=oe/moduletemplate \
+            -e ACTIVATE_ALL_MODULES=1 \
+            -e RUN_TESTS_FOR_SHOP=0 \
+            -e RUN_TESTS_FOR_MODULES=0 \
+            -e XDEBUG_MODE=coverage \
+            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
+            php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
