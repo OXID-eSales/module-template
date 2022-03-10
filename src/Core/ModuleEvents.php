@@ -26,6 +26,9 @@ final class Events
     {
         // execute module migrations
         self::executeModuleMigrations();
+
+        //template layout changed, clean temp directory
+        TmpCleaner::clearTmp();
     }
 
     /**
@@ -35,6 +38,8 @@ final class Events
      */
     public static function onDeactivate(): void
     {
+        //template layout changed, clean temp directory
+        TmpCleaner::clearTmp();
     }
 
     /**

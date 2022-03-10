@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Service;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleSettingBridgeInterface;
 use OxidEsales\ModuleTemplate\Core\Module;
 
-final class ModuleSettings
+class ModuleSettings
 {
     public const GREETING_MODE = 'oemoduletemplate_GreetingMode';
 

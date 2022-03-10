@@ -23,13 +23,20 @@ $aModule = [
     'url'         => '',
     'email'       => '',
     'extend'      => [
-        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Model\User::class
+        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Model\User::class,
+        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class
     ],
     'controllers' => [
     ],
     'templates'   => [
     ],
     'blocks'      => [
+        [
+            //It is possible to replace blocks by theme, to do so add 'theme' => '<theme_name>' key/value in here
+            'template' => 'page/shop/start.tpl',
+            'block' => 'start_welcome_text',
+            'file' => 'views/blocks/oetm_start_welcome_text.tpl'
+        ]
     ],
     'settings' => [
         /** Main */
