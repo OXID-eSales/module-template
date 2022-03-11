@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Model\Core;
+namespace OxidEsales\ModuleTemplate\Core;
 
 use Exception;
 use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
@@ -15,7 +15,7 @@ use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
 /**
  * Class defines what module does on Shop events.
  */
-final class Events
+final class ModuleEvents
 {
     /**
      * Execute action on activate event

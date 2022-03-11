@@ -1,0 +1,49 @@
+# suite config
+actor: AcceptanceTester
+path: Acceptance
+modules:
+  enabled:
+    - Asserts
+    - WebDriver:
+        url: '%SHOP_URL%'
+        host: '%SELENIUM_SERVER_HOST%'
+        browser: '%BROWSER_NAME%'
+        port: '%SELENIUM_SERVER_PORT%'
+        window_size: 1920x1280
+        clear_cookies: true
+        cookies:
+          cookie-1:
+            Name: XDEBUG_SESSION_START
+            Value: PHPSTORM
+            HttpOnly: false
+          cookie-2:
+            Name: XDEBUG_SESSION
+            Value: PHPSTORM
+            HttpOnly: false
+    - Db:
+        dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%;charset=utf8'
+        user: '%DB_USERNAME%'
+        password: '%DB_PASSWORD%'
+        port: '%DB_PORT%'
+        dump: '%DUMP_PATH%'
+        module_dump: '%MODULE_DUMP_PATH%'
+        mysql_config: '%MYSQL_CONFIG_PATH%'
+        populate: true # run populator before all tests
+        cleanup: false # run populator before each test
+        populator: >
+          %PHP_BIN% %VENDOR_PATH%/bin/reset-shop
+          && mysql --defaults-file=$mysql_config --default-character-set=utf8 $dbname < $dump
+          && mysql --defaults-file=$mysql_config --default-character-set=utf8 $dbname < $module_dump
+    - \OxidEsales\Codeception\Module\Oxideshop:
+        screen_shot_url: '%SCREEN_SHOT_URL%'
+        depends:
+          - WebDriver
+          - Db
+    - \OxidEsales\Codeception\Module\Database:
+        config_key: 'fq45QS09_fqyx09239QQ'
+        depends: Db
+    - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
+        shop_path: '%SHOP_SOURCE_PATH%'
+        paths: 'Application/views/flow,Application/views/admin,modules/oe/moduletemplate/views/admin,modules/oe/moduletemplate/translations'
+step_decorators:
+    - \Codeception\Step\Retry

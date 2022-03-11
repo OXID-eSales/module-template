@@ -4,6 +4,7 @@ parameters:
         - tests/phpstan-bootstrap.php
     stubFiles:
         - tests/stubs/EshopUser.stub
+        - tests/stubs/StartController.stub
     level: max
     scanFiles:
         - vendor/oxid-esales/oxideshop-ce/source/oxfunctions.php

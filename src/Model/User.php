@@ -19,9 +19,9 @@ class User extends User_parent
 {
     use ServiceContainer;
 
-    public function getPersonalGreeting(): ?string
+    public function getPersonalGreeting(): string
     {
-        return $this->getRawFieldData('oetmgreeting');
+        return (string) $this->getRawFieldData('oetmgreeting');
     }
 
     //NOTE: we only assign the value to the model.

@@ -16,9 +16,10 @@ final class TmpCleaner
     /**
      * Clean temp folder content.
      */
-    public static function clearTmp()
+    public static function clearTmp(): void
     {
         $compileDir = (string) EshopRegistry::getConfig()->getConfigParam('sCompileDir');
+
         if (is_dir($compileDir)) {
             self::clearDirectory($compileDir);
         }
@@ -27,13 +28,14 @@ final class TmpCleaner
     /**
      * Clean temp folder content.
      *
-     * @param string $clearFolderPath Sub-folder path to delete from.
+     * @param mixed $directoryPath
      *
-     * @return boolean
+     * @return bool
      */
     private static function clearDirectory($directoryPath)
     {
         $directoryHandler = opendir($directoryPath);
+
         if (!empty($directoryHandler)) {
             while (false !== ($fileName = readdir($directoryHandler))) {
                 $filePath = $directoryPath . DIRECTORY_SEPARATOR . $fileName;
@@ -41,6 +43,7 @@ final class TmpCleaner
             }
             closedir($directoryHandler);
         }
+
         return true;
     }
 
@@ -51,7 +54,7 @@ final class TmpCleaner
      * @param string $fileName
      * @param string $filePath
      */
-    private static function clear($fileName, $filePath)
+    private static function clear($fileName, $filePath): void
     {
         if (!in_array($fileName, ['.', '..', '.gitkeep', '.htaccess'])) {
             if (is_file($filePath)) {

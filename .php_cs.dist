@@ -78,7 +78,7 @@ return PhpCsFixer\Config::create()
             'annotation-black-list' => [
                 '@eshopExtension',
                 '@dataType-extension',
-                '@extendable-dataType'
+                '@extendable-class'
             ],
         ],
         'global_namespace_import' => [

@@ -8,7 +8,7 @@
 /**
  * Metadata version
  */
-$sMetadataVersion = '2.0';
+$sMetadataVersion = '2.1';
 
 /**
  * Module information
@@ -29,6 +29,10 @@ $aModule = [
     'controllers' => [
     ],
     'templates'   => [
+    ],
+    'events' => [
+        'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',
+        'onDeactivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onDeactivate'
     ],
     'blocks'      => [
         [

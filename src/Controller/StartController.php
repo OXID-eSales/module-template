@@ -28,9 +28,11 @@ final class StartController extends StartController_parent
     {
         $service = $this->getServiceFromContainer(GreetingMessage::class);
 
-        $user = $this->getUser() ?: null;
+        $user   = $this->getUser() ?: null;
         $result = $service->getOetmGreeting($user);
 
-        return EshopRegistry::getLang()->translateString($result);
+        $result = EshopRegistry::getLang()->translateString($result);
+
+        return is_array($result) ? (string) array_pop($result) : $result;
     }
 }

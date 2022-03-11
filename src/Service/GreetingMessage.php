@@ -31,7 +31,7 @@ final class GreetingMessage
     {
         $result = self::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
-        if (ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode()) {
+        if ((ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode())) {
             $result = $this->getUserGreeting($user);
         }
 
@@ -40,6 +40,13 @@ final class GreetingMessage
 
     private function getUserGreeting(?EshopModelUser $user = null): string
     {
-        return $user ? (string) $user->getPersonalGreeting() : '';
+        $result = '';
+
+        if (is_object($user)) {
+            /** @var \OxidEsales\ModuleTemplate\Model\User $user */
+            $result = $user->getPersonalGreeting();
+        }
+
+        return $result;
     }
 }
