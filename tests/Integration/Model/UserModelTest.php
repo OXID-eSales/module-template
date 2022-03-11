@@ -31,7 +31,7 @@ final class UserModelTest extends UnitTestCase
     {
         $user = oxNew(EshopModelUser::class);
 
-        $this->assertNull($user->getPersonalGreeting());
+        $this->assertEmpty($user->getPersonalGreeting());
     }
 
     public function testGetPersonalGreeting(): void

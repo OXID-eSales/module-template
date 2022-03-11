@@ -40,6 +40,7 @@ final class GreetingCest
 
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING_GENERIC'));
+        $I->dontSeeElement('#oetm_update_greeting');
     }
 
     public function testGreetingModeGenericWithUser(AcceptanceTester $I): void
@@ -55,6 +56,7 @@ final class GreetingCest
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING_GENERIC'));
         $I->dontSee('Hi there sweetie'); //no personal greeting even if user has one set
+        $I->dontSeeElement('#oetm_update_greeting');
     }
 
     public function testGreetingModePersonalWithoutUser(AcceptanceTester $I): void
@@ -67,6 +69,7 @@ final class GreetingCest
 
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
         $I->dontSee(Translator::translate('OEMODULETEMPLATE_GREETING_GENERIC'));
+        $I->dontSeeElement('#oetm_update_greeting');
     }
 
     public function testGreetingModePersonalUser(AcceptanceTester $I): void
@@ -80,12 +83,10 @@ final class GreetingCest
             ->loginUser($I->getDemoUserName(), $I->getDemoUserPassword());
         $I->waitForText(Translator::translate('HOME'));
 
-        $I->openShop();
-        $I->waitForText(Translator::translate('HOME'));
-
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
         $I->dontSee(Translator::translate('OEMODULETEMPLATE_GREETING_GENERIC'));
         $I->see('Hi there sweetie');
+        $I->seeElement('#oetm_update_greeting');
     }
 
     private function setUserPersonalGreeting(AcceptanceTester $I, string $value = ''): void

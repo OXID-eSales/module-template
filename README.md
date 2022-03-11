@@ -18,33 +18,31 @@ to be used as a template for developing own module solutions.
 * extending a shop controller
 * extending a shop database table
 * extending a shop template block 
-* extending shop core functionality (payment gateway)
 
 **HINT**: only extend the shop core if there is no other way like listen and handle shop events,
 extend/replace some DI service. Your module might be one of many in the class chain and you should 
 act accordingly (always ensure to call the parent method and return the result). When extending
 shop classes with additional methods, best prefix those methods in order not to end up with another 
 module picking the same method name and wreacking havoc.
-In case there is no other way than to extend existing shop methods (we will add an example for 
-the payment gateway) try the minimal invasion principle. Put module business logic to a service
-(which make it easier to test as well) and call the service in the extended shop class.
+In case there is no other way than to extend existing shop methods try the minimal invasion principle. 
+Put module business logic to a service (which make it easier to test as well) and call the service in the extended shop class.
 If you need to extend the shop class chain by overwriting, try to stick to the public methods.
 
 #### Sometimes we need to bring our own
 * own module controller (with own template and own translations)
-* own module model with own database table
+* module setting
 
 #### Whatever you do, ensure it is covered with tests
-* unit test
-* integration test
+* unit/integration test
 * codeception test
 * github actions pipeline
 * all the nice quality tools
 
-todo: module setting
-
-nice to have
+nice to have for later
+* example for payment gateway extension
 * an event listener/handler
+* own module model with own database table
+* seo url for module controller ;)
 
 ## Things to be aware of
 

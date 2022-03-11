@@ -37,6 +37,11 @@ class ModuleSettings
         $this->moduleSettingBridge = $moduleSettingBridge;
     }
 
+    public function isPersonalGreetingMode(): bool
+    {
+        return self::GREETING_MODE_PERSONAL === $this->getGreetingMode();
+    }
+
     public function getGreetingMode(): string
     {
         $value = (string) $this->getSettingValue(self::GREETING_MODE);

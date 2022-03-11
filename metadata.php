@@ -27,8 +27,10 @@ $aModule = [
         \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class
     ],
     'controllers' => [
+        'oetmgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
     ],
     'templates'   => [
+        'oe_moduletemplate.tpl' => 'views/templates/oe_moduletemplate.tpl',
     ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',

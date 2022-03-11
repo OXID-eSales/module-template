@@ -11,6 +11,7 @@ namespace OxidEsales\ModuleTemplate\Controller;
 
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
+use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 final class StartController extends StartController_parent
@@ -34,5 +35,12 @@ final class StartController extends StartController_parent
         $result = EshopRegistry::getLang()->translateString($result);
 
         return is_array($result) ? (string) array_pop($result) : $result;
+    }
+
+    public function canUpdateOetmGreeting(): bool
+    {
+        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+
+        return $this->getUser() && $moduleSettings->isPersonalGreetingMode();
     }
 }
