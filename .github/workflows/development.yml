@@ -174,11 +174,7 @@ jobs:
       matrix:
         php: [ '7.4', '8.0' ]
         group:
-          - 'address'
-          - 'basket'
-          - 'customer'
-          - 'order'
-          - 'other'
+          - 'oe_moduletemplate'
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
