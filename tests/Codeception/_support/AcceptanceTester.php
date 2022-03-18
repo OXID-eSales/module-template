@@ -52,12 +52,14 @@ final class AcceptanceTester extends \Codeception\Actor
 
     public function setGreetingModePersonal(): void
     {
-        $this->getServiceFromContainer(ModuleSettings::class)->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_PERSONAL);
+        $this->getServiceFromContainer(ModuleSettings::class)
+            ->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_PERSONAL);
     }
 
     public function setGreetingModeGeneric(): void
     {
-        $this->getServiceFromContainer(ModuleSettings::class)->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_GENERIC);
+        $this->getServiceFromContainer(ModuleSettings::class)
+            ->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_GENERIC);
     }
 
     public function getDemoUserName(): string

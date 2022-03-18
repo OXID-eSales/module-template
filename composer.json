@@ -56,11 +56,19 @@
             "@test:static",
             "@test:unit"
         ],
+
         "psalm": "psalm --show-info=true --no-cache",
         "psalm-report": "psalm --show-info=true --no-cache --report=logs/psalm.sonarqube.json",
         "psalm-errors": "psalm --no-cache",
         "psalm-automatic": "psalm --alter --issues=MissingReturnType,MissingParamType",
+
         "phpcs": "phpcs --standard=tests/phpcs.xml",
         "phpcbf": "phpcbf --standard=tests/phpcs.xml"
+    },
+    "config": {
+        "allow-plugins": {
+            "oxid-esales/oxideshop-composer-plugin": true,
+            "oxid-esales/oxideshop-unified-namespace-generator": true
+        }
     }
 }

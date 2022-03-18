@@ -9,6 +9,7 @@
     <file>../translations</file>
     -->
     <file>../migration</file>
+    <exclude-pattern>./tests/Codeception/Config</exclude-pattern>
 
     <!-- display progress -->
     <arg value="p"/>
@@ -27,6 +28,11 @@
 
     <!-- ignore method declaration rules for tests -->
     <rule ref="PSR2.Methods.MethodDeclaration">
+        <exclude-pattern>./</exclude-pattern>
+    </rule>
+
+    <!-- ignore property declaration rules for tests -->
+    <rule ref="PSR2.Classes.PropertyDeclaration">
         <exclude-pattern>./</exclude-pattern>
     </rule>
 </ruleset>

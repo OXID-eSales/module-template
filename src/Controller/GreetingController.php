@@ -38,7 +38,7 @@ final class GreetingController extends FrontendController
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $this->_aViewData['oetm_greeting'] = '';
 
-        if (($user = $this->getUser()) && $moduleSettings->isPersonalGreetingMode()){
+        if (($user = $this->getUser()) && $moduleSettings->isPersonalGreetingMode()) {
             //this way information is transported to the template layer
             $this->_aViewData['oetm_greeting'] = $user->getPersonalGreeting();
         }
@@ -56,7 +56,7 @@ final class GreetingController extends FrontendController
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
 
-        if (!($user = $this->getUser()) || !$moduleSettings->isPersonalGreetingMode()){
+        if (!($user = $this->getUser()) || !$moduleSettings->isPersonalGreetingMode()) {
             return;
         }
 
