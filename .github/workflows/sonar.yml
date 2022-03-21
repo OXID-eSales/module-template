@@ -29,6 +29,7 @@ jobs:
           - name: Prepare container configuration
               run: |
                   make setup
+                  make file=services/selenium-chrome.yml addservice
                   make addbasicservices
 
                   perl -pi\
