@@ -12,5 +12,6 @@ $aLang = [
     'OEMODULETEMPLATE_GREETING'         => 'Willkommen im besten Shop aller Zeiten!',
     'OEMODULETEMPLATE_GREETING_GENERIC' => 'Frohes Shoppen :)',
     'OEMODULETEMPLATE_GREETING_UPDATE'  => 'Begrüßung wählen',
-    'OEMODULETEMPLATE_GREETING_UPDATE_TITLE'  => 'Begrüßung bitte hier wählen'
+    'OEMODULETEMPLATE_GREETING_UPDATE_TITLE'  => 'Begrüßung bitte hier wählen',
+    'OEMODULETEMPLATE_GREETING_UPDATE_COUNT'  => 'Anzahl Änderungen: '
 ];

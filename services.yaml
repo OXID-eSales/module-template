@@ -13,3 +13,7 @@ services:
   OxidEsales\ModuleTemplate\Service\:
     resource: 'src/Service/*'
     public: true
+
+  OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
+    class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
+    tags: [ 'kernel.event_subscriber' ]

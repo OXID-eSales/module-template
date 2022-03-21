@@ -30,16 +30,17 @@ Story:
 - Module will extend a block on shop start page to show a greeting message (visible when module is active).
 - Module will have a setting to switch between generic greeting message for a logged in user and a personal custom greeting. The Admin's choice which way it will be.
 - A logged in user will be able to set a custom greeting depending on module setting. Press the button on start page and be redirected to a module controller which handles the input.
-- ...
+- User custom greetings are saved via shop model save method. We subscribe to BeforeModelUpdate to track how often a user changed his personal greeting.
+- Tracking of this information will be done in a new database table to serve as an example for module's own shop model.
 
 
 ### Extend shop functionality
 
 #### Sometimes we just need to extend what the shop is already offering us:
-* extending a shop model
-* extending a shop controller
-* extending a shop database table
-* extending a shop template block 
+* extending a shop model (`OxidEsales\ModuleTemplate\Model\User`)
+* extending a shop controller (`OxidEsales\ModuleTemplate\Controller\StartController`)
+* extending a shop database table (`oxuser`)
+* extending a shop template block (`start_welcome_text`)
 
 **HINT**: only extend the shop core if there is no other way like listen and handle shop events,
 extend/replace some DI service. Your module might be one of many in the class chain and you should 
@@ -51,8 +52,11 @@ Put module business logic to a service (which make it easier to test as well) an
 If you need to extend the shop class chain by overwriting, try to stick to the public methods.
 
 #### Sometimes we need to bring our own
-* own module controller (with own template and own translations)
-* module setting
+* own module controller (`oetmgreeting` with own template and own translations)
+* module setting (`oemoduletemplate_GreetingMode`)
+* event subscriber (`OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate`)
+* model with a database (`OxidEsales\ModuleTemplate\Model\GreetingTracker`)
+* DI service examples
 
 #### Whatever you do, ensure it is covered with tests
 * unit/integration test
@@ -62,9 +66,9 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 
 nice to have for later
 * example for payment gateway extension
-* an event listener/handler
-* own module model with own database table
+* own logger
 * seo url for module controller ;)
+* to redirect or not to redirect from inside the shop core
 
 ## Things to be aware of
 

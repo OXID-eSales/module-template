@@ -15,5 +15,7 @@ final class Module
 
     public const OETM_GREETING_TEMPLATE_VARNAME = 'oetm_greeting';
 
+    public const OETM_COUNTER_TEMPLATE_VARNAME = 'oetm_greeting_counter';
+
     public const DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST = 'OEMODULETEMPLATE_GREETING_GENERIC';
 }

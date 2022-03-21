@@ -1,6 +1,6 @@
 [{capture append="oxidBlock_content"}]
 <h1 class="page-header">[{oxmultilang ident="OEMODULETEMPLATE_GREETING_UPDATE_TITLE"}]</h1>
-
+[{oxmultilang ident="OEMODULETEMPLATE_GREETING_UPDATE_COUNT"}][{$oetm_greeting_counter}]
 <br>
 <form action="[{$oViewConf->getSelfActionLink()}]" name="OxsampleDoSomethingAction" method="post" role="form">
     <div>
@@ -13,6 +13,5 @@
 </form>
 <br>
 [{/capture}]
-
 
 [{include file="layout/page.tpl"}]

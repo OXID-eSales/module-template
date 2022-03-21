@@ -15,6 +15,7 @@ use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
@@ -41,6 +42,7 @@ final class GreetingController extends FrontendController
     {
         $template       = parent::render();
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $repository     = $this->getServiceFromContainer(Repository::class);
 
         $this->_aViewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = '';
 
@@ -51,6 +53,9 @@ final class GreetingController extends FrontendController
             //this way information is transported to the template layer, add to _aViewData array and
             //use as [{$oetm_greeting}] in the (smarty) template
             $this->_aViewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = $user->getPersonalGreeting();
+
+            $tracker                                                     = $repository->getTrackerByUserId($user->getId());
+            $this->_aViewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME] = $tracker->getCount();
         }
 
         return $template;

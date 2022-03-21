@@ -16,6 +16,8 @@ use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
+ * * @eshopExtension
+ *
  * This is an exmaple for a module extension (chain extend) of
  * the shop start controller.
  */

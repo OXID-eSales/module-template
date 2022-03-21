@@ -12,7 +12,11 @@
     ],
     "extra": {
         "oxideshop": {
-            "target-directory": "oe/moduletemplate"
+            "target-directory": "oe/moduletemplate",
+             "blacklist-filter": [
+                                    "source/**/*",
+                                    "vendor/**/*"
+                                ]
         }
     },
     "prefer-stable": true,
