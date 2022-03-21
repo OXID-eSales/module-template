@@ -49,9 +49,9 @@ class ModuleSettings
         return (!empty($value) && in_array($value, self::GREETING_MODE_VALUES)) ? $value : self::GREETING_MODE_GENERIC;
     }
 
-    public function save(string $name, mixed $value): void
+    public function saveGreetingMode(string $value): void
     {
-        $this->moduleSettingBridge->save($name, $value, Module::MODULE_ID);
+        $this->moduleSettingBridge->save(self::GREETING_MODE, $value, Module::MODULE_ID);
     }
 
     /**

@@ -20,7 +20,7 @@ final class ModuleSettingsTest extends UnitTestCase
     public function testModuleGreetingModeDefault(): void
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
-        $moduleSettings->save(ModuleSettings::GREETING_MODE, '');
+        $moduleSettings->saveGreetingMode('');
 
         $this->assertEquals(ModuleSettings::GREETING_MODE_GENERIC, $moduleSettings->getGreetingMode());
         $this->assertFalse($moduleSettings->isPersonalGreetingMode());
@@ -30,11 +30,11 @@ final class ModuleSettingsTest extends UnitTestCase
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
 
-        $moduleSettings->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_PERSONAL);
+        $moduleSettings->saveGreetingMode(ModuleSettings::GREETING_MODE_PERSONAL);
         $this->assertEquals(ModuleSettings::GREETING_MODE_PERSONAL, $moduleSettings->getGreetingMode());
         $this->assertTrue($moduleSettings->isPersonalGreetingMode());
 
-        $moduleSettings->save(ModuleSettings::GREETING_MODE, ModuleSettings::GREETING_MODE_GENERIC);
+        $moduleSettings->saveGreetingMode(ModuleSettings::GREETING_MODE_GENERIC);
         $this->assertEquals(ModuleSettings::GREETING_MODE_GENERIC, $moduleSettings->getGreetingMode());
         $this->assertFalse($moduleSettings->isPersonalGreetingMode());
     }
@@ -43,7 +43,7 @@ final class ModuleSettingsTest extends UnitTestCase
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
 
-        $moduleSettings->save(ModuleSettings::GREETING_MODE, 'some_other_value');
+        $moduleSettings->saveGreetingMode('some_other_value');
         $this->assertEquals(ModuleSettings::GREETING_MODE_GENERIC, $moduleSettings->getGreetingMode());
     }
 }
