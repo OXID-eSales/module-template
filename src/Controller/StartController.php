@@ -9,11 +9,16 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Controller;
 
+use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
+/**
+ * This is an exmaple for a module extension (chain extend) of
+ * the shop start controller.
+ */
 final class StartController extends StartController_parent
 {
     use ServiceContainer;
@@ -29,7 +34,7 @@ final class StartController extends StartController_parent
     {
         $service = $this->getServiceFromContainer(GreetingMessage::class);
 
-        $user   = $this->getUser() ?: null;
+        $user   = is_a($this->getUser(), EshopModelUser::class) ? $this->getUser() : null;
         $result = $service->getOetmGreeting($user);
 
         $result = EshopRegistry::getLang()->translateString($result);
@@ -41,6 +46,6 @@ final class StartController extends StartController_parent
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
 
-        return $this->getUser() && $moduleSettings->isPersonalGreetingMode();
+        return is_a($this->getUser(), EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode();
     }
 }

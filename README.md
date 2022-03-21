@@ -2,14 +2,26 @@
 
 Reusable module template for extending OXID eShop core functionality.
 
+The module template contains examples for the most common use cases (see below)
+like OXID suggests it could be implemented. 
+
+This module also comes with all the quality tools OXID recommends to be used.
+
 ## Branch compatibility
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
 
 ## Idea
 
-OXID eSales would like to provide a lightweight reusable example module incorporating our best practices recommendations 
-to be used as a template for developing own module solutions.
+OXID eSales would like to provide a lightweight reusable example module incorporating 
+our best practices recommendations to be used as a template for developing own module solutions.
+
+Story: 
+- Module will extend a block on shop start page to show a greeting message (visible when module is active).
+- Module will have a setting to switch between generic greeting message for a logged in user and a personal custom greeting. The Admin's choice which way it will be.
+- A logged in user will be able to set a custom greeting depending on module setting. Press the button on start page and be redirected to a module controller which handles the input.
+- ...
+
 
 ### Extend shop functionality
 
@@ -45,6 +57,10 @@ nice to have for later
 * seo url for module controller ;)
 
 ## Things to be aware of
+
+The template module is intended to act as a tutorial module so keep your eyes open for comments in the code.
+
+**NOTE** Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
 
 ### Module migrations
 

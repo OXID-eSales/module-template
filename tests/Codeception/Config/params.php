@@ -36,7 +36,7 @@ return [
     'MODULE_DUMP_PATH'     => getModuleTestDataDumpFilePath(),
     'MYSQL_CONFIG_PATH'    => getMysqlConfigPath(),
     'SELENIUM_SERVER_PORT' => $selenium_server_port,
-    'SELENIUM_SERVER_HOST' => getenv('SELENIUM_SERVER_HOST') ?: 'localhost',
+    'SELENIUM_SERVER_HOST' => getenv('SELENIUM_SERVER_HOST') ?: 'selenium',
     'BROWSER_NAME'         => getenv('BROWSER_NAME') ?: 'chrome',
     'PHP_BIN'              => $php,
     'SCREEN_SHOT_URL'      => $cc_screen_shot_path,

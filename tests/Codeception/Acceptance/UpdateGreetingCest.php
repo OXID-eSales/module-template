@@ -11,6 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Codeception\Helper;
 
 use OxidEsales\Codeception\Module\Translation\Translator;
 use OxidEsales\ModuleTemplate\Tests\Codeception\AcceptanceTester;
+use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 
 /**
  * @group oe_moduletemplate
@@ -48,7 +49,14 @@ final class UpdateGreetingCest
         $I->click('#oetm_update_greeting');
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING_UPDATE_TITLE'));
 
-        $I->markTestIncomplete('not yet finished, TODO: change greeting and verify change');
+        $I->seeElement('#oetmgreeting_submit');
+        $I->seeElement('#oetm_greeting_input');
+        $I->fillField(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME, 'Hello master of the filled cart');
+        $I->click('#oetmgreeting_submit');
+
+        //See changed greeting text on start page
+        $I->openShop();
+        $I->see('Hello master of the filled cart');
     }
 
     private function setUserPersonalGreeting(AcceptanceTester $I, string $value = ''): void

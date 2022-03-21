@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Request as CoreRequest;
+use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\TestingLibrary\UnitTestCase;
@@ -18,29 +20,41 @@ final class GreetingMessageTest extends UnitTestCase
 {
     public function testGenericGreetingNoUser(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC));
+        $service = new GreetingMessage(
+            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
+            oxNew(CoreRequest::class)
+        );
 
-        $this->assertSame(GreetingMessage::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting());
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting());
     }
 
     public function testPersonalGreetingNoUser(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock());
+        $service = new GreetingMessage(
+            $this->getSettingsMock(),
+            oxNew(CoreRequest::class)
+        );
 
         $this->assertSame('', $service->getOetmGreeting());
     }
 
     public function testModuleGenricGreetingModeEmptyUser(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC));
+        $service = new GreetingMessage(
+            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
+            oxNew(CoreRequest::class)
+        );
         $user    = oxNew(EshopModelUser::class);
 
-        $this->assertSame(GreetingMessage::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
     }
 
     public function testModulePersonalGreetingModeEmptyUser(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock());
+        $service = new GreetingMessage(
+            $this->getSettingsMock(),
+            oxNew(CoreRequest::class)
+        );
         $user    = oxNew(EshopModelUser::class);
 
         $this->assertSame('', $service->getOetmGreeting($user));
@@ -48,16 +62,22 @@ final class GreetingMessageTest extends UnitTestCase
 
     public function testModuleGenericGreeting(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC));
+        $service = new GreetingMessage(
+            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
+            oxNew(CoreRequest::class)
+        );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
 
-        $this->assertSame(GreetingMessage::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
     }
 
     public function testModulePersonalGreeting(): void
     {
-        $service = new GreetingMessage($this->getSettingsMock());
+        $service = new GreetingMessage(
+            $this->getSettingsMock(),
+            oxNew(CoreRequest::class)
+        );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
 
