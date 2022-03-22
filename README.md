@@ -81,7 +81,9 @@ nice to have for later
 
 The template module is intended to act as a tutorial module so keep your eyes open for comments in the code.
 
-**NOTE:** Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
+**NOTES:** 
+* Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
+* If you can, try to develop on Enterprise Edition to get shop aware stuff right.
 
 ### Module migrations
 

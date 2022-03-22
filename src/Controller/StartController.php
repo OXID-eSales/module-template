@@ -16,12 +16,13 @@ use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
- * * @eshopExtension
+ * @eshopExtension
  *
  * This is an exmaple for a module extension (chain extend) of
  * the shop start controller.
+ * NOTE: class must not be final.
  */
-final class StartController extends StartController_parent
+class StartController extends StartController_parent
 {
     use ServiceContainer;
 
@@ -40,7 +41,7 @@ final class StartController extends StartController_parent
         $result = $service->getOetmGreeting($user);
 
         $result = EshopRegistry::getLang()->translateString($result);
-
+        //Langage::translateString() returns either array or string, so we need to handle this
         return is_array($result) ? (string) array_pop($result) : $result;
     }
 

@@ -20,10 +20,12 @@ use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
+ * @extendable-class
+ *
  * This is a brand new (module own) controller which extends from the
  * shop frontend controller class.
  */
-final class GreetingController extends FrontendController
+class GreetingController extends FrontendController
 {
     use ServiceContainer;
 

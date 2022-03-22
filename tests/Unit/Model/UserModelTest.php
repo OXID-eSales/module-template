@@ -7,18 +7,13 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Unit\Model;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\TestingLibrary\UnitTestCase;
 
 final class UserModelTest extends UnitTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
     public function tearDown(): void
     {
         //this method removes all rows where column 'oxid' start with an underscore

@@ -15,7 +15,10 @@ use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings as ModuleSettingsService;
 
-final class GreetingMessage
+/**
+ * @extendable-class
+ */
+class GreetingMessage
 {
     /**
      * @var ModuleSettingsService

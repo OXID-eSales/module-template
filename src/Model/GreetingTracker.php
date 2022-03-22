@@ -12,10 +12,11 @@ namespace OxidEsales\ModuleTemplate\Model;
 use OxidEsales\Eshop\Core\Model\BaseModel;
 
 /**
+ * @extendable-class
  * This is no shop extension.
  * This is a model class based on shop's BaseModel.
  */
-final class GreetingTracker extends BaseModel
+class GreetingTracker extends BaseModel
 {
     protected $_sCoreTable = 'oetm_tracker';
 

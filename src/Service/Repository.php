@@ -15,7 +15,10 @@ use OxidEsales\EshopCommunity\Internal\Transition\Utility\ContextInterface;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use PDO;
 
-final class Repository
+/**
+ * @extendable-class
+ */
+class Repository
 {
     /** @var QueryBuilderFactoryInterface */
     private $queryBuilderFactory;
@@ -74,7 +77,6 @@ final class Repository
                     'oxshopid' => $this->context->getCurrentShopId(),
                 ]
             );
-            $tracker->save();
         }
 
         return $tracker;
