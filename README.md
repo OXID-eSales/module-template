@@ -21,6 +21,14 @@ This module also comes with all the quality tools OXID recommends to be used.
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
 
+## Installation
+
+TODO
+* install this module
+* clone as template and update prefixes, vendor, namespace via script
+* tbd: script for removing example code (clean slate module)
+
+
 ## Idea
 
 OXID eSales would like to provide a lightweight reusable example module incorporating 
@@ -32,7 +40,6 @@ Story:
 - A logged in user will be able to set a custom greeting depending on module setting. Press the button on start page and be redirected to a module controller which handles the input.
 - User custom greetings are saved via shop model save method. We subscribe to BeforeModelUpdate to track how often a user changed his personal greeting.
 - Tracking of this information will be done in a new database table to serve as an example for module's own shop model.
-
 
 ### Extend shop functionality
 
@@ -74,19 +81,28 @@ nice to have for later
 
 The template module is intended to act as a tutorial module so keep your eyes open for comments in the code.
 
-**NOTE** Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
+**NOTE:** Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
 
 ### Module migrations
 
 * migrations are intended to bump the database (and eventual existing data) to a new module version (this also goes for first time installation).
 * ensure migrations are stable against rerun
 
-Migrations have to be run via console command
+Migrations have to be run via console command (`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise)
 
 ```bash
 ./vendor/bin/oe-eshop-doctrine_migration migration:migrate oe_moduletemplate
 ```
 unless we ensure they are run when the module is activated (tied to onActivate event) like done here.
+
+NOTE: Existing migrations must not be changed. If the database needs a change, add a new migration file and change to your needs:
+
+```bash
+./vendor/bin/oe-eshop-doctrine_migration migration:generate oe_moduletemplate
+```
+
+For more information, check the [developer documentation](https://docs.oxid-esales.com/developer/en/latest/development/tell_me_about/migrations.html).
+
 
 ### Where the module namespace points to
 In the 6.x versions of OXID eShop, the module code is copied to source/modules directory and the module's metadata 
