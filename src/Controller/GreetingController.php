@@ -12,6 +12,7 @@ namespace OxidEsales\ModuleTemplate\Controller;
 use OxidEsales\Eshop\Application\Controller\FrontendController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
@@ -44,16 +45,18 @@ final class GreetingController extends FrontendController
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $repository     = $this->getServiceFromContainer(Repository::class);
 
+        //This way information is transported to the template layer, add to _aViewData array and
+        //use as [{$oetm_greeting}] in the (smarty) template.
+        //NOTE: setting default values prevents smarty from running into warnings from missing data
         $this->_aViewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = '';
+        $this->_aViewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME]  = 0;
 
         /** @var TemplateModelUser $user */
         $user = $this->getUser();
 
         if (is_a($user, EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode()) {
-            //this way information is transported to the template layer, add to _aViewData array and
-            //use as [{$oetm_greeting}] in the (smarty) template
             $this->_aViewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = $user->getPersonalGreeting();
-
+            /** @var GreetingTracker $tracker */
             $tracker                                                     = $repository->getTrackerByUserId($user->getId());
             $this->_aViewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME] = $tracker->getCount();
         }

@@ -132,3 +132,19 @@ $ composer test
 $ vendor/bin/runtests
 $ vendor/bin/runtests-codeception
 ```
+
+### Writing tests
+
+As a rule of thumb, use codeception tests to ensure the frontend is behaving as expected.
+Codeception tests take a while to run, so try to navigate the way between covering the relevant
+cases and overtesting. We definitely need some acceptance tests if the module affects the 
+frontend like in our example. If the module breaks the frontend, we need to see it asap.
+In our case, we cover the reaction of the startpage to the different possibilities
+* generic greeting mode (with/without logged in user)
+* personal greeting mode (with/without logged in user)
+* updating the greeting mode
+* ensure module can be activated/deactivated without destroying the shop
+* ensure edge case safety like not logged in user directly calling module controller
+
+The great thing about codeception tests is, that they can create screenshot and html
+output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).

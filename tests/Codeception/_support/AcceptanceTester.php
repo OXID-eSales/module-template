@@ -80,4 +80,20 @@ final class AcceptanceTester extends \Codeception\Actor
 
         exec((new Facts())->getShopRootPath() . '/bin/oe-console oe:module:' . $command . ' oe_moduletemplate');
     }
+
+    public function resetGreetingTracker(): void
+    {
+        $this->updateInDatabase(
+            'oetm_tracker',
+            ['oetmcount' => 0],
+            []
+        );
+    }
+
+    public function getShopUrl(): string
+    {
+        $facts = new Facts();
+
+        return $facts->getShopUrl();
+    }
 }
