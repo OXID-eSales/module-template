@@ -225,7 +225,7 @@ jobs:
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
 
   sonarcloud:
-    needs: [ prepare_coverage_results ]
+    needs: [ styles, unit_tests ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
