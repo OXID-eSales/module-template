@@ -56,7 +56,7 @@ final class TmpCleaner
      */
     private static function clear($fileName, $filePath): void
     {
-        if (!in_array($fileName, ['.', '..', '.gitkeep', '.htaccess'])) {
+        if (!in_array($fileName, ['.', '..', '.gitkeep', 'gitignore', '.htaccess'])) {
             if (is_file($filePath)) {
                 @unlink($filePath);
             } else {

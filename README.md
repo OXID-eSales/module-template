@@ -152,6 +152,9 @@ In our case, we cover the reaction of the startpage to the different possibiliti
 The great thing about codeception tests is, that they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
 
+**NOTE:** You should add groups to the codeception tests, generic test group for module and then
+group by topic. Makes it convenient to just run `vendor/bin/&runtest-codeception --group=somegroup`.
+
 ### Development Environment - Docker SDK
 
 You can install the shop on whatever system fits your needs, but please check the 
