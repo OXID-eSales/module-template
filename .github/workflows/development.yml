@@ -234,7 +234,7 @@ jobs:
       - name: Download fixed artifacts
         uses: actions/download-artifact@v2
         with:
-          name: TestsLog-8.0
+          name: TestsLog-7.4
           path: ./
 
       - name: SonarCloud Scan
