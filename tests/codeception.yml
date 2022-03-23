@@ -17,12 +17,3 @@ settings:
 extensions:
   enabled:
     - Codeception\Extension\RunFailed
-
-coverage:
-  enabled: true
-  remote: true
-  local: true
-  c3_url: '%SHOP_URL%'
-  remote_config: 'source/modules/oe/moduletemplate/tests/codeception.yml'
-  include:
-      - ../src/*
