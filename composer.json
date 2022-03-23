@@ -53,12 +53,10 @@
         "test:lint": "php-cs-fixer fix --dry-run",
         "test:syntax": "parallel-lint src/ tests/ metadata.php",
         "test:static": "phpstan --memory-limit=-1 analyse src/",
-        "test:unit": "phpunit -c tests/phpunit.xml tests/Unit/",
         "test": [
             "@test:syntax",
             "@test:lint",
-            "@test:static",
-            "@test:unit"
+            "@test:static"
         ],
 
         "psalm": "psalm --show-info=true --no-cache",

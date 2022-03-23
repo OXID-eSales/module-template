@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Controller\GreetingController;
@@ -107,18 +107,6 @@ final class GreetingControllerTest extends UnitTestCase
                 'greeting_mode_personal' => true,
                 'expect'                 => 'once',
                 'viewdata'               => ['happy_new_year', 66],
-            ],
-        ];
-    }
-
-    public function providerSessionUser(): array
-    {
-        return [
-            'without_user' => [
-                'user' => null,
-            ],
-            'with_user' => [
-                'user' => $this->getTestUser(),
             ],
         ];
     }

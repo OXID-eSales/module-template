@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;

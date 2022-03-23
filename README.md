@@ -137,6 +137,7 @@ $ vendor/bin/runtests-codeception
 
 ### Writing tests
 
+## Codeception tests
 As a rule of thumb, use codeception tests to ensure the frontend is behaving as expected.
 Codeception tests take a while to run, so try to navigate the way between covering the relevant
 cases and overtesting. We definitely need some acceptance tests if the module affects the 
@@ -150,3 +151,25 @@ In our case, we cover the reaction of the startpage to the different possibiliti
 
 The great thing about codeception tests is, that they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
+
+### Development Environment - Docker SDK
+
+You can install the shop on whatever system fits your needs, but please check the 
+[OXID Docker SDK recipes](https://github.com/OXID-eSales/docker-eshop-sdk-recipes).
+That's what we use in OXID Development to quickly set up whatever development environment we need and
+we are constantly trying to improve them.
+
+### Useful links
+
+* Vendor home page - https://www.oxid-esales.com
+* Bug tracker - https://bugs.oxid-esales.com
+* Developer Documentation - https://docs.oxid-esales.com/developer/en/latest/
+* Quality Tools and Requirements - https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/quality.html
+* Docker SDK recipes - https://github.com/OXID-eSales/docker-eshop-sdk-recipes
+* Docker SDK - https://github.com/OXID-eSales/docker-eshop-sdk
+
+### Contact us
+
+* [Open a new issue on our bug tracker](https://bugs.oxid-esales.com)
+* [Join our community forum](https://forum.oxid-esales.com/)
+* [Use the contact form](https://www.oxid-esales.com/en/contact/contact-us.html)
