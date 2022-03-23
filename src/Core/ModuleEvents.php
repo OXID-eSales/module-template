@@ -14,6 +14,8 @@ use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
 
 /**
  * Class defines what module does on Shop events.
+ *
+ * @codeCoverageIgnore
  */
 final class ModuleEvents
 {
