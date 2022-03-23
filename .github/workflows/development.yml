@@ -237,6 +237,11 @@ jobs:
           name: TestsLog-7.4
           path: ./
 
+      - name: Fix paths in unit logs
+        run: |
+          sed -i 's+/var/www/test-module/++' coverage.xml
+          sed -i 's+/var/www/test-module/++' phpunit.xml
+
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
