@@ -116,13 +116,13 @@ jobs:
         id: phpstan
         if: always()
         working-directory: source/test-module
-        run: composer phpstan || composer phpstan-report
+        run: composer phpstan-report || composer phpstan
 
       - name: Run phpmd
         id: phpmd
         if: always()
         working-directory: source/test-module
-        run: composer phpmd || composer phpmd-report
+        run: composer phpmd-report || composer phpmd
 
       - name: Upload log artifact
         if: always()
@@ -248,6 +248,11 @@ jobs:
         with:
           name: StylesLog-8.0
           path: ./styles/
+
+      - name: Fix paths in styles logs
+        continue-on-error: true
+        run: |
+          sed -i 's+\/home\/runner\/work\/module-template\/module-template\/source\/test-module\/++' styles/phpstan.report.json
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
