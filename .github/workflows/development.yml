@@ -165,6 +165,7 @@ jobs:
             -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
             php php vendor/bin/runtests \
               --coverage-clover=/var/www/coverage.xml \
+              --coverage-html=/var/www/coverage \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
               AllTestsUnit
@@ -177,6 +178,7 @@ jobs:
           path: |
             source/coverage.xml
             source/phpunit.xml
+            source/coverage
 
   codeception_tests:
     strategy:
