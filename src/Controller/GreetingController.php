@@ -56,6 +56,9 @@ class GreetingController extends FrontendController
         /** @var TemplateModelUser $user */
         $user = $this->getUser();
 
+        $someUnusedVariable = 'something';
+        echo $okay;
+
         if (is_a($user, EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode()) {
             $this->_aViewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = $user->getPersonalGreeting();
             /** @var GreetingTracker $tracker */
