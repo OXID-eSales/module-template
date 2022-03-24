@@ -116,13 +116,22 @@ jobs:
         id: phpstan
         if: always()
         working-directory: source/test-module
-        run: composer phpstan
+        run: composer phpstan || composer phpstan-report
 
       - name: Run phpmd
         id: phpmd
         if: always()
         working-directory: source/test-module
         run: composer phpmd || composer phpmd-report
+
+      - name: Upload log artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: StylesLog-${{ matrix.php }}
+          path: |
+            source/test-module/phpstan.report.json
+            source/test-module/phpmd.report.json
 
   unit_tests:
     if: false
@@ -214,23 +223,28 @@ jobs:
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
 
   sonarcloud:
-    if: false
-    needs: [ styles, unit_tests ]
+    needs: [ styles ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
         uses: actions/checkout@v2
 
-      - name: Download fixed artifacts
+      - name: Download phpunit artifacts
         uses: actions/download-artifact@v2
         with:
           name: TestsLog-7.4
-          path: ./
+          path: ./tests/
 
       - name: Fix paths in unit logs
         run: |
-          sed -i 's+/var/www/test-module/++' coverage.xml
-          sed -i 's+/var/www/test-module/++' phpunit.xml
+          sed -i 's+/var/www/test-module/++' tests/coverage.xml
+          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+
+      - name: Download styles artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: StylesLog-8.0
+          path: ./styles/
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
@@ -244,6 +258,7 @@ jobs:
             -Dsonar.sources=src
             -Dsonar.tests=tests
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
+            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
             -Dsonar.cpd.php.minimumTokens=25
             -Dsonar.cpd.php.minimumLines=5
