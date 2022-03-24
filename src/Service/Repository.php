@@ -28,7 +28,7 @@ class Repository
 
     public function __construct(
         QueryBuilderFactoryInterface $queryBuilderFactory,
-        ContextInterface             $context
+        ContextInterface $context
     ) {
         $this->queryBuilderFactory = $queryBuilderFactory;
         $this->context             = $context;

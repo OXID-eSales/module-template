@@ -102,40 +102,35 @@ jobs:
 
       - name: Install module dependencies
         id: dependencies
-        run: |
-          cd source/test-module
-          composer install
+        working-directory: source/test-module
+        run: composer install
 
-      - name: Syntax Test
-        id: syntax
-        if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:syntax
+      - name: Run phpcs
+        id: phpcs
+        if: always()
+        working-directory: source/test-module
+        run: composer phpcs
 
-      - name: Lint Test
-        id: lint
-        if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:lint
+      - name: Run phpstan
+        id: phpstan
+        if: always()
+        working-directory: source/test-module
+        run: composer phpstan-report || composer phpstan
 
-      - name: Static Analyzer
-        id: static
-        if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:static
+      - name: Run phpmd
+        id: phpmd
+        if: always()
+        working-directory: source/test-module
+        run: composer phpmd-report || composer phpmd
 
-      - name: Fail if any of styles status is not fine
-        if: |
-          steps.syntax.outcome != 'success' ||
-          steps.lint.outcome != 'success' ||
-          steps.static.outcome != 'success'
-        run: exit 1
+      - name: Upload log artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: StylesLog-${{ matrix.php }}
+          path: |
+            source/test-module/phpstan.report.json
+            source/test-module/phpmd.report.json
 
   unit_tests:
     strategy:
@@ -170,6 +165,7 @@ jobs:
             -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
             php php vendor/bin/runtests \
               --coverage-clover=/var/www/coverage.xml \
+              --coverage-html=/var/www/coverage \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
               AllTestsUnit
@@ -182,6 +178,7 @@ jobs:
           path: |
             source/coverage.xml
             source/phpunit.xml
+            source/coverage
 
   codeception_tests:
     strategy:
@@ -210,7 +207,6 @@ jobs:
         run: |
           docker-compose exec -T php composer require codeception/module-rest:^1.4.2 --dev --no-update
           docker-compose exec -T php composer require codeception/module-phpbrowser:^1.0.2 --dev --no-update
-          docker-compose exec -T php composer require symfony/dotenv ^5.1 --dev --no-update
           docker-compose exec -T php composer update
 
       - name: Run tests
@@ -226,21 +222,35 @@ jobs:
 
   sonarcloud:
     needs: [ styles, unit_tests ]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
         uses: actions/checkout@v2
 
-      - name: Download fixed artifacts
+      - name: Download phpunit artifacts
+        continue-on-error: true
         uses: actions/download-artifact@v2
         with:
           name: TestsLog-7.4
-          path: ./
+          path: ./tests/
 
       - name: Fix paths in unit logs
+        continue-on-error: true
         run: |
-          sed -i 's+/var/www/test-module/++' coverage.xml
-          sed -i 's+/var/www/test-module/++' phpunit.xml
+          sed -i 's+/var/www/test-module/++' tests/coverage.xml
+          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+
+      - name: Download styles artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: StylesLog-8.0
+          path: ./styles/
+
+      - name: Fix paths in styles logs
+        continue-on-error: true
+        run: |
+          sed -i 's+\/home\/runner\/work\/module-template\/module-template\/source\/test-module\/++' styles/phpstan.report.json
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
@@ -254,6 +264,7 @@ jobs:
             -Dsonar.sources=src
             -Dsonar.tests=tests
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
+            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
             -Dsonar.cpd.php.minimumTokens=25
             -Dsonar.cpd.php.minimumLines=5
