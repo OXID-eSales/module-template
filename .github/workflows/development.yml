@@ -231,12 +231,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download phpunit artifacts
+        continue-on-error: true
         uses: actions/download-artifact@v2
         with:
           name: TestsLog-7.4
           path: ./tests/
 
       - name: Fix paths in unit logs
+        continue-on-error: true
         run: |
           sed -i 's+/var/www/test-module/++' tests/coverage.xml
           sed -i 's+/var/www/test-module/++' tests/phpunit.xml
