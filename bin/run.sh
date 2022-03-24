@@ -32,7 +32,7 @@ echo
 
 echo "Please enter module id (original: $moduleid_original)"
 read moduleid
-find . -type f -exec grep -l "$moduleid_original" {} \; |xargs perl -pi -e "s#$moduleid_original#$moduleid#g;"
+find . -type f \( ! -name "run.sh" \) -exec grep -l "$moduleid_original" {} \; |xargs perl -pi -e "s#$moduleid_original#$moduleid#g;"
 perl -pi -e "s#$company_original#$vendor#g;"  ./metadata.php
 perl -pi -e "s#$metadata_title_original#CHANGE MY TITLE#g;"  ./metadata.php
 echo
@@ -40,16 +40,17 @@ echo
 #File headers
 echo "Please enter company name (original: $company_original)"
 read company
-find . -type f -exec grep -l "$company_original" {} \; |xargs perl -pi -e "s#$company_original#$company#g;"
+find . -type f \( ! -name "run.sh" \) -exec grep -l "$company_original" {} \; |xargs perl -pi -e "s#$company_original#$company#g;"
 
 #target directory
 target_directory="$(echo $vendor | tr '[:upper:]' '[:lower:]')/$(echo $module | tr '[:upper:]' '[:lower:]')"
 perl -pi -e "s#$target_directory_original#$target_directory#g;"  ./composer.json
 perl -pi -e "s#$target_directory_original#$target_directory#g;"  ./metadata.php
+perl -pi -e "s#$target_directory_original#$target_directory#g;"  ./tests/Codeception/acceptance.suite.yml
 
 #namespace
 namespace="${vendor}\\\\${module}"
-find . -type f -exec grep -l "$namespace_original" {} \; |xargs perl -pi -e "s#$namespace_original#$namespace#g;"
+find . -type f \( ! -name "run.sh" \) -exec grep -l "$namespace_original" {} \; |xargs perl -pi -e "s#$namespace_original#$namespace#g;"
 
 echo
 echo 'Please commit the changes. Your module is now ready to go and be adapted to your needs.'
