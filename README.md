@@ -23,10 +23,58 @@ This module also comes with all the quality tools OXID recommends to be used.
 
 ## Installation
 
-TODO
-* install this module
-* clone as template and update prefixes, vendor, namespace via script
-* tbd: script for removing example code (clean slate module)
+### Install and try it out
+
+If you just intend to try out this module, install via composer
+```bash
+ composer require oxid-esales/module-template
+```
+and activate via commandline (`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise) or in shop admin.
+
+```bash
+./vendor/bin/oe-console oe:module:activate oe_moduletemplate
+```
+
+### Use as base for own module
+
+In case you'd like to use this module as a template for your own module, please create a new git repository (`myvendor/mymodule`) 
+using `OXID-eSales/module-template` as a template repository.
+You will end up with all the nice content from the original module template with (you can chose to take all branches)
+with all commits squashed into your initial commit.
+
+Now please clone this repositpry locally:
+```bash
+git clone https://github.com/myvendor/mymodule.git
+```
+
+Next step is to remove the relevant OXID traces and add your own vendor, module id, namespace etc.
+We prepared a script for this, which will prompt you for required information:
+
+```bash
+./mymodule/bin/run.sh
+```
+
+Example:
+```bash
+In order to convert this module template to your own, you will be asked for some information.
+
+Please enter project name (original: oxid-esales/module-template)
+-> myvendor/mymodule
+
+Please enter vendor (original: OxidEsales):
+-> MyVendor
+
+Please enter module namespace (original: OxidModuleTemplateEsales):
+-> MyModule
+
+Please enter module id (original: oe_moduletemplate)
+-> myvendor_mymodule
+
+Please enter company name (original: OXID eSales AG)
+-> MyVendor Company
+
+Please commit the changes. Your module is now ready to go and be adapted as you need :)
+```
 
 
 ## Idea
