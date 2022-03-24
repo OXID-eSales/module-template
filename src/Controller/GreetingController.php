@@ -34,7 +34,7 @@ class GreetingController extends FrontendController
      *
      * @var string
      */
-    protected $_sThisTemplate = 'oe_moduletemplate.tpl';
+    protected $_sThisTemplate = 'greetingtemplate.tpl';
 
     /**
      * Rendering method.
