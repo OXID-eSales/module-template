@@ -4,6 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
   install_shop_with_module:
+    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -106,38 +107,26 @@ jobs:
           cd source/test-module
           composer install
 
-      - name: Syntax Test
-        id: syntax
+      - name: Run phpcs
+        id: phpcs
         if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:syntax
+        working-directory: source/test-module
+        run: composer phpcs
 
-      - name: Lint Test
-        id: lint
+      - name: Run phpstan
+        id: phpstan
         if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:lint
+        working-directory: source/test-module
+        run: composer phpstan
 
-      - name: Static Analyzer
-        id: static
+      - name: Run phpmd
+        id: phpmd
         if: steps.dependencies.outcome == 'success'
-        continue-on-error: true
-        run: |
-          cd source/test-module
-          composer test:static
-
-      - name: Fail if any of styles status is not fine
-        if: |
-          steps.syntax.outcome != 'success' ||
-          steps.lint.outcome != 'success' ||
-          steps.static.outcome != 'success'
-        run: exit 1
+        working-directory: source/test-module
+        run: composer phpmd || composer phpmd-report
 
   unit_tests:
+    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -184,6 +173,7 @@ jobs:
             source/phpunit.xml
 
   codeception_tests:
+    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -225,6 +215,7 @@ jobs:
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
 
   sonarcloud:
+    if: false
     needs: [ styles, unit_tests ]
     runs-on: ubuntu-latest
     steps:
