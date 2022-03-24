@@ -29,20 +29,20 @@ If you just intend to try out this module, install via composer
 ```bash
  composer require oxid-esales/module-template
 ```
-and activate via commandline (`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise) or in shop admin.
-
+and activate via commandline 
 ```bash
 ./vendor/bin/oe-console oe:module:activate oe_moduletemplate
 ```
+(`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise) or in shop admin.
 
 ### Use as base for own module
 
 In case you'd like to use this module as a template for your own module, please create a new git repository (`myvendor/mymodule`) 
 using `OXID-eSales/module-template` as a template repository.
-You will end up with all the nice content from the original module template with (you can chose to take all branches)
-with all commits squashed into your initial commit.
+You will end up with all the nice content from the original module template (you can chose to take all branches)
+with all commits squashed into one initial commit.
 
-Now please clone this repositpry locally:
+Now please clone this repository locally:
 ```bash
 git clone https://github.com/myvendor/mymodule.git
 ```
@@ -76,6 +76,11 @@ Please enter company name (original: OXID eSales AG)
 Please commit the changes. Your module is now ready to go and be adapted as you need :)
 ```
 
+NOTE: You now have a working module (tests and all) as a starting point to implement whatever you
+want to extend in your OXID eShop. Likely you'll not need all the example code but you might take some of it
+and modify. So we left it there for you to take what you need and clean out all else :)
+Please not that the module comes with a database table, translations and some templates which still have the original
+names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
 
 ## Idea
 
@@ -119,7 +124,7 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * github actions pipeline
 * all the nice quality tools
 
-nice to have for later
+#### Not yet in here but might come later:
 * example for payment gateway extension
 * own logger
 * seo url for module controller ;)
@@ -130,8 +135,8 @@ nice to have for later
 The template module is intended to act as a tutorial module so keep your eyes open for comments in the code.
 
 **NOTES:** 
-* Acceptance tests are way easier to write if you put an id on relevant fields and buttons. 
-* If you can, try to develop on Enterprise Edition to get shop aware stuff right.
+* Acceptance tests are way easier to write if you put an id on relevant fields and buttons in the templates. 
+* If you can, try to develop on OXID eShop Enterprise Edition to get shop aware stuff right from the start.
 
 ### Module migrations
 
@@ -158,6 +163,7 @@ For more information, check the [developer documentation](https://docs.oxid-esal
 In the 6.x versions of OXID eShop, the module code is copied to source/modules directory and the module's metadata 
 and yaml files will be taken from there. This means some module code will be duplicated from vendor directory to 
 shop source/modules directory. 
+
 NOTE: In our example the module namespace points to the vendor directory.
 
 ## Running tests
@@ -183,9 +189,7 @@ $ vendor/bin/runtests
 $ vendor/bin/runtests-codeception
 ```
 
-### Writing tests
-
-## Codeception tests
+### Writing Codeception tests
 As a rule of thumb, use codeception tests to ensure the frontend is behaving as expected.
 Codeception tests take a while to run, so try to navigate the way between covering the relevant
 cases and overtesting. We definitely need some acceptance tests if the module affects the 
@@ -201,7 +205,7 @@ The great thing about codeception tests is, that they can create screenshot and 
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
 
 **NOTE:** You should add groups to the codeception tests, generic test group for module and then
-group by topic. Makes it convenient to just run `vendor/bin/&runtest-codeception --group=somegroup`.
+group by topic. Makes it convenient to just run `vendor/bin/runtests-codeception --group=somegroup`.
 
 ### Development Environment - Docker SDK
 
@@ -224,3 +228,6 @@ we are constantly trying to improve them.
 * [Open a new issue on our bug tracker](https://bugs.oxid-esales.com)
 * [Join our community forum](https://forum.oxid-esales.com/)
 * [Use the contact form](https://www.oxid-esales.com/en/contact/contact-us.html)
+
+In case you have any complaints, suggestions, business cases you'd like an example for
+please contact us. Pull request are also welcome.  Every feedback we get will help us improve.
