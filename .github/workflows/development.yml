@@ -103,25 +103,24 @@ jobs:
 
       - name: Install module dependencies
         id: dependencies
-        run: |
-          cd source/test-module
-          composer install
+        working-directory: source/test-module
+        run: composer install
 
       - name: Run phpcs
         id: phpcs
-        if: steps.dependencies.outcome == 'success'
+        if: always()
         working-directory: source/test-module
         run: composer phpcs
 
       - name: Run phpstan
         id: phpstan
-        if: steps.dependencies.outcome == 'success'
+        if: always()
         working-directory: source/test-module
         run: composer phpstan
 
       - name: Run phpmd
         id: phpmd
-        if: steps.dependencies.outcome == 'success'
+        if: always()
         working-directory: source/test-module
         run: composer phpmd || composer phpmd-report
 
