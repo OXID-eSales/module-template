@@ -4,7 +4,6 @@ on: [ push, pull_request ]
 
 jobs:
   install_shop_with_module:
-    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -134,7 +133,6 @@ jobs:
             source/test-module/phpmd.report.json
 
   unit_tests:
-    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -181,7 +179,6 @@ jobs:
             source/phpunit.xml
 
   codeception_tests:
-    if: false
     strategy:
       matrix:
         php: [ '7.4', '8.0' ]
@@ -223,7 +220,7 @@ jobs:
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
 
   sonarcloud:
-    needs: [ styles ]
+    needs: [ styles, unit_tests ]
     if: always()
     runs-on: ubuntu-latest
     steps:
