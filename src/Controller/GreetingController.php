@@ -79,7 +79,7 @@ class GreetingController extends FrontendController
         /** @var EshopModelUser $user */
         $user = $this->getUser();
 
-        if (!$user|| !$moduleSettings->isPersonalGreetingMode()) {
+        if (!$user || !$moduleSettings->isPersonalGreetingMode()) {
             return;
         }
 
