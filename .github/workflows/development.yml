@@ -224,6 +224,7 @@ jobs:
 
   sonarcloud:
     needs: [ styles ]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
