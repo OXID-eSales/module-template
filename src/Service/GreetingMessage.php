@@ -42,7 +42,7 @@ class GreetingMessage
     {
         $result = ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
-        if ((ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode())) {
+        if (ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode()) {
             $result = $this->getUserGreeting($user);
         }
 
