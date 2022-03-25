@@ -56,12 +56,15 @@ final class TmpCleaner
      */
     private static function clear($fileName, $filePath): void
     {
-        if (!in_array($fileName, ['.', '..', '.gitkeep', 'gitignore', '.htaccess'])) {
-            if (is_file($filePath)) {
-                @unlink($filePath);
-            } else {
-                self::clearDirectory($filePath);
-            }
+        if (in_array($fileName, ['.', '..', '.gitkeep', 'gitignore', '.htaccess'])) {
+            return; //nothing to be done
+        }
+        if (is_dir($filePath)) {
+            self::clearDirectory($filePath);
+            return;
+        }
+        if (is_file($filePath) && is_writable($filePath)) {
+            unlink($filePath);
         }
     }
 }

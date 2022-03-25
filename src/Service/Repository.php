@@ -63,10 +63,10 @@ class Repository
     public function getTrackerByUserId(string $userId): GreetingTracker
     {
         $tracker = oxNew(GreetingTracker::class);
-        $id      = $this->getGreetingTrackerId($userId);
+        $trackerId = $this->getGreetingTrackerId($userId);
 
-        if ($id) {
-            $tracker->load($id);
+        if ($trackerId) {
+            $tracker->load($trackerId);
         }
 
         //if it cannot be loaded from database, create a new object
@@ -101,12 +101,12 @@ class Repository
             ->setMaxResults(1)
             ->execute();
 
-        $id = '';
+        $trackerId = '';
 
         if (is_object($result)) {
-            $id = (string) $result->fetch(PDO::FETCH_COLUMN);
+            $trackerId = (string) $result->fetch(PDO::FETCH_COLUMN);
         }
 
-        return $id;
+        return $trackerId;
     }
 }
