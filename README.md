@@ -82,6 +82,18 @@ and modify. So we left it there for you to take what you need and clean out all 
 Please not that the module comes with a database table, translations and some templates which still have the original
 names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
 
+### Start from clean state
+
+We also prepared a script to clean out all the module code (apart from test examples)
+but keep all the quality tools, test configuraton, github workflows prepared.
+
+```bash
+./mymodule/bin/runclean.sh
+```
+
+Use this if you want to use our module as a template to start your own from (almost) scratch.
+
+
 ## Idea
 
 OXID eSales would like to provide a lightweight reusable example module incorporating 
