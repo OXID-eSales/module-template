@@ -40,7 +40,8 @@ final class TmpCleanerTest extends UnitTestCase
             ->willReturn(vfsStream::url($vfsStreamDirectory->path() . '/tmp'));
         EshopRegistry::set(Config::class, $config);
 
-        TmpCleaner::clearTmp();
+        $cleaner = new TmpCleaner();
+        $cleaner->clearTmp();
 
         //check what's left
         $this->assertTrue($vfsStreamDirectory->hasChild('root/tmp/smarty'));
