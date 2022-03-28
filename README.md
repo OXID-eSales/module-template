@@ -15,7 +15,7 @@ Reusable module template for extending OXID eShop core functionality.
 The module template contains examples for the most common use cases (see below)
 like OXID suggests it could be implemented. 
 
-This module also comes with all the quality tools OXID recommends to be used.
+This module also comes with all the quality tools OXID recommends to use.
 
 ## Branch compatibility
 
@@ -23,9 +23,29 @@ This module also comes with all the quality tools OXID recommends to be used.
 
 ## Installation
 
+There are three main goals this repository is intended to help with:
+
+* Install and try out the module with simple examples to most common development questions:
+  * Extending of controllers and models
+  * Services
+  * Migrations
+  * Creating templates for your module, extending of oxid theme templates or blocks
+  * Using the translations for your module specific phrases
+  * Testing your module backend and frontend part
+  * Using the github actions as CI tool with all recommended tools preconfigured for you.
+* The provided solution can be used as a base for your own module. It will help creating 
+  the personalized module base with all the examples listed in the previous point.
+* The repository can be used for creating a clean skeleton with only preconfigured 
+  OXID recommended quality tools for your new module.
+
 ### Install and try it out
 
-If you just intend to try out this module, install via composer
+Note: This installation method fits for trying out the module development basics,
+its not meant to be used as development base for your own module. Check further
+installation/usage methods.
+
+This module is in working state and can be directly installed via composer:
+
 ```bash
  composer require oxid-esales/module-template
 ```
@@ -35,26 +55,21 @@ and activate via commandline
 ```
 (`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise) or in shop admin.
 
-### Use as base for own module
+### Use as a base for own module
 
-In case you'd like to use this module as a template for your own module, please create a new git repository (`myvendor/mymodule`) 
-using `OXID-eSales/module-template` as a template repository.
-You will end up with all the nice content from the original module template (you can chose to take all branches)
-with all commits squashed into one initial commit.
+In case you'd like to use this module as a template for your own module: 
 
-Now please clone this repository locally:
-```bash
-git clone https://github.com/myvendor/mymodule.git
-```
+1. Please create a new git repository (`myvendor/mymodule`) using `OXID-eSales/module-template` as a template repository.
+   * By doing it this way, you will end up with all the nice content from the original module 
+   template (you can choose to take all branches) with all the code as initial commit.
+2. Clone your created repository to your local directory:
+   * ``git clone https://github.com/myvendor/mymodule.git``
+3. Next step is to remove the relevant OXID traces and add your own vendor, module id, namespace etc.
+   * We prepared a script for this, which will prompt you for required information:\
+   ``./mymodule/bin/run.sh``
+4. After the script run, make a commit (push to your newly created repository) and proceed with your own implementations.
 
-Next step is to remove the relevant OXID traces and add your own vendor, module id, namespace etc.
-We prepared a script for this, which will prompt you for required information:
-
-```bash
-./mymodule/bin/run.sh
-```
-
-Example:
+Example of script run:
 ```bash
 In order to convert this module template to your own, you will be asked for some information.
 
@@ -79,20 +94,18 @@ Please commit the changes. Your module is now ready to go and be adapted as you 
 NOTE: You now have a working module (tests and all) as a starting point to implement whatever you
 want to extend in your OXID eShop. Likely you'll not need all the example code but you might take some of it
 and modify. So we left it there for you to take what you need and clean out all else :)
-Please not that the module comes with a database table, translations and some templates which still have the original
+Please note that the module comes with a database table, translations and some templates which still have the original
 names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
 
-### Start from clean state
+#### Start from clean state
 
-We also prepared a script to clean out all the module code (apart from test examples)
-but keep all the quality tools, test configuraton, github workflows prepared.
+In case you'd like to have a clean skeleton for your module
+but keeping all the quality tools, test configuraton, github workflows prepared,
+additionally use ``runclean.sh`` script, which removes all example solutions code:
 
 ```bash
 ./mymodule/bin/runclean.sh
 ```
-
-Use this if you want to use our module as a template to start your own from (almost) scratch.
-
 
 ## Idea
 
@@ -178,15 +191,15 @@ shop source/modules directory.
 
 NOTE: In our example the module namespace points to the vendor directory.
 
-## Running tests
+## Running tests and quality tools
 
-## Testing
-
-### Linting, syntax check, static analysis and unit tests
+Check the ``scripts`` section in the composer.json of the module to get more insight of
+preconfigured quality tools available. Example:
 
 ```bash
-$ composer update
-$ composer test
+$ composer phpcs
+$ composer phpstan
+$ composer phpmd
 ```
 
 ### Integration/Acceptance tests
@@ -202,10 +215,14 @@ $ vendor/bin/runtests-codeception
 ```
 
 ### Writing Codeception tests
+
 As a rule of thumb, use codeception tests to ensure the frontend is behaving as expected.
 Codeception tests take a while to run, so try to navigate the way between covering the relevant
-cases and overtesting. We definitely need some acceptance tests if the module affects the 
+cases and overtesting. 
+
+We definitely need some acceptance tests if the module affects the 
 frontend like in our example. If the module breaks the frontend, we need to see it asap.
+
 In our case, we cover the reaction of the startpage to the different possibilities
 * generic greeting mode (with/without logged in user)
 * personal greeting mode (with/without logged in user)
@@ -213,7 +230,7 @@ In our case, we cover the reaction of the startpage to the different possibiliti
 * ensure module can be activated/deactivated without destroying the shop
 * ensure edge case safety like not logged in user directly calling module controller
 
-The great thing about codeception tests is, that they can create screenshot and html
+The great thing about codeception tests is - they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
 
 **NOTE:** You should add groups to the codeception tests, generic test group for module and then
