@@ -2,6 +2,12 @@ name: Development
 
 on: [ push, pull_request ]
 
+env:
+  PACKAGE_NAME: 'oxid-esales/module-template'
+  MODULE_PATH: 'oe/moduletemplate'
+  SONARCLOUD_ORGANIZATION: 'oxid-esales'
+  SONARCLOUD_PROJECT_KEY: 'OXID-eSales_module-template'
+
 jobs:
   install_shop_with_module:
     strategy:
@@ -67,10 +73,10 @@ jobs:
       - name: Install module
         run: |
           docker-compose exec -T \
-            php composer config repositories.oxid-esales/module-template \
+            php composer config repositories.${{ env.PACKAGE_NAME }} \
             --json '{"type":"path", "url":"./test-module", "options": {"symlink": true}}'
           docker-compose exec -T \
-            php composer require oxid-esales/module-template:* --no-interaction --no-update
+            php composer require ${{ env.PACKAGE_NAME }}:* --no-interaction --no-update
 
       - name: Install dependencies and reset shop
         run: |
@@ -157,12 +163,12 @@ jobs:
         continue-on-error: true
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=oe/moduletemplate \
+            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
             -e ACTIVATE_ALL_MODULES=1 \
             -e RUN_TESTS_FOR_SHOP=0 \
             -e RUN_TESTS_FOR_MODULES=0 \
             -e XDEBUG_MODE=coverage \
-            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
+            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
             php php vendor/bin/runtests \
               --coverage-clover=/var/www/coverage.xml \
               --coverage-html=/var/www/coverage \
@@ -213,11 +219,11 @@ jobs:
         continue-on-error: true
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=oe/moduletemplate \
+            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
             -e ACTIVATE_ALL_MODULES=1 \
             -e RUN_TESTS_FOR_SHOP=0 \
             -e RUN_TESTS_FOR_MODULES=0 \
-            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/oxid-esales/module-template/tests' \
+            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
 
   sonarcloud:
@@ -250,7 +256,7 @@ jobs:
       - name: Fix paths in styles logs
         continue-on-error: true
         run: |
-          sed -i 's+\/home\/runner\/work\/module-template\/module-template\/source\/test-module\/++' styles/phpstan.report.json
+          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
@@ -259,8 +265,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.organization=oxid-esales
-            -Dsonar.projectKey=OXID-eSales_module-template
+            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
+            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
             -Dsonar.sources=src
             -Dsonar.tests=tests
             -Dsonar.sourceEncoding=UTF-8
