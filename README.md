@@ -91,11 +91,13 @@ Please enter company name (original: OXID eSales AG)
 Please commit the changes. Your module is now ready to go and be adapted as you need :)
 ```
 
-NOTE: You now have a working module (tests and all) as a starting point to implement whatever you
+**NOTE:** You now have a working module (tests and all) as a starting point to implement whatever you
 want to extend in your OXID eShop. Likely you'll not need all the example code but you might take some of it
 and modify. So we left it there for you to take what you need and clean out all else :)
 Please note that the module comes with a database table, translations and some templates which still have the original
 names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
+
+**NOTE:** Have a look at our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html).
 
 #### Start from clean state
 
