@@ -154,6 +154,9 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * own logger
 * seo url for module controller ;)
 * to redirect or not to redirect from inside the shop core
+* graphql query/mutation example
+* extending the internal part
+* split by domains
 
 ## Things to be aware of
 
