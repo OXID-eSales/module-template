@@ -45,69 +45,99 @@ its not meant to be used as development base for your own module. Check further
 installation/usage methods.
 
 This module is in working state and can be directly installed via composer:
-
-```bash
+```
  composer require oxid-esales/module-template
 ```
-and activate via commandline 
-```bash
-./vendor/bin/oe-console oe:module:activate oe_moduletemplate
-```
-(`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise) or in shop admin.
+
+and [activate the module](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).
 
 ### Use as a base for own module
 
-In case you'd like to use this module as a template for your own module: 
+In case you'd like to use this module as a template for your own module, this section is for you.
 
-1. Please create a new git repository (`myvendor/mymodule`) using `OXID-eSales/module-template` as a template repository.
-   * By doing it this way, you will end up with all the nice content from the original module 
-   template (you can choose to take all branches) with all the code as initial commit.
-2. Clone your created repository to your local directory:
-   * ``git clone https://github.com/myvendor/mymodule.git``
-3. Next step is to remove the relevant OXID traces and add your own vendor, module id, namespace etc.
-   * We prepared a script for this, which will prompt you for required information:\
-   ``./mymodule/bin/run.sh``
-4. After the script run, make a commit (push to your newly created repository) and proceed with your own implementations.
+Before starting to do something, please, read the whole section once, then decide on required questions, decide 
+what you want to achieve, and follow the procedure.
 
-Example of script run:
-```bash
-In order to convert this module template to your own, you will be asked for some information.
+#### Terms
 
-Please enter project name (original: oxid-esales/module-template)
--> myvendor/mymodule
+First, lets decide on terms:
 
-Please enter vendor (original: OxidEsales):
--> MyVendor
+* The package name looks like: <yourVendorName>/<yourModuleName>, example: oxid-esales/module-template. Decide 
+  what will be your new module package name.
+* Module is installable to source/modules/<yourVendorName>/<yourModuleId> directory, it may differ 
+  from the package name. Decide what will be your module id.
+* In the following examples, your information required places will be shown as placeholders: <yourModuleId>, it means
+  you should put your module id at that place, without brackets, for example:
+  ```
+  composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleId>
+  ```
+  will possibly look like:
+  ```
+  composer config repositories.my-vendor-name/my-module-name path source/modules/mvn/mvn_mymoduleid
+  ```
+* In the procedure, we will use our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html)
+  to make your development process as smooth and easy as possible.
 
-Please enter module namespace (original: OxidModuleTemplateEsales):
--> MyModule
+#### Procedure
 
-Please enter module id (original: oe_moduletemplate)
--> myvendor_mymodule
+The following procedure describes how to create a base for your further module, and shows the basic 
+installation for development process:
 
-Please enter company name (original: OXID eSales AG)
--> MyVendor Company
+1. Click on the "Use this template" button on the template [main page](https://github.com/OXID-eSales/module-template) to 
+   create your module repository from the given template. As the outcome, you should have a repository with
+   a copy of everything we have in the template repository.
 
-Please commit the changes. Your module is now ready to go and be adapted as you need :)
-```
+2. Clone your created repository to your local shop modules directory:
+   ```
+   cd <shopRoot>
+   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorName>/<yourModuleId>
+   ```
 
-**NOTE:** You now have a working module (tests and all) as a starting point to implement whatever you
-want to extend in your OXID eShop. Likely you'll not need all the example code but you might take some of it
+3. Next step is to personalize the original OXID traces with your own vendor, module id, namespace etc. We prepared 
+   a script for this, which will prompt you for required information and exchange all main places in the cloned template:
+   ```
+   cd <shopRoot>
+   ./source/modules/<yourVendorName>/<yourModuleId>/bin/run.sh
+   ```
+
+4. **(Optional)** In case you'd like to have a clean skeleton for your module but keeping all the quality tools,
+   test configuraton, github workflows prepared, additionally use the ``runclean.sh`` script, which removes
+   all example solutions code.
+   ```
+    cd <shopRoot>
+    ./source/modules/<yourVendorName>/<yourModuleId>/bin/runclean.sh
+   ```
+
+5. Register and install your newly created module in the shop
+   ```
+   cd <shopRoot>
+   composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleId>
+   composer require <yourPackageName>:*
+   ```
+
+6. At this point you have a working module (tests and all) as a starting point to implement whatever you 
+   want to extend in your OXID eShop. Initialize and activate the module:
+   ```
+   cd <shopRoot>
+   bin/oe-console oe:module:install source/modules/<yourVendorName>/<yourModuleId>
+   bin/oe-console oe:module:activate <yourModuleId>
+   ```
+
+7. Try it out if module works, and commit your personalized module changes to your repository:
+   ```
+   cd <shopRoot>
+   cd source/modules/<yourVendorName>/<yourModuleId>
+   git commit -am "Personalize the module"
+   ```
+
+Likely you'll not need all the example code but you might take some of it
 and modify. So we left it there for you to take what you need and clean out all else :)
+
 Please note that the module comes with a database table, translations and some templates which still have the original
 names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
 
-**NOTE:** Have a look at our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html).
-
-#### Start from clean state
-
-In case you'd like to have a clean skeleton for your module
-but keeping all the quality tools, test configuraton, github workflows prepared,
-additionally use ``runclean.sh`` script, which removes all example solutions code:
-
-```bash
-./mymodule/bin/runclean.sh
-```
+Also, you will need to adjust the README, CHANGELOG, LICENSE and the github workflow file, with your credentials and 
+names - check the env section there.
 
 ## Idea
 
