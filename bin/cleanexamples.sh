@@ -7,16 +7,9 @@ echo 'This script will remove all example implementations'
 
 
 # clean metadata.php
-perl -pwe '
-  if (/\s*extend.*/) {
-      exit;
-  } else {
-        open ($out, ">>", "metadata.php.new") or die "Could not open file $!";
-        select $out;
-     }
-  ' ./metadata.php
-echo '];' >> ./metadata.php.new
-mv ./metadata.php.new ./metadata.php
+perl -0777pi\
+  -e 's#(^.*?extend.*?=>)(.*?)(\];.*?)$#\1 \[\],\n\3#gs'\
+  metadata.php
 
 #clean out migrations
 rm -rf ./migration/data/*
@@ -26,7 +19,11 @@ touch ./migration/data/.gitkeep
 rm -rf ./out
 rm -rf ./translations
 rm -rf ./views
-rm -rf ./services.yaml
+
+#cleanup services.yaml
+perl -0777pi\
+  -e 's#(^.*?autowire: true)(.*?)$#\1#gs'\
+  services.yaml
 
 #clean out module source code
 rm -rf ./src/*
