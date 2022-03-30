@@ -44,15 +44,9 @@ mv ./tests/ExampleTest.bak ./tests/Unit/ExampleTest.php
 
 rm -rf ./bin
 
-perl -pwe '
-  open ($out, ">>", "tmp.yml") or die "Could not open file $!";
-  if (/\s*paths:.*/) {
-       print  "        paths: \"Application/views/flow,Application/views/admin\" #  ";
-  } else {
-        select $out;
-     }
-  ' ./tests/Codeception/acceptance.suite.yml
-mv ./tmp.yml ./tests/Codeception/acceptance.suite.yml
+perl -pi\
+  -e 's#paths:.*#paths: "Application/views/flow,Application/views/admin"#g;'\
+  ./tests/Codeception/acceptance.suite.yml
 
 echo
 echo 'Cleanup done. Now it is your turn to fill the module with code.'
