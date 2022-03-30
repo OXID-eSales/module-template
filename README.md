@@ -97,15 +97,15 @@ installation for development process:
    a script for this, which will prompt you for required information and exchange all main places in the cloned template:
    ```
    cd <shopRoot>
-   ./source/modules/<yourVendorName>/<yourModuleId>/bin/run.sh
+   ./source/modules/<yourVendorName>/<yourModuleId>/bin/personalize.sh
    ```
 
 4. **(Optional)** In case you'd like to have a clean skeleton for your module but keeping all the quality tools,
-   test configuraton, github workflows prepared, additionally use the ``runclean.sh`` script, which removes
+   test configuraton, github workflows prepared, additionally use the ``cleanexamples.sh`` script, which removes
    all example solutions code.
    ```
     cd <shopRoot>
-    ./source/modules/<yourVendorName>/<yourModuleId>/bin/runclean.sh
+    ./source/modules/<yourVendorName>/<yourModuleId>/bin/cleanexamples.sh
    ```
 
 5. Register and install your newly created module in the shop
