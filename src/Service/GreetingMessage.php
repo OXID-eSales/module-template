@@ -21,28 +21,24 @@ use OxidEsales\ModuleTemplate\Service\ModuleSettings as ModuleSettingsService;
 class GreetingMessage
 {
     /**
-     * @var ModuleSettingsService
+     * @var ServiceLocator
      */
-    private $settings;
-
-    /**
-     * @var EshopRequest
-     */
-    private $request;
+    private $serviceLocator;
 
     public function __construct(
-        ModuleSettingsService $settings,
-        EshopRequest $request
+        ServiceLocator $serviceLocator
     ) {
-        $this->settings = $settings;
-        $this->request  = $request;
+        $this->serviceLocator = $serviceLocator;
     }
 
     public function getOetmGreeting(?EshopModelUser $user = null): string
     {
         $result = ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
-        if (ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode()) {
+        if (
+            ModuleSettingsService::GREETING_MODE_PERSONAL
+            == $this->serviceLocator->getService(ModuleSettingsService::class)->getGreetingMode()
+        ) {
             $result = $this->getUserGreeting($user);
         }
 
@@ -59,7 +55,9 @@ class GreetingMessage
 
     private function getRequestOetmGreeting(): string
     {
-        $input = (string) $this->request->getRequestParameter(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME);
+        $input = (string) $this->serviceLocator
+            ->getRequest()
+            ->getRequestParameter(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
         return (string) substr($input, 0, 253);

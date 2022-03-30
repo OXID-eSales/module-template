@@ -14,6 +14,7 @@ use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ServiceLocator;
 use OxidEsales\TestingLibrary\UnitTestCase;
 
 final class GreetingMessageTest extends UnitTestCase
@@ -21,8 +22,7 @@ final class GreetingMessageTest extends UnitTestCase
     public function testGenericGreetingNoUser(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock(ModuleSettings::GREETING_MODE_GENERIC)
         );
 
         $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting());
@@ -31,8 +31,7 @@ final class GreetingMessageTest extends UnitTestCase
     public function testPersonalGreetingNoUser(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock()
         );
 
         $this->assertSame('', $service->getOetmGreeting());
@@ -41,8 +40,7 @@ final class GreetingMessageTest extends UnitTestCase
     public function testModuleGenricGreetingModeEmptyUser(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock(ModuleSettings::GREETING_MODE_GENERIC)
         );
         $user    = oxNew(EshopModelUser::class);
 
@@ -52,8 +50,7 @@ final class GreetingMessageTest extends UnitTestCase
     public function testModulePersonalGreetingModeEmptyUser(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock()
         );
         $user    = oxNew(EshopModelUser::class);
 
@@ -63,8 +60,7 @@ final class GreetingMessageTest extends UnitTestCase
     public function testModuleGenericGreeting(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock(ModuleSettings::GREETING_MODE_GENERIC)
         );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
@@ -75,13 +71,26 @@ final class GreetingMessageTest extends UnitTestCase
     public function testModulePersonalGreeting(): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getServiceLocatorMock()
         );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
 
         $this->assertSame('Hi sweetie!', $service->getOetmGreeting($user));
+    }
+
+    private function getServiceLocatorMock(string $mode = ModuleSettings::GREETING_MODE_PERSONAL): ServiceLocator
+    {
+        $locator = $this->getMockBuilder(ServiceLocator::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getService'])
+            ->getMock();
+
+        $locator->expects($this->any())
+            ->method('getService')
+            ->willReturn($this->getSettingsMock($mode));
+
+        return $locator;
     }
 
     private function getSettingsMock(string $mode = ModuleSettings::GREETING_MODE_PERSONAL): ModuleSettings
