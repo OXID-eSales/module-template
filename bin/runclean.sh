@@ -30,7 +30,7 @@ rm -rf ./services.yaml
 
 #clean out module source code
 rm -rf ./src/*
-touch ./src/.gitignore
+touch ./src/.gitkeep
 
 #clean out tests
 mv ./tests/Codeception/Acceptance/ExampleCest.php ./tests/Codeception/Acceptance/ExampleCest.bak
@@ -44,6 +44,8 @@ mv ./tests/ExampleTest.bak ./tests/Integration/ExampleTest.php
 mv ./tests/Unit/ExampleTest.php ./tests/ExampleTest.bak
 rm -rf ./tests/Unit/*
 mv ./tests/ExampleTest.bak ./tests/Unit/ExampleTest.php
+
+rm -rf ./bin
 
 perl -pwe '
   open ($out, ">>", "tmp.yml") or die "Could not open file $!";
