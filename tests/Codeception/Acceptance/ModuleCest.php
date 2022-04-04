@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Tests\Codeception\AcceptanceTester;
  * @group oe_moduletemplate
  * @group oe_moduletemplate_module
  */
-final class ModuleCestCest
+final class ModuleCest
 {
     public function _after(AcceptanceTester $I): void
     {
@@ -27,7 +27,7 @@ final class ModuleCestCest
     {
         $I->wantToTest('that deactivating the module does not destroy the shop');
 
-        $home = $I->openShop();
+        $I->openShop();
         $I->waitForText(Translator::translate('HOME'));
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
 
