@@ -65,7 +65,7 @@ First, lets decide on terms:
 * The package name looks like: \<yourVendorName>/\<yourModuleName>, example: oxid-esales/module-template. Decide 
   what will be your new module package name.
 * Module is installable to source/modules/\<yourVendorName>/\<yourModuleId> directory, it may differ 
-  from the package name. Decide what will be your module id.
+  from the package name. Decide what will be your [module id](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html). It is recommended to use alphanumeric characters and underscores.
 * In the following examples, your information required places will be shown as placeholders: \<yourModuleId>, it means
   you should put your module id at that place, without brackets, for example:
   ```
