@@ -25,7 +25,7 @@ class User extends User_parent
     }
 
     //NOTE: we only assign the value to the model.
-    //Calling save() method will then store it in the databasse
+    //Calling save() method will then store it in the database
     public function setPersonalGreeting(string $personalGreeting): void
     {
         $this->assign(

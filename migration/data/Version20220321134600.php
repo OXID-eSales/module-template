@@ -17,9 +17,9 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20220321134600 extends AbstractMigration
 {
-    //The migration done here extends the shop's oxuser table by a new field
+    //The migration done here creates a new table
     //NOTE: write migrations so that they can be run multiple times without breaking anything.
-    //      Means: check if changes are already present before actually modifying a table
+    //      Means: check if changes are already present before actually creating a table
     public function up(Schema $schema): void
     {
         $this->connection->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');

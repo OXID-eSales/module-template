@@ -38,7 +38,7 @@ final class GreetingMessageTest extends UnitTestCase
         $this->assertSame('', $service->getOetmGreeting());
     }
 
-    public function testModuleGenricGreetingModeEmptyUser(): void
+    public function testModuleGenericGreetingModeEmptyUser(): void
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
