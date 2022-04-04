@@ -36,7 +36,7 @@ class BeforeModelUpdate extends AbstractShopAwareEventSubscriber
         return $event;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeModelUpdateEvent::class => 'handle',

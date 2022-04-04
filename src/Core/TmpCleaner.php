@@ -28,11 +28,11 @@ final class TmpCleaner
     /**
      * Clean temp folder content.
      *
-     * @param mixed $directoryPath
+     * @param string $directoryPath
      *
      * @return bool
      */
-    private function clearDirectory($directoryPath)
+    private function clearDirectory(string $directoryPath): bool
     {
         $directoryHandler = opendir($directoryPath);
 
@@ -54,7 +54,7 @@ final class TmpCleaner
      * @param string $fileName
      * @param string $filePath
      */
-    private function clear($fileName, $filePath): void
+    private function clear(string $fileName, string $filePath): void
     {
         if (in_array($fileName, ['.', '..', '.gitkeep', 'gitignore', '.htaccess'])) {
             return; //nothing to be done
