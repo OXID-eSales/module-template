@@ -62,11 +62,11 @@ what you want to achieve, and follow the procedure.
 
 First, lets decide on terms:
 
-* The package name looks like: <yourVendorName>/<yourModuleName>, example: oxid-esales/module-template. Decide 
+* The package name looks like: \<yourVendorName>/\<yourModuleName>, example: oxid-esales/module-template. Decide 
   what will be your new module package name.
-* Module is installable to source/modules/<yourVendorName>/<yourModuleId> directory, it may differ 
+* Module is installable to source/modules/\<yourVendorName>/\<yourModuleId> directory, it may differ 
   from the package name. Decide what will be your module id.
-* In the following examples, your information required places will be shown as placeholders: <yourModuleId>, it means
+* In the following examples, your information required places will be shown as placeholders: \<yourModuleId>, it means
   you should put your module id at that place, without brackets, for example:
   ```
   composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleId>
