@@ -14,13 +14,10 @@ use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEv
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Tracker;
 use OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 use OxidEsales\TestingLibrary\UnitTestCase;
 
 final class BeforeModelUpdateTest extends UnitTestCase
 {
-    use ServiceContainer;
-
     public const TEST_USER_ID = '_testuser';
 
     public function testHandleEventWithNotMatchingPayload(): void

@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Model;
 
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-
 /**
  * @eshopExtension
  * @mixin \OxidEsales\Eshop\Application\Model\User
  */
 class User extends User_parent
 {
-    use ServiceContainer;
-
     public function getPersonalGreeting(): string
     {
         return (string) $this->getRawFieldData('oetmgreeting');

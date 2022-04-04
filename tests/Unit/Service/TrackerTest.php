@@ -13,13 +13,10 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Service\Tracker as TrackerService;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 use OxidEsales\TestingLibrary\UnitTestCase;
 
 final class TrackerTest extends UnitTestCase
 {
-    use ServiceContainer;
-
     public const TEST_TRACKER_ID = '_testoxid';
 
     public const TEST_USER_ID = '_testuser';
