@@ -7,7 +7,8 @@
     <!-- Allow logged in user to change his greeting text -->
     [{if $oView->canUpdateOetmGreeting()}]
         <button class="btn btn-primary submitButton largeButton">
-            <a id='oetm_update_greeting' class="submitButton largeButton" href="index.php?cl=oetmgreeting" >[{oxmultilang ident="OEMODULETEMPLATE_GREETING_UPDATE"}]</a>
+            <!-- Use oxgetseourl smarty function to output SEO style url -->
+            <a id='oetm_update_greeting' class="submitButton largeButton" href="[{oxgetseourl ident=$oViewConf->getSelfLink()|cat:"cl=oetmgreeting"}]">[{oxmultilang ident="OEMODULETEMPLATE_GREETING_UPDATE"}]</a>
         </button>
     [{/if}]
 </p>
