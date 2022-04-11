@@ -139,6 +139,23 @@ names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE
 Also, you will need to adjust the README, CHANGELOG, LICENSE and the github workflow file, with your credentials and 
 names - check the env section there.
 
+### Development installation
+
+Installation example for improving and develop the current module is provided here:
+
+1. Clone the module
+    ```
+    cd <shopRoot>
+    git clone https://github.com/OXID-eSales/module-template source/modules/oe/moduletemplate
+    ```
+
+2. Install the module from local path
+    ```
+    cd <shopRoot>
+    composer config repositories.oxid-esales/module-template path source/modules/oe/moduletemplate
+    composer require oxid-esales/module-template:*
+    ```
+
 ## Idea
 
 OXID eSales would like to provide a lightweight reusable example module incorporating 
