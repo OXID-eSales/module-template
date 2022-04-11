@@ -62,18 +62,22 @@ what you want to achieve, and follow the procedure.
 
 First, lets decide on terms:
 
-* The package name looks like: \<yourVendorName>/\<yourModuleName>, example: oxid-esales/module-template. Decide 
+* Module is installable to `source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>` directory, example: `source/modules/oe/moduletemplate`. Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`. Please note that `<yourVendorPrefix>` should be unique. Based on this information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In our case it is `oe_moduletemplate`. It is recommended to use only alphanumeric characters, in case you need a separator you can use underscore. More information about module id can be found [here](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
+* The package name looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
   what will be your new module package name.
-* Module is installable to source/modules/\<yourVendorName>/\<yourModuleId> directory, it may differ 
-  from the package name. Decide what will be your [module id](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html). It is recommended to use alphanumeric characters and underscores.
-* In the following examples, your information required places will be shown as placeholders: \<yourModuleId>, it means
-  you should put your module id at that place, without brackets, for example:
+* Choose module's namespace `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
+* In the following examples, your information required places will be shown as placeholders: `<yourPackageName>`, it means
+  you should put your package name at that place, without brackets, for example:
   ```
-  composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleId>
+  composer config repositories.<yourPackageName> path source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
   ```
   will possibly look like:
   ```
-  composer config repositories.my-vendor-name/my-module-name path source/modules/mvn/mvn_mymoduleid
+  composer config repositories.my-vendor-name/my-module-name path source/modules/mvn/mymodulerootdir
+  ```
+  in our case it is:
+  ```
+  composer config repositories.oxid-esales/module-template path source/modules/oe/moduletemplate
   ```
 * In the procedure, we will use our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html)
   to make your development process as smooth and easy as possible.
@@ -90,28 +94,29 @@ installation for development process:
 2. Clone your created repository to your local shop modules directory:
    ```
    cd <shopRoot>
-   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorName>/<yourModuleId>
+   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
    ```
 
 3. Next step is to personalize the original OXID traces with your own vendor, module id, namespace etc. We prepared 
    a script for this, which will prompt you for required information and exchange all main places in the cloned template:
    ```
    cd <shopRoot>
-   ./source/modules/<yourVendorName>/<yourModuleId>/bin/personalize.sh
+   ./source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>/bin/personalize.sh
    ```
 
 4. **(Optional)** In case you'd like to have a clean skeleton for your module but keeping all the quality tools,
-   test configuraton, github workflows prepared, additionally use the ``cleanexamples.sh`` script, which removes
+   test configuration, github workflows prepared, additionally use the ``cleanexamples.sh`` script, which removes
    all example solutions code.
    ```
     cd <shopRoot>
-    ./source/modules/<yourVendorName>/<yourModuleId>/bin/cleanexamples.sh
+    ./source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>/bin/cleanexamples.sh
    ```
+   **Note:** Please delete `source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>/bin` directory after the script is done.
 
 5. Register and install your newly created module in the shop
    ```
    cd <shopRoot>
-   composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleId>
+   composer config repositories.<yourPackageName> path source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
    composer require <yourPackageName>:*
    ```
 
@@ -119,14 +124,14 @@ installation for development process:
    want to extend in your OXID eShop. Initialize and activate the module:
    ```
    cd <shopRoot>
-   bin/oe-console oe:module:install source/modules/<yourVendorName>/<yourModuleId>
+   bin/oe-console oe:module:install source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
    bin/oe-console oe:module:activate <yourModuleId>
    ```
 
 7. Try it out if module works, and commit your personalized module changes to your repository:
    ```
    cd <shopRoot>
-   cd source/modules/<yourVendorName>/<yourModuleId>
+   cd source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
    git commit -am "Personalize the module"
    ```
 
@@ -136,8 +141,10 @@ and modify. So we left it there for you to take what you need and clean out all 
 Please note that the module comes with a database table, translations and some templates which still have the original
 names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
 
-Also, you will need to adjust the README, CHANGELOG, LICENSE and the github workflow file, with your credentials and 
-names - check the env section there.
+Also, you will need to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
+credentials and names - check the env section there. For running SonarCloud as part of the steps in GitHub workflow you
+will need to configure SonarCloud and to create a secret environment variable for your repository called SONAR_TOKEN.
+The token itself is provided from SonarCloud.
 
 ### Development installation
 

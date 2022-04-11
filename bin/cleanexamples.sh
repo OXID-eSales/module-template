@@ -42,8 +42,6 @@ mv ./tests/Unit/ExampleTest.php ./tests/ExampleTest.bak
 rm -rf ./tests/Unit/*
 mv ./tests/ExampleTest.bak ./tests/Unit/ExampleTest.php
 
-rm -rf ./bin
-
 perl -pi\
   -e 's#paths:.*#paths: "Application/views/flow,Application/views/admin"#g;'\
   ./tests/Codeception/acceptance.suite.yml
