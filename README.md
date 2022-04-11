@@ -154,6 +154,13 @@ Installation example for improving and develop the current module is provided he
     cd <shopRoot>
     composer config repositories.oxid-esales/module-template path source/modules/oe/moduletemplate
     composer require oxid-esales/module-template:*
+    bin/oe-console oe:module:install source/modules/oe/moduletemplate
+    ```
+
+3. Activate the module
+    ```
+    cd <shopRoot>
+    bin/oe-console oe:module:activate oe_moduletemplate
     ```
 
 ## Idea
