@@ -62,10 +62,17 @@ what you want to achieve, and follow the procedure.
 
 First, lets decide on terms:
 
-* Module is installable to `source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>` directory, example: `source/modules/oe/moduletemplate`. Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`. Please note that `<yourVendorPrefix>` should be unique. Based on this information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In our case it is `oe_moduletemplate`. It is recommended to use only alphanumeric characters, in case you need a separator you can use underscore. More information about module id can be found [here](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
+* Module is installable to `source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>` directory, 
+  example: `source/modules/oe/moduletemplate`. Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`. 
+  * Please note that combination of `<yourVendorPrefix>` and `<yourModuleRootDirectory>` should be unique. Based on this 
+    information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In 
+    our case it is `oe_moduletemplate`. 
+  * It is recommended to use only alphanumeric characters, in case you need a 
+    separator you can use underscore. More information about module id can be 
+    found [here](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
 * The package name looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
   what will be your new module package name.
-* Choose module's namespace `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
+* Decide on your module's namespace - `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
 * In the following examples, your information required places will be shown as placeholders: `<yourPackageName>`, it means
   you should put your package name at that place, without brackets, for example:
   ```
