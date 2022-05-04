@@ -6,4 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.0] - Unreleased
 
-[1.0.0]: https://github.com/OXID-eSales/module-template/commits/b-6.4.x...v1.0.0
+### Added
+- First version of our reusable examples
+
+[1.0.0]: https://github.com/OXID-eSales/module-template/compare/d1380c5a9c63f411011ab852bd25b66e83306b41...v1.0.0
