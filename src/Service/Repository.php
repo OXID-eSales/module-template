@@ -13,6 +13,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Transition\Utility\ContextInterface;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Model\User;
 use PDO;
 
 /**
@@ -43,7 +44,7 @@ class Repository
             'oxuserid' => $userId,
         ];
 
-        $queryBuilder->select('oetmgreeting')
+        $queryBuilder->select(User::OETM_USER_GREETING_FIELD)
             ->from('oxuser')
             ->where('oxid = :oxuserid');
 
