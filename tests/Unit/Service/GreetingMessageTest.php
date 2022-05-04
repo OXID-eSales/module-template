@@ -25,7 +25,7 @@ final class GreetingMessageTest extends UnitTestCase
             oxNew(CoreRequest::class)
         );
 
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting());
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting());
     }
 
     public function testPersonalGreetingNoUser(): void
@@ -35,7 +35,7 @@ final class GreetingMessageTest extends UnitTestCase
             oxNew(CoreRequest::class)
         );
 
-        $this->assertSame('', $service->getOetmGreeting());
+        $this->assertSame('', $service->getGreeting());
     }
 
     public function testModuleGenericGreetingModeEmptyUser(): void
@@ -46,7 +46,7 @@ final class GreetingMessageTest extends UnitTestCase
         );
         $user    = oxNew(EshopModelUser::class);
 
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
     }
 
     public function testModulePersonalGreetingModeEmptyUser(): void
@@ -57,7 +57,7 @@ final class GreetingMessageTest extends UnitTestCase
         );
         $user    = oxNew(EshopModelUser::class);
 
-        $this->assertSame('', $service->getOetmGreeting($user));
+        $this->assertSame('', $service->getGreeting($user));
     }
 
     public function testModuleGenericGreeting(): void
@@ -69,7 +69,7 @@ final class GreetingMessageTest extends UnitTestCase
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
 
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getOetmGreeting($user));
+        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
     }
 
     public function testModulePersonalGreeting(): void
@@ -81,7 +81,7 @@ final class GreetingMessageTest extends UnitTestCase
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
 
-        $this->assertSame('Hi sweetie!', $service->getOetmGreeting($user));
+        $this->assertSame('Hi sweetie!', $service->getGreeting($user));
     }
 
     private function getSettingsMock(string $mode = ModuleSettings::GREETING_MODE_PERSONAL): ModuleSettings

@@ -37,7 +37,7 @@ final class StartControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mock->expects($this->once())
-            ->method('getOetmGreeting')
+            ->method('getGreeting')
             ->with($this->equalTo($user));
 
         $controller = $this->getMockBuilder(EshopStartController::class)

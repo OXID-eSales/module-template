@@ -84,6 +84,6 @@ class GreetingController extends FrontendController
         }
 
         $greetingService = $this->getServiceFromContainer(GreetingMessage::class);
-        $greetingService->saveOetmGreeting($user);
+        $greetingService->saveGreeting($user);
     }
 }

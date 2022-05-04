@@ -38,7 +38,7 @@ class GreetingMessage
         $this->request  = $request;
     }
 
-    public function getOetmGreeting(?EshopModelUser $user = null): string
+    public function getGreeting(?EshopModelUser $user = null): string
     {
         $result = ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
@@ -49,7 +49,7 @@ class GreetingMessage
         return $result;
     }
 
-    public function saveOetmGreeting(EshopModelUser $user): bool
+    public function saveGreeting(EshopModelUser $user): bool
     {
         /** @var TemplateModelUser $user */
         $user->setPersonalGreeting($this->getRequestOetmGreeting());

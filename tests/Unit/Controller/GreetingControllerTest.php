@@ -153,7 +153,7 @@ final class GreetingControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $mock->expects($this->$expect())
-            ->method('saveOetmGreeting');
+            ->method('saveGreeting');
 
         return $mock;
     }
