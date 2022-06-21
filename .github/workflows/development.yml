@@ -26,7 +26,7 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
 
       - name: Prepare container configuration
         run: |
@@ -150,9 +150,9 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
 
       - name: Start containers
         run: |
@@ -197,9 +197,9 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
 
       - name: Start containers
         run: |
