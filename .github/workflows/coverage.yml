@@ -10,7 +10,7 @@ jobs:
   install_shop_with_module:
     strategy:
       matrix:
-        php: [ '8.0' ]
+        php: [ '7.4' ]
     runs-on: ubuntu-latest
     steps:
       - name: Clone testing environment v3.0.0
@@ -89,7 +89,7 @@ jobs:
   unit_tests:
     strategy:
       matrix:
-        php: [ '8.0' ]
+        php: [ '7.4' ]
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
