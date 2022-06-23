@@ -11,6 +11,7 @@ namespace OxidEsales\ModuleTemplate\Core;
 
 use Exception;
 use OxidEsales\DoctrineMigrationWrapper\MigrationsBuilder;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class defines what module does on Shop events.
@@ -46,6 +47,13 @@ final class ModuleEvents
     private static function executeModuleMigrations(): void
     {
         $migrations = (new MigrationsBuilder())->build();
-        $migrations->execute('migrations:migrate', 'oe_moduletemplate');
+
+        $output = new BufferedOutput();
+        $migrations->setOutput($output);
+        $neeedsUpdate = $migrations->execute('migrations:up-to-date', 'oe_moduletemplate');
+
+        if ($neeedsUpdate) {
+            $migrations->execute('migrations:migrate', 'oe_moduletemplate');
+        }
     }
 }
