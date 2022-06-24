@@ -342,6 +342,9 @@ update to work with your module. This was for example the strategy used for our 
 acceptance tests fail. Unless those test cases that somehow bypass reverse proxy cache invalidation. To be on the safe side, we took over those 
 few test cases to the module and plan to improve the shop tests as soon as possible. We'll gladly also take your PR with improved shop tests ;)
 
+And then there are some few shop tests marked as `@group quarantine` in the doc block. Test in that group have stability issues so they'd better
+be excluded as well.
+
 Ps: a failing shop test might also turn up issues in your module, in that case fix the module and let the test live ;) 
 
 ### Useful links
