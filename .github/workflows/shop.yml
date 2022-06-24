@@ -157,7 +157,7 @@ jobs:
             -e RUN_TESTS_FOR_MODULES=0 \
             -e SELENIUM_SERVER_IP=seleniumfirefox \
             -e ADDITIONAL_TEST_PATHS='' \
-            php php vendor/bin/runtests-selenium --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/' AllTestsSelenium
+            php php vendor/bin/runtests-selenium --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut|ShopSetUpTest)).)*$/' AllTestsSelenium
 
   codeception_tests:
     strategy:

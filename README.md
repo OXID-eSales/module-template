@@ -315,6 +315,35 @@ You can install the shop on whatever system fits your needs, but please check th
 That's what we use in OXID Development to quickly set up whatever development environment we need and
 we are constantly trying to improve them.
 
+### Github Actions Workflow
+
+The template module comes complete with a github actions workflow. No need to rig up some separate continuous integration
+infrastructure to run tests, it's all there in [github](https://github.com/OXID-eSales/module-template/actions).
+You will see three files in `.github/workflow` directory. The workflow from
+`.github/workflow/development.yml` starts on every `push` and `pull_request` to run the code quality checks and all the module tests.
+For generating code coverage reports there's `.github/workflow/coverage.yml` which can be triggered manually. You will probably ask 
+for code coverage when some task is to be completed but not on every tiny work in progress commit.
+And then we have the possibility to run all the shop tests with an active module on demand. Here's why:
+
+In our experience it is useful to run the shop tests with the module installed and activated from time to time.
+For sure those shop tests have been written with only the shop itself in mind. Your module, depending on what it is doing, 
+might completely change the shop behaviour. Which means those shop tests with a module might just explode in your face. 
+Which is totally fine, as long as you can always explain WHY those tests are failing.
+
+Real life example:  There is one shop acceptance test case `OxidEsales\EshopCommunity\Tests\Acceptance\Frontend\ShopSetUpTest:`
+which is testing the frontend shop setup. Very good chance this test will fail if a module is around which extends 
+the class chain. That test is for setting up a shop from scratch so it will simply not expect a module to be around.
+And we only need our module to safely work with a working shop. We definitely will decide to skip that `ShopSetUpTest`
+as we have a good explanation as to why it will not work. And having this special test case work with our module will give no benefit.
+
+This is only one example, there might be other tests that fail with your module but fail because your module is changing the shop.
+In that case the suggestion would be to exclude the original test from the github actions run, copy that test case to your module tests and
+update to work with your module. This was for example the strategy used for our reverse proxy modules which are mandatory to not make the shop's 
+acceptance tests fail. Unless those test cases that somehow bypass reverse proxy cache invalidation. To be on the safe side, we took over those 
+few test cases to the module and plan to improve the shop tests as soon as possible. We'll gladly also take your PR with improved shop tests ;)
+
+Ps: a failing shop test might also turn up issues in your module, in that case fix the module and let the test live ;) 
+
 ### Useful links
 
 * Vendor home page - https://www.oxid-esales.com
