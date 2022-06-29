@@ -86,6 +86,17 @@ jobs:
           docker-compose down
           sleep 2
 
+      - name: Upload configuration artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Configs-${{ matrix.php }}
+          path: |
+            docker-compose.yml
+            source/composer.json
+            source/composer.lock
+            source/config.inc.php
+
   unit_tests:
     strategy:
       matrix:
