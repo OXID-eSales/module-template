@@ -26,7 +26,7 @@ jobs:
         with:
           path: |
             ./*
-          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: development-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Prepare container configuration
         run: |
@@ -161,9 +161,9 @@ jobs:
         with:
           path: |
             ./*
-          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: development-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+            development-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
@@ -208,9 +208,9 @@ jobs:
         with:
           path: |
             ./*
-          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: development-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+            development-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |

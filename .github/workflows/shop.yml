@@ -24,7 +24,7 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Prepare container configuration
         run: |
@@ -111,9 +111,9 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
@@ -150,9 +150,9 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
@@ -182,9 +182,9 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            shop-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |

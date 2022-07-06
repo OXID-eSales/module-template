@@ -24,7 +24,7 @@ jobs:
         with:
           path: |
             ./*
-          key: moduleCoverageInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: coverage-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Prepare container configuration
         run: |
@@ -109,9 +109,9 @@ jobs:
         with:
           path: |
             ./*
-          key: moduleCoverageInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: coverage-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            moduleCoverageInstallation-${{ matrix.php }}-${{ github.sha }}
+            coverage-${{ matrix.php }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
