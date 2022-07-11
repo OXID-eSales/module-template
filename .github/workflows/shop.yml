@@ -89,6 +89,7 @@ jobs:
           docker-compose logs
 
       - name: Stop containers
+        if: always()
         run: |
           docker-compose down
           sleep 2
@@ -136,6 +137,12 @@ jobs:
             -e ADDITIONAL_TEST_PATHS='' \
             php php vendor/bin/runtests  --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/' AllTestsUnit
 
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
+
       - name: Upload log artifact
         if: always()
         uses: actions/upload-artifact@v2
@@ -176,6 +183,12 @@ jobs:
             -e ADDITIONAL_TEST_PATHS='' \
             php php vendor/bin/runtests-selenium --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut|ShopSetUpTest|testCreateNews|testEditingOrdersProducts)).)*$/' AllTestsSelenium
 
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
+
   codeception_tests:
     strategy:
       matrix:
@@ -208,3 +221,9 @@ jobs:
             -e BROWSER_NAME=chrome \
             -e ADDITIONAL_TEST_PATHS='' \
             php php vendor/bin/runtests-codeception
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2

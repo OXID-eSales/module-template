@@ -87,6 +87,7 @@ jobs:
           docker-compose logs
 
       - name: Stop containers
+        if: always()
         run: |
           docker-compose down
           sleep 2
@@ -139,6 +140,12 @@ jobs:
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
               AllTestsUnit
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
 
       - name: Upload log artifact
         if: always()

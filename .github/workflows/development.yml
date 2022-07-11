@@ -89,6 +89,7 @@ jobs:
           docker-compose logs
 
       - name: Stop containers
+        if: always()
         run: |
           docker-compose down
           sleep 2
@@ -146,6 +147,12 @@ jobs:
         working-directory: source/test-module
         run: composer phpmd-report || composer phpmd
 
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
+
       - name: Upload log artifact
         if: always()
         uses: actions/upload-artifact@v2
@@ -190,6 +197,12 @@ jobs:
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
               AllTestsUnit
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
 
       - name: Upload log artifact
         if: always()
@@ -238,6 +251,12 @@ jobs:
             -e RUN_TESTS_FOR_MODULES=0 \
             -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
             php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker-compose down
+          sleep 2
 
   sonarcloud:
     needs: [ styles, unit_tests ]
