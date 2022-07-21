@@ -40,7 +40,7 @@ jobs:
           perl -pi\
             -e 's#display_errors =.*#display_errors = false#g;'\
             -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
-            containers/php-fpm/custom.ini
+            containers/php/custom.ini
 
           perl -pi\
             -e 's#/var/www/#/var/www/source/#g;'\
