@@ -11,6 +11,8 @@ modules:
         port: '%SELENIUM_SERVER_PORT%'
         window_size: 1920x1280
         clear_cookies: true
+        capabilities:
+          acceptInsecureCerts: true
         cookies:
           cookie-1:
             Name: XDEBUG_SESSION_START
