@@ -12,14 +12,14 @@ jobs:
   install_shop_with_module:
     strategy:
       matrix:
-        php: [ '7.4', '8.0', '8.1' ]
+        php: [ '8.0', '8.1' ]
     runs-on: ubuntu-latest
     steps:
-      - name: Clone testing environment v3.0.0
-        run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git . && git reset --hard v3.0.0
+      - name: Clone testing environment master
+        run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git .
 
       - name: Clone the shop
-        run: git clone --depth 1 https://github.com/OXID-eSales/oxideshop_ce.git --branch b-6.5.x --single-branch source
+        run: git clone --depth 1 https://github.com/OXID-eSales/oxideshop_ce.git --branch b-7.0.x --single-branch source
 
       - name: Cache current installation
         uses: actions/cache@v2
@@ -141,7 +141,7 @@ jobs:
   unit_tests:
     strategy:
       matrix:
-        php: [ '7.4', '8.0', '8.1' ]
+        php: [ '8.0', '8.1' ]
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
@@ -186,7 +186,7 @@ jobs:
   codeception_tests:
     strategy:
       matrix:
-        php: [ '7.4', '8.0', '8.1' ]
+        php: [ '8.0', '8.1' ]
         group:
           - 'oe_moduletemplate'
     needs: [ install_shop_with_module ]
@@ -234,7 +234,7 @@ jobs:
         continue-on-error: true
         uses: actions/download-artifact@v2
         with:
-          name: TestsLog-7.4
+          name: TestsLog-8.0
           path: ./tests/
 
       - name: Fix paths in unit logs
