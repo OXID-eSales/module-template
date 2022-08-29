@@ -53,5 +53,43 @@ $aModule = [
             'constraints' => 'generic|personal',
             'value'       => 'generic'
         ],
+        [
+            'group' => 'oemoduletemplate_main',
+            'name'  => 'oemoduletemplate_BrandName',
+            'type'  => 'str',
+            'value' => 'Testshop'
+        ],
+        [
+            'group' => 'oemoduletemplate_main',
+            'name' => 'oemoduletemplate_LoggerEnabled',
+            'type' => 'bool',
+            'value' => false
+        ],
+        [
+            'group' => 'oemoduletemplate_main',
+            'name' => 'oemoduletemplate_Timeout',
+            'type' => 'num',
+            'value' => 30
+            //'value' => 30.5
+        ],
+        [
+            'group' => 'oemoduletemplate_main',
+            'name' => 'oemoduletemplate_AlwaysOpenCats',
+            'type' => 'arr',
+            'value' => ['Price', 'Manufacturer']
+        ],
+        [
+            'group' => 'oemoduletemplate_main',
+            'name' => 'oemoduletemplate_Channels',
+            'type' => 'aarr',
+            'value' => ['1' => 'de', '2' => 'en']
+        ],
+        [
+            'group'       => 'oemoduletemplate_main',
+            'name' => 'oemoduletemplate_Password',
+            'type' => 'password',
+            'value' => 'changeMe',
+            'position' => 3
+        ]
     ],
 ];
