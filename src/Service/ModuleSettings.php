@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Service;
 
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Configuration\Bridge\ModuleSettingBridgeInterface;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 use OxidEsales\ModuleTemplate\Core\Module;
 
 /**
@@ -28,13 +28,12 @@ class ModuleSettings
         self::GREETING_MODE_PERSONAL,
     ];
 
-    /** @var ModuleSettingBridgeInterface */
-    private $moduleSettingBridge;
+    private ModuleSettingServiceInterface $moduleSettingService;
 
     public function __construct(
-        ModuleSettingBridgeInterface $moduleSettingBridge
+        ModuleSettingServiceInterface $moduleSettingService
     ) {
-        $this->moduleSettingBridge = $moduleSettingBridge;
+        $this->moduleSettingService = $moduleSettingService;
     }
 
     public function isPersonalGreetingMode(): bool
@@ -44,21 +43,13 @@ class ModuleSettings
 
     public function getGreetingMode(): string
     {
-        $value = (string) $this->getSettingValue(self::GREETING_MODE);
+        $value = (string) $this->moduleSettingService->getString(self::GREETING_MODE, Module::MODULE_ID);
 
         return (!empty($value) && in_array($value, self::GREETING_MODE_VALUES)) ? $value : self::GREETING_MODE_GENERIC;
     }
 
     public function saveGreetingMode(string $value): void
     {
-        $this->moduleSettingBridge->save(self::GREETING_MODE, $value, Module::MODULE_ID);
-    }
-
-    /**
-     * @return mixed
-     */
-    private function getSettingValue(string $key)
-    {
-        return $this->moduleSettingBridge->get($key, Module::MODULE_ID);
+        $this->moduleSettingService->saveString(self::GREETING_MODE, $value, Module::MODULE_ID);
     }
 }
