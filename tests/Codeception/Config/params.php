@@ -7,9 +7,10 @@
 
 declare(strict_types=1);
 
-use OxidEsales\Eshop\Core\ConfigFile;
+use OxidEsales\Facts\Config\ConfigFile;
 use OxidEsales\Facts\Facts;
-use OxidEsales\TestingLibrary\Services\Library\DatabaseDefaultsFileGenerator;
+use OxidEsales\Codeception\Module\Database\DatabaseDefaultsFileGenerator;
+use Webmozart\PathUtil\Path;
 
 $facts                = new Facts();
 $selenium_server_port = getenv('SELENIUM_SERVER_PORT');
@@ -73,9 +74,9 @@ function getShopTestPath()
 
 function getMysqlConfigPath()
 {
-    $facts      = new Facts();
-    $configFile = new ConfigFile($facts->getSourcePath() . '/config.inc.php');
-
+    $facts = new Facts();
+    $configFilePath = Path::join($facts->getSourcePath(), 'config.inc.php');
+    $configFile = new ConfigFile($configFilePath);
     $generator = new DatabaseDefaultsFileGenerator($configFile);
 
     return $generator->generate();
