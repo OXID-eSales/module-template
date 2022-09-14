@@ -13,4 +13,10 @@ $aLang = [
     'SHOP_MODULE_oemoduletemplate_GreetingMode' => 'Begrüßungsmodus',
     'SHOP_MODULE_oemoduletemplate_GreetingMode_generic' => 'höflich',
     'SHOP_MODULE_oemoduletemplate_GreetingMode_personal' => 'unhöflich',
+    'SHOP_MODULE_oemoduletemplate_BrandName' => 'Markenname',
+    'SHOP_MODULE_oemoduletemplate_LoggerEnabled' => 'Logger einschalten',
+    'SHOP_MODULE_oemoduletemplate_Timeout' => 'Zeitüberschreitung festlegen',
+    'SHOP_MODULE_oemoduletemplate_Categories' => 'Kategorien hinzufügen',
+    'SHOP_MODULE_oemoduletemplate_Channels' => 'Kanäle hinzufügen',
+    'SHOP_MODULE_oemoduletemplate_Password' => 'Kennwort',
 ];
