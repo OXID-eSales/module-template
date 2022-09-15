@@ -30,7 +30,7 @@ $aModule = [
         'oetmgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
     ],
     'templates'   => [
-        'greetingtemplate.tpl' => 'oe/moduletemplate/views/templates/greetingtemplate.tpl',
+        'greetingtemplate.tpl' => 'views/templates/greetingtemplate.tpl',
     ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',

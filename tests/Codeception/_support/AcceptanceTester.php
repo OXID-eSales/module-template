@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Codeception;
 
+use Codeception\Util\Fixtures;
 use OxidEsales\Codeception\Page\Home;
 use OxidEsales\Facts\Facts;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
@@ -68,14 +69,12 @@ final class AcceptanceTester extends \Codeception\Actor
 
     public function getDemoUserName(): string
     {
-        return 'user@oxid-esales.com';
+        return Fixtures::get('user')['email'];
     }
 
     public function getDemoUserPassword(): string
     {
-        $facts = new Facts();
-
-        return $facts->isEnterprise() ? 'useruser' : 'user';
+        return Fixtures::get('user')['password'];
     }
 
     public function setModuleActive(bool $active = true): void
