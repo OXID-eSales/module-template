@@ -10,18 +10,10 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Model;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class UserModelTest extends UnitTestCase
 {
-    public function tearDown(): void
-    {
-        //this method removes all rows where column 'oxid' start with an underscore
-        $this->cleanUpTable('oxuser', 'oxid');
-
-        parent::tearDown();
-    }
-
     public function testGetPersonalGreetingNotSet(): void
     {
         $user = oxNew(EshopModelUser::class);

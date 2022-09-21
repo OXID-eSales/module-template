@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class ModuleSettingsTest extends UnitTestCase
 {

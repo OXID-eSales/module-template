@@ -1,6 +1,8 @@
-<phpunit backupGlobals="true"
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         backupGlobals="true"
          backupStaticAttributes="false"
-         cacheTokens="true"
+         bootstrap="../../../../bootstrap.php"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
@@ -11,16 +13,19 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          beStrictAboutTestsThatDoNotTestAnything="false"
-         verbose="false">
-    <testsuites>
-        <testsuite name="UnitTests">
-            <directory>Unit/</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true"
-                   processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src</directory>
-        </whitelist>
-    </filter>
+         verbose="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">../src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="IntegrationTests">
+      <directory>Integration/</directory>
+    </testsuite>
+    <testsuite name="UnitTests">
+      <directory>Unit/</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>

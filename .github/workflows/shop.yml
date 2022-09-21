@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   PACKAGE_NAME: 'oxid-esales/module-template'
-  MODULE_PATH: 'oe/moduletemplate'
+  MODULE_IDS: 'oe_moduletemplate'
 
 jobs:
   install_shop_with_module:
@@ -81,7 +81,9 @@ jobs:
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
-          docker-compose exec -T php php vendor/bin/reset-shop
+          docker-compose exec -T \
+            php bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 \
+            --db-name=example --db-user=root --db-password=root --force
 
       - name: Stop containers
         run: |
@@ -112,12 +114,15 @@ jobs:
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=1 \
-            -e RUN_TESTS_FOR_MODULES=0 \
-            -e ADDITIONAL_TEST_PATHS='' \
-            php php vendor/bin/runtests  --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/' AllTestsUnit
+            -e XDEBUG_MODE=coverage \
+            php php vendor/bin/phpunit \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+              --bootstrap=/var/www/source/bootstrap.php \
+              --coverage-html=Coverage \
+              --coverage-clover=/var/www/coverage.xml \
+              --coverage-text \
+              --log-junit=/var/www/phpunit.xml \
+              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
 
       - name: Upload log artifact
         if: always()
@@ -126,38 +131,6 @@ jobs:
           name: TestsLog-${{ matrix.php }}
           path: |
             source/phpunit.xml
-
-  acceptance_tests:
-    strategy:
-      matrix:
-        php: [ '8.0' ]
-    needs: [ install_shop_with_module ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Load current installation from cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
-
-      - name: Start containers
-        run: |
-          make up
-          sleep 2
-
-      - name: Run tests
-        run: |
-          docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=1 \
-            -e RUN_TESTS_FOR_MODULES=0 \
-            -e SELENIUM_SERVER_IP=seleniumfirefox \
-            -e ADDITIONAL_TEST_PATHS='' \
-            php php vendor/bin/runtests-selenium --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut|ShopSetUpTest|testCreateNews|testEditingOrdersProducts)).)*$/' AllTestsSelenium
 
   codeception_tests:
     strategy:
@@ -180,14 +153,16 @@ jobs:
           make up
           sleep 2
 
+      - name: Install codeception dependencies
+        run: |
+          docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
+          docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
+          docker-compose exec -T php composer update
+
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=1 \
-            -e RUN_TESTS_FOR_MODULES=0 \
             -e SELENIUM_SERVER_HOST=selenium \
-            -e BROWSER_NAME=chrome \
-            -e ADDITIONAL_TEST_PATHS='' \
-            php php vendor/bin/runtests-codeception
+            -e MODULE_IDS=${{ env.MODULE_IDS }} \
+            php php vendor/bin/codecept run acceptance \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}

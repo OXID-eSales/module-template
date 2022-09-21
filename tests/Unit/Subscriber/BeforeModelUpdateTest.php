@@ -14,7 +14,7 @@ use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEv
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Tracker;
 use OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class BeforeModelUpdateTest extends UnitTestCase
 {

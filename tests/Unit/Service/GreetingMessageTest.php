@@ -14,7 +14,7 @@ use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class GreetingMessageTest extends UnitTestCase
 {

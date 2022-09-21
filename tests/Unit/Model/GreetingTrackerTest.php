@@ -10,27 +10,11 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Model;
 
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class GreetingTrackerTest extends UnitTestCase
 {
     public const TEST_ID = '_testoxid';
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        //Add you own setup logic AFTER the parent one
-    }
-
-    public function tearDown(): void
-    {
-        //this method removes all rows where column 'oxid' start with an underscore
-        $this->cleanUpTable('oetm_tracker', 'oxid');
-
-        //Add you own tear down logic BEFORE the parent one
-        parent::tearDown();
-    }
 
     public function testGetCount(): void
     {

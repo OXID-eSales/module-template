@@ -10,17 +10,17 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 /*
  * Integration test example
  */
-final class ExampleTest extends UnitTestCase
+final class ExampleTest extends TestCase
 {
     public function testRender(): void
     {
         $controller = oxNew(EshopStartController::class);
 
-        $this->assertSame('page/shop/start.tpl', $controller->render());
+        $this->assertSame('page/shop/start', $controller->render());
     }
 }

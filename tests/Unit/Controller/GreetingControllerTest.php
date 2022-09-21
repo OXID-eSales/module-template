@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Service\Repository;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 /*
  * Here we have tests for a new controller extending the shop's FrontendController class.

@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
@@ -17,13 +19,13 @@ use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 /*
  * We want to test controller behavior going 'full way'.
  * No mocks, we go straight to the database (full integration)).
  */
-final class GreetingControllerTest extends UnitTestCase
+final class GreetingControllerTest extends TestCase
 {
     use ServiceContainer;
 
@@ -33,10 +35,16 @@ final class GreetingControllerTest extends UnitTestCase
 
     public const TEST_GREETING_UPDATED = 'shopping addict';
 
+    public function setUp(): void
+    {
+        $this->cleanUpData();
+
+        parent::setUp();
+    }
+
     public function tearDown(): void
     {
-        $this->cleanUpTable('oetm_tracker', 'oxuserid');
-        $this->cleanUpTable('oxuser', 'oxid');
+        Registry::getSession()->setUser(null);
 
         parent::tearDown();
     }
@@ -48,7 +56,7 @@ final class GreetingControllerTest extends UnitTestCase
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
-        $this->setRequestParameter(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME, $expected);
+        $_POST[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = $expected;
 
         $controller = oxNew(GreetingController::class);
 
@@ -177,6 +185,8 @@ final class GreetingControllerTest extends UnitTestCase
             [
                 'oxid'         => self::TEST_USER_ID,
                 'oetmgreeting' => self::TEST_GREETING,
+                'oxpassword'   => '',
+                'oxpasssalt'   => '',
             ]
         );
         $user->save();
@@ -184,7 +194,7 @@ final class GreetingControllerTest extends UnitTestCase
         return $user;
     }
 
-    private function createTestTracker(): void
+    private function createTestTracker(): GreetingTracker
     {
         $tracker = oxNew(GreetingTracker::class);
         $tracker->assign(
@@ -195,5 +205,17 @@ final class GreetingControllerTest extends UnitTestCase
             ]
         );
         $tracker->save();
+
+        return $tracker;
+    }
+
+    private function cleanUpData()
+    {
+        $user = oxNew(EshopModelUser::class);
+        $user->delete(self::TEST_USER_ID);
+
+        $tracker = $this->getServiceFromContainer(Repository::class)
+            ->getTrackerByUserId(self::TEST_USER_ID);
+        $tracker->delete($tracker->getId());
     }
 }

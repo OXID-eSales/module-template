@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Unit;
 
 use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
-use OxidEsales\TestingLibrary\UnitTestCase;
 
 /*
  * Unit

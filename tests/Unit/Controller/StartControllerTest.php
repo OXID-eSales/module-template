@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Application\Controller\StartController as EshopStartControl
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 /*
  * Here we have tests for a what we call 'chain extended' shop class.

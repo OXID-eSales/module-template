@@ -4,7 +4,7 @@ on: [ push, pull_request, workflow_dispatch ]
 
 env:
   PACKAGE_NAME: 'oxid-esales/module-template'
-  MODULE_PATH: 'oe/moduletemplate'
+  MODULE_IDS: 'oe_moduletemplate'
   SONARCLOUD_ORGANIZATION: 'oxid-esales'
   SONARCLOUD_PROJECT_KEY: 'OXID-eSales_module-template'
 
@@ -12,10 +12,10 @@ jobs:
   install_shop_with_module:
     strategy:
       matrix:
-        php: [ '8.0', '8.1' ]
+        php: [ '8.0' ]
     runs-on: ubuntu-latest
     steps:
-      - name: Clone testing environment master
+      - name: Clone testing environment
         run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git .
 
       - name: Clone the shop
@@ -40,7 +40,7 @@ jobs:
           perl -pi\
             -e 's#display_errors =.*#display_errors = false#g;'\
             -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
-            containers/php-fpm/custom.ini
+            containers/php/custom.ini
 
           perl -pi\
             -e 's#/var/www/#/var/www/source/#g;'\
@@ -81,67 +81,69 @@ jobs:
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
-          docker-compose exec -T php php vendor/bin/reset-shop
+          docker-compose exec -T \
+            php bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 \
+            --db-name=example --db-user=root --db-password=root --force
 
       - name: Stop containers
         run: |
           docker-compose down
           sleep 2
-
-  styles:
-    strategy:
-      matrix:
-        php: [ '8.0' ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout current module
-        uses: actions/checkout@v2
-        with:
-          path: source/test-module
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          coverage: xdebug
-          extensions: gd, zip
-
-      - name: Install module dependencies
-        id: dependencies
-        working-directory: source/test-module
-        run: composer install
-
-      - name: Run phpcs
-        id: phpcs
-        if: always()
-        working-directory: source/test-module
-        run: composer phpcs
-
-      - name: Run phpstan
-        id: phpstan
-        if: always()
-        working-directory: source/test-module
-        run: composer phpstan-report || composer phpstan
-
-      - name: Run phpmd
-        id: phpmd
-        if: always()
-        working-directory: source/test-module
-        run: composer phpmd-report || composer phpmd
-
-      - name: Upload log artifact
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: StylesLog-${{ matrix.php }}
-          path: |
-            source/test-module/phpstan.report.json
-            source/test-module/phpmd.report.json
+#
+#  styles:
+#    strategy:
+#      matrix:
+#        php: [ '8.0' ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout current module
+#        uses: actions/checkout@v2
+#        with:
+#          path: source/test-module
+#
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php }}
+#          coverage: xdebug
+#          extensions: gd, zip
+#
+#      - name: Install module dependencies
+#        id: dependencies
+#        working-directory: source/test-module
+#        run: composer install
+#
+#      - name: Run phpcs
+#        id: phpcs
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpcs
+#
+#      - name: Run phpstan
+#        id: phpstan
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpstan-report || composer phpstan
+#
+#      - name: Run phpmd
+#        id: phpmd
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpmd-report || composer phpmd
+#
+#      - name: Upload log artifact
+#        if: always()
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: StylesLog-${{ matrix.php }}
+#          path: |
+#            source/test-module/phpstan.report.json
+#            source/test-module/phpmd.report.json
 
   unit_tests:
     strategy:
       matrix:
-        php: [ '8.0', '8.1' ]
+        php: [ '8.0' ]
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
@@ -159,20 +161,22 @@ jobs:
           make up
           sleep 2
 
+      - name: Activate module
+        run: |
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=0 \
-            -e RUN_TESTS_FOR_MODULES=0 \
             -e XDEBUG_MODE=coverage \
-            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
-            php php vendor/bin/runtests \
+            php php vendor/bin/phpunit \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+              --bootstrap=/var/www/source/bootstrap.php \
+              --coverage-html=Coverage \
               --coverage-clover=/var/www/coverage.xml \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
-              AllTestsUnit
+              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
 
       - name: Upload log artifact
         if: always()
@@ -186,7 +190,7 @@ jobs:
   codeception_tests:
     strategy:
       matrix:
-        php: [ '8.0', '8.1' ]
+        php: [ '8.0' ]
         group:
           - 'oe_moduletemplate'
     needs: [ install_shop_with_module ]
@@ -208,65 +212,67 @@ jobs:
 
       - name: Install codeception dependencies
         run: |
-          docker-compose exec -T php composer require codeception/module-rest:^1.4.2 --dev --no-update
-          docker-compose exec -T php composer require codeception/module-phpbrowser:^1.0.2 --dev --no-update
+          docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
+          docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
           docker-compose exec -T php composer update
+
+      - name: Activate module
+        run: |
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=0 \
-            -e RUN_TESTS_FOR_MODULES=0 \
-            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
-            php php vendor/bin/runtests-codeception --group=${{ matrix.group }}
+            -e SELENIUM_SERVER_HOST=selenium \
+            -e MODULE_IDS=${{ env.MODULE_IDS }} \
+            php php vendor/bin/codecept run acceptance \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}
 
-  sonarcloud:
-    needs: [ styles, unit_tests ]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout current module
-        uses: actions/checkout@v2
-
-      - name: Download phpunit artifacts
-        continue-on-error: true
-        uses: actions/download-artifact@v2
-        with:
-          name: TestsLog-8.0
-          path: ./tests/
-
-      - name: Fix paths in unit logs
-        continue-on-error: true
-        run: |
-          sed -i 's+/var/www/test-module/++' tests/coverage.xml
-          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
-
-      - name: Download styles artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: StylesLog-8.0
-          path: ./styles/
-
-      - name: Fix paths in styles logs
-        continue-on-error: true
-        run: |
-          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
-            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
-            -Dsonar.sources=src
-            -Dsonar.tests=tests
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
-            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
-            -Dsonar.cpd.php.minimumTokens=25
-            -Dsonar.cpd.php.minimumLines=5
+#  sonarcloud:
+#    needs: [ styles, unit_tests ]
+#    if: always()
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout current module
+#        uses: actions/checkout@v2
+#
+#      - name: Download phpunit artifacts
+#        continue-on-error: true
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: TestsLog-8.0
+#          path: ./tests/
+#
+#      - name: Fix paths in unit logs
+#        continue-on-error: true
+#        run: |
+#          sed -i 's+/var/www/test-module/++' tests/coverage.xml
+#          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+#
+#      - name: Download styles artifacts
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: StylesLog-8.0
+#          path: ./styles/
+#
+#      - name: Fix paths in styles logs
+#        continue-on-error: true
+#        run: |
+#          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
+#
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args: >
+#            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
+#            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
+#            -Dsonar.sources=src
+#            -Dsonar.tests=tests
+#            -Dsonar.sourceEncoding=UTF-8
+#            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
+#            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
+#            -Dsonar.cpd.php.minimumTokens=25
+#            -Dsonar.cpd.php.minimumLines=5

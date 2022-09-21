@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\TestingLibrary\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
 final class RepositoryTest extends UnitTestCase
 {
@@ -24,15 +24,6 @@ final class RepositoryTest extends UnitTestCase
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'Hi there';
-
-    public function tearDown(): void
-    {
-        //this method removes all rows where column 'oxid' start with an underscore
-        $this->cleanUpTable('oetm_tracker', 'oxid');
-        $this->cleanUpTable('oxuser', 'oxid');
-
-        parent::tearDown();
-    }
 
     public function testGetExistingTrackerByUserId(): void
     {
