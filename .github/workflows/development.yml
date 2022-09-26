@@ -12,7 +12,7 @@ jobs:
   install_shop_with_module:
     strategy:
       matrix:
-        php: [ '8.0' ]
+        php: [ '8.0', '8.1' ]
     runs-on: ubuntu-latest
     steps:
       - name: Clone testing environment
@@ -39,6 +39,7 @@ jobs:
 
           perl -pi\
             -e 's#display_errors =.*#display_errors = false#g;'\
+            -e 's#error_reporting = .*#error_reporting = E_ALL ^ E_WARNING ^ E_DEPRECATED#g;'\
             -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
             containers/php/custom.ini
 
@@ -89,61 +90,61 @@ jobs:
         run: |
           docker-compose down
           sleep 2
-#
-#  styles:
-#    strategy:
-#      matrix:
-#        php: [ '8.0' ]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout current module
-#        uses: actions/checkout@v2
-#        with:
-#          path: source/test-module
-#
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: ${{ matrix.php }}
-#          coverage: xdebug
-#          extensions: gd, zip
-#
-#      - name: Install module dependencies
-#        id: dependencies
-#        working-directory: source/test-module
-#        run: composer install
-#
-#      - name: Run phpcs
-#        id: phpcs
-#        if: always()
-#        working-directory: source/test-module
-#        run: composer phpcs
-#
-#      - name: Run phpstan
-#        id: phpstan
-#        if: always()
-#        working-directory: source/test-module
-#        run: composer phpstan-report || composer phpstan
-#
-#      - name: Run phpmd
-#        id: phpmd
-#        if: always()
-#        working-directory: source/test-module
-#        run: composer phpmd-report || composer phpmd
-#
-#      - name: Upload log artifact
-#        if: always()
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: StylesLog-${{ matrix.php }}
-#          path: |
-#            source/test-module/phpstan.report.json
-#            source/test-module/phpmd.report.json
+
+  styles:
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current module
+        uses: actions/checkout@v2
+        with:
+          path: source/test-module
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          extensions: gd, zip
+
+      - name: Install module dependencies
+        id: dependencies
+        working-directory: source/test-module
+        run: composer install
+
+      - name: Run phpcs
+        id: phpcs
+        if: always()
+        working-directory: source/test-module
+        run: composer phpcs
+
+      - name: Run phpstan
+        id: phpstan
+        if: always()
+        working-directory: source/test-module
+        run: composer phpstan-report || composer phpstan
+
+      - name: Run phpmd
+        id: phpmd
+        if: always()
+        working-directory: source/test-module
+        run: composer phpmd-report || composer phpmd
+
+      - name: Upload log artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: StylesLog-${{ matrix.php }}
+          path: |
+            source/test-module/phpstan.report.json
+            source/test-module/phpmd.report.json
 
   unit_tests:
     strategy:
       matrix:
-        php: [ '8.0' ]
+        php: [ '8.0', '8.1' ]
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
@@ -190,7 +191,7 @@ jobs:
   codeception_tests:
     strategy:
       matrix:
-        php: [ '8.0' ]
+        php: [ '8.0', '8.1' ]
         group:
           - 'oe_moduletemplate'
     needs: [ install_shop_with_module ]
@@ -228,51 +229,51 @@ jobs:
             php php vendor/bin/codecept run acceptance \
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}
 
-#  sonarcloud:
-#    needs: [ styles, unit_tests ]
-#    if: always()
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout current module
-#        uses: actions/checkout@v2
-#
-#      - name: Download phpunit artifacts
-#        continue-on-error: true
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: TestsLog-8.0
-#          path: ./tests/
-#
-#      - name: Fix paths in unit logs
-#        continue-on-error: true
-#        run: |
-#          sed -i 's+/var/www/test-module/++' tests/coverage.xml
-#          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
-#
-#      - name: Download styles artifacts
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: StylesLog-8.0
-#          path: ./styles/
-#
-#      - name: Fix paths in styles logs
-#        continue-on-error: true
-#        run: |
-#          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
-#
-#      - name: SonarCloud Scan
-#        uses: sonarsource/sonarcloud-github-action@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        with:
-#          args: >
-#            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
-#            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
-#            -Dsonar.sources=src
-#            -Dsonar.tests=tests
-#            -Dsonar.sourceEncoding=UTF-8
-#            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
-#            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
-#            -Dsonar.cpd.php.minimumTokens=25
-#            -Dsonar.cpd.php.minimumLines=5
+  sonarcloud:
+    needs: [ styles, unit_tests ]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current module
+        uses: actions/checkout@v2
+
+      - name: Download phpunit artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v2
+        with:
+          name: TestsLog-8.0
+          path: ./tests/
+
+      - name: Fix paths in unit logs
+        continue-on-error: true
+        run: |
+          sed -i 's+/var/www/test-module/++' tests/coverage.xml
+          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+
+      - name: Download styles artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: StylesLog-8.0
+          path: ./styles/
+
+      - name: Fix paths in styles logs
+        continue-on-error: true
+        run: |
+          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
+            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
+            -Dsonar.sources=src
+            -Dsonar.tests=tests
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
+            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
+            -Dsonar.cpd.php.minimumTokens=25
+            -Dsonar.cpd.php.minimumLines=5

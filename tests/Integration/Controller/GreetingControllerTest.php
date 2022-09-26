@@ -185,8 +185,6 @@ final class GreetingControllerTest extends TestCase
             [
                 'oxid'         => self::TEST_USER_ID,
                 'oetmgreeting' => self::TEST_GREETING,
-                'oxpassword'   => '',
-                'oxpasssalt'   => '',
             ]
         );
         $user->save();
