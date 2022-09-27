@@ -39,8 +39,9 @@ jobs:
 
           perl -pi\
             -e 's#display_errors =.*#display_errors = false#g;'\
+            -e 's#error_reporting = .*#error_reporting = E_ALL ^ E_WARNING ^ E_DEPRECATED#g;'\
             -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
-            containers/php-fpm/custom.ini
+            containers/php/custom.ini
 
           perl -pi\
             -e 's#/var/www/#/var/www/source/#g;'\
@@ -111,6 +112,10 @@ jobs:
           make up
           sleep 2
 
+      - name: Activate module
+        run: |
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+
       - name: Run tests
         run: |
           docker-compose exec -T \
@@ -158,6 +163,10 @@ jobs:
           docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
           docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
           docker-compose exec -T php composer update
+
+      - name: Activate module
+        run: |
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Run tests
         run: |

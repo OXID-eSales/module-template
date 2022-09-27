@@ -11,7 +11,6 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
@@ -192,7 +191,7 @@ final class GreetingControllerTest extends TestCase
         return $user;
     }
 
-    private function createTestTracker(): GreetingTracker
+    private function createTestTracker(): void
     {
         $tracker = oxNew(GreetingTracker::class);
         $tracker->assign(
@@ -203,8 +202,6 @@ final class GreetingControllerTest extends TestCase
             ]
         );
         $tracker->save();
-
-        return $tracker;
     }
 
     private function cleanUpData()

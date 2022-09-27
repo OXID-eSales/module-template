@@ -37,8 +37,9 @@ jobs:
 
           perl -pi\
             -e 's#display_errors =.*#display_errors = false#g;'\
+            -e 's#error_reporting = .*#error_reporting = E_ALL ^ E_WARNING ^ E_DEPRECATED#g;'\
             -e 'print "xdebug.max_nesting_level=1000\nxdebug.mode=coverage\n\n"'\
-            containers/php-fpm/custom.ini
+            containers/php/custom.ini
 
           perl -pi\
             -e 's#/var/www/#/var/www/source/#g;'\
@@ -79,7 +80,9 @@ jobs:
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
-          docker-compose exec -T php php vendor/bin/reset-shop
+          docker-compose exec -T \
+            php bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 \
+            --db-name=example --db-user=root --db-password=root --force
 
       - name: Stop containers
         run: |
@@ -107,21 +110,22 @@ jobs:
           make up
           sleep 2
 
+      - name: Activate module
+        run: |
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e PARTIAL_MODULE_PATHS=${{ env.MODULE_PATH }} \
-            -e ACTIVATE_ALL_MODULES=1 \
-            -e RUN_TESTS_FOR_SHOP=0 \
-            -e RUN_TESTS_FOR_MODULES=0 \
             -e XDEBUG_MODE=coverage \
-            -e ADDITIONAL_TEST_PATHS='/var/www/vendor/${{ env.PACKAGE_NAME }}/tests' \
-            php php vendor/bin/runtests \
+            php php vendor/bin/phpunit \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+              --bootstrap=/var/www/source/bootstrap.php \
+              --coverage-html=Coverage \
               --coverage-clover=/var/www/coverage.xml \
-              --coverage-html=/var/www/coverage \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
-              AllTestsUnit
+              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
 
       - name: Upload log artifact
         if: always()
