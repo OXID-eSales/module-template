@@ -63,15 +63,14 @@ what you want to achieve, and follow the procedure.
 
 First, lets decide on terms:
 
-* Module is installable to `source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>` directory, 
-  example: `source/modules/oe/moduletemplate`. Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`. 
+* Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`.
   * Please note that combination of `<yourVendorPrefix>` and `<yourModuleRootDirectory>` should be unique. Based on this 
     information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In 
     our case it is `oe_moduletemplate`. 
   * It is recommended to use only alphanumeric characters, in case you need a 
     separator you can use underscore. More information about module id can be 
     found [here](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
-* The package name looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
+* Module is installable to `vendor/<yourPackageName>` directory. The package name looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
   what will be your new module package name.
 * Decide on your module's namespace - `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
 * In the following examples, your information required places will be shown as placeholders: `<yourPackageName>`, it means
@@ -124,7 +123,8 @@ installation for development process:
 5. Register and install your newly created module in the shop
    ```
    cd <shopRoot>
-   composer config repositories.<yourPackageName> path source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
+   composer config repositories.<yourPackageName> --json \
+    '{"type":"path", "url":".source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>", "options": {"symlink": true}}'
    composer require <yourPackageName>:*
    ```
 
@@ -132,7 +132,7 @@ installation for development process:
    want to extend in your OXID eShop. Initialize and activate the module:
    ```
    cd <shopRoot>
-   bin/oe-console oe:module:install source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
+   bin/oe-console oe:module:install vendor/<yourPackageName>
    bin/oe-console oe:module:activate <yourModuleId>
    ```
 
@@ -169,7 +169,7 @@ Installation example for improving and develop the current module is provided he
     cd <shopRoot>
     composer config repositories.oxid-esales/module-template path source/modules/oe/moduletemplate
     composer require oxid-esales/module-template:*
-    bin/oe-console oe:module:install source/modules/oe/moduletemplate
+    bin/oe-console oe:module:install vendor/oxid-esales/module-template
     ```
 
 3. Activate the module
@@ -279,13 +279,10 @@ $ composer phpmd
 ### Integration/Acceptance tests
 
 - install this module into a running OXID eShop
-- change the `test_config.yml`
-    - add `oe/moduletemplate` to the `partial_module_paths`
-    - set `activate_all_modules` to `true`
 
 ```bash
-$ vendor/bin/runtests
-$ vendor/bin/runtests-codeception
+$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml
+$ vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml
 ```
 
 ### Writing Codeception tests
@@ -308,7 +305,7 @@ The great thing about codeception tests is - they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
 
 **NOTE:** You should add groups to the codeception tests, generic test group for module and then
-group by topic. Makes it convenient to just run `vendor/bin/runtests-codeception --group=somegroup`.
+group by topic. Makes it convenient to just run `vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml -g somegroup`.
 
 ### Development Environment - Docker SDK
 
