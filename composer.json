@@ -10,15 +10,6 @@
     "license": [
         "GPL-3.0"
     ],
-    "extra": {
-        "oxideshop": {
-            "target-directory": "oe/moduletemplate",
-            "blacklist-filter": [
-                "source/**/*",
-                "vendor/**/*"
-            ]
-        }
-    },
     "prefer-stable": true,
     "prefer-dist": true,
     "require": {

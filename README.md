@@ -56,6 +56,9 @@ and [activate the module](https://docs.oxid-esales.com/developer/en/6.4/developm
 
 In case you'd like to use this module as a template for your own module, this section is for you.
 
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.x. For Shop 6.x please refer 
+to branch b-6.5.x README.md.
+
 Before starting to do something, please, read the whole section once, then decide on required questions, decide 
 what you want to achieve, and follow the procedure.
 
@@ -63,7 +66,7 @@ what you want to achieve, and follow the procedure.
 
 First, lets decide on terms:
 
-* Decide what will be your `<yourVendorPrefix>` and `<yourModuleRootDirectory>`.
+* Decide what will be your `<yourVendorPrefix>` and (lowercased) `<yourModuleRootDirectory>`.
   * Please note that combination of `<yourVendorPrefix>` and `<yourModuleRootDirectory>` should be unique. Based on this 
     information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In 
     our case it is `oe_moduletemplate`. 
@@ -86,6 +89,11 @@ First, lets decide on terms:
   ```
   composer config repositories.oxid-esales/module-template path source/modules/oe/moduletemplate
   ```
+
+**NOTE:** From OXID eShop 7.0 on, module code will no longer be duplicated into source/modules directory. This means that after normal composer install
+your module code will only be located in the vendor directory. Still we suggest that for development, you git clone your module into
+the shop's source/modules folder, register this path as local repository and then composer install your module using symlink.
+
 * In the procedure, we will use our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html)
   to make your development process as smooth and easy as possible.
 
@@ -95,13 +103,13 @@ The following procedure describes how to create a base for your further module, 
 installation for development process:
 
 1. Click on the "Use this template" button on the template [main page](https://github.com/OXID-eSales/module-template) to 
-   create your module repository from the given template. As the outcome, you should have a repository with
+   create your module repository from the given template. Please make to choose the 'take all branches' option. As the outcome, you should have a repository with
    a copy of everything we have in the template repository.
 
 2. Clone your created repository to your local shop modules directory:
    ```
    cd <shopRoot>
-   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>
+   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorPrefix>/<yourModuleRootDirectory> --branch=b-7.0.x
    ```
 
 3. Next step is to personalize the original OXID traces with your own vendor, module id, namespace etc. We prepared 
@@ -124,7 +132,7 @@ installation for development process:
    ```
    cd <shopRoot>
    composer config repositories.<yourPackageName> --json \
-    '{"type":"path", "url":".source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>", "options": {"symlink": true}}'
+    '{"type":"path", "url":"./source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>", "options": {"symlink": true}}'
    composer require <yourPackageName>:*
    ```
 
@@ -161,7 +169,7 @@ Installation example for improving and develop the current module is provided he
 1. Clone the module
     ```
     cd <shopRoot>
-    git clone https://github.com/OXID-eSales/module-template source/modules/oe/moduletemplate
+    git clone https://github.com/OXID-eSales/module-template source/modules/oe/moduletemplate --branch=b-7.0.x
     ```
 
 2. Install the module from local path

@@ -43,7 +43,7 @@ rm -rf ./tests/Unit/*
 mv ./tests/ExampleTest.bak ./tests/Unit/ExampleTest.php
 
 perl -pi\
-  -e 's#paths:.*#paths: "Application/views/flow,Application/views/admin"#g;'\
+  -e 's#paths:.*#paths: "Application/views/flow/translations,Application/views/admin"#g;'\
   ./tests/Codeception/acceptance.suite.yml
 
 echo
