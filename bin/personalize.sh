@@ -16,6 +16,8 @@ echo "Please enter package name (original: $package_name):"
 read -r package_name_input
 sed -ri "s#$package_name#$package_name_input#g;" ./composer.json
 sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/development.yml
+sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/shop.yml
+sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/coverage.yml
 echo
 
 echo "Please enter module namespace (original: $namespace):"
@@ -62,6 +64,10 @@ perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./composer.json
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./metadata.php
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./tests/Codeception/acceptance.suite.yml
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/workflows/development.yml
+perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/workflows/coverage.yml
+
+#update acceptance suite
+perl -pi -e "s#$package_name#$package_name_input#g;" ./tests/Codeception/acceptance.suite.yml
 
 # Prepare ./.github/workflows/development.yml file
 perl -pi -e "s#SONARCLOUD_ORGANIZATION: 'oxid-esales'#SONARCLOUD_ORGANIZATION: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/workflows/development.yml
