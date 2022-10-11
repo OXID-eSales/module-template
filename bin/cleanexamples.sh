@@ -31,8 +31,10 @@ touch ./src/.gitkeep
 
 #clean out tests
 mv ./tests/Codeception/Acceptance/ExampleCest.php ./tests/Codeception/Acceptance/ExampleCest.bak
+mv ./tests/Codeception/Acceptance/_bootstrap.php ./tests/Codeception/Acceptance/_bootstrap.bak
 rm -rf ./tests/Codeception/Acceptance/*.php
 mv ./tests/Codeception/Acceptance/ExampleCest.bak ./tests/Codeception/Acceptance/ExampleCest.php
+mv ./tests/Codeception/Acceptance/_bootstrap.bak ./tests/Codeception/Acceptance/_bootstrap.php
 
 mv ./tests/Integration/ExampleTest.php ./tests/ExampleTest.bak
 rm -rf ./tests/Integration/*

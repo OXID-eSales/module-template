@@ -13,7 +13,7 @@ use Codeception\Util\Fixtures;
 use OxidEsales\Codeception\Page\Home;
 use OxidEsales\Facts\Facts;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 
 /**
  * Inherited Methods
@@ -36,8 +36,6 @@ final class AcceptanceTester extends \Codeception\Actor
     use _generated\AcceptanceTesterActions;
 
     use \Codeception\Lib\Actor\Shared\Retry;
-
-    use ServiceContainer;
 
     /**
      * Open shop first page.
@@ -98,5 +96,12 @@ final class AcceptanceTester extends \Codeception\Actor
         $facts = new Facts();
 
         return $facts->getShopUrl();
+    }
+
+    protected function getServiceFromContainer(string $serviceName)
+    {
+        return ContainerFactory::getInstance()
+            ->getContainer()
+            ->get($serviceName);
     }
 }
