@@ -267,11 +267,18 @@ For more information, check the [developer documentation](https://docs.oxid-esal
 
 
 ### Where the module namespace points to
-In the 6.x versions of OXID eShop, the module code is copied to source/modules directory and the module's metadata 
-and yaml files will be taken from there. This means some module code will be duplicated from vendor directory to 
-shop source/modules directory. 
+As already mentioned above, in the 7.x versions of OXID eShop, the module code only resides in the vendor directory so the
+namespace needs to point there. In our case this looks like
 
-NOTE: In our example the module namespace points to the vendor directory.
+```bash
+   "autoload": {
+        "psr-4": {
+            "OxidEsales\\ModuleTemplate\\": "src/",
+            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/"
+        }
+    },
+```
+
 
 ## Running tests and quality tools
 
@@ -292,6 +299,22 @@ $ composer phpmd
 $ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml
 $ vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml
 ```
+
+NOTE: From OXID eShop 7.0.x on database reset needs to be done with this command (please fill in your credentials)
+
+```bash
+$ bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 --db-name=example --db-user=root --db-password=root --force
+```
+
+And just in case you need it, admin user can now also be created via commandline
+```bash
+$ bin/oe-console oe:admin:create-user --admin-email <admin-email> --admin-passowrd <admin-password>
+```
+for example
+```bash
+$ bin/oe-console oe:admin:create-user --admin-email admin@admin.com --admin-password admin
+```
+
 
 ### Writing Codeception tests
 
