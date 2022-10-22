@@ -66,7 +66,7 @@ jobs:
           sleep 2
 
       - name: Checkout current module
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: source/test-module
 
