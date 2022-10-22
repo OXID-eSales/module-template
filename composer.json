@@ -26,7 +26,7 @@
         "oxid-esales/oxideshop-ce": "^6.12 | 6.5.x-dev"
     },
     "require-dev": {
-        "codeception/module-rest": "^1.4.2",
+        "codeception/module-rest": "^2.0.2",
         "codeception/module-phpbrowser": "^1.0.2",
         "codeception/module-db": "^1.1.0",
         "phpstan/phpstan": "^0.12.26",
