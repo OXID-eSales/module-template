@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Separate manual workflow for generating coverage artifacts
 - Quality badges example in readme
 
+### Changed
+- Update phpstan version
+
 ### Fixed
 - Migrations executed on module activation only if new, not executed ones present
 - Cleanup not used dev dependencies

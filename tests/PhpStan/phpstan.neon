@@ -5,7 +5,7 @@ parameters:
     stubFiles:
         - stubs/EshopUser.stub
         - stubs/StartController.stub
-    level: max
+    level: 8
     scanFiles:
         - ../../vendor/oxid-esales/oxideshop-ce/source/oxfunctions.php
         - ../../vendor/oxid-esales/oxideshop-ce/source/overridablefunctions.php
