@@ -67,7 +67,7 @@ jobs:
           sleep 2
 
       - name: Checkout current module
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: source/test-module
 
@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: source/test-module
 
@@ -134,7 +134,7 @@ jobs:
 
       - name: Upload log artifact
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: StylesLog-${{ matrix.php }}
           path: |
@@ -181,7 +181,7 @@ jobs:
 
       - name: Upload log artifact
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: TestsLog-${{ matrix.php }}
           path: |
@@ -235,11 +235,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current module
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download phpunit artifacts
         continue-on-error: true
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: TestsLog-8.0
           path: ./tests/
@@ -251,7 +251,7 @@ jobs:
           sed -i 's+/var/www/test-module/++' tests/phpunit.xml
 
       - name: Download styles artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: StylesLog-8.0
           path: ./styles/
