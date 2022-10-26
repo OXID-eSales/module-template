@@ -15,7 +15,7 @@
          beStrictAboutTestsThatDoNotTestAnything="false"
          verbose="false"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
     <include>
       <directory suffix=".php">../src</directory>
     </include>
