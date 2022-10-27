@@ -12,15 +12,15 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Subscriber;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\EshopCommunity\Internal\Framework\Event\AbstractShopAwareEventSubscriber;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
 use OxidEsales\ModuleTemplate\Service\Tracker;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @extendable-class
  */
-class BeforeModelUpdate extends AbstractShopAwareEventSubscriber
+class BeforeModelUpdate implements EventSubscriberInterface
 {
     use ServiceContainer;
 
