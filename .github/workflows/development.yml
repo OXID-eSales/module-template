@@ -79,6 +79,15 @@ jobs:
           docker-compose exec -T \
             php composer require ${{ env.PACKAGE_NAME }}:* --no-interaction --no-update
 
+      - name: Install Smarty templates
+        run: |
+          docker-compose exec php composer config repositories.oxid-esales/flow-theme git https://github.com/OXID-eSales/flow_theme.git
+          docker-compose exec php composer config repositories.oxid-esales/smarty-admin-theme git https://github.com/OXID-eSales/smarty-admin-theme.git
+          docker-compose exec php composer config repositories.oxid-esales/smarty-component git https://github.com/OXID-eSales/smarty-component.git
+          docker-compose exec php composer require oxid-esales/flow-theme:dev-b-7.0.x --no-update
+          docker-compose exec php composer require oxid-esales/smarty-admin-theme:dev-b-7.0.x --no-update
+          docker-compose exec php composer require oxid-esales/smarty-component:dev-b-7.0.x --no-update
+
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
