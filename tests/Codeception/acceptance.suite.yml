@@ -45,6 +45,11 @@ modules:
     - \OxidEsales\Codeception\Module\Database:
         config_key: 'fq45QS09_fqyx09239QQ'
         depends: Db
+    - \OxidEsales\Codeception\Module\SelectTheme:
+        theme_id: flow
+        depends:
+          - \OxidEsales\Codeception\Module\Database
+          - Db
     - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
         shop_path: '%SHOP_SOURCE_PATH%'
         paths:
