@@ -74,7 +74,7 @@ final class GreetingControllerTest extends UnitTestCase
             $controller->setUser($this->getTestUser());
         }
 
-        $this->assertSame('greetingtemplate.tpl', $controller->render());
+        $this->assertSame('@oe_moduletemplate/templates/greetingtemplate', $controller->render());
 
         $viewData = $controller->getViewData();
         $this->assertSame($expectedData[0], $viewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME]);

@@ -12,7 +12,7 @@ jobs:
   install_shop_with_module:
     strategy:
       matrix:
-        php: [ '8.0', '8.1' ]
+        php: [ '8.0']
     runs-on: ubuntu-latest
     steps:
       - name: Clone testing environment
@@ -79,15 +79,6 @@ jobs:
           docker-compose exec -T \
             php composer require ${{ env.PACKAGE_NAME }}:* --no-interaction --no-update
 
-      - name: Install Smarty templates
-        run: |
-          docker-compose exec -T php composer config repositories.oxid-esales/flow-theme git https://github.com/OXID-eSales/flow_theme.git
-          docker-compose exec -T php composer config repositories.oxid-esales/smarty-admin-theme git https://github.com/OXID-eSales/smarty-admin-theme.git
-          docker-compose exec -T php composer config repositories.oxid-esales/smarty-component git https://github.com/OXID-eSales/smarty-component.git
-          docker-compose exec -T php composer require oxid-esales/flow-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/smarty-admin-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/smarty-component:dev-b-7.0.x --no-update
-
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
@@ -100,112 +91,124 @@ jobs:
           docker-compose down
           sleep 2
 
-  styles:
+#  styles:
+#    strategy:
+#      matrix:
+#        php: [ '8.0' ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout current module
+#        uses: actions/checkout@v3
+#        with:
+#          path: source/test-module
+#
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: ${{ matrix.php }}
+#          coverage: xdebug
+#          extensions: gd, zip
+#
+#      - name: Install module dependencies
+#        id: dependencies
+#        working-directory: source/test-module
+#        run: composer install
+#
+#      - name: Run phpcs
+#        id: phpcs
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpcs
+#
+#      - name: Run phpstan
+#        id: phpstan
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpstan-report || composer phpstan
+#
+#      - name: Run phpmd
+#        id: phpmd
+#        if: always()
+#        working-directory: source/test-module
+#        run: composer phpmd-report || composer phpmd
+#
+#      - name: Upload log artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: StylesLog-${{ matrix.php }}
+#          path: |
+#            source/test-module/phpstan.report.json
+#            source/test-module/phpmd.report.json
+#
+#  unit_tests:
+#    strategy:
+#      matrix:
+#        php: [ '8.0', '8.1' ]
+#    needs: [ install_shop_with_module ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Load current installation from cache
+#        uses: actions/cache@v2
+#        with:
+#          path: |
+#            ./*
+#          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+#          restore-keys: |
+#            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+#
+#      - name: Start containers
+#        run: |
+#          make up
+#          sleep 2
+#
+#      - name: Activate module
+#        run: |
+#          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+#
+#      - name: Run tests
+#        run: |
+#          docker-compose exec -T \
+#            -e XDEBUG_MODE=coverage \
+#            php php vendor/bin/phpunit \
+#              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+#              --bootstrap=/var/www/source/bootstrap.php \
+#              --coverage-html=Coverage \
+#              --coverage-clover=/var/www/coverage.xml \
+#              --coverage-text \
+#              --log-junit=/var/www/phpunit.xml \
+#              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
+#
+#      - name: Upload log artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: TestsLog-${{ matrix.php }}
+#          path: |
+#            source/coverage.xml
+#            source/phpunit.xml
+
+  codeception_smarty:
     strategy:
       matrix:
-        php: [ '8.0' ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout current module
-        uses: actions/checkout@v3
-        with:
-          path: source/test-module
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          coverage: xdebug
-          extensions: gd, zip
-
-      - name: Install module dependencies
-        id: dependencies
-        working-directory: source/test-module
-        run: composer install
-
-      - name: Run phpcs
-        id: phpcs
-        if: always()
-        working-directory: source/test-module
-        run: composer phpcs
-
-      - name: Run phpstan
-        id: phpstan
-        if: always()
-        working-directory: source/test-module
-        run: composer phpstan-report || composer phpstan
-
-      - name: Run phpmd
-        id: phpmd
-        if: always()
-        working-directory: source/test-module
-        run: composer phpmd-report || composer phpmd
-
-      - name: Upload log artifact
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: StylesLog-${{ matrix.php }}
-          path: |
-            source/test-module/phpstan.report.json
-            source/test-module/phpmd.report.json
-
-  unit_tests:
-    strategy:
-      matrix:
-        php: [ '8.0', '8.1' ]
-    needs: [ install_shop_with_module ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Load current installation from cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ./*
-          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
-
-      - name: Start containers
-        run: |
-          make up
-          sleep 2
-
-      - name: Activate module
-        run: |
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
-
-      - name: Run tests
-        run: |
-          docker-compose exec -T \
-            -e XDEBUG_MODE=coverage \
-            php php vendor/bin/phpunit \
-              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
-              --bootstrap=/var/www/source/bootstrap.php \
-              --coverage-html=Coverage \
-              --coverage-clover=/var/www/coverage.xml \
-              --coverage-text \
-              --log-junit=/var/www/phpunit.xml \
-              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
-
-      - name: Upload log artifact
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: TestsLog-${{ matrix.php }}
-          path: |
-            source/coverage.xml
-            source/phpunit.xml
-
-  codeception_tests:
-    strategy:
-      matrix:
-        php: [ '8.0', '8.1' ]
+        php: [ '8.0']
         group:
           - 'oe_moduletemplate'
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
+      - name: Cleanup workspace
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
+
+      - name: Cleanup Docker
+        run: |
+          c=$(docker ps -q) && [[ $c ]] && docker kill $c
+          docker system prune --force
+
       - name: Load current installation from cache
         uses: actions/cache@v2
         with:
@@ -220,15 +223,41 @@ jobs:
           make up
           sleep 2
 
+      - name: Install smarty components
+        run: |
+          docker-compose exec -T \
+            php composer require oxid-esales/flow-theme:dev-master --no-interaction --no-update
+          docker-compose exec -T \
+            php composer require oxid-esales/smarty-component:dev-b-7.0.x --no-interaction --no-update
+          docker-compose exec -T \
+            php composer require oxid-esales/smarty-admin-theme:dev-b-7.0.x --no-interaction --no-update
+          docker-compose exec -T php composer update --no-interaction
+
+      - name: Configure codeception
+        run: |
+          perl -pi \
+          -e 's#admin_twig#admin_smarty#g;' \
+          source/test-module/tests/Codeception/acceptance.suite.yml
+          perl -pi \
+          -e 's#views/twig#views/flow/translations#g;' \
+          source/test-module/tests/Codeception/acceptance.suite.yml
+          perl -pi \
+          -e 's#theme_id:\s?twig#theme_id: flow#g;' \
+          source/test-module/tests/Codeception/acceptance.suite.yml
+
       - name: Install codeception dependencies
         run: |
           docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
           docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
-          docker-compose exec -T php composer update
+          docker-compose exec -T php composer update --no-interaction
 
       - name: Activate module
         run: |
           docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+
+      - name: Setup tmate session
+        if: always()
+        uses: mxschmitt/action-tmate@v3
 
       - name: Run tests
         run: |
@@ -238,51 +267,136 @@ jobs:
             php php vendor/bin/codecept run acceptance \
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}
 
-  sonarcloud:
-    needs: [ styles, unit_tests ]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout current module
-        uses: actions/checkout@v3
-
-      - name: Download phpunit artifacts
-        continue-on-error: true
-        uses: actions/download-artifact@v3
-        with:
-          name: TestsLog-8.0
-          path: ./tests/
-
-      - name: Fix paths in unit logs
-        continue-on-error: true
+      - name: Stop containers
+        if: always()
         run: |
-          sed -i 's+/var/www/test-module/++' tests/coverage.xml
-          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+          make down
+          sleep 2
 
-      - name: Download styles artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: StylesLog-8.0
-          path: ./styles/
-
-      - name: Fix paths in styles logs
-        continue-on-error: true
+      - name: Cleanup Docker
+        if: always()
         run: |
-          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
+          c=$(docker ps -q) && [[ $c ]] && docker kill $c
+          docker system prune --force
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
-          args: >
-            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
-            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
-            -Dsonar.sources=src
-            -Dsonar.tests=tests
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
-            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
-            -Dsonar.cpd.php.minimumTokens=25
-            -Dsonar.cpd.php.minimumLines=5
+          name: Output-${{ matrix.php }}-flow
+          path: |
+            ./source/test-module/tests/Codeception/_output/*
+
+#  codeception_twig:
+#    strategy:
+#      matrix:
+#        php: [ '8.0']
+#        group:
+#          - 'oe_moduletemplate'
+#    needs: [ install_shop_with_module ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Load current installation from cache
+#        uses: actions/cache@v2
+#        with:
+#          path: |
+#            ./*
+#          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+#          restore-keys: |
+#            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+#
+#      - name: Start containers
+#        run: |
+#          make up
+#          sleep 2
+#
+#      - name: Install twig components
+#        run: |
+#          docker-compose exec -T \
+#            php composer require oxid-esales/flow-theme:dev-master --no-interaction --no-update
+#          docker-compose exec -T \
+#            php composer require oxid-esales/twig-component:dev-b-7.0.x --no-interaction --no-update
+#          docker-compose exec -T \
+#            php composer require oxid-esales/twig-theme:dev-b-7.0.x --no-interaction --no-update
+#          docker-compose exec -T \
+#            php composer require oxid-esales/twig-admin-theme:dev-b-7.0.x --no-interaction --no-update
+#          docker-compose exec -T php composer update --no-interaction
+#
+#      - name: Configure codeception Theme switcher
+#        run: |
+#          perl -pi \
+#          -e 's#admin_smarty#admin_twig#g;' \
+#          source/test-module/tests/Codeception/acceptance.suite.yml
+#          perl -pi \
+#          -e 's#views/flow/translations#views/twig#g;' \
+#          source/test-module/tests/Codeception/acceptance.suite.yml
+#          perl -pi \
+#          -e 's#theme_id:\s?flow#theme_id: twig#g;' \
+#          source/test-module/tests/Codeception/acceptance.suite.yml
+#
+#      - name: Install codeception dependencies
+#        run: |
+#          docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
+#          docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
+#          docker-compose exec -T php composer update --no-interaction
+#
+#      - name: Activate module
+#        run: |
+#          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
+#
+#      - name: Run tests
+#        run: |
+#          docker-compose exec -T \
+#            -e SELENIUM_SERVER_HOST=selenium \
+#            -e MODULE_IDS=${{ env.MODULE_IDS }} \
+#            php php vendor/bin/codecept run acceptance \
+#              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}
+
+#  sonarcloud:
+#    needs: [ styles, unit_tests ]
+#    if: always()
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout current module
+#        uses: actions/checkout@v3
+#
+#      - name: Download phpunit artifacts
+#        continue-on-error: true
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: TestsLog-8.0
+#          path: ./tests/
+#
+#      - name: Fix paths in unit logs
+#        continue-on-error: true
+#        run: |
+#          sed -i 's+/var/www/test-module/++' tests/coverage.xml
+#          sed -i 's+/var/www/test-module/++' tests/phpunit.xml
+#
+#      - name: Download styles artifacts
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: StylesLog-8.0
+#          path: ./styles/
+#
+#      - name: Fix paths in styles logs
+#        continue-on-error: true
+#        run: |
+#          sed -i 's+\/home\/runner\/work\/.*?\/.*?\/source\/test-module\/++' styles/phpstan.report.json
+#
+#      - name: SonarCloud Scan
+#        uses: sonarsource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args: >
+#            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }}
+#            -Dsonar.projectKey=${{ env.SONARCLOUD_PROJECT_KEY }}
+#            -Dsonar.sources=src
+#            -Dsonar.tests=tests
+#            -Dsonar.sourceEncoding=UTF-8
+#            -Dsonar.php.coverage.reportPaths=tests/coverage.xml
+#            -Dsonar.php.phpstan.reportPaths=styles/phpstan.report.json
+#            -Dsonar.cpd.php.minimumTokens=25
+#            -Dsonar.cpd.php.minimumLines=5
