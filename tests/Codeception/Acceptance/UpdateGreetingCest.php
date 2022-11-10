@@ -21,6 +21,8 @@ final class UpdateGreetingCest
 {
     public function _before(AcceptanceTester $I): void
     {
+        $I->setModuleActive();
+
         //ensure each test start from same environment
         $I->setGreetingModePersonal();
         $I->resetGreetingTracker();

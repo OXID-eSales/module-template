@@ -1,0 +1,19 @@
+{% capture append = "oxidBlock_content" %}
+<h1 class="page-header">{{ translate({ ident: "OEMODULETEMPLATE_GREETING_UPDATE_TITLE" }) }}</h1>
+{{ translate({ ident: "OEMODULETEMPLATE_GREETING_UPDATE_COUNT" }) }} {{ oetm_greeting_counter }}
+<br>
+<form action="{{ oViewConf.getSelfActionLink() }}" name="OxsampleDoSomethingAction" method="post" role="form">
+    <div class="hidden">
+        {{ oViewConf.getHiddenSid() }}
+        <input type="hidden" name="cl" value="oetmgreeting">
+        <input type="hidden" name="fnc" value="updateGreeting">
+    </div>
+    <div>
+        <input type="text" class="editinput" maxlength="254" id="oetm_greeting_input" name="oetm_greeting" value="{{ oetm_greeting }}">
+        <button class="btn btn-primary submitButton largeButton" type="submit" id="oetmgreeting_submit" class="submitButton">{{ translate({ ident: "SUBMIT" }) }}</button>
+    </div>
+</form>
+<br>
+{% endcapture %}
+
+{% include "layout/page.html.twig" %}
