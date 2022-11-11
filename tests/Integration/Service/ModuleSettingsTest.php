@@ -7,13 +7,13 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
-final class ModuleSettingsTest extends UnitTestCase
+final class ModuleSettingsTest extends IntegrationTestCase
 {
     use ServiceContainer;
 

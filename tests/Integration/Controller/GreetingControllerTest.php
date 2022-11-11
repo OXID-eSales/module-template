@@ -10,21 +10,20 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Service\Repository;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use PHPUnit\Framework\TestCase;
 
 /*
  * We want to test controller behavior going 'full way'.
  * No mocks, we go straight to the database (full integration)).
  */
-final class GreetingControllerTest extends TestCase
+final class GreetingControllerTest extends IntegrationTestCase
 {
     use ServiceContainer;
 
@@ -33,20 +32,6 @@ final class GreetingControllerTest extends TestCase
     public const TEST_GREETING = 'oh dear';
 
     public const TEST_GREETING_UPDATED = 'shopping addict';
-
-    public function setUp(): void
-    {
-        $this->cleanUpData();
-
-        parent::setUp();
-    }
-
-    public function tearDown(): void
-    {
-        Registry::getSession()->setUser(null);
-
-        parent::tearDown();
-    }
 
     /**
      * @dataProvider providerOetmGreeting
@@ -166,17 +151,6 @@ final class GreetingControllerTest extends TestCase
         ];
     }
 
-    private function getControllerMock(array $map): GreetingController
-    {
-        $controller = $this->getMockBuilder(GreetingController::class)
-            ->onlyMethods(['getServiceFromContainer'])
-            ->getMock();
-        $controller->method('getServiceFromContainer')
-            ->willReturnMap($map);
-
-        return $controller;
-    }
-
     private function createTestUser(): EshopModelUser
     {
         $user = oxNew(EshopModelUser::class);
@@ -202,15 +176,5 @@ final class GreetingControllerTest extends TestCase
             ]
         );
         $tracker->save();
-    }
-
-    private function cleanUpData()
-    {
-        $user = oxNew(EshopModelUser::class);
-        $user->delete(self::TEST_USER_ID);
-
-        $tracker = $this->getServiceFromContainer(Repository::class)
-            ->getTrackerByUserId(self::TEST_USER_ID);
-        $tracker->delete($tracker->getId());
     }
 }

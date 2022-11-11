@@ -9,14 +9,15 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Controller;
 
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\ModuleTemplate\Model\User as UserModel;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Service\Repository;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 /*
  * Here we have tests for a new controller extending the shop's FrontendController class.
@@ -25,9 +26,16 @@ use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
  *    - will the controller hold the expected view data
  *    - will the controller call the services as expected
  */
-final class GreetingControllerTest extends UnitTestCase
+final class GreetingControllerTest extends TestCase
 {
     public const TEST_USER_ID = '_testuser';
+
+    public function tearDown(): void
+    {
+        Registry::getSession()->setUser(null);
+
+        parent::tearDown();
+    }
 
     /**
      * @dataProvider providerOetmGreeting
@@ -122,9 +130,9 @@ final class GreetingControllerTest extends UnitTestCase
         return $controller;
     }
 
-    private function getTestUser(): EshopModelUser
+    private function getTestUser(): UserModel
     {
-        $user = $this->getMockBuilder(EshopModelUser::class)
+        $user = $this->getMockBuilder(UserModel::class)
             ->onlyMethods(['getPersonalGreeting'])
             ->getMock();
         $user->setId(self::TEST_USER_ID);

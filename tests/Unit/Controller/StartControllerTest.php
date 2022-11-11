@@ -9,29 +9,34 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Controller;
 
-use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\ModuleTemplate\Controller\StartController as StartController;
+use OxidEsales\ModuleTemplate\Model\User as UserModel;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 /*
  * Here we have tests for a what we call 'chain extended' shop class.
- * Current module might not be the only one extending the same class/method.
- * Always use the unified namespace name of the class instantiated with oxNew()
- * when testing.
  *
  * NOTE: we use this test to show some mocking examples. All we need to know is
  *     if the controller calls the services as expected
  */
-final class StartControllerTest extends UnitTestCase
+final class StartControllerTest extends TestCase
 {
     public const TEST_USER_ID = '_testuser';
+
+    public function tearDown(): void
+    {
+        Registry::getSession()->setUser(null);
+
+        parent::tearDown();
+    }
 
     /**
      * @dataProvider providerSessionUser
      */
-    public function testGetOetmGreeting(?EshopModelUser $user = null): void
+    public function testGetOetmGreeting(?UserModel $user = null): void
     {
         $mock = $this->getMockBuilder(GreetingMessage::class)
             ->disableOriginalConstructor()
@@ -40,7 +45,7 @@ final class StartControllerTest extends UnitTestCase
             ->method('getGreeting')
             ->with($this->equalTo($user));
 
-        $controller = $this->getMockBuilder(EshopStartController::class)
+        $controller = $this->getMockBuilder(StartController::class)
             ->onlyMethods(['getServiceFromContainer'])
             ->getMock();
         $controller->expects($this->once())
@@ -57,7 +62,7 @@ final class StartControllerTest extends UnitTestCase
      */
     public function testCanUpdateOetmGreeting(bool $hasUser, bool $personal, string $expect): void
     {
-        $controller = $this->getMockBuilder(EshopStartController::class)
+        $controller = $this->getMockBuilder(StartController::class)
             ->onlyMethods(['getServiceFromContainer'])
             ->getMock();
         $controller->expects($this->once())
@@ -109,9 +114,9 @@ final class StartControllerTest extends UnitTestCase
         ];
     }
 
-    private function getTestUser(): EshopModelUser
+    private function getTestUser(): UserModel
     {
-        $user = oxNew(EshopModelUser::class);
+        $user = $this->getMockBuilder(UserModel::class)->getMock();
         $user->setId(self::TEST_USER_ID);
 
         return $user;

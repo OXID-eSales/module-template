@@ -7,12 +7,12 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-final class UserModelTest extends UnitTestCase
+final class UserModelTest extends IntegrationTestCase
 {
     public function testGetPersonalGreetingNotSet(): void
     {

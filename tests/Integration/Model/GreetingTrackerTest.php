@@ -7,12 +7,13 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use OxidEsales\ModuleTemplate\Tests\Integration\BaseTestCase;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-final class GreetingTrackerTest extends UnitTestCase
+final class GreetingTrackerTest extends IntegrationTestCase
 {
     public const TEST_ID = '_testoxid';
 

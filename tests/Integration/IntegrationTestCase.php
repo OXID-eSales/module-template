@@ -7,16 +7,14 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit;
+namespace OxidEsales\ModuleTemplate\Tests\Integration;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\UtilsObject;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 
-class UnitTestCase extends TestCase
+class IntegrationTestCase extends TestCase
 {
     /**
      * @var object|QueryBuilderFactoryInterface|null
@@ -56,19 +54,5 @@ class UnitTestCase extends TestCase
     protected function get(string $serviceId)
     {
         return ContainerFactory::getInstance()->getContainer()->get($serviceId);
-    }
-
-    /**
-     * Creates a mock builder for the edition file of the class name given
-     *
-     * @param $className
-     *
-     * @return MockBuilder
-     */
-    public function getMockBuilder($className): MockBuilder
-    {
-        $editionClassName = Registry::get(UtilsObject::class)->getClassName($className);
-
-        return parent::getMockBuilder($editionClassName);
     }
 }

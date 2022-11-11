@@ -13,26 +13,22 @@ use OxidEsales\Eshop\Application\Controller\StartController as EshopStartControl
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use PHPUnit\Framework\TestCase;
 
 /*
  * Here we have full integration test cases for a what we call 'chain extended' shop class.
+ * Current module might not be the only one extending the same class/method.
+ * Always use the unified namespace name of the class instantiated with oxNew()
+ * when testing.
  */
-final class StartControllerTest extends TestCase
+final class StartControllerTest extends IntegrationTestCase
 {
     use ServiceContainer;
 
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'oh dear';
-
-    public function tearDown(): void
-    {
-        EshopRegistry::getSession()->setUser(null);
-
-        parent::tearDown();
-    }
 
     /**
      * @dataProvider providerCanUpdateOetmGreeting
