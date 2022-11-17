@@ -7,15 +7,15 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Repository;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
 
-final class RepositoryTest extends UnitTestCase
+final class RepositoryTest extends IntegrationTestCase
 {
     use ServiceContainer;
 

@@ -10,19 +10,22 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
+use OxidEsales\Eshop\Core\UtilsObject;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockBuilder;
+use PHPUnit\Framework\TestCase;
 
-final class GreetingMessageTest extends UnitTestCase
+final class GreetingMessageTest extends TestCase
 {
     public function testGenericGreetingNoUser(): void
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
 
         $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting());
@@ -32,7 +35,7 @@ final class GreetingMessageTest extends UnitTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
 
         $this->assertSame('', $service->getGreeting());
@@ -42,9 +45,9 @@ final class GreetingMessageTest extends UnitTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
-        $user    = oxNew(EshopModelUser::class);
+        $user    = $this->getMockBuilderEdition(EshopModelUser::class)->getMock();
 
         $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
     }
@@ -53,9 +56,9 @@ final class GreetingMessageTest extends UnitTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
-        $user    = oxNew(EshopModelUser::class);
+        $user    = $this->getMockBuilderEdition(EshopModelUser::class)->getMock();
 
         $this->assertSame('', $service->getGreeting($user));
     }
@@ -64,10 +67,14 @@ final class GreetingMessageTest extends UnitTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
-        $user    = oxNew(EshopModelUser::class);
-        $user->setPersonalGreeting('Hi sweetie!');
+        $user    = $this->getMockBuilderEdition(EshopModelUser::class)
+            ->onlyMethods(['getPersonalGreeting'])
+            ->getMock();
+        $user->expects($this->any())
+            ->method('getPersonalGreeting')
+            ->willReturn('Hi sweetie!');
 
         $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
     }
@@ -76,10 +83,14 @@ final class GreetingMessageTest extends UnitTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+            $this->getMockBuilder(CoreRequest::class)->getMock()
         );
-        $user    = oxNew(EshopModelUser::class);
-        $user->setPersonalGreeting('Hi sweetie!');
+        $user    = $this->getMockBuilderEdition(EshopModelUser::class)
+            ->onlyMethods(['getPersonalGreeting'])
+            ->getMock();
+        $user->expects($this->any())
+            ->method('getPersonalGreeting')
+            ->willReturn('Hi sweetie!');
 
         $this->assertSame('Hi sweetie!', $service->getGreeting($user));
     }
@@ -93,5 +104,21 @@ final class GreetingMessageTest extends UnitTestCase
             ->method('getGreetingMode')->willReturn($mode);
 
         return $settings;
+    }
+
+    /**
+     * Creates a mock builder for the edition file of the class name given
+     *
+     * @psalm-template RealInstanceType of object
+     *
+     * @psalm-param class-string<RealInstanceType> $className
+     *
+     * @psalm-return MockBuilder<RealInstanceType>
+     */
+    private function getMockBuilderEdition($className): MockBuilder
+    {
+        $editionClassName = Registry::get(UtilsObject::class)->getClassName($className);
+
+        return parent::getMockBuilder($editionClassName);
     }
 }

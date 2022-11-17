@@ -10,11 +10,12 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Unit;
 
 use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
+use PHPUnit\Framework\TestCase;
 
 /*
  * Unit
  */
-final class ExampleTest extends UnitTestCase
+final class ExampleTest extends TestCase
 {
     public function testControllerRender(): void
     {

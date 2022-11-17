@@ -14,15 +14,19 @@ use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEv
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Tracker;
 use OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate;
-use OxidEsales\ModuleTemplate\Tests\Unit\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
-final class BeforeModelUpdateTest extends UnitTestCase
+final class BeforeModelUpdateTest extends TestCase
 {
     public const TEST_USER_ID = '_testuser';
 
     public function testHandleEventWithNotMatchingPayload(): void
     {
-        $event = new BeforeModelUpdateEvent(oxNew(GreetingTracker::class));
+        $tracker = $this->getMockBuilder(GreetingTracker::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $event = new BeforeModelUpdateEvent($tracker);
 
         $handler = $this->getMockBuilder(BeforeModelUpdate::class)
             ->onlyMethods(['getServiceFromContainer'])
@@ -35,7 +39,8 @@ final class BeforeModelUpdateTest extends UnitTestCase
 
     public function testHandleEventWithMatchingPayload(): void
     {
-        $event = new BeforeModelUpdateEvent(oxNew(EshopModelUser::class));
+        $user  = $this->getMockBuilder(EshopModelUser::class)->getMock();
+        $event = new BeforeModelUpdateEvent($user);
 
         $tracker = $this->getMockBuilder(Tracker::class)
             ->disableOriginalConstructor()
