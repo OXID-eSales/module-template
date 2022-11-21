@@ -1,6 +1,6 @@
 # OXID eShop Module Template
 
-[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/development.yml/badge.svg?branch=b-6.4.x)](https://github.com/OXID-eSales/module-template/actions/workflows/development.yml)
+[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/development.yml/badge.svg?branch=b-6.5.x)](https://github.com/OXID-eSales/module-template/actions/workflows/development.yml)
 [![Latest Version](https://img.shields.io/packagist/v/OXID-eSales/module-template?logo=composer&label=latest&include_prereleases&color=orange)](https://packagist.org/packages/oxid-esales/module-template)
 [![PHP Version](https://img.shields.io/packagist/php-v/oxid-esales/module-template)](https://github.com/oxid-esales/module-template)
 
