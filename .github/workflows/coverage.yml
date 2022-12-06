@@ -98,7 +98,7 @@ jobs:
           docker-compose down
           sleep 2
 
-  unit_tests:
+  integration_tests:
     strategy:
       matrix:
         php: [ '8.1' ]
@@ -134,7 +134,7 @@ jobs:
               --coverage-clover=/var/www/coverage.xml \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
-              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
+              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/Integration
 
       - name: Upload log artifact
         if: always()

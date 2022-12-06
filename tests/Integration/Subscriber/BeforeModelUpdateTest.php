@@ -7,26 +7,22 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Subscriber;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Subscriber;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Tracker;
 use OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-final class BeforeModelUpdateTest extends TestCase
+final class BeforeModelUpdateTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
 
     public function testHandleEventWithNotMatchingPayload(): void
     {
-        $tracker = $this->getMockBuilder(GreetingTracker::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $event = new BeforeModelUpdateEvent($tracker);
+        $event = new BeforeModelUpdateEvent(oxNew(GreetingTracker::class));
 
         $handler = $this->getMockBuilder(BeforeModelUpdate::class)
             ->onlyMethods(['getServiceFromContainer'])
@@ -39,14 +35,13 @@ final class BeforeModelUpdateTest extends TestCase
 
     public function testHandleEventWithMatchingPayload(): void
     {
-        $user  = $this->getMockBuilder(EshopModelUser::class)->getMock();
-        $event = new BeforeModelUpdateEvent($user);
+        $event = new BeforeModelUpdateEvent(oxNew(EshopModelUser::class));
 
         $tracker = $this->getMockBuilder(Tracker::class)
             ->disableOriginalConstructor()
             ->getMock();
         $tracker->expects($this->once())
-        ->method('updateTracker');
+            ->method('updateTracker');
 
         $handler = $this->getMockBuilder(BeforeModelUpdate::class)
             ->onlyMethods(['getServiceFromContainer'])

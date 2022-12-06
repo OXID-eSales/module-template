@@ -141,7 +141,7 @@ jobs:
             source/test-module/phpstan.report.json
             source/test-module/phpmd.report.json
 
-  unit_tests:
+  integration_tests:
     strategy:
       matrix:
         php: [ '8.0', '8.1' ]
@@ -177,7 +177,7 @@ jobs:
               --coverage-clover=/var/www/coverage.xml \
               --coverage-text \
               --log-junit=/var/www/phpunit.xml \
-              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
+              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/Integration
 
       - name: Upload log artifact
         if: always()
@@ -187,6 +187,34 @@ jobs:
           path: |
             source/coverage.xml
             source/phpunit.xml
+
+  unit_tests:
+    strategy:
+      matrix:
+        php: [ '8.0', '8.1' ]
+    needs: [ install_shop_with_module ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load current installation from cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./*
+          key: moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+          restore-keys: |
+            moduleDevelopmentInstallation-${{ matrix.php }}-${{ github.sha }}
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
+
+      - name: Run tests
+        run: |
+          docker-compose exec -T \
+            php php vendor/bin/phpunit \
+              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+              --log-junit=/var/www/phpunit.xml 
 
   codeception_smarty:
     strategy:

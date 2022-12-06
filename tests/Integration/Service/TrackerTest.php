@@ -7,15 +7,15 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
-use OxidEsales\ModuleTemplate\Model\User as UserModel;
+use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Service\Tracker as TrackerService;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-final class TrackerTest extends TestCase
+final class TrackerTest extends IntegrationTestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
 
@@ -53,15 +53,15 @@ final class TrackerTest extends TestCase
     /**
      * NOTE: this user model is NOT saved to database
      */
-    private function getUserModel(): UserModel
+    private function getUserModel(): EshopModelUser
     {
-        $user = $this->getMockBuilder(UserModel::class)
-            ->onlyMethods(['getPersonalGreeting'])
-            ->getMock();
-        $user->setId(self::TEST_USER_ID);
-        $user->expects($this->any())
-            ->method('getPersonalGreeting')
-            ->willReturn(self::TEST_GREETING);
+        $user = oxNew(EshopModelUser::class);
+        $user->assign(
+            [
+                'oxid'         => self::TEST_USER_ID,
+                'oetmgreeting' => self::TEST_GREETING,
+            ]
+        );
 
         return $user;
     }
