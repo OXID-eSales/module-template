@@ -13,8 +13,6 @@ jobs:
         with:
           owner: oxid-esales
           repo: module-template
-          github_user: ${{ secrets.CI_USER }}
-          github_token: ${{ secrets.GH_CI_JENKINS_TOKEN }}
           workflow_file_name: development.yml
           ref: ${{ github.ref_name }}
           client_payload:  '{"php": "8.0", "mysql": "5.7.37", "template_engine": "twig", "module_codecept_test_group": "oe_moduletemplate"}'
