@@ -1,0 +1,20 @@
+name: Trigger workflow for module template actions
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  twig:
+    runs-on: self-hosted
+    steps:
+      - name: run module only twig development workflow
+        uses: convictional/trigger-workflow-and-wait@v1.6.5
+        with:
+          owner: oxid-esales
+          repo: module-template
+          github_user: ${{ secrets.CI_USER }}
+          github_token: ${{ secrets.GH_CI_JENKINS_TOKEN }}
+          workflow_file_name: development.yml
+          ref: ${{ github.ref_name }}
+          client_payload:  '{"php": "8.0", "mysql": "5.7.37", "template_engine": "twig", "module_codecept_test_group": "nginx_module"}'
