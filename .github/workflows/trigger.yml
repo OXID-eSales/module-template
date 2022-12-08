@@ -1,18 +1,23 @@
-name: Trigger workflow for module template actions
+name: Trigger
 
 on:
   pull_request:
   push:
 
 jobs:
-  twig:
-    runs-on: ubuntu-latest
-    steps:
-      - name: run module only twig development workflow
-        uses: convictional/trigger-workflow-and-wait@v1.6.5
-        with:
-          owner: oxid-esales
-          repo: module-template
-          workflow_file_name: development.yml
-          ref: ${{ github.ref_name }}
-          client_payload:  '{"php": "8.0", "mysql": "5.7.37", "template_engine": "twig", "module_codecept_test_group": "oe_moduletemplate"}'
+  p80m57both:
+    name: 'Php-8.0 / Mysql-5.7'
+    uses: ./.github/workflows/development.yml
+    secrets: inherit
+    with:
+      php: '8.0'
+      mysql: '5.7.37'
+      report_sonarcloud: true
+
+  p81m80both:
+    name: 'Php-8.1 / Mysql-8.0'
+    uses: ./.github/workflows/development.yml
+    secrets: inherit
+    with:
+      php: '8.1'
+      mysql: '8.0'
