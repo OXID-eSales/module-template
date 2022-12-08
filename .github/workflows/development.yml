@@ -243,7 +243,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ env.PHP_VERSION }}
           coverage: xdebug
           extensions: gd, zip
 
@@ -274,7 +274,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: StylesLog-${{ matrix.php }}
+          name: StylesLog-${{ env.PHP_VERSION }}-${{ github.sha }}
           path: |
             source/test-module/phpstan.report.json
             source/test-module/phpmd.report.json
