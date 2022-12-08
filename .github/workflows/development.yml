@@ -38,10 +38,11 @@ env:
   MODULE_IDS: 'oe_moduletemplate'
   SONARCLOUD_ORGANIZATION: 'oxid-esales'
   SONARCLOUD_PROJECT_KEY: 'OXID-eSales_module-template'
+  DEFAULT_THEME_ID: 'twig'
 
 jobs:
   prepare_environment:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       PHP_VERSION: ${{ steps.php_version.outputs.PHP_VERSION }}
       MYSQL_VERSION: ${{ steps.mysql_version.outputs.MYSQL_VERSION }}
@@ -67,7 +68,7 @@ jobs:
 
   install_shop_with_module:
     needs: [ prepare_environment ]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: print test parameters
         run: |
@@ -198,7 +199,7 @@ jobs:
             --db-name=example --db-user=root --db-password=root --force
           docker-compose exec -T php bin/oe-console oe:module:install ./vendor/${{ env.PACKAGE_NAME }}
           docker-compose exec -T php bin/oe-console oe:module:install-assets
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate --shop-id=1
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Stop containers
         run: |
@@ -228,7 +229,7 @@ jobs:
 
   styles:
     needs: [ prepare_environment, install_shop_with_module ]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
@@ -281,7 +282,7 @@ jobs:
   integration_tests:
     needs: [ prepare_environment, install_shop_with_module ]
     if: github.event_name == 'push'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
@@ -324,7 +325,7 @@ jobs:
             --db-name=example --db-user=root --db-password=root --force
           docker-compose exec -T php bin/oe-console oe:module:install ./vendor/${{ env.PACKAGE_NAME }}
           docker-compose exec -T php bin/oe-console oe:module:install-assets
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate --shop-id=1
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Run tests
         run: |
@@ -360,7 +361,7 @@ jobs:
   unit_tests:
     needs: [ prepare_environment, install_shop_with_module ]
     if: github.event_name == 'push'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
@@ -427,7 +428,7 @@ jobs:
   codeception_smarty:
     needs: [ prepare_environment, install_shop_with_module ]
     if: (inputs.run_all_tests == 'only_module') || (inputs.run_all_tests == 'module_and_shop') || (github.event_name == 'push')
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
@@ -469,7 +470,7 @@ jobs:
             --db-name=example --db-user=root --db-password=root --force
           docker-compose exec -T php bin/oe-console oe:module:install ./vendor/${{ env.PACKAGE_NAME }}
           docker-compose exec -T php bin/oe-console oe:module:install-assets
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate --shop-id=1
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Run tests
         run: |
@@ -509,7 +510,7 @@ jobs:
 
   prepare_coverage_results:
     needs: [ prepare_environment, unit_tests, integration_tests ]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
@@ -567,7 +568,7 @@ jobs:
   sonarcloud:
     needs: [ prepare_environment, styles, prepare_coverage_results ]
     if: always()
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: context php_version
         run: |
