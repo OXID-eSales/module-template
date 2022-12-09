@@ -6,7 +6,7 @@ on:
 
 jobs:
   p80m57both:
-    name: 'Php-8.0 / Mysql-5.7'
+    name: 'Php-8.0-Mysql-5.7'
     uses: ./.github/workflows/development.yml
     secrets: inherit
     with:
@@ -15,7 +15,7 @@ jobs:
       report_sonarcloud: true
 
   p81m80both:
-    name: 'Php-8.1 / Mysql-8.0'
+    name: 'Php-8.1-Mysql-8.0'
     uses: ./.github/workflows/development.yml
     secrets: inherit
     with:

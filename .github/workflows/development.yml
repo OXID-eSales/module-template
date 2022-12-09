@@ -174,40 +174,53 @@ jobs:
     needs: [ install_shop_with_module ]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout current module
-        uses: actions/checkout@v3
+      - name: Load current installation from cache
+        uses: actions/cache@v3
         with:
-          path: source/test-module
+          path: |
+            ./*
+          key: installation-${{ join(inputs, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
+          restore-keys: |
+            installation-${{ join(inputs, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ inputs.php }}
-          coverage: xdebug
-          extensions: gd, zip
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
 
       - name: Install module dependencies
-        id: dependencies
-        working-directory: source/test-module
-        run: composer install
+        run: |
+          docker-compose exec -T \
+            --workdir=/var/www/test-module \
+            php composer install
 
       - name: Run phpcs
-        id: phpcs
         if: always()
-        working-directory: source/test-module
-        run: composer phpcs
+        run: |
+          docker-compose exec -T \
+            --workdir=/var/www/test-module \
+            php composer phpcs
 
-      - name: Run phpstan
+      - name: Run phpstan scan and show results
         id: phpstan
         if: always()
-        working-directory: source/test-module
-        run: composer phpstan-report || composer phpstan
+        run: |
+          docker-compose exec -T \
+            --workdir=/var/www/test-module \
+            php composer phpstan
 
-      - name: Run phpmd
-        id: phpmd
+      - name: Run phpstan scan and generate report for further processing
         if: always()
-        working-directory: source/test-module
-        run: composer phpmd-report || composer phpmd
+        run: |
+          docker-compose exec -T \
+            --workdir=/var/www/test-module \
+            php composer phpstan-report
+
+      - name: Stop containers
+        if: always()
+        run: |
+          make down
+          sleep 2
 
       - name: Upload log artifact
         if: always()
@@ -264,7 +277,6 @@ jobs:
 
   unit_tests:
     needs: [ install_shop_with_module ]
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Load current installation from cache
