@@ -13,7 +13,7 @@ jobs:
         php: [ '8.1' ]
     runs-on: ubuntu-latest
     steps:
-      - name: Clone testing environment master
+      - name: Clone testing environment
         run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git .
 
       - name: Clone the shop
@@ -24,17 +24,16 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Prepare container configuration
         run: |
           make setup
           make addbasicservices
           make file=services/selenium-chrome.yml addservice
-          make file=services/selenium-firefox.yml addservice
-          
+
           perl -pi\
-            -e "s#PHP_VERSION=.*#PHP_VERSION='${{ matrix.php }}'#g;"\
+            -e "s#PHP_VERSION=.*#PHP_VERSION=${{ matrix.php }}#g;"\
             .env
 
           perl -pi\
@@ -61,15 +60,15 @@ jobs:
                  -e 's/<sCompileDir>/\/var\/www\/source\/tmp\//'\
               source/source/config.inc.php
 
-      - name: Start containers
-        run: |
-          make up
-          sleep 2
-
       - name: Checkout current module
         uses: actions/checkout@v3
         with:
           path: source/test-module
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
 
       - name: Install module
         run: |
@@ -79,26 +78,39 @@ jobs:
           docker-compose exec -T \
             php composer require ${{ env.PACKAGE_NAME }}:* --no-interaction --no-update
 
-      - name: Install Smarty templates
+      - name: Install Twig templates
         run: |
-          docker-compose exec -T php composer config repositories.oxid-esales/flow-theme git https://github.com/OXID-eSales/flow_theme.git
-          docker-compose exec -T php composer config repositories.oxid-esales/smarty-admin-theme git https://github.com/OXID-eSales/smarty-admin-theme.git
-          docker-compose exec -T php composer config repositories.oxid-esales/smarty-component git https://github.com/OXID-eSales/smarty-component.git
-          docker-compose exec -T php composer require oxid-esales/flow-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/smarty-admin-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/smarty-component:dev-b-7.0.x --no-update
+          docker-compose exec -T php composer require oxid-esales/twig-component:dev-b-7.0.x --no-update
+          docker-compose exec -T php composer require oxid-esales/twig-admin-theme:dev-b-7.0.x --no-update
+          docker-compose exec -T php composer require oxid-esales/twig-theme:dev-b-7.0.x --no-update
 
       - name: Install dependencies and reset shop
         run: |
           docker-compose exec -T php composer update --no-interaction
-          docker-compose exec -T \
-            php bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 \
-            --db-name=example --db-user=root --db-password=root --force
+          docker-compose exec -T php bin/oe-console oe:database:reset \
+            --db-host=mysql --db-port=3306 --db-name=example --db-user=root --db-password=root --force
+          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Stop containers
         run: |
           docker-compose down
           sleep 2
+
+      - name: Show docker log
+        if: always()
+        run: |
+          docker-compose logs
+
+      - name: Upload configuration artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Configs-${{ inputs.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+          path: |
+            docker-compose.yml
+            source/composer.json
+            source/composer.lock
+            source/source/config.inc.php
 
   unit_tests:
     strategy:
@@ -112,18 +124,14 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            shopInstallation-${{ matrix.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
           make up
           sleep 2
-
-      - name: Activate module
-        run: |
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Run tests
         run: |
@@ -158,29 +166,22 @@ jobs:
         with:
           path: |
             ./*
-          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}
+          key: shopInstallation-${{ matrix.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
-            shopInstallation-${{ matrix.php }}-${{ github.sha }}
+            shopInstallation-${{ matrix.php }}-${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Start containers
         run: |
           make up
           sleep 2
 
-      - name: Install codeception dependencies
-        run: |
-          docker-compose exec -T php composer require codeception/module-rest:^3.0.0 --dev --no-update
-          docker-compose exec -T php composer require codeception/module-phpbrowser:^3.0.0 --dev --no-update
-          docker-compose exec -T php composer update
-
-      - name: Activate module
-        run: |
-          docker-compose exec -T php bin/oe-console oe:module:activate oe_moduletemplate
-
       - name: Run tests
         run: |
           docker-compose exec -T \
             -e SELENIUM_SERVER_HOST=selenium \
             -e MODULE_IDS=${{ env.MODULE_IDS }} \
-            php php vendor/bin/codecept run acceptance \
-              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/codeception.yml -g ${{ matrix.group }}
+            -e BROWSER_NAME=chrome \
+            -e THEME_ID=twig \
+            php vendor/bin/codecept run acceptance \
+              --bootstrap=/var/www/source/bootstrap.php \
+               -c tests/codeception.yml --ext DotReporter

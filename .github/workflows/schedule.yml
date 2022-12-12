@@ -1,0 +1,14 @@
+name: Schedule for module template actions
+
+on:
+  schedule:
+    - cron: '0 0 */7 * *'
+
+jobs:
+  p80m57both:
+    name: 'Php-8.0-Mysql-5.7'
+    uses: ./.github/workflows/development.yml
+    secrets: inherit
+    with:
+      php: '8.0'
+      mysql: '5.7.37'
