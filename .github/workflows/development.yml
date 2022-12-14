@@ -255,9 +255,9 @@ jobs:
             -e XDEBUG_MODE=coverage \
             php php vendor/bin/phpunit \
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
+              --testsuite=Integration \
               --bootstrap=/var/www/source/bootstrap.php \
-              --coverage-php=/var/www/integration.cov \
-              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/Integration
+              --coverage-php=/var/www/integration.cov
 
       - name: Upload log artifact
         if: always()
@@ -299,7 +299,8 @@ jobs:
             -e XDEBUG_MODE=coverage \
             php php vendor/bin/phpunit \
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
-            --coverage-php=/var/www/unit.cov
+              --testsuite=Unit \
+              --coverage-php=/var/www/unit.cov
 
       - name: Upload log artifact
         if: always()
