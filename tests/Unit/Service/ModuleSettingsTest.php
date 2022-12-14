@@ -87,7 +87,9 @@ final class ModuleSettingsTest extends TestCase
 
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['saveString']);
         $mssMock->expects($this->atLeastOnce())->method('saveString')->with(
-            ModuleSettings::GREETING_MODE, $value, Module::MODULE_ID
+            ModuleSettings::GREETING_MODE,
+            $value,
+            Module::MODULE_ID
         );
 
         $sut = new ModuleSettings($mssMock);
