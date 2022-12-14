@@ -28,12 +28,9 @@ class ModuleSettings
         self::GREETING_MODE_PERSONAL,
     ];
 
-    private ModuleSettingServiceInterface $moduleSettingService;
-
     public function __construct(
-        ModuleSettingServiceInterface $moduleSettingService
+        private ModuleSettingServiceInterface $moduleSettingService
     ) {
-        $this->moduleSettingService = $moduleSettingService;
     }
 
     public function isPersonalGreetingMode(): bool
