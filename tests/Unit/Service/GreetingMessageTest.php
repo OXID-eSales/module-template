@@ -17,34 +17,30 @@ use PHPUnit\Framework\TestCase;
 
 final class GreetingMessageTest extends TestCase
 {
-    public function testGenericGreetingNoUser(): void
+    /**
+     * @dataProvider getGreetingDataProvider
+     */
+    public function testGenericGreetingNoUser(string $mode, string $expected): void
     {
         $service = new GreetingMessage(
-            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            $this->getMockBuilder(CoreRequest::class)->getMock()
+            $this->createConfiguredMock(ModuleSettings::class, ['getGreetingMode' => $mode]),
+            $this->createStub(CoreRequest::class)
         );
 
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting());
+        $this->assertSame($expected, $service->getGreeting());
     }
 
-    public function testPersonalGreetingNoUser(): void
+    public function getGreetingDataProvider(): array
     {
-        $service = new GreetingMessage(
-            $this->getSettingsMock(),
-            $this->getMockBuilder(CoreRequest::class)->getMock()
-        );
-
-        $this->assertSame('', $service->getGreeting());
-    }
-
-    private function getSettingsMock(string $mode = ModuleSettings::GREETING_MODE_PERSONAL): ModuleSettings
-    {
-        $settings = $this->getMockBuilder(ModuleSettings::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $settings->expects($this->any())
-            ->method('getGreetingMode')->willReturn($mode);
-
-        return $settings;
+        return [
+            [
+                'mode' => ModuleSettings::GREETING_MODE_GENERIC,
+                'expected' => ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST
+            ],
+            [
+                'mode' => ModuleSettings::GREETING_MODE_PERSONAL,
+                'expected' => ''
+            ]
+        ];
     }
 }

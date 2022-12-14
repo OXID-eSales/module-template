@@ -18,26 +18,6 @@ use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class GreetingMessageTest extends IntegrationTestCase
 {
-    public function testGenericGreetingNoUser(): void
-    {
-        $service = new GreetingMessage(
-            $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
-        );
-
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting());
-    }
-
-    public function testPersonalGreetingNoUser(): void
-    {
-        $service = new GreetingMessage(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
-        );
-
-        $this->assertSame('', $service->getGreeting());
-    }
-
     public function testModuleGenericGreetingModeEmptyUser(): void
     {
         $service = new GreetingMessage(
@@ -86,12 +66,6 @@ final class GreetingMessageTest extends IntegrationTestCase
 
     private function getSettingsMock(string $mode = ModuleSettings::GREETING_MODE_PERSONAL): ModuleSettings
     {
-        $settings = $this->getMockBuilder(ModuleSettings::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $settings->expects($this->any())
-            ->method('getGreetingMode')->willReturn($mode);
-
-        return $settings;
+        return $this->createConfiguredMock(ModuleSettings::class, ['getGreetingMode' => $mode]);
     }
 }
