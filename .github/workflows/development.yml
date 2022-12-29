@@ -257,6 +257,7 @@ jobs:
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
               --testsuite=Integration \
               --bootstrap=/var/www/source/bootstrap.php \
+              --coverage-text \
               --coverage-php=/var/www/integration.cov
 
       - name: Upload log artifact
@@ -300,6 +301,7 @@ jobs:
             php php vendor/bin/phpunit \
               -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
               --testsuite=Unit \
+              --coverage-text \
               --coverage-php=/var/www/unit.cov
 
       - name: Upload log artifact
@@ -477,10 +479,10 @@ jobs:
         continue-on-error: true
         run: |
           ls -alh source/coverage
-          wget https://phar.phpunit.de/phpcov-7.0.2.phar
-          mv phpcov-7.0.2.phar source/phpcov.phar
-          docker-compose run -T php php phpcov.phar merge --clover coverage.xml ./coverage
-          sed -i 's+/var/www/source/test-module/+./+' source/coverage.xml
+          wget https://phar.phpunit.de/phpcov.phar
+          mv phpcov.phar source/phpcov.phar
+          docker-compose exec -T php php phpcov.phar merge --clover coverage.xml ./coverage
+          sed -i 's+/var/www/test-module/+./+' source/coverage.xml
 
       - name: Upload log artifact
         uses: actions/upload-artifact@v3
