@@ -296,7 +296,13 @@ $ composer phpmd
 - install this module into a running OXID eShop
 
 ```bash
-$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml
+# Unit tests
+$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml --testsuite=Unit
+
+# Integration tests
+$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml --testsuite=Integration --bootstrap=/var/www/source/bootstrap.php
+
+# Acceptance tests
 $ vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml
 ```
 
