@@ -28,7 +28,7 @@ final class RepositoryTest extends UnitTestCase
     public function tearDown(): void
     {
         //this method removes all rows where column 'oxid' start with an underscore
-        $this->cleanUpTable('oetm_tracker', 'oxid');
+        $this->cleanUpTable('oemt_tracker', 'oxid');
         $this->cleanUpTable('oxuser', 'oxid');
 
         parent::tearDown();
@@ -71,7 +71,7 @@ final class RepositoryTest extends UnitTestCase
                 'oxid'      => self::TEST_TRACKER_ID,
                 'oxshopid'  => '1',
                 'oxuserid'  => self::TEST_USER_ID,
-                'oetmcount' => 5,
+                'oemtcount' => 5,
             ]
         );
         $tracker->save();
@@ -80,7 +80,7 @@ final class RepositoryTest extends UnitTestCase
         $user->assign(
             [
                 'oxid'         => self::TEST_USER_ID,
-                'oetmgreeting' => self::TEST_GREETING,
+                'oemtgreeting' => self::TEST_GREETING,
             ]
         );
         $user->save();

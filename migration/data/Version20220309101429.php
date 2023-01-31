@@ -26,9 +26,9 @@ final class Version20220309101429 extends AbstractMigration
 
         //extend the oxuser table
         $customerTable = $schema->getTable('oxuser');
-        if (!$customerTable->hasColumn('OETMGREETING')) {
-            $this->addSql("ALTER TABLE `oxuser` ADD COLUMN `OETMGREETING`
-                 varchar(254) NOT NULL DEFAULT '' COMMENT 'OETM personal greeting';
+        if (!$customerTable->hasColumn('OEMTGREETING')) {
+            $this->addSql("ALTER TABLE `oxuser` ADD COLUMN `OEMTGREETING`
+                 varchar(254) NOT NULL DEFAULT '' COMMENT 'OEMT personal greeting';
             ");
         }
     }

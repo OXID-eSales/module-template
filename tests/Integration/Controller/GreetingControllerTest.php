@@ -35,20 +35,20 @@ final class GreetingControllerTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        $this->cleanUpTable('oetm_tracker', 'oxuserid');
+        $this->cleanUpTable('oemt_tracker', 'oxuserid');
         $this->cleanUpTable('oxuser', 'oxid');
 
         parent::tearDown();
     }
 
     /**
-     * @dataProvider providerOetmGreeting
+     * @dataProvider providerOemtGreeting
      */
     public function testUpdateGreeting(bool $hasUser, string $mode, string $expected, int $count): void
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
-        $this->setRequestParameter(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME, $expected);
+        $this->setRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME, $expected);
 
         $controller = oxNew(GreetingController::class);
 
@@ -87,11 +87,11 @@ final class GreetingControllerTest extends UnitTestCase
         $this->assertSame('greetingtemplate.tpl', $controller->render());
 
         $viewData = $controller->getViewData();
-        $this->assertSame($expected['greeting'], $viewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME]);
-        $this->assertSame($expected['counter'], $viewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME]);
+        $this->assertSame($expected['greeting'], $viewData[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME]);
+        $this->assertSame($expected['counter'], $viewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME]);
     }
 
-    public function providerOetmGreeting(): array
+    public function providerOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -176,7 +176,7 @@ final class GreetingControllerTest extends UnitTestCase
         $user->assign(
             [
                 'oxid'         => self::TEST_USER_ID,
-                'oetmgreeting' => self::TEST_GREETING,
+                'oemtgreeting' => self::TEST_GREETING,
             ]
         );
         $user->save();
@@ -191,7 +191,7 @@ final class GreetingControllerTest extends UnitTestCase
             [
                 'oxuserid'  => self::TEST_USER_ID,
                 'oxshopid'  => 1,
-                'oetmcount' => '67',
+                'oemtcount' => '67',
             ]
         );
         $tracker->save();

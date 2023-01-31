@@ -26,7 +26,7 @@ final class GreetingTrackerTest extends UnitTestCase
     public function tearDown(): void
     {
         //this method removes all rows where column 'oxid' start with an underscore
-        $this->cleanUpTable('oetm_tracker', 'oxid');
+        $this->cleanUpTable('oemt_tracker', 'oxid');
 
         //Add you own tear down logic BEFORE the parent one
         parent::tearDown();
@@ -62,7 +62,7 @@ final class GreetingTrackerTest extends UnitTestCase
                 'oxid'      => self::TEST_ID,
                 'oxshopid'  => '1',
                 'oxuserid'  => '_testuser',
-                'oetmcount' => $count,
+                'oemtcount' => $count,
             ]
         );
 

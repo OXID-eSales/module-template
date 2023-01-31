@@ -30,7 +30,7 @@ final class GreetingControllerTest extends UnitTestCase
     public const TEST_USER_ID = '_testuser';
 
     /**
-     * @dataProvider providerOetmGreeting
+     * @dataProvider providerOemtGreeting
      */
     public function testUpdateGreeting(bool $hasUser, bool $personal, string $expect): void
     {
@@ -54,7 +54,7 @@ final class GreetingControllerTest extends UnitTestCase
     }
 
     /**
-     * @dataProvider providerOetmGreeting
+     * @dataProvider providerOemtGreeting
      */
     public function testRender(bool $hasUser, bool $personal, string $expect, array $expectedData): void
     {
@@ -77,11 +77,11 @@ final class GreetingControllerTest extends UnitTestCase
         $this->assertSame('greetingtemplate.tpl', $controller->render());
 
         $viewData = $controller->getViewData();
-        $this->assertSame($expectedData[0], $viewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME]);
-        $this->assertSame($expectedData[1], $viewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME]);
+        $this->assertSame($expectedData[0], $viewData[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME]);
+        $this->assertSame($expectedData[1], $viewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME]);
     }
 
-    public function providerOetmGreeting(): array
+    public function providerOemtGreeting(): array
     {
         return [
             'without_user_generic' => [

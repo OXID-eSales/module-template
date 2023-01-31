@@ -52,14 +52,14 @@ class GreetingMessage
     public function saveGreeting(EshopModelUser $user): bool
     {
         /** @var TemplateModelUser $user */
-        $user->setPersonalGreeting($this->getRequestOetmGreeting());
+        $user->setPersonalGreeting($this->getRequestOemtGreeting());
 
         return (bool) $user->save();
     }
 
-    private function getRequestOetmGreeting(): string
+    private function getRequestOemtGreeting(): string
     {
-        $input = (string) $this->request->getRequestParameter(ModuleCore::OETM_GREETING_TEMPLATE_VARNAME);
+        $input = (string) $this->request->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
         return (string) substr($input, 0, 253);

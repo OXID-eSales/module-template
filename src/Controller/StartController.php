@@ -33,7 +33,7 @@ class StartController extends StartController_parent
      * NOTE: only leaf classes can be extended this way. The FrontendController class which
      *      many Controllers inherit from cannot be extended this way.
      */
-    public function getOetmGreeting(): string
+    public function getOemtGreeting(): string
     {
         $service = $this->getServiceFromContainer(GreetingMessage::class);
 
@@ -45,7 +45,7 @@ class StartController extends StartController_parent
         return is_array($result) ? (string) array_pop($result) : $result;
     }
 
-    public function canUpdateOetmGreeting(): bool
+    public function canUpdateOemtGreeting(): bool
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
 

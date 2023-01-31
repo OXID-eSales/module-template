@@ -31,7 +31,7 @@ final class StartControllerTest extends UnitTestCase
     /**
      * @dataProvider providerSessionUser
      */
-    public function testGetOetmGreeting(?EshopModelUser $user = null): void
+    public function testGetOemtGreeting(?EshopModelUser $user = null): void
     {
         $mock = $this->getMockBuilder(GreetingMessage::class)
             ->disableOriginalConstructor()
@@ -49,13 +49,13 @@ final class StartControllerTest extends UnitTestCase
 
         $controller->setUser($user);
 
-        $controller->getOetmGreeting();
+        $controller->getOemtGreeting();
     }
 
     /**
-     * @dataProvider providerCanUpdateOetmGreeting
+     * @dataProvider providerCanUpdateOemtGreeting
      */
-    public function testCanUpdateOetmGreeting(bool $hasUser, bool $personal, string $expect): void
+    public function testCanUpdateOemtGreeting(bool $hasUser, bool $personal, string $expect): void
     {
         $controller = $this->getMockBuilder(EshopStartController::class)
             ->onlyMethods(['getServiceFromContainer'])
@@ -68,10 +68,10 @@ final class StartControllerTest extends UnitTestCase
             $controller->setUser($this->getTestUser());
         }
 
-        $this->$expect($controller->canUpdateOetmGreeting());
+        $this->$expect($controller->canUpdateOemtGreeting());
     }
 
-    public function providerCanUpdateOetmGreeting(): array
+    public function providerCanUpdateOemtGreeting(): array
     {
         return [
             'without_user_generic' => [

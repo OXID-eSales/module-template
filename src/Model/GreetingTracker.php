@@ -18,9 +18,9 @@ use OxidEsales\Eshop\Core\Model\BaseModel;
  */
 class GreetingTracker extends BaseModel
 {
-    protected $_sCoreTable = 'oetm_tracker';
+    protected $_sCoreTable = 'oemt_tracker';
 
-    protected $_sClassName = 'oetmtracker';
+    protected $_sClassName = 'oemttracker';
 
     protected $_blUseLazyLoading = true;
 
@@ -28,7 +28,7 @@ class GreetingTracker extends BaseModel
     {
         $this->assign(
             [
-                'oetmcount' => $this->getCount() + 1,
+                'oemtcount' => $this->getCount() + 1,
             ]
         );
         $this->save();
@@ -36,6 +36,6 @@ class GreetingTracker extends BaseModel
 
     public function getCount(): int
     {
-        return (int) $this->getFieldData('oetmcount');
+        return (int) $this->getFieldData('oemtcount');
     }
 }
