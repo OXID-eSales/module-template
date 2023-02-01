@@ -8,6 +8,8 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=OXID-eSales_module-template&metric=coverage)](https://sonarcloud.io/dashboard?id=OXID-eSales_module-template)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OXID-eSales_module-template&metric=sqale_index)](https://sonarcloud.io/dashboard?id=OXID-eSales_module-template)
 
+**NOTICE: This branch is no longer supported. It works as an example for 6.4 but
+please use newer shop versions with newer module branches.**
 
 Reusable module template for extending OXID eShop core functionality.
 
