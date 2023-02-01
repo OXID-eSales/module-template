@@ -51,7 +51,7 @@ echo
 find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$module_id" {} \; |xargs perl -pi -e "s#$module_id#$composed_module_id#g;"
 
 # Change title in metadata.php file
-perl -pi -e "s#OxidEsales Module Template \(OETM\)#CHANGE MY TITLE#g;" ./metadata.php
+perl -pi -e "s#OxidEsales Module Template \(OEMT\)#CHANGE MY TITLE#g;" ./metadata.php
 
 #File headers
 echo "Please enter company name (original: $company)"

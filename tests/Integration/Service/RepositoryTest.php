@@ -62,7 +62,7 @@ final class RepositoryTest extends IntegrationTestCase
                 'oxid'      => self::TEST_TRACKER_ID,
                 'oxshopid'  => '1',
                 'oxuserid'  => self::TEST_USER_ID,
-                'oetmcount' => 5,
+                'oemtcount' => 5,
             ]
         );
         $tracker->save();
@@ -71,7 +71,7 @@ final class RepositoryTest extends IntegrationTestCase
         $user->assign(
             [
                 'oxid'         => self::TEST_USER_ID,
-                'oetmgreeting' => self::TEST_GREETING,
+                'oemtgreeting' => self::TEST_GREETING,
             ]
         );
         $user->save();

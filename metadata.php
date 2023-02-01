@@ -15,7 +15,7 @@ $sMetadataVersion = '2.1';
  */
 $aModule = [
     'id'          => 'oe_moduletemplate',
-    'title'       => 'OxidEsales Module Template (OETM)',
+    'title'       => 'OxidEsales Module Template (OEMT)',
     'description' =>  '',
     'thumbnail'   => 'pictures/logo.png',
     'version'     => '1.0.0-rc.1',
@@ -27,7 +27,7 @@ $aModule = [
         \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class
     ],
     'controllers' => [
-        'oetmgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
+        'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
     ],
     'templates'   => [
         '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
@@ -41,7 +41,7 @@ $aModule = [
             //It is possible to replace blocks by theme, to do so add 'theme' => '<theme_name>' key/value in here
             'template' => 'page/shop/start.tpl',
             'block' => 'start_welcome_text',
-            'file' => 'views/smarty/blocks/oetm_start_welcome_text.tpl'
+            'file' => 'views/smarty/blocks/oemt_start_welcome_text.tpl'
         ]
     ],
     'settings' => [

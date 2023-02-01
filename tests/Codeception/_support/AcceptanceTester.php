@@ -85,8 +85,8 @@ final class AcceptanceTester extends \Codeception\Actor
     public function resetGreetingTracker(): void
     {
         $this->updateInDatabase(
-            'oetm_tracker',
-            ['oetmcount' => 0],
+            'oemt_tracker',
+            ['oemtcount' => 0],
             []
         );
     }

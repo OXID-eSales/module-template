@@ -44,7 +44,7 @@ class Repository
             'oxuserid' => $userId,
         ];
 
-        $queryBuilder->select(User::OETM_USER_GREETING_FIELD)
+        $queryBuilder->select(User::OEMT_USER_GREETING_FIELD)
             ->from('oxuser')
             ->where('oxid = :oxuserid');
 
@@ -94,7 +94,7 @@ class Repository
         ];
 
         $queryBuilder->select('oxid')
-            ->from('oetm_tracker')
+            ->from('oemt_tracker')
             ->where('oxuserid = :oxuserid')
             ->andWhere('oxshopid = :oxshopid');
 

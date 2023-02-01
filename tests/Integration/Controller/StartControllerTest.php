@@ -31,9 +31,9 @@ final class StartControllerTest extends IntegrationTestCase
     public const TEST_GREETING = 'oh dear';
 
     /**
-     * @dataProvider providerCanUpdateOetmGreeting
+     * @dataProvider providerCanUpdateOemtGreeting
      */
-    public function testCanUpdateOetmGreeting(bool $hasUser, string $mode, string $expect): void
+    public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, string $expect): void
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
@@ -44,15 +44,15 @@ final class StartControllerTest extends IntegrationTestCase
             $controller->setUser($this->getTestUser());
         }
 
-        $this->$expect($controller->canUpdateOetmGreeting());
+        $this->$expect($controller->canUpdateOemtGreeting());
     }
 
     /**
-     * @dataProvider providerGetOetmGreeting
+     * @dataProvider providerGetOemtGreeting
      *
      * @param mixed $expect
      */
-    public function testGetOetmGreeting(bool $hasUser, string $mode, $expect): void
+    public function testGetOemtGreeting(bool $hasUser, string $mode, $expect): void
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
@@ -65,11 +65,11 @@ final class StartControllerTest extends IntegrationTestCase
 
         $this->assertSame(
             (string) EshopRegistry::getLang()->translateString($expect),
-            $controller->getOetmGreeting()
+            $controller->getOemtGreeting()
         );
     }
 
-    public function providerCanUpdateOetmGreeting(): array
+    public function providerCanUpdateOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -95,7 +95,7 @@ final class StartControllerTest extends IntegrationTestCase
         ];
     }
 
-    public function providerGetOetmGreeting(): array
+    public function providerGetOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -127,7 +127,7 @@ final class StartControllerTest extends IntegrationTestCase
         $user->assign(
             [
                 'oxid'         => self::TEST_USER_ID,
-                'oetmgreeting' => self::TEST_GREETING,
+                'oemtgreeting' => self::TEST_GREETING,
             ]
         );
         $user->save();

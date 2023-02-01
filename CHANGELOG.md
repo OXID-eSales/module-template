@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cleanup not used dev dependencies
 - Test run failures on https configuration; Enable not secure dev certificates in tests
 - Failed tests in the workflow will mark workflow red, not green anymore
+- Consistent abbreviation: OEMT
 
 ## [1.0.0-rc.1] - 2022-05-05
 

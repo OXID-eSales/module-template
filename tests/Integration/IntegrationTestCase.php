@@ -47,7 +47,7 @@ class IntegrationTestCase extends TestCase
     private function cleanUpTrackers()
     {
         $queryBuilder = $this->queryBuilderFactory->create();
-        $queryBuilder->delete('oetm_tracker');
+        $queryBuilder->delete('oemt_tracker');
         $queryBuilder->execute();
     }
 

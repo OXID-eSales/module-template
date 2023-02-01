@@ -155,7 +155,7 @@ Likely you'll not need all the example code but you might take some of it
 and modify. So we left it there for you to take what you need and clean out all else :)
 
 Please note that the module comes with a database table, translations and some templates which still have the original
-names. Just keep an eye on all that's prefixed 'OETM', 'oetm', 'OEMODULETEMPLATE' etc.
+names. Just keep an eye on all that's prefixed 'OEMT', 'oemt', 'OEMODULETEMPLATE' etc.
 
 Also, you will need to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
 credentials and names - check the env section there. For running SonarCloud as part of the steps in GitHub workflow you
@@ -216,7 +216,7 @@ Put module business logic to a service (which make it easier to test as well) an
 If you need to extend the shop class chain by overwriting, try to stick to the public methods.
 
 #### Sometimes we need to bring our own
-* own module controller (`oetmgreeting` with own template and own translations)
+* own module controller (`oemtgreeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
 * event subscriber (`OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate`)
 * model with a database (`OxidEsales\ModuleTemplate\Model\GreetingTracker`)
@@ -239,7 +239,7 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 
 ## Things to be aware of
 
-The template module is intended to act as a tutorial module so keep your eyes open for comments in the code.
+The module template is intended to act as a tutorial module so keep your eyes open for comments in the code.
 
 **NOTES:** 
 * Acceptance tests are way easier to write if you put an id on relevant fields and buttons in the templates. 
@@ -353,7 +353,7 @@ we are constantly trying to improve them.
 
 ### Github Actions Workflow
 
-The template module comes complete with a github actions workflow. No need to rig up some separate continuous integration
+The module template comes complete with a github actions workflow. No need to rig up some separate continuous integration
 infrastructure to run tests, it's all there in [github](https://github.com/OXID-eSales/module-template/actions).
 You will see three files in `.github/workflow` directory. The workflow from
 `.github/workflow/development.yml` starts on every `push` and `pull_request` to run the code quality checks and all the module tests.

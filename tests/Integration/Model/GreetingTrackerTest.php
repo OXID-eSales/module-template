@@ -46,7 +46,7 @@ final class GreetingTrackerTest extends IntegrationTestCase
                 'oxid'      => self::TEST_ID,
                 'oxshopid'  => '1',
                 'oxuserid'  => '_testuser',
-                'oetmcount' => $count,
+                'oemtcount' => $count,
             ]
         );
 

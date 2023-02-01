@@ -34,13 +34,13 @@ final class GreetingControllerTest extends IntegrationTestCase
     public const TEST_GREETING_UPDATED = 'shopping addict';
 
     /**
-     * @dataProvider providerOetmGreeting
+     * @dataProvider providerOemtGreeting
      */
     public function testUpdateGreeting(bool $hasUser, string $mode, string $expected, int $count): void
     {
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
-        $_POST[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME] = $expected;
+        $_POST[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME] = $expected;
 
         $controller = oxNew(GreetingController::class);
 
@@ -79,11 +79,11 @@ final class GreetingControllerTest extends IntegrationTestCase
         $this->assertSame('@oe_moduletemplate/templates/greetingtemplate', $controller->render());
 
         $viewData = $controller->getViewData();
-        $this->assertSame($expected['greeting'], $viewData[ModuleCore::OETM_GREETING_TEMPLATE_VARNAME]);
-        $this->assertSame($expected['counter'], $viewData[ModuleCore::OETM_COUNTER_TEMPLATE_VARNAME]);
+        $this->assertSame($expected['greeting'], $viewData[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME]);
+        $this->assertSame($expected['counter'], $viewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME]);
     }
 
-    public function providerOetmGreeting(): array
+    public function providerOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -157,7 +157,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $user->assign(
             [
                 'oxid'         => self::TEST_USER_ID,
-                'oetmgreeting' => self::TEST_GREETING,
+                'oemtgreeting' => self::TEST_GREETING,
             ]
         );
         $user->save();
@@ -172,7 +172,7 @@ final class GreetingControllerTest extends IntegrationTestCase
             [
                 'oxuserid'  => self::TEST_USER_ID,
                 'oxshopid'  => 1,
-                'oetmcount' => '67',
+                'oemtcount' => '67',
             ]
         );
         $tracker->save();

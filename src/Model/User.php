@@ -20,11 +20,11 @@ namespace OxidEsales\ModuleTemplate\Model;
  */
 class User extends User_parent
 {
-    public const OETM_USER_GREETING_FIELD = 'oetmgreeting';
+    public const OEMT_USER_GREETING_FIELD = 'oemtgreeting';
 
     public function getPersonalGreeting(): string
     {
-        return (string)$this->getRawFieldData(self::OETM_USER_GREETING_FIELD);
+        return (string)$this->getRawFieldData(self::OEMT_USER_GREETING_FIELD);
     }
 
     //NOTE: we only assign the value to the model.
@@ -32,7 +32,7 @@ class User extends User_parent
     public function setPersonalGreeting(string $personalGreeting): void
     {
         $this->assign([
-            self::OETM_USER_GREETING_FIELD => $personalGreeting,
+            self::OEMT_USER_GREETING_FIELD => $personalGreeting,
         ]);
     }
 }
