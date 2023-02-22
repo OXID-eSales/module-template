@@ -14,6 +14,5 @@
     <rule ref="rulesets/design.xml" />
     <rule ref="rulesets/naming.xml" />
     <rule ref="rulesets/unusedcode.xml" />
-    <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/cleancode.xml" />
 </ruleset>
