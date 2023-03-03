@@ -4,10 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [undecided] - unreleased
+## [2.0.0] - unreleased
 
 ### Changed
 - Updated module to work with shop 7
+
+### Fixed
+- Improved cache keys in workflows to be more precise
 
 ## [1.0.0] - Unreleased
 
