@@ -19,8 +19,8 @@ This module also comes with all the quality tools OXID recommends to use.
 ## Branch compatibility
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
-* b-6.5.x branch is compatible with OXID eShop compilation b-6.5.x 
-* b-7.0.x branch is compatible with OXID eShop b-7.0.x
+* b-6.5.x branch / v1.0.0 version -compatible with OXID eShop compilation b-6.5.x 
+* b-7.0.x branch is compatible with OXID eShop compilation b-7.0.x
 
 ## Installation
 

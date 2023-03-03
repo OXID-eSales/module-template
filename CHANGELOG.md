@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Improved cache keys in workflows to be more precise
 
-## [1.0.0] - Unreleased
+## [1.0.0] - 2023-03-03
 
 ### Added
 - More examples with possible configuration settings for module
@@ -37,5 +37,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First version of our reusable examples
 
-[1.0.0]: https://github.com/OXID-eSales/module-template/compare/v1.0.0-rc.1...b-6.5.x
+[1.0.0]: https://github.com/OXID-eSales/module-template/compare/v1.0.0-rc.1...v1.0.0
 [1.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/d1380c5a9c63f411011ab852bd25b66e83306b41...v1.0.0-rc.1
