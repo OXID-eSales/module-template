@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.0.0] - unreleased
 
+### Added
+- Improved the phpmd configuration [PR-10](https://github.com/OXID-eSales/module-template/pull/10)
+
 ### Changed
 - Updated module to work with shop 7
 
