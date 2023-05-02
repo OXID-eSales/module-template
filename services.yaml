@@ -3,12 +3,12 @@ services:
   _defaults:
     public: false
     autowire: true
+    bind:
+      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
 
-  OxidEsales\Eshop\Core\Registry:
+  OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
-
-  OxidEsales\Eshop\Core\Request:
-    factory: [ '@OxidEsales\Eshop\Core\Registry', 'getRequest' ]
+    public: true
 
   OxidEsales\ModuleTemplate\Service\:
     resource: 'src/Service/*'

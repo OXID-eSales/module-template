@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Improved cache keys in workflows to be more precise
+- Do not use shop class names in services to avoid possible breaking overwrites
 
 ## [1.0.0] - 2023-03-03
 
