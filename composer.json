@@ -13,7 +13,8 @@
     "prefer-stable": true,
     "prefer-dist": true,
     "require": {
-        "php": "^8.0 | ^8.1"
+        "php": "^8.0 | ^8.1",
+        "symfony/filesystem": "^6.0"
     },
     "minimum-stability": "dev",
     "require-dev": {

@@ -8,7 +8,7 @@
 declare(strict_types=1);
 
 // This is acceptance bootstrap
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 require_once Path::join((new \OxidEsales\Facts\Facts())->getShopRootPath(), 'source', 'bootstrap.php');
 
