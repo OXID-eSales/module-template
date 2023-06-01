@@ -46,14 +46,14 @@ modules:
         config_key: 'fq45QS09_fqyx09239QQ'
         depends: Db
     - \OxidEsales\Codeception\Module\SelectTheme:
-        theme_id: twig
+        theme_id: '%THEME_ID%'
         depends:
           - \OxidEsales\Codeception\Module\Database
           - Db
     - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
         shop_path: '%SHOP_SOURCE_PATH%'
         paths:
-          - Application/views/twig
+          - Application/views/apex
           - Application/views/admin_twig
           - ../vendor/oxid-esales/module-template/views/admin_twig
           - ../vendor/oxid-esales/module-template/translations

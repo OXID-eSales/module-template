@@ -36,6 +36,7 @@ return [
     'BROWSER_NAME'         => getenv('BROWSER_NAME') ?: 'chrome',
     'PHP_BIN'              => $php,
     'SCREEN_SHOT_URL'      => $cc_screen_shot_path,
+    'THEME_ID'             => getenv('THEME_ID') ?: 'apex',
 ];
 
 function getTestDataDumpFilePath()

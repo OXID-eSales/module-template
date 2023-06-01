@@ -28,13 +28,12 @@ final class ModuleCest
         $I->wantToTest('that deactivating the module does not destroy the shop');
 
         $I->openShop();
-        $I->waitForText(Translator::translate('HOME'));
-        $I->see(Translator::translate('OEMODULETEMPLATE_GREETING'));
+        $I->waitForText(Translator::translate('OEMODULETEMPLATE_GREETING'));
 
         $I->setModuleActive(false);
         $I->reloadPage();
 
-        $I->waitForText(Translator::translate('HOME'));
+        $I->waitForPageLoad();
         $I->dontSee(Translator::translate('OEMODULETEMPLATE_GREETING'));
     }
 }
