@@ -48,17 +48,7 @@ class Repository
             ->from('oxuser')
             ->where('oxid = :oxuserid');
 
-        $result = $queryBuilder->setParameters($parameters)
-            ->setMaxResults(1)
-            ->execute();
-
-        $text = '';
-
-        if (is_object($result)) {
-            $text = (string) $result->fetch(PDO::FETCH_COLUMN);
-        }
-
-        return $text;
+        return $this->queryValue($queryBuilder, $parameters);
     }
 
     public function getTrackerByUserId(string $userId): GreetingTracker
@@ -98,16 +88,19 @@ class Repository
             ->where('oxuserid = :oxuserid')
             ->andWhere('oxshopid = :oxshopid');
 
+        return $this->queryValue($queryBuilder, $parameters);
+    }
+
+    private function queryValue(QueryBuilder $queryBuilder, array $parameters): string
+    {
         $result = $queryBuilder->setParameters($parameters)
             ->setMaxResults(1)
             ->execute();
 
-        $trackerId = '';
-
         if (is_object($result)) {
-            $trackerId = (string) $result->fetch(PDO::FETCH_COLUMN);
+            $value = (string)$result->fetchOne();
         }
 
-        return $trackerId;
+        return $value ?? '';
     }
 }
