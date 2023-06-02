@@ -113,16 +113,17 @@ jobs:
       - name: Prepare shop configuration
         run: |
           cp source/source/config.inc.php.dist source/source/config.inc.php
-          sed -i "1s+^+SetEnvIf Authorization "\(.*\)" HTTP_AUTHORIZATION=\$1\n\n+" source/source/.htaccess
-          sed -i -e 's/<dbHost>/mysql/'\
-                 -e 's/<dbUser>/root/'\
-                 -e 's/<dbName>/example/'\
-                 -e 's/<dbPwd>/root/'\
-                 -e 's/<dbPort>/3306/'\
-                 -e 's/<sShopURL>/http:\/\/localhost.local\//'\
-                 -e 's/<sShopDir>/\/var\/www\/source\//'\
-                 -e 's/<sCompileDir>/\/var\/www\/source\/tmp\//'\
-              source/source/config.inc.php
+          perl -pi\
+            -e 's#<dbHost>#mysql#g;'\
+            -e 's#<dbUser>#root#g;'\
+            -e 's#<dbName>#example#g;'\
+            -e 's#<dbPwd>#root#g;'\
+            -e 's#<dbPort>#3306#g;'\
+            -e 's#<sShopURL>#http://localhost.local/#g;'\
+            -e 's#<sShopDir>#/var/www/source/#g;'\
+            -e 's#<sCompileDir>#/var/www/source/tmp/#g;'\
+            -e 's#iDebug = 0;#iDebug = -1;#g;'\
+            source/source/config.inc.php
 
       - name: Checkout current module
         uses: actions/checkout@v3
@@ -479,7 +480,7 @@ jobs:
           wget https://phar.phpunit.de/phpcov-8.2.1.phar
           mv phpcov-8.2.1.phar source/phpcov.phar
           docker-compose exec -T php php phpcov.phar merge --clover coverage.xml ./coverage
-          sed -i 's+/var/www/test-module/+./+' source/coverage.xml
+          perl -pi -e 's#/var/www/test-module/#./#g;' source/coverage.xml
 
       - name: Upload log artifact
         uses: actions/upload-artifact@v3
