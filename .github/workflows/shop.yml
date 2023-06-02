@@ -133,24 +133,54 @@ jobs:
           make up
           sleep 2
 
-      - name: Run tests
+      - name: Run shop unit tests
         run: |
-          docker-compose exec -T \
-            -e XDEBUG_MODE=coverage \
-            php php vendor/bin/phpunit \
-              -c /var/www/vendor/${{ env.PACKAGE_NAME }}/tests/phpunit.xml \
-              --bootstrap=/var/www/source/bootstrap.php \
-              --coverage-html=Coverage \
-              --coverage-clover=/var/www/coverage.xml \
-              --coverage-text \
-              --log-junit=/var/www/phpunit.xml \
-              /var/www/vendor/${{ env.PACKAGE_NAME }}/tests
+          docker-compose run -T php vendor/bin/phpunit \
+            -c phpunit.xml tests/Unit \
+            --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/'
 
       - name: Upload log artifact
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: TestsLog-${{ matrix.php }}
+          name: UnitTestsLog-${{ matrix.php }}
+          path: |
+            source/phpunit.xml
+
+  integration_tests:
+    strategy:
+      matrix:
+        php: [ '8.1' ]
+    needs: [ install_shop_with_module ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load current installation from cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./*
+          key: shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
+          restore-keys: |
+            shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
+            shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}
+
+      - name: Start containers
+        run: |
+          make up
+          sleep 2
+
+      - name: Run shop integration tests
+        run: |
+          docker-compose run -T php vendor/bin/phpunit \
+            -c phpunit.xml tests/Integration \
+            --bootstrap tests/bootstrap.php tests/Integration \
+            --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/'
+
+      - name: Upload log artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: IntegrationTestsLog-${{ matrix.php }}
           path: |
             source/phpunit.xml
 
