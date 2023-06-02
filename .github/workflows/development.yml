@@ -93,7 +93,6 @@ jobs:
         run: |
           make setup
           make addbasicservices
-          make file=services/selenium-chrome.yml addservice
 
           perl -pi\
             -e 's#PHP_VERSION=.*#PHP_VERSION=${{ inputs.php }}#g;'\
@@ -341,6 +340,7 @@ jobs:
 
       - name: Start containers
         run: |
+          make file=services/selenium-chrome.yml addservice
           make up
           sleep 2
 
@@ -402,6 +402,7 @@ jobs:
 
       - name: Start containers
         run: |
+          make file=services/selenium-chrome.yml addservice
           make up
           sleep 2
 
