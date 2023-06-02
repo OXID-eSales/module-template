@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improved cache keys in workflow to be more precise
 - Do not use shop class names in services to avoid possible breaking overwrites
 - Optimize selenium container usage in workflow
+- Example shop tests with module workflow fixed
 
 ### Removed
 - Older "Twig" theme support
