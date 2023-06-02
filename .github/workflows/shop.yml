@@ -30,7 +30,6 @@ jobs:
         run: |
           make setup
           make addbasicservices
-          make file=services/selenium-chrome.yml addservice
 
           perl -pi\
             -e "s#PHP_VERSION=.*#PHP_VERSION=${{ matrix.php }}#g;"\
@@ -49,16 +48,17 @@ jobs:
       - name: Prepare shop configuration
         run: |
           cp source/source/config.inc.php.dist source/source/config.inc.php
-          sed -i "1s+^+SetEnvIf Authorization "\(.*\)" HTTP_AUTHORIZATION=\$1\n\n+" source/source/.htaccess
-          sed -i -e 's/<dbHost>/mysql/'\
-                 -e 's/<dbUser>/root/'\
-                 -e 's/<dbName>/example/'\
-                 -e 's/<dbPwd>/root/'\
-                 -e 's/<dbPort>/3306/'\
-                 -e 's/<sShopURL>/http:\/\/localhost.local\//'\
-                 -e 's/<sShopDir>/\/var\/www\/source\//'\
-                 -e 's/<sCompileDir>/\/var\/www\/source\/tmp\//'\
-              source/source/config.inc.php
+          perl -pi\
+            -e 's#<dbHost>#mysql#g;'\
+            -e 's#<dbUser>#root#g;'\
+            -e 's#<dbName>#example#g;'\
+            -e 's#<dbPwd>#root#g;'\
+            -e 's#<dbPort>#3306#g;'\
+            -e 's#<sShopURL>#http://localhost.local/#g;'\
+            -e 's#<sShopDir>#/var/www/source/#g;'\
+            -e 's#<sCompileDir>#/var/www/source/tmp/#g;'\
+            -e 's#iDebug = 0;#iDebug = -1;#g;'\
+            source/source/config.inc.php
 
       - name: Checkout current module
         uses: actions/checkout@v3
@@ -82,7 +82,7 @@ jobs:
         run: |
           docker-compose exec -T php composer require oxid-esales/twig-component:dev-b-7.0.x --no-update
           docker-compose exec -T php composer require oxid-esales/twig-admin-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/twig-theme:dev-b-7.0.x --no-update
+          docker-compose exec -T php composer require oxid-esales/apex-theme:dev-b-7.0.x --no-update
 
       - name: Install dependencies and reset shop
         run: |
@@ -127,6 +127,7 @@ jobs:
           key: shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
             shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
+            shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}
 
       - name: Start containers
         run: |
@@ -169,19 +170,19 @@ jobs:
           key: shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
             shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
+            shopInstallation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}
 
       - name: Start containers
         run: |
+          make file=services/selenium-chrome.yml addservice
           make up
           sleep 2
 
       - name: Run tests
         run: |
           docker-compose exec -T \
-            -e SELENIUM_SERVER_HOST=selenium \
             -e MODULE_IDS=${{ env.MODULE_IDS }} \
-            -e BROWSER_NAME=chrome \
-            -e THEME_ID=twig \
+            -e THEME_ID=apex \
             php vendor/bin/codecept run acceptance \
               --bootstrap=/var/www/source/bootstrap.php \
                -c tests/codeception.yml --ext DotReporter
