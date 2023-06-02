@@ -43,25 +43,22 @@ class GreetingController extends FrontendController
      */
     public function render()
     {
-        $template       = parent::render();
+        $template = parent::render();
         $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
-        $repository     = $this->getServiceFromContainer(Repository::class);
-
-        //This way information is transported to the template layer, add to _aViewData array and
-        //use as [{$oemt_greeting}] in the (smarty) template.
-        //NOTE: setting default values prevents smarty from running into warnings from missing data
-        $this->_aViewData[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME] = '';
-        $this->_aViewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME]  = 0;
+        $repository = $this->getServiceFromContainer(Repository::class);
 
         /** @var TemplateModelUser $user */
         $user = $this->getUser();
 
         if (is_a($user, EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode()) {
-            $this->_aViewData[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME] = $user->getPersonalGreeting();
             /** @var GreetingTracker $tracker */
             $tracker = $repository->getTrackerByUserId($user->getId());
-            $this->_aViewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME] = $tracker->getCount();
+            $greeting = $user->getPersonalGreeting();
+            $counter = $tracker->getCount();
         }
+
+        $this->addTplParam(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME, $greeting ?: '');
+        $this->addTplParam(ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME, $counter ?: 0);
 
         return $template;
     }
