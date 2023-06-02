@@ -21,7 +21,8 @@
         "phpstan/phpstan": "^1.9.14",
         "squizlabs/php_codesniffer": "3.*",
         "phpmd/phpmd": "^2.11",
-        "oxid-esales/oxideshop-ce": "dev-b-7.0.x"
+        "oxid-esales/oxideshop-ce": "dev-b-7.0.x",
+        "phpunit/phpunit": "^9.6"
     },
     "conflict": {
         "oxid-esales/oxideshop-ce": "<7.0"
@@ -47,6 +48,18 @@
             "@phpcs",
             "@phpstan",
             "@phpmd"
+        ],
+
+        "tests-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --config=tests/ --testsuite=Unit",
+        "tests-integration": "XDEBUG_MODE=coverage vendor/bin/phpunit --bootstrap=/var/www/source/bootstrap.php --config=tests/ --testsuite=Integration",
+        "tests-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --bootstrap=/var/www/source/bootstrap.php --config=tests/ --coverage-html=tests/result/coverage",
+
+        "tests-codeception": "(cd /var/www/ && THEME_ID=apex MODULE_IDS=oe_moduletemplate /var/www/vendor/bin/codecept run acceptance -c /var/www/vendor/oxid-esales/module-template/tests/codeception.yml -g oe_moduletemplate)",
+
+        "tests-all": [
+            "@tests-unit",
+            "@tests-integration",
+            "@tests-codeception"
         ]
     },
     "config": {
