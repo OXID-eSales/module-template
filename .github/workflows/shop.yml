@@ -184,4 +184,6 @@ jobs:
             -e THEME_ID=apex \
             php vendor/bin/codecept run acceptance \
               --bootstrap=/var/www/source/bootstrap.php \
-               -c tests/codeception.yml --ext DotReporter
+              -c tests/codeception.yml \
+              --ext DotReporter \
+              --skip-group flow_theme
