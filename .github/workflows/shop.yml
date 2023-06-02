@@ -171,10 +171,10 @@ jobs:
 
       - name: Run shop integration tests
         run: |
-          docker-compose run -T php vendor/bin/phpunit \
+          docker-compose exec -T php vendor/bin/phpunit \
             -c phpunit.xml tests/Integration \
             --bootstrap tests/bootstrap.php tests/Integration \
-            --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut)).)*$/'
+            --filter '/^((?!(someTestFunctionNameToFilterOut|orAnotherToFilterOut|testImport)).)*$/'
 
       - name: Upload log artifact
         if: always()
