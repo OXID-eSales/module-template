@@ -8,13 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Improved the phpmd configuration [PR-10](https://github.com/OXID-eSales/module-template/pull/10)
+- Workflow jobs can be rerun separately after failures
 
 ### Changed
 - Updated module to work with shop 7
+- Update to work with APEX theme by default
 
 ### Fixed
-- Improved cache keys in workflows to be more precise
+- Improved cache keys in workflow to be more precise
 - Do not use shop class names in services to avoid possible breaking overwrites
+- Optimize selenium container usage in workflow
+
+### Removed
+- Older "Twig" theme support
 
 ## [1.0.0] - 2023-03-03
 
