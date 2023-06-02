@@ -35,7 +35,7 @@ class GreetingMessage
         EshopRequest $request
     ) {
         $this->settings = $settings;
-        $this->request  = $request;
+        $this->request = $request;
     }
 
     public function getGreeting(?EshopModelUser $user = null): string
@@ -54,15 +54,15 @@ class GreetingMessage
         /** @var TemplateModelUser $user */
         $user->setPersonalGreeting($this->getRequestOemtGreeting());
 
-        return (bool) $user->save();
+        return (bool)$user->save();
     }
 
     private function getRequestOemtGreeting(): string
     {
-        $input = (string) $this->request->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
+        $input = (string)$this->request->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
-        return (string) substr($input, 0, 253);
+        return (string)substr($input, 0, 253);
     }
 
     private function getUserGreeting(?EshopModelUser $user = null): string

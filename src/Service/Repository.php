@@ -32,7 +32,7 @@ class Repository
         ContextInterface $context
     ) {
         $this->queryBuilderFactory = $queryBuilderFactory;
-        $this->context             = $context;
+        $this->context = $context;
     }
 
     public function getSavedUserGreeting(string $userId): string

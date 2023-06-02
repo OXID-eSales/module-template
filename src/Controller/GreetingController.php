@@ -57,8 +57,8 @@ class GreetingController extends FrontendController
             $counter = $tracker->getCount();
         }
 
-        $this->addTplParam(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME, $greeting ?: '');
-        $this->addTplParam(ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME, $counter ?: 0);
+        $this->addTplParam(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME, $greeting ?? '');
+        $this->addTplParam(ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME, $counter ?? 0);
 
         return $template;
     }

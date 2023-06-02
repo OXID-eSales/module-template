@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as ModelUser;
 use OxidEsales\ModuleTemplate\Service\Repository as RepositoryService;
 
@@ -33,7 +32,6 @@ class Tracker
 
         /** @var ModelUser $user */
         if ($savedGreeting !== $user->getPersonalGreeting()) {
-            /** @var GreetingTracker $tracker */
             $tracker = $this->repository->getTrackerByUserId($user->getId());
             $tracker->countUp();
         }

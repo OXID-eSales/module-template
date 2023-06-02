@@ -40,7 +40,7 @@ class ModuleSettings
 
     public function getGreetingMode(): string
     {
-        $value = (string) $this->moduleSettingService->getString(self::GREETING_MODE, Module::MODULE_ID);
+        $value = (string)$this->moduleSettingService->getString(self::GREETING_MODE, Module::MODULE_ID);
 
         return (!empty($value) && in_array($value, self::GREETING_MODE_VALUES)) ? $value : self::GREETING_MODE_GENERIC;
     }

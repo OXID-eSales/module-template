@@ -26,16 +26,14 @@ class GreetingTracker extends BaseModel
 
     public function countUp(): void
     {
-        $this->assign(
-            [
-                'oemtcount' => $this->getCount() + 1,
-            ]
-        );
+        $this->assign([
+            'oemtcount' => $this->getCount() + 1,
+        ]);
         $this->save();
     }
 
     public function getCount(): int
     {
-        return (int) $this->getFieldData('oemtcount');
+        return (int)$this->getFieldData('oemtcount');
     }
 }
