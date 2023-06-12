@@ -20,8 +20,6 @@ final class GreetingCest
 {
     public function _before(AcceptanceTester $I): void
     {
-        $I->setModuleActive();
-
         //ensure each test start from same environment
         $I->setGreetingModeGeneric();
     }

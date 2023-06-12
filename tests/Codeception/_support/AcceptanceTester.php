@@ -75,13 +75,6 @@ final class AcceptanceTester extends \Codeception\Actor
         return Fixtures::get('user')['password'];
     }
 
-    public function setModuleActive(bool $active = true): void
-    {
-        $command = $active ? 'activate' : 'deactivate';
-
-        exec((new Facts())->getShopRootPath() . '/bin/oe-console oe:module:' . $command . ' oe_moduletemplate');
-    }
-
     public function resetGreetingTracker(): void
     {
         $this->updateInDatabase(
