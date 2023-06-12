@@ -49,5 +49,6 @@ modules:
           - Application/views/admin_twig
           - ../vendor/oxid-esales/module-template/views/admin_twig
           - ../vendor/oxid-esales/module-template/translations
+    - \OxidEsales\Codeception\Module\OxideshopModules
 step_decorators:
     - \Codeception\Step\Retry
