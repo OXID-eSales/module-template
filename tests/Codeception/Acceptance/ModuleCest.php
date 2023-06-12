@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Codeception\Helper;
 
 use OxidEsales\Codeception\Module\Translation\Translator;
+use OxidEsales\ModuleTemplate\Core\Module;
 use OxidEsales\ModuleTemplate\Tests\Codeception\AcceptanceTester;
 
 /**
@@ -18,11 +19,6 @@ use OxidEsales\ModuleTemplate\Tests\Codeception\AcceptanceTester;
  */
 final class ModuleCest
 {
-    public function _after(AcceptanceTester $I): void
-    {
-        $I->setModuleActive();
-    }
-
     public function testCanDeactivateModule(AcceptanceTester $I): void
     {
         $I->wantToTest('that deactivating the module does not destroy the shop');
@@ -30,7 +26,7 @@ final class ModuleCest
         $I->openShop();
         $I->waitForText(Translator::translate('OEMODULETEMPLATE_GREETING'));
 
-        $I->setModuleActive(false);
+        $I->deactivateModule(Module::MODULE_ID);
         $I->reloadPage();
 
         $I->waitForPageLoad();
