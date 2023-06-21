@@ -191,7 +191,7 @@ jobs:
         id: phpstan
         if: always()
         run: |
-          docker-compose exec -Tw /var/www/source/modules/oe/nginx \
+          docker-compose exec -Tw /var/www/test-module \
             php bash -c "composer phpstan-report; composer phpstan"
 
       - name: Run phpmd
@@ -199,7 +199,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          docker-compose exec -Tw /var/www/source/modules/oe/nginx \
+          docker-compose exec -Tw /var/www/test-module \
             php bash -c "composer phpmd-report; composer phpmd"
 
       - name: Run phpcs
@@ -221,8 +221,8 @@ jobs:
         with:
           name: StylesLog-${{ inputs.php }}
           path: |
-            source/test-module/phpstan.report.json
-            source/test-module/phpmd.report.json
+            source/test-module/tests/reports/phpstan.report.json
+            source/test-module/tests/reports/phpmd.report.json
 
   integration_tests:
     needs: [ install_shop_with_module ]

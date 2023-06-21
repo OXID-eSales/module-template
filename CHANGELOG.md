@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Cleanup module activation/deactivation from tests, use OxideshopModules codeception module
+- Specify reports location for static analyzers. Fix missing phpmd reports to be available
 
 ## [2.0.0] - 2023-06-02
 
