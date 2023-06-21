@@ -67,15 +67,6 @@ jobs:
   install_shop_with_module:
     runs-on: ubuntu-latest
     steps:
-      - name: Print run parameters
-        run: |
-          echo "Running job with:\
-            PHP version: ${{ inputs.php }}\
-            MySQL version: ${{ inputs.mysql }}\
-            Template engine: ${{ inputs.template_engine }}\
-            Tests group: ${{ inputs.module_codecept_test_group }}\
-            Trigger event: ${{ github.event_name }}"
-
       - name: Clone testing environment
         run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git .
 
