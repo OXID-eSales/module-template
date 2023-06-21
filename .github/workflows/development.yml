@@ -187,27 +187,27 @@ jobs:
             --workdir=/var/www/test-module \
             php composer install
 
+      - name: Run phpstan
+        id: phpstan
+        if: always()
+        run: |
+          docker-compose exec -Tw /var/www/source/modules/oe/nginx \
+            php bash -c "composer phpstan-report; composer phpstan"
+
+      - name: Run phpmd
+        id: phpmd
+        if: always()
+        continue-on-error: true
+        run: |
+          docker-compose exec -Tw /var/www/source/modules/oe/nginx \
+            php bash -c "composer phpmd-report; composer phpmd"
+
       - name: Run phpcs
         if: always()
         run: |
           docker-compose exec -T \
             --workdir=/var/www/test-module \
             php composer phpcs
-
-      - name: Run phpstan scan and show results
-        id: phpstan
-        if: always()
-        run: |
-          docker-compose exec -T \
-            --workdir=/var/www/test-module \
-            php composer phpstan
-
-      - name: Run phpstan scan and generate report for further processing
-        if: always()
-        run: |
-          docker-compose exec -T \
-            --workdir=/var/www/test-module \
-            php composer phpstan-report
 
       - name: Stop containers
         if: always()
