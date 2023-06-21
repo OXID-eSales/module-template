@@ -396,6 +396,7 @@ jobs:
             ./*
           key: installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
+            installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
             installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}
 
       - name: Reconfigure codeception for smarty themes
@@ -461,6 +462,7 @@ jobs:
             ./*
           key: installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
           restore-keys: |
+            installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}-${{ github.run_attempt }}
             installation-${{ github.sha }}-${{ join(inputs.*, '-') }}-${{ github.run_number }}
 
       - name: Download unit artifacts
