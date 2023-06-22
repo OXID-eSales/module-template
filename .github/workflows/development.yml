@@ -71,7 +71,7 @@ jobs:
         run: git clone https://github.com/OXID-eSales/docker-eshop-sdk.git .
 
       - name: Clone the shop
-        run: git clone --depth 1 https://github.com/OXID-eSales/oxideshop_ce.git --branch b-7.0.x --single-branch source
+        run: git clone --depth 1 https://github.com/OXID-eSales/oxideshop_ce.git --branch b-7.1.x --single-branch source
 
       - name: Cache current installation
         uses: actions/cache@v3
@@ -341,9 +341,9 @@ jobs:
 
       - name: Install twig template engine and twig theme
         run: |
-          docker-compose exec -T php composer require oxid-esales/twig-component:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/twig-admin-theme:dev-b-7.0.x --no-update
-          docker-compose exec -T php composer require oxid-esales/apex-theme:dev-b-7.0.x --no-update
+          docker-compose exec -T php composer require oxid-esales/twig-component:dev-b-7.1.x --no-update
+          docker-compose exec -T php composer require oxid-esales/twig-admin-theme:dev-b-7.1.x --no-update
+          docker-compose exec -T php composer require oxid-esales/apex-theme:dev-b-7.1.x --no-update
           docker-compose exec -T php composer update --no-interaction
 
       - name: Run tests
