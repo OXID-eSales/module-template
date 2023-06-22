@@ -142,7 +142,7 @@ jobs:
 
       - name: Stop containers
         run: |
-          docker-compose down
+          make down
           sleep 2
 
       - name: Show docker log
@@ -268,7 +268,7 @@ jobs:
       - name: Stop containers
         if: always()
         run: |
-          docker-compose down
+          make down
           sleep 2
 
   unit_tests:
@@ -314,7 +314,7 @@ jobs:
       - name: Stop containers
         if: always()
         run: |
-          docker-compose down
+          make down
           sleep 2
 
   codeception_twig:
