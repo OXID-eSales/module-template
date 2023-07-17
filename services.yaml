@@ -17,3 +17,10 @@ services:
   OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
     class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
     tags: [ 'kernel.event_subscriber' ]
+
+  oxid_esales.module_template.command.read_logs_command:
+    class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
+    public: true
+    autowire: true
+    tags:
+      - { name: 'console.command' }
