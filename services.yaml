@@ -10,6 +10,35 @@ services:
     class: OxidEsales\Eshop\Core\Registry
     public: true
 
+  OxidEsales\ModuleTemplate\Service\BasketItemLoggerInterface:
+    class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
+    public: true
+    arguments:
+      $logger : '@OxidEsales\ModuleTemplate\Logger'
+
+  OxidEsales\ModuleTemplate\Logger:
+    class: Monolog\Logger
+    factory: ['@OxidEsales\ModuleTemplate\Logger\Factory', 'create']
+
+  OxidEsales\ModuleTemplate\Logger\Factory:
+    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Factory\MonologLoggerFactory
+    arguments:
+      $configuration: '@OxidEsales\ModuleTemplate\Logger\Configuration'
+
+  OxidEsales\ModuleTemplate\Logger\Configuration:
+    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
+    arguments:
+      $loggerName: 'Basket Logger'
+      $logFilePath: 'vfs://vfsRoot/basket.log'
+      $logLevel: !php/const Psr\Log\LogLevel::DEBUG
+
+  OxidEsales\ModuleTemplate\Command\ReadLogsCommand:
+    class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
+    public: true
+    autowire: true
+    tags:
+      - { name: 'console.command', command: 'oe:moduletemplate:read-log-file'}
+
   OxidEsales\ModuleTemplate\Service\:
     resource: 'src/Service/*'
     public: true
@@ -17,10 +46,3 @@ services:
   OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
     class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
     tags: [ 'kernel.event_subscriber' ]
-
-  oxid_esales.module_template.command.read_logs_command:
-    class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
-    public: true
-    autowire: true
-    tags:
-      - { name: 'console.command' }

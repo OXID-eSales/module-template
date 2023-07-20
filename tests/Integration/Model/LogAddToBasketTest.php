@@ -9,28 +9,51 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
 use OxidEsales\Eshop\Application\Component\BasketComponent;
-use OxidEsales\ModuleTemplate\Model\BasketItemLogger;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
+use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
+use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
+use \org\bovigo\vfs\vfsStream;
+use \org\bovigo\vfs\vfsStreamDirectory;
 
 /**
  * Test class for checking if logger correctly integrates with shop via bridge.
  */
-class LogAddToBasketTest extends  IntegrationTestCase
+class LogAddToBasketTest extends IntegrationTestCase
 {
+    const VFS_ROOT_DIRECTORY = 'vfsRoot';
+
+    /** @var vfsStreamDirectory */
+    protected $vfsRoot;
+    private const TEST_PRODUCT_ID = 'testArticleId';
+
+    public function setUp(): void
+    {
+        $this->vfsRoot = vfsStream::setup(self::VFS_ROOT_DIRECTORY);
+        parent::setUp();
+        $this->prepareTestData();
+    }
+
+    private function prepareTestData(): void
+    {
+        $product = oxNew(EshopModelArticle::class);
+        $product->setId(self::TEST_PRODUCT_ID);
+        $product->assign(
+            [
+                'oxprice' => 100,
+                'oxstock' => 100
+            ]
+        );
+        $product->save();
+    }
+
     /**
      * Test creates virtual directory and checks if required information was logged.
      */
     public function testLoggingWhenCustomerAddsToBasket()
     {
-        $rootPath = $this->mockFileSystemForShop();
-
-        $productId = 'testArticleId';
-
-        $this->addProductToBasket($productId);
-
-        $fileContents = $this->getLogFileContent($rootPath);
-
-        $this->assertLogContentCorrect($fileContents, $productId);
+        $this->addProductToBasket(self::TEST_PRODUCT_ID);
+        $fileContents = $this->getLogFileContent();
+        $this->assertLogContentCorrect($fileContents, self::TEST_PRODUCT_ID);
     }
 
     /**
@@ -53,31 +76,18 @@ class LogAddToBasketTest extends  IntegrationTestCase
         $basketComponent->tobasket();
     }
 
-    /**
-     * @param $rootPath
-     *
-     * @return bool|string
-     */
-    private function getLogFileContent($rootPath)
-    {
-        $fakeBasketLogFile = $rootPath . 'log' . DIRECTORY_SEPARATOR . BasketItemLogger::FILE_NAME;
-        $fileContents = file_get_contents($fakeBasketLogFile);
 
-        return $fileContents;
+    private function getLogFileContent()
+    {
+        return $this->vfsRoot->getChild(BasketItemLogger::FILE_NAME)->getContent();
     }
 
     /**
-     * Use VfsStream to not write to file system.
-     *
-     * @return string path to root directory.
+     * @param string $paramName
+     * @param string|array $paramValue
      */
-    private function mockFileSystemForShop()
+    public function setRequestParameter($paramName, $paramValue)
     {
-        $vfsStreamWrapper = $this->getVfsStreamWrapper();
-        $vfsStreamWrapper->createStructure(array('log' => array()));
-        $this->getConfig()->setConfigParam('sShopDir', $vfsStreamWrapper->getRootPath());
-        $rootPath = $vfsStreamWrapper->getRootPath();
-
-        return $rootPath;
+        $_POST[$paramName] = $paramValue;
     }
 }
