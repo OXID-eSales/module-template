@@ -18,7 +18,7 @@ class BasketItemLoggerTest extends TestCase
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->once())
-            ->method('error')
+            ->method('info')
             ->with($this->equalTo('Adding item with id \'testItemId\'.'));
 
         $basketItemLogger = new BasketItemLogger($loggerMock);

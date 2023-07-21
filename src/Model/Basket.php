@@ -46,7 +46,6 @@ class Basket extends Basket_parent
         $oldBasketItemId = null
     )
     {
-
         $basketItemLogger = $this->getServiceFromContainer(BasketItemLoggerInterface::class);
         $basketItemLogger->logItemToBasket($productID);
 

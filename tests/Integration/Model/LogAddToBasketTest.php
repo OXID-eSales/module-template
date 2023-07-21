@@ -10,6 +10,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
 use OxidEsales\Eshop\Application\Component\BasketComponent;
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
 use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
 use \org\bovigo\vfs\vfsStream;
@@ -23,7 +24,7 @@ class LogAddToBasketTest extends IntegrationTestCase
     const VFS_ROOT_DIRECTORY = 'vfsRoot';
 
     /** @var vfsStreamDirectory */
-    protected $vfsRoot;
+    private $vfsRoot;
     private const TEST_PRODUCT_ID = 'testArticleId';
 
     public function setUp(): void
@@ -51,6 +52,7 @@ class LogAddToBasketTest extends IntegrationTestCase
      */
     public function testLoggingWhenCustomerAddsToBasket()
     {
+        $this->mockFileSystemForShop();
         $this->addProductToBasket(self::TEST_PRODUCT_ID);
         $fileContents = $this->getLogFileContent();
         $this->assertLogContentCorrect($fileContents, self::TEST_PRODUCT_ID);
@@ -62,7 +64,8 @@ class LogAddToBasketTest extends IntegrationTestCase
      */
     private function assertLogContentCorrect($fileContents, $productId)
     {
-        $this->assertTrue((bool)strpos($fileContents, $productId), "Product id does not exist in log file.");
+        $loggerString = sprintf(BasketItemLogger::MESSAGE, $productId);
+        $this->assertStringContainsString($loggerString, $fileContents);
     }
 
     /**
@@ -76,10 +79,15 @@ class LogAddToBasketTest extends IntegrationTestCase
         $basketComponent->tobasket();
     }
 
-
+    /**
+     * @return bool|string
+     */
     private function getLogFileContent()
     {
-        return $this->vfsRoot->getChild(BasketItemLogger::FILE_NAME)->getContent();
+        $fakeBasketLogFile = 'log' . DIRECTORY_SEPARATOR . BasketItemLogger::FILE_NAME;
+        $fileContents = $this->vfsRoot->getChild($fakeBasketLogFile)->getContent();
+
+        return $fileContents;
     }
 
     /**
@@ -89,5 +97,21 @@ class LogAddToBasketTest extends IntegrationTestCase
     public function setRequestParameter($paramName, $paramValue)
     {
         $_POST[$paramName] = $paramValue;
+    }
+
+    /**
+     * Use VfsStream to not write to file system.
+     *
+     * @return string path to root directory.
+     */
+    public function mockFileSystemForShop()
+    {
+        $rootPath = vfsStream::url(self::VFS_ROOT_DIRECTORY) . DIRECTORY_SEPARATOR;
+        Registry::getConfig()->setConfigParam('sShopDir', $rootPath);
+        $directory = $rootPath . 'log';
+        if (file_exists($directory) === false) {
+            mkdir($directory, 0700, true);
+        }
+        return $rootPath;
     }
 }

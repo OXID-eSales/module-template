@@ -14,11 +14,11 @@ services:
     class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
     public: true
     arguments:
-      $logger : '@OxidEsales\ModuleTemplate\Logger'
+      $logger: '@OxidEsales\ModuleTemplate\Logger'
 
   OxidEsales\ModuleTemplate\Logger:
     class: Monolog\Logger
-    factory: ['@OxidEsales\ModuleTemplate\Logger\Factory', 'create']
+    factory: [ '@OxidEsales\ModuleTemplate\Logger\Factory', 'create' ]
 
   OxidEsales\ModuleTemplate\Logger\Factory:
     class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Factory\MonologLoggerFactory
@@ -29,15 +29,25 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
     arguments:
       $loggerName: 'Basket Logger'
-      $logFilePath: 'vfs://vfsRoot/basket.log'
-      $logLevel: !php/const Psr\Log\LogLevel::DEBUG
+      $logFilePath: '@OxidEsales\ModuleTemplate\Utility\Context::getBasketLogFilePath'
+      $logLevel: '@OxidEsales\ModuleTemplate\Utility\Context::getBasketLogLevel'
+
+  OxidEsales\ModuleTemplate\Utility\Context::getBasketLogFilePath:
+    class: OxidEsales\ModuleTemplate\Utility\Context
+    factory: [ '@OxidEsales\ModuleTemplate\Utility\Context', 'getBasketLogFilePath' ]
+
+  OxidEsales\ModuleTemplate\Utility\Context::getBasketLogLevel:
+    class: OxidEsales\ModuleTemplate\Utility\Context
+    factory: [ '@OxidEsales\ModuleTemplate\Utility\Context', 'getBasketLogLevel' ]
+
+  OxidEsales\ModuleTemplate\Utility\Context:
+    class: OxidEsales\ModuleTemplate\Utility\Context
 
   OxidEsales\ModuleTemplate\Command\ReadLogsCommand:
     class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
-    public: true
-    autowire: true
+    autoconfigure: true,
     tags:
-      - { name: 'console.command', command: 'oe:moduletemplate:read-log-file'}
+      - { name: 'console.command', command: 'oe:moduletemplate:read-log-file' }
 
   OxidEsales\ModuleTemplate\Service\:
     resource: 'src/Service/*'
