@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Command;
 
-use OxidEsales\ModuleTemplate\Utility\Context;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,7 +19,15 @@ class ReadLogsCommand extends Command
     private const COMMAND_DESCRIPTION = 'Log file reader.';
     private const COMMAND_HELP = 'Reads log file and outputs content.';
     private const LOG_FILE_CONTENT = 'Log file content:';
-    private const LOG_FILE_ERROR = '<error>Log file - %s was not found</error>';
+    public const LOG_FILE_ERROR = '<error>Log file - %s was not found</error>';
+
+    private $basketLogFilePath;
+
+    public function __construct($basketLogFilePath)
+    {
+        $this->basketLogFilePath = $basketLogFilePath;
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -31,8 +38,8 @@ class ReadLogsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $filePath = Context::getBasketLogFilePath();
-        if (file_exists($filePath)) {
+        $filePath = $this->basketLogFilePath;
+        if (is_file($filePath)) {
             $fileContents = file_get_contents($filePath);
             $output->writeln(self::LOG_FILE_CONTENT);
             $output->writeln($fileContents);

@@ -17,7 +17,6 @@ class BasketItemLogger implements BasketItemLoggerInterface
 {
 
     const MESSAGE = 'Adding item with id \'%s\'.';
-    const FILE_NAME = 'basket.log';
     private $logger;
 
     public function __construct(LoggerInterface $logger)

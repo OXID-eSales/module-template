@@ -1,3 +1,6 @@
+parameters:
+  app.basket_log_file_path: 'var/www/source/log/basket.log'
+
 services:
 
   _defaults:
@@ -29,23 +32,13 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
     arguments:
       $loggerName: 'Basket Logger'
-      $logFilePath: '@OxidEsales\ModuleTemplate\Utility\Context::getBasketLogFilePath'
-      $logLevel: '@OxidEsales\ModuleTemplate\Utility\Context::getBasketLogLevel'
-
-  OxidEsales\ModuleTemplate\Utility\Context::getBasketLogFilePath:
-    class: OxidEsales\ModuleTemplate\Utility\Context
-    factory: [ '@OxidEsales\ModuleTemplate\Utility\Context', 'getBasketLogFilePath' ]
-
-  OxidEsales\ModuleTemplate\Utility\Context::getBasketLogLevel:
-    class: OxidEsales\ModuleTemplate\Utility\Context
-    factory: [ '@OxidEsales\ModuleTemplate\Utility\Context', 'getBasketLogLevel' ]
-
-  OxidEsales\ModuleTemplate\Utility\Context:
-    class: OxidEsales\ModuleTemplate\Utility\Context
+      $logFilePath: '%app.basket_log_file_path%'
+      $logLevel: !php/const Psr\Log\LogLevel::DEBUG
 
   OxidEsales\ModuleTemplate\Command\ReadLogsCommand:
     class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
-    autoconfigure: true,
+    arguments:
+      $basketLogFilePath: '%app.basket_log_file_path%'
     tags:
       - { name: 'console.command', command: 'oe:moduletemplate:read-log-file' }
 
