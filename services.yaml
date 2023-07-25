@@ -1,5 +1,5 @@
 parameters:
-  app.basket_log_file_path: 'var/www/source/log/basket.log'
+  app.basket_log_file_path: '/var/www/source/log/basket.log'
 
 services:
 

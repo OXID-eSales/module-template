@@ -21,30 +21,26 @@ class ReadLogsCommand extends Command
     private const LOG_FILE_CONTENT = 'Log file content:';
     public const LOG_FILE_ERROR = '<error>Log file - %s was not found</error>';
 
-    private $basketLogFilePath;
-
-    public function __construct($basketLogFilePath)
+    public function __construct(private string $basketLogFilePath)
     {
-        $this->basketLogFilePath = $basketLogFilePath;
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName(self::COMMAND_NAME)
             ->setDescription(self::COMMAND_DESCRIPTION)
             ->setHelp(self::COMMAND_HELP);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $filePath = $this->basketLogFilePath;
-        if (is_file($filePath)) {
-            $fileContents = file_get_contents($filePath);
+        if (is_file($this->basketLogFilePath)) {
+            $fileContents = file_get_contents($this->basketLogFilePath);
             $output->writeln(self::LOG_FILE_CONTENT);
             $output->writeln($fileContents);
         } else {
-            $output->writeln(sprintf(self::LOG_FILE_ERROR, $filePath));
+            $output->writeln(sprintf(self::LOG_FILE_ERROR, $this->basketLogFilePath));
         }
 
         return Command::SUCCESS;

@@ -12,9 +12,9 @@ use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-class BasketItemLoggerTest extends TestCase
+final class BasketItemLoggerTest extends TestCase
 {
-    public function testLogItemToBasket()
+    public function testLogItemToBasket(): void
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->once())

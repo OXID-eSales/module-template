@@ -15,5 +15,5 @@ interface BasketItemLoggerInterface
      *
      * @param string $itemId
      */
-    public function logItemToBasket(string $itemId);
+    public function logItemToBasket(string $itemId): void;
 }

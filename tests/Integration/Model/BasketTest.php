@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
-use OxidEsales\Eshop\Application\Model\BasketItem;
 use OxidEsales\ModuleTemplate\Model\Basket;
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-class BasketIntegrationTest extends IntegrationTestCase
+final class BasketIntegrationTest extends IntegrationTestCase
 {
     private const TEST_PRODUCT_ID = 'testArticleId';
 
@@ -37,10 +36,16 @@ class BasketIntegrationTest extends IntegrationTestCase
         $product->save();
     }
 
-    public function testAddToBasket()
+    public function testAddToBasket(): void
     {
-        $basket = new Basket();
+        $basketLoggerMock = $this->createMock(BasketItemLoggerInterface::class);
+        $basketLoggerMock->expects($this->once())->method('logItemToBasket')->with(self::TEST_PRODUCT_ID);
+
+        $basket = $this->createPartialMock(Basket::class, ['getServiceFromContainer']);
+        $basket->method('getServiceFromContainer')->willReturnMap([
+            [BasketItemLoggerInterface::class, $basketLoggerMock]
+        ]);
+
         $basket->addToBasket(self::TEST_PRODUCT_ID, 1, null, null, false, false, null);
-        $this->assertInstanceOf(BasketItem::class, $basket->addToBasket(self::TEST_PRODUCT_ID, 1, null, null, false, false, null));
     }
 }
