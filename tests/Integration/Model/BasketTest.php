@@ -11,6 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
 use OxidEsales\ModuleTemplate\Model\Basket;
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
+use OxidEsales\ModuleTemplate\Service\BasketItemLoggerInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class BasketIntegrationTest extends IntegrationTestCase
