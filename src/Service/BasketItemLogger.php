@@ -24,7 +24,7 @@ class BasketItemLogger implements BasketItemLoggerInterface
         $this->logger = $logger;
     }
 
-    public function logItemToBasket($itemId): void
+    public function logItemToBasket(string $itemId): void
     {
         $this->logger->info(
             sprintf(static::MESSAGE, $itemId)
