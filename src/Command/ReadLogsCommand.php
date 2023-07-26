@@ -36,7 +36,7 @@ class ReadLogsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (is_file($this->basketLogFilePath)) {
-            $fileContents = file_get_contents($this->basketLogFilePath);
+            $fileContents = ((file_get_contents($this->basketLogFilePath))) ?: '';
             $output->writeln(self::LOG_FILE_CONTENT);
             $output->writeln($fileContents);
         } else {

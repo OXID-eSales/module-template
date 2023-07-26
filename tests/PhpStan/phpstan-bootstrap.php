@@ -16,3 +16,8 @@ class_alias(
     \OxidEsales\Eshop\Application\Controller\StartController::class,
     \OxidEsales\ModuleTemplate\Controller\StartController_parent::class
 );
+
+class_alias(
+    \OxidEsales\Eshop\Application\Model\Basket::class,
+    \OxidEsales\ModuleTemplate\Model\Basket_parent::class
+);

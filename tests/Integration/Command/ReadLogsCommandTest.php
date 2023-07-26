@@ -18,7 +18,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 final class ReadLogsCommandTest extends IntegrationTestCase
 {
-    const VFS_ROOT_DIRECTORY = 'vfsRoot';
+    private const VFS_ROOT_DIRECTORY = 'vfsRoot';
 
     /** @var vfsStreamDirectory */
     private $vfsRoot;
@@ -42,7 +42,6 @@ final class ReadLogsCommandTest extends IntegrationTestCase
         $commandTester->execute([]);
 
         $this->assertStringContainsString($fileContents, $commandTester->getDisplay());
-
     }
 
     public function testExecuteLogNotFound(): void

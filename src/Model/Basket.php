@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Model;
 
-use OxidEsales\Eshop\Application\Model\BasketItem;
 use OxidEsales\ModuleTemplate\Service\BasketItemLoggerInterface;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
@@ -18,23 +17,11 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  */
 class Basket extends Basket_parent
 {
-
     use ServiceContainer;
 
     /**
      * Method overrides eShop method and adds logging functionality.
-     *
-     * @param string $productID
-     * @param int $amount
-     * @param null|array $sel
-     * @param null|array $persParam
-     * @param bool|false $shouldOverride
-     * @param bool|false $isBundle
-     * @param null|string $oldBasketItemId
-     *
-     * @return BasketItem|null
-     * @see \OxidEsales\Eshop\Application\Model\Basket::addToBasket()
-     *
+     * {@inheritDoc}
      */
     public function addToBasket(
         $productID,
@@ -44,8 +31,7 @@ class Basket extends Basket_parent
         $shouldOverride = false,
         $isBundle = false,
         $oldBasketItemId = null
-    )
-    {
+    ) {
         $basketItemLogger = $this->getServiceFromContainer(BasketItemLoggerInterface::class);
         $basketItemLogger->logItemToBasket($productID);
 

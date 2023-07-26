@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © OXID eSales AG. All rights reserved.
  * See LICENSE file for license details.
@@ -13,11 +14,10 @@ use Psr\Log\LoggerInterface;
 /**
  * Class logs items which goes to basket.
  */
-class BasketItemLogger implements BasketItemLoggerInterface
+final class BasketItemLogger implements BasketItemLoggerInterface
 {
-
-    const MESSAGE = 'Adding item with id \'%s\'.';
-    private $logger;
+    private const MESSAGE = 'Adding item with id \'%s\'.';
+    private LoggerInterface $logger;
 
     public function __construct(LoggerInterface $logger)
     {
@@ -30,5 +30,4 @@ class BasketItemLogger implements BasketItemLoggerInterface
             sprintf(static::MESSAGE, $itemId)
         );
     }
-
 }
