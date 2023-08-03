@@ -22,6 +22,7 @@ class Basket extends Basket_parent
     /**
      * Method overrides eShop method and adds logging functionality.
      * {@inheritDoc}
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function addToBasket(
         $productID,

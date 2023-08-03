@@ -33,15 +33,18 @@ class ReadLogsCommand extends Command
             ->setHelp(self::COMMAND_HELP);
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (is_file($this->basketLogFilePath)) {
             $fileContents = ((file_get_contents($this->basketLogFilePath))) ?: '';
             $output->writeln(self::LOG_FILE_CONTENT);
             $output->writeln($fileContents);
-        } else {
-            $output->writeln(sprintf(self::LOG_FILE_ERROR, $this->basketLogFilePath));
+
+            return Command::SUCCESS;
         }
+
+        $output->writeln(sprintf(self::LOG_FILE_ERROR, $this->basketLogFilePath));
 
         return Command::SUCCESS;
     }
