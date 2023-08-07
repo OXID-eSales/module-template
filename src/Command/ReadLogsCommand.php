@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ReadLogsCommand extends Command
 {
-    private const COMMAND_NAME = 'oe:moduletemplate:read-log-file';
+    private const COMMAND_NAME = 'oetemplate:logger:read';
     private const COMMAND_DESCRIPTION = 'Log file reader.';
     private const COMMAND_HELP = 'Reads log file and outputs content.';
     private const LOG_FILE_CONTENT = 'Log file content:';

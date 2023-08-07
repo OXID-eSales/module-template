@@ -1,6 +1,9 @@
 parameters:
   app.basket_log_file_path: '/var/www/source/log/basket.log'
 
+imports:
+  - { resource: src/Command/services.yaml }
+
 services:
 
   _defaults:
@@ -34,13 +37,6 @@ services:
       $loggerName: 'Basket Logger'
       $logFilePath: '%app.basket_log_file_path%'
       $logLevel: !php/const Psr\Log\LogLevel::DEBUG
-
-  OxidEsales\ModuleTemplate\Command\ReadLogsCommand:
-    class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
-    arguments:
-      $basketLogFilePath: '%app.basket_log_file_path%'
-    tags:
-      - { name: 'console.command', command: 'oe:moduletemplate:read-log-file' }
 
   OxidEsales\ModuleTemplate\Service\:
     resource: 'src/Service/*'
