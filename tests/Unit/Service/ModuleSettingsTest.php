@@ -95,4 +95,30 @@ final class ModuleSettingsTest extends TestCase
         $sut = new ModuleSettings($mssMock);
         $sut->saveGreetingMode($value);
     }
+
+	public function testIsLoggingEnabledReturnsTrue(): void
+	{
+		$mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
+		$mssMock->method('getBoolean')->willReturnMap([
+			[ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, true]
+		]);
+
+		$sut = new ModuleSettings($mssMock);
+		$result = $sut->isLoggingEnabled();
+
+		$this->assertTrue($result);
+	}
+
+	public function testIsLoggingEnabledReturnsFalse(): void
+	{
+		$mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
+		$mssMock->method('getBoolean')->willReturnMap([
+			[ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, false]
+		]);
+
+		$sut = new ModuleSettings($mssMock);
+		$result = $sut->isLoggingEnabled();
+
+		$this->assertFalse($result);
+	}
 }

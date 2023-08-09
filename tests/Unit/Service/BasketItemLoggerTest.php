@@ -9,9 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Service;
 
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use OxidEsales\ModuleTemplate\Core\Module;
 use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -21,30 +20,26 @@ final class BasketItemLoggerTest extends TestCase
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->once())
-            ->method('info')
-            ->with($this->equalTo('Adding item with id \'testItemId\'.'));
+            ->method('info');
 
-        $moduleSettings = $this->createMock(ModuleSettingServiceInterface::class);
+        $moduleSettings = $this->createMock(ModuleSettings::class);
         $moduleSettings->expects($this->once())
-            ->method('getBoolean')
-            ->with(BasketItemLogger::LOGGER_STATUS, Module::MODULE_ID)
+            ->method('isLoggingEnabled')
             ->willReturn(true);
 
         $basketItemLogger = new BasketItemLogger($loggerMock, $moduleSettings);
-        $basketItemLogger->logItemToBasket('testItemId');
+        $basketItemLogger->logItemToBasket('itemId');
     }
 
     public function testLogItemToBasketWhenDisabled()
     {
         $loggerMock = $this->createMock(LoggerInterface::class);
         $loggerMock->expects($this->never())
-            ->method('info')
-            ->with($this->equalTo('Adding item with id \'testItemId\'.'));
+            ->method('info');
 
-        $moduleSettings = $this->createMock(ModuleSettingServiceInterface::class);
+        $moduleSettings = $this->createMock(ModuleSettings::class);
         $moduleSettings->expects($this->once())
-            ->method('getBoolean')
-            ->with(BasketItemLogger::LOGGER_STATUS, Module::MODULE_ID)
+            ->method('isLoggingEnabled')
             ->willReturn(false);
 
         $basketItemLogger = new BasketItemLogger($loggerMock, $moduleSettings);

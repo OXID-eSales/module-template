@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Service;
 
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
-use OxidEsales\ModuleTemplate\Core\Module;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -19,17 +17,16 @@ use Psr\Log\LoggerInterface;
 final class BasketItemLogger implements BasketItemLoggerInterface
 {
     private const MESSAGE = 'Adding item with id \'%s\'.';
-    public const LOGGER_STATUS = 'oemoduletemplate_LoggerEnabled';
 
     public function __construct(
         private LoggerInterface $logger,
-        private ModuleSettingServiceInterface $moduleSettingService,
+        private ModuleSettings $moduleSettingService,
     ) {
     }
 
     public function logItemToBasket(string $itemId): void
     {
-        if ($this->moduleSettingService->getBoolean(self::LOGGER_STATUS, Module::MODULE_ID)) {
+        if ($this->moduleSettingService->isLoggingEnabled()) {
             $this->logger->info(
                 sprintf(self::MESSAGE, $itemId)
             );
