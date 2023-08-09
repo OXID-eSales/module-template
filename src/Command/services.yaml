@@ -6,6 +6,6 @@ services:
   OxidEsales\ModuleTemplate\Command\ReadLogsCommand:
     class: OxidEsales\ModuleTemplate\Command\ReadLogsCommand
     arguments:
-      $basketLogFilePath: '%app.basket_log_file_path%'
+      $logFilePath: '%app.log_file_path%'
     tags:
       - { name: 'console.command', command: 'oetemplate:logger:read' }

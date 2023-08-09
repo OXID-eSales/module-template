@@ -12,14 +12,14 @@ namespace OxidEsales\ModuleTemplate\Tests\Service;
 use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 final class BasketItemLoggerTest extends TestCase
 {
-    public function testLogItemToBasketWhenEnabled(): void
+    public function testLogWhenEnabled(): void
     {
-        $loggerMock = $this->createMock(LoggerInterface::class);
-        $loggerMock->expects($this->once())
+        $psrLoggerMock = $this->createMock(PsrLoggerInterface::class);
+        $psrLoggerMock->expects($this->once())
             ->method('info');
 
         $moduleSettings = $this->createMock(ModuleSettings::class);
@@ -27,14 +27,14 @@ final class BasketItemLoggerTest extends TestCase
             ->method('isLoggingEnabled')
             ->willReturn(true);
 
-        $basketItemLogger = new BasketItemLogger($loggerMock, $moduleSettings);
-        $basketItemLogger->logItemToBasket('itemId');
+        $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
+        $basketItemLogger->log('itemId');
     }
 
-    public function testLogItemToBasketWhenDisabled()
+    public function testLogWhenDisabled()
     {
-        $loggerMock = $this->createMock(LoggerInterface::class);
-        $loggerMock->expects($this->never())
+        $psrLoggerMock = $this->createMock(PsrLoggerInterface::class);
+        $psrLoggerMock->expects($this->never())
             ->method('info');
 
         $moduleSettings = $this->createMock(ModuleSettings::class);
@@ -42,7 +42,7 @@ final class BasketItemLoggerTest extends TestCase
             ->method('isLoggingEnabled')
             ->willReturn(false);
 
-        $basketItemLogger = new BasketItemLogger($loggerMock, $moduleSettings);
-        $basketItemLogger->logItemToBasket('itemId');
+        $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
+        $basketItemLogger->log('itemId');
     }
 }

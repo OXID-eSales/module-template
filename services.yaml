@@ -1,5 +1,5 @@
 parameters:
-  app.basket_log_file_path: '/var/www/source/log/basket.log'
+  app.log_file_path: '/var/www/source/log/basket.log'
 
 imports:
   - { resource: src/Command/services.yaml }
@@ -16,7 +16,7 @@ services:
     class: OxidEsales\Eshop\Core\Registry
     public: true
 
-  OxidEsales\ModuleTemplate\Service\BasketItemLoggerInterface:
+  OxidEsales\ModuleTemplate\Service\LoggerInterface:
     class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
     public: true
     arguments:
@@ -35,7 +35,7 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
     arguments:
       $loggerName: 'Basket Logger'
-      $logFilePath: '%app.basket_log_file_path%'
+      $logFilePath: '%app.log_file_path%'
       $logLevel: !php/const Psr\Log\LogLevel::DEBUG
 
   OxidEsales\ModuleTemplate\Service\:

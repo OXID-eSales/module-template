@@ -9,27 +9,25 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Service;
 
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 /**
  * Class logs items which goes to basket.
  */
-final class BasketItemLogger implements BasketItemLoggerInterface
+final class BasketItemLogger implements LoggerInterface
 {
-    private const MESSAGE = 'Adding item with id \'%s\'.';
+    public const MESSAGE = 'Adding item with id \'%s\'.';
 
     public function __construct(
-        private LoggerInterface $logger,
+        private PsrLoggerInterface $logger,
         private ModuleSettings $moduleSettingService,
     ) {
     }
 
-    public function logItemToBasket(string $itemId): void
+    public function log(string $message): void
     {
         if ($this->moduleSettingService->isLoggingEnabled()) {
-            $this->logger->info(
-                sprintf(self::MESSAGE, $itemId)
-            );
+            $this->logger->info($message);
         }
     }
 }

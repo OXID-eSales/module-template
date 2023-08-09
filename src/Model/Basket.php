@@ -9,7 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Model;
 
-use OxidEsales\ModuleTemplate\Service\BasketItemLoggerInterface;
+use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Service\LoggerInterface;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
@@ -33,8 +34,9 @@ class Basket extends Basket_parent
         $isBundle = false,
         $oldBasketItemId = null
     ) {
-        $basketItemLogger = $this->getServiceFromContainer(BasketItemLoggerInterface::class);
-        $basketItemLogger->logItemToBasket($productID);
+        $logger = $this->getServiceFromContainer(LoggerInterface::class);
+        $message = sprintf(BasketItemLogger::MESSAGE, $productID);
+        $logger->log($message);
 
         return parent::addToBasket($productID, $amount, $sel, $persParam, $shouldOverride, $isBundle, $oldBasketItemId);
     }

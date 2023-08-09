@@ -21,7 +21,7 @@ class ReadLogsCommand extends Command
     private const LOG_FILE_CONTENT = 'Log file content:';
     public const LOG_FILE_ERROR = '<error>Log file - %s was not found</error>';
 
-    public function __construct(private string $basketLogFilePath)
+    public function __construct(private string $logFilePath)
     {
         parent::__construct();
     }
@@ -36,15 +36,15 @@ class ReadLogsCommand extends Command
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (is_file($this->basketLogFilePath)) {
-            $fileContents = ((file_get_contents($this->basketLogFilePath))) ?: '';
+        if (is_file($this->logFilePath)) {
+            $fileContents = ((file_get_contents($this->logFilePath))) ?: '';
             $output->writeln(self::LOG_FILE_CONTENT);
             $output->writeln($fileContents);
 
             return Command::SUCCESS;
         }
 
-        $output->writeln(sprintf(self::LOG_FILE_ERROR, $this->basketLogFilePath));
+        $output->writeln(sprintf(self::LOG_FILE_ERROR, $this->logFilePath));
 
         return Command::SUCCESS;
     }

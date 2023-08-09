@@ -96,29 +96,29 @@ final class ModuleSettingsTest extends TestCase
         $sut->saveGreetingMode($value);
     }
 
-	public function testIsLoggingEnabledReturnsTrue(): void
-	{
-		$mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
-		$mssMock->method('getBoolean')->willReturnMap([
-			[ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, true]
-		]);
+    public function testIsLoggingEnabledReturnsTrue(): void
+    {
+        $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
+        $mssMock->method('getBoolean')->willReturnMap([
+            [ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, true]
+        ]);
 
-		$sut = new ModuleSettings($mssMock);
-		$result = $sut->isLoggingEnabled();
+        $sut = new ModuleSettings($mssMock);
+        $result = $sut->isLoggingEnabled();
 
-		$this->assertTrue($result);
-	}
+        $this->assertTrue($result);
+    }
 
-	public function testIsLoggingEnabledReturnsFalse(): void
-	{
-		$mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
-		$mssMock->method('getBoolean')->willReturnMap([
-			[ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, false]
-		]);
+    public function testIsLoggingEnabledReturnsFalse(): void
+    {
+        $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
+        $mssMock->method('getBoolean')->willReturnMap([
+            [ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, false]
+        ]);
 
-		$sut = new ModuleSettings($mssMock);
-		$result = $sut->isLoggingEnabled();
+        $sut = new ModuleSettings($mssMock);
+        $result = $sut->isLoggingEnabled();
 
-		$this->assertFalse($result);
-	}
+        $this->assertFalse($result);
+    }
 }

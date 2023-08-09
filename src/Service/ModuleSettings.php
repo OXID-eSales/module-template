@@ -23,7 +23,7 @@ class ModuleSettings
 
     public const GREETING_MODE_PERSONAL = 'personal';
 
-	public const LOGGER_STATUS = 'oemoduletemplate_LoggerEnabled';
+    public const LOGGER_STATUS = 'oemoduletemplate_LoggerEnabled';
 
     public const GREETING_MODE_VALUES = [
         self::GREETING_MODE_GENERIC,
@@ -52,8 +52,8 @@ class ModuleSettings
         $this->moduleSettingService->saveString(self::GREETING_MODE, $value, Module::MODULE_ID);
     }
 
-	public function isLoggingEnabled(): bool
-	{
-		return $this->moduleSettingService->getBoolean(self::LOGGER_STATUS, Module::MODULE_ID);
-	}
+    public function isLoggingEnabled(): bool
+    {
+        return $this->moduleSettingService->getBoolean(self::LOGGER_STATUS, Module::MODULE_ID);
+    }
 }

@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Service;
 
-interface BasketItemLoggerInterface
+interface LoggerInterface
 {
     /**
-     * Method logs items which goes to basket.
      *
-     * @param string $itemId
+     * @param string $message
      */
-    public function logItemToBasket(string $itemId): void;
+    public function log(string $message): void;
 }
