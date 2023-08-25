@@ -1,5 +1,5 @@
 parameters:
-  app.log_file_path: '/var/www/source/log/basket.log'
+  app.log_file_path: '/var/www/source/log/oe_moduletemplate.log'
 
 imports:
   - { resource: src/Command/services.yaml }
@@ -16,7 +16,7 @@ services:
     class: OxidEsales\Eshop\Core\Registry
     public: true
 
-  OxidEsales\ModuleTemplate\Service\LoggerInterface:
+  OxidEsales\ModuleTemplate\Service\BasketItemLogger:
     class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
     public: true
     arguments:

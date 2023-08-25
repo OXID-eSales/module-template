@@ -16,11 +16,16 @@ use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 final class BasketItemLoggerTest extends TestCase
 {
+    private const TEST_PRODUCT_ID = 'itemId';
+
     public function testLogWhenEnabled(): void
     {
         $psrLoggerMock = $this->createMock(PsrLoggerInterface::class);
         $psrLoggerMock->expects($this->once())
-            ->method('info');
+            ->method('info')
+            ->with(
+                sprintf(BasketItemLogger::MESSAGE, self::TEST_PRODUCT_ID)
+            );
 
         $moduleSettings = $this->createMock(ModuleSettings::class);
         $moduleSettings->expects($this->once())
@@ -28,7 +33,7 @@ final class BasketItemLoggerTest extends TestCase
             ->willReturn(true);
 
         $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
-        $basketItemLogger->log('itemId');
+        $basketItemLogger->log(self::TEST_PRODUCT_ID);
     }
 
     public function testLogWhenDisabled()
@@ -43,6 +48,6 @@ final class BasketItemLoggerTest extends TestCase
             ->willReturn(false);
 
         $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
-        $basketItemLogger->log('itemId');
+        $basketItemLogger->log(self::TEST_PRODUCT_ID);
     }
 }

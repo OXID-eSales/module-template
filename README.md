@@ -197,7 +197,7 @@ Story:
 - A logged in user will be able to set a custom greeting depending on module setting. Press the button on start page and be redirected to a module controller which handles the input.
 - User custom greetings are saved via shop model save method. We subscribe to BeforeModelUpdate to track how often a user changed his personal greeting.
 - Tracking of this information will be done in a new database table to serve as an example for module's own shop model.
-- Module will extent a model basket and log an item into basket depending on module setting.
+- Module will extend the shop's basket model to add info to module specific log file when an item is added into basket. Logging  can be enabled or disabled depending on module setting.
 - Module will have console command `oetemplate:logger:read` to read log file.
 
 ```bash
