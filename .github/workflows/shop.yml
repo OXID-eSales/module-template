@@ -60,7 +60,7 @@ jobs:
             source/source/config.inc.php
 
       - name: Checkout current module
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: source/test-module
 
