@@ -11,12 +11,12 @@ on:
         default: 'https://raw.githubusercontent.com/OXID-eSales/github-actions/v0/testplans/module_oe_moduletemplate.yml'
       runs_on:
         type: string
-        description: 'JSON string/array describing the runner'
         required: true
+        description: 'JSON string/array describing the runner'
         default: '"ubuntu-latest"'
 
 jobs:
-  call_matrix:
+  call_module_development:
     uses: oxid-eSales/github-actions/.github/workflows/call-module-development.yml@v0
     with:
       testplan: ${{ inputs.testplan }}
@@ -29,4 +29,4 @@ jobs:
       CACHE_SECRET_KEY: ${{ secrets.CACHE_SECRET_KEY }}
       enterprise_github_token: ${{ secrets.enterprise_github_token }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
