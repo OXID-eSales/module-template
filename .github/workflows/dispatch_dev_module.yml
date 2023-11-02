@@ -8,7 +8,7 @@ on:
         type: string
         required: true
         description: 'URL/PATH of the testplan to run'
-        default: 'https://raw.githubusercontent.com/OXID-eSales/github-actions/v0/testplans/module_oe_moduletemplate.yml'
+        default: 'https://raw.githubusercontent.com/OXID-eSales/github-actions/v0/testplans/modules/oe_moduletemplate.yml'
       runs_on:
         type: string
         required: true
@@ -17,7 +17,7 @@ on:
 
 jobs:
   call_module_development:
-    uses: oxid-eSales/github-actions/.github/workflows/call-module-development.yml@v0
+    uses: oxid-eSales/github-actions/.github/workflows/call-test_matrix.yml@v0
     with:
       testplan: ${{ inputs.testplan }}
       runs_on: ${{ inputs.runs_on }}
