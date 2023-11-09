@@ -1,0 +1,43 @@
+install_module:
+  matrix_testplan: '["-"]'
+  cache:
+    prefix: &install_module_prefix 'moduleInstallation-ce-{{ .Github.SHA }}-{{ .Github.RunNumber }}-{{ .Github.RunAttempt }}'
+  ids: &ids 'oe_moduletemplate'
+  git:
+    module:
+      url: &git_module_url '{{ .Github.Repository }}'
+      ref: '{{ .Github.Ref }}'
+  package_name: &package_name 'oxid-esales/module-template'
+  path: *ids
+
+phpunit:
+  matrix_testplan: '["https://raw.githubusercontent.com/{{ .Github.Repository }}/{{ .Github.RefName }}/tests/github_actions/phpunit_unit.yml","https://raw.githubusercontent.com/{{ .Github.Repository }}/{{ .Github.RefName }}/tests/github_actions/phpunit_integration.yml"]'
+  load_shop: *install_module_prefix
+
+codeception:
+  matrix_testplan: '["https://raw.githubusercontent.com/{{ .Github.Repository }}/{{ .Github.RefName }}/tests/github_actions/codeception_acceptance.yml"]'
+  load_shop: *install_module_prefix
+
+runtest:
+  matrix_testplan: ''
+  load_shop: *install_module_prefix
+
+sonarcloud:
+  matrix_testplan: '["-"]'
+  project_key: 'OXID-eSales_module-template'
+  project_name: *package_name
+
+phpcs_tests:
+  skip: true
+
+styles:
+  skip: false
+  container:
+    options: '--workdir=/var/www/dev-packages/oe_moduletemplate'
+  output:
+    files: |
+      source/dev-packages/oe_moduletemplate/tests/reports/phpstan.report.json
+      source/dev-packages/oe_moduletemplate/tests/reports/phpmd.report.json
+
+finish:
+  slack_title: 'Module module-template on {{ .Github.Repository }} by {{ .Github.Actor }}'
