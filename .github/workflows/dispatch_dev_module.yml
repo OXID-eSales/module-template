@@ -17,7 +17,7 @@ on:
 
 jobs:
   call_module_development:
-    uses: oxid-eSales/github-actions/.github/workflows/call-test_matrix.yml@v0
+    uses: oxid-eSales/github-actions/.github/workflows/call-test_matrix.yml@v2
     with:
       testplan: ${{ inputs.testplan }}
       runs_on: ${{ inputs.runs_on }}
