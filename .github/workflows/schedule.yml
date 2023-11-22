@@ -6,7 +6,7 @@ on:
 
 jobs:
   call_full_matrix:
-    uses: oxid-eSales/github-actions/.github/workflows/call-test_matrix.yml@v2
+    uses: oxid-eSales/github-actions/.github/workflows/call-test_matrix.yml@v3
     with:
       testplan: 'https://raw.githubusercontent.com/OXID-eSales/github-actions/v2/testplans/modules/oe_moduletemplate.yml'
       runs_on: '"ubuntu-latest"'
