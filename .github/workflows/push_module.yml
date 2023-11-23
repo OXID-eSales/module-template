@@ -1,26 +1,13 @@
-name: dispatch_module
-# Matrix workflow using re-usable github actions
+name: push_module
 
-on:
-  workflow_dispatch:
-    inputs:
-      testplan:
-        type: string
-        required: true
-        description: 'URL/PATH of the testplan to run'
-        default: 'tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
-      runs_on:
-        type: string
-        description: 'JSON string/array describing the runner'
-        required: true
-        default: '"ubuntu-latest"'
+on: 'push'
 
 jobs:
-  call_matrix:
+  call_full_matrix:
     uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
     with:
-      testplan: ${{ inputs.testplan }}
-      runs_on: ${{ inputs.runs_on }}
+      testplan: 'tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
+      runs_on: '"ubuntu-latest"'
       defaults: 'v3'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}

@@ -1,0 +1,28 @@
+prepare_shop:
+  matrix: &matrix
+    php: '["8.0"]'
+    mysql: '["5.7"]'
+
+install_shop:
+  matrix: *matrix
+
+install_module:
+  matrix: *matrix
+
+phpunit:
+  matrix: *matrix
+
+codeception:
+  matrix: *matrix
+
+runtest:
+  matrix: *matrix
+
+sonarcloud:
+  matrix: *matrix
+
+phpcs_tests:
+  matrix: *matrix
+
+styles:
+  matrix: *matrix
