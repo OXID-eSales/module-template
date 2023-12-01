@@ -45,3 +45,16 @@ services:
   OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
     class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
     tags: [ 'kernel.event_subscriber' ]
+
+  OxidEsales\ModuleTemplate\Service\ExtendPluginExample:
+    class: OxidEsales\ModuleTemplate\Service\ExtendPluginExample
+    decorates: OxidEsales\EshopCommunity\Internal\Transition\Adapter\TemplateLogic\IncludeWidgetLogic
+    decoration_priority: 10
+    public: true
+
+  OxidEsales\ModuleTemplate\Service\NewPluginExample:
+    class: OxidEsales\ModuleTemplate\Service\NewPluginExample
+    public: true
+
+  OxidEsales\ModuleTemplate\TwigExtensions\ExampleExtension:
+    tags: [ 'twig.extension' ]

@@ -93,4 +93,7 @@ $aModule = [
             'position' => 3
         ]
     ],
+    'smartyPluginDirectories' => [
+        'src/Core/Smarty/Plugin'
+    ]
 ];
