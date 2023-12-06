@@ -1,14 +1,12 @@
-name: schedule
+name: pull_module
 
-on:
-  schedule:
-    - cron: '16 1 */7 * *'
+on: 'pull_request'
 
 jobs:
   call_full_matrix:
     uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
     with:
-      testplan: 'tests/github_actions/php8.0_mysql5.7_only.yml,tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
+      testplan: 'tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v3'
     secrets:

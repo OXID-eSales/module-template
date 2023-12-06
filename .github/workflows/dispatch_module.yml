@@ -1,4 +1,4 @@
-name: dispatch_dev_module
+name: dispatch_module
 # Matrix workflow using re-usable github actions
 
 on:
@@ -17,11 +17,11 @@ on:
 
 jobs:
   call_matrix:
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v0
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
     with:
       testplan: ${{ inputs.testplan }}
       runs_on: ${{ inputs.runs_on }}
-      defaults: 'v0'
+      defaults: 'v3'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}

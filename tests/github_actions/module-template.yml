@@ -1,0 +1,52 @@
+install_module:
+  matrix:
+    testplan: '["-"]'
+  cache:
+    prefix: &install_module_prefix 'moduleInstallation-ce-{{ .Github.SHA }}-{{ .Github.RunNumber }}-{{ .Github.RunAttempt }}'
+  ids: &ids 'oe_moduletemplate'
+  activate: *ids
+  git:
+    module:
+      url: &git_module_url '{{ .Github.Repository }}'
+      ref: '{{ .Github.RefName }}'
+  package_name: &package_name 'oxid-esales/module-template'
+  path: *ids
+
+phpunit:
+  matrix:
+    testplan: '["tests/github_actions/defaults/module_phpunit_unit.yml","tests/github_actions/defaults/module_phpunit_integration.yml"]'
+  load_shop: *install_module_prefix
+
+codeception:
+  matrix:
+    testplan: '["tests/github_actions/defaults/module_codeception_acceptance.yml"]'
+  load_shop: *install_module_prefix
+
+runtest:
+  matrix:
+    testplan: ''
+  load_shop: *install_module_prefix
+
+sonarcloud:
+  matrix:
+    testplan: '["-"]'
+  project_key: 'OXID-eSales_module-template'
+  project_name: *package_name
+  parameters: |
+    -Dsonar.language=php
+    -Dsonar.scm.provider=git
+    -Dsonar.sources=src
+    -Dsonar.tests=tests
+
+phpcs_tests:
+  skip: true
+
+styles:
+  matrix:
+    testplan: '["-"]'
+  load_shop: *install_module_prefix
+  path: *ids
+  module_ids: *ids
+
+finish:
+  slack_title: 'Module module-template on {{ .Github.Repository }} by {{ .Github.Actor }}'
