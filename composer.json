@@ -35,8 +35,8 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "tests/git-hooks/init.sh",
-        "post-update-cmd": "tests/git-hooks/init.sh",
+        "post-install-cmd": "git-hooks/init.sh",
+        "post-update-cmd": "git-hooks/init.sh",
         "phpcs-report": "phpcs --standard=tests/phpcs.xml --report=json --report-file=phpcs.report.json",
         "phpcs": "phpcs --standard=tests/phpcs.xml  --report=full --report-file=phpcs.report.txt",
         "phpcbf": "phpcbf --standard=tests/phpcs.xml",
