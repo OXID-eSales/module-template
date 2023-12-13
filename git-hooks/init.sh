@@ -9,6 +9,7 @@ function setup_git_hooks()
   MODULE_PATH=$(git rev-parse --show-toplevel)
   PRE_COMMIT_HOOK_FILE_PATH=$MODULE_PATH/.git/hooks/pre-commit
 
+  git config --local core.hooksPath .git/hooks
   echo "Add hook command to pre-commit file $PRE_COMMIT_HOOK_FILE_PATH"
 
   if ! [ -f "${PRE_COMMIT_HOOK_FILE_PATH}" ];then
