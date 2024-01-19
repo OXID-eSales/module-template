@@ -1,4 +1,4 @@
-name: dispatch_dev_module
+name: Manual trigger for testing github actions development
 # Matrix workflow using re-usable github actions
 
 on:

@@ -1,12 +1,15 @@
-name: push_module
+name: Automatically triggered on push to 7.1.x
 
-on: 'push'
+on:
+  push:
+    branches:
+      - 'b-7.1.x**'
 
 jobs:
-  call_full_matrix:
+  push_module:
     uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
     with:
-      testplan: 'tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
+      testplan: 'tests/github_actions/defaults/7.1.x.yml,tests/github_actions/module-template.yml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v3'
     secrets:

@@ -35,14 +35,14 @@
         }
     },
     "scripts": {
+        "phpcs": "phpcs --standard=tests/phpcs.xml  --report=full",
         "phpcs-report": "phpcs --standard=tests/phpcs.xml --report=json --report-file=phpcs.report.json",
-        "phpcs": "phpcs --standard=tests/phpcs.xml  --report=full --report-file=phpcs.report.txt",
         "phpcbf": "phpcbf --standard=tests/phpcs.xml",
 
-        "phpstan": "phpstan -ctests/PhpStan/phpstan.neon analyse src/  &>phpstan.report.txt",
+        "phpstan": "phpstan -ctests/PhpStan/phpstan.neon analyse src/",
         "phpstan-report": "phpstan -ctests/PhpStan/phpstan.neon analyse src/ --error-format=json >phpstan.report.json",
 
-        "phpmd": "phpmd src ansi tests/PhpMd/standard.xml --ignore-errors-on-exit --ignore-violations-on-exit --reportfile phpmd.report.txt",
+        "phpmd": "phpmd src ansi tests/PhpMd/standard.xml --ignore-errors-on-exit --ignore-violations-on-exit",
         "phpmd-excludestaticaccess": "phpmd src ansi tests/PhpMd/exclude-static-access-rule.xml",
         "phpmd-report": "phpmd src json tests/PhpMd/standard.xml --ignore-errors-on-exit --ignore-violations-on-exit --reportfile phpmd.report.json",
 
