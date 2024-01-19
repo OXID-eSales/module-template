@@ -1,4 +1,4 @@
-# {{ $ids := "oecomposerplugin" }}ids: {{ print $ids }}
+# {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
 # {{ $org := "oxid-esales" }}organisation: {{ print $org }}
 # {{ $name := "module-template" }}name: {{ print $name }}
 install_module:
