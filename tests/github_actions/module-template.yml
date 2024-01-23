@@ -1,3 +1,7 @@
+prepare_shop:
+  git:
+    shop_ref: '{{ .Data.global.git.default_ref }}'
+
 # {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
 # {{ $org := "oxid-esales" }}organisation: {{ print $org }}
 # {{ $name := "module-template" }}name: {{ print $name }}
