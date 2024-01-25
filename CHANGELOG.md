@@ -4,13 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.0.1] - Unreleased
+## [v2.1.0] - Unreleased
+
+### Added
+- New example service to extend basket class and logs it 
+- An example command to read logs from file
+- Improve test coverage
 
 ### Fixed
 - Cleanup module activation/deactivation from tests, use OxideshopModules codeception module
 - Specify reports location for static analyzers. Fix missing phpmd reports to be available
 
-## [2.0.0] - 2023-06-02
+## [v2.0.0] - 2023-06-02
 
 ### Added
 - Improved the phpmd configuration [PR-10](https://github.com/OXID-eSales/module-template/pull/10)
@@ -29,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Older "Twig" theme support
 
-## [1.0.0] - 2023-03-03
+## [v1.0.0] - 2023-03-03
 
 ### Added
 - More examples with possible configuration settings for module
@@ -49,11 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Failed tests in the workflow will mark workflow red, not green anymore
 - Consistent abbreviation: OEMT
 
-## [1.0.0-rc.1] - 2022-05-05
+## [v1.0.0-rc.1] - 2022-05-05
 
 ### Added
 - First version of our reusable examples
-
-[2.0.0]: https://github.com/OXID-eSales/module-template/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/OXID-eSales/module-template/compare/v1.0.0-rc.1...v1.0.0
-[1.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/d1380c5a9c63f411011ab852bd25b66e83306b41...v1.0.0-rc.1
