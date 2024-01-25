@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Service\Repository;
+use OxidEsales\ModuleTemplate\Tracker\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**

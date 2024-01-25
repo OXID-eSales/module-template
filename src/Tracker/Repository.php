@@ -7,14 +7,12 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Service;
+namespace OxidEsales\ModuleTemplate\Tracker;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Transition\Utility\ContextInterface;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Model\User;
-use PDO;
 
 /**
  * @extendable-class
@@ -29,26 +27,10 @@ class Repository
 
     public function __construct(
         QueryBuilderFactoryInterface $queryBuilderFactory,
-        ContextInterface $context
+        ContextInterface $context,
     ) {
         $this->queryBuilderFactory = $queryBuilderFactory;
         $this->context = $context;
-    }
-
-    public function getSavedUserGreeting(string $userId): string
-    {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = $this->queryBuilderFactory->create();
-
-        $parameters = [
-            'oxuserid' => $userId,
-        ];
-
-        $queryBuilder->select(User::OEMT_USER_GREETING_FIELD)
-            ->from('oxuser')
-            ->where('oxid = :oxuserid');
-
-        return $this->queryValue($queryBuilder, $parameters);
     }
 
     public function getTrackerByUserId(string $userId): GreetingTracker
@@ -83,17 +65,11 @@ class Repository
             'oxshopid' => $this->context->getCurrentShopId(),
         ];
 
-        $queryBuilder->select('oxid')
+        $result = $queryBuilder->select('oxid')
             ->from('oemt_tracker')
             ->where('oxuserid = :oxuserid')
-            ->andWhere('oxshopid = :oxshopid');
-
-        return $this->queryValue($queryBuilder, $parameters);
-    }
-
-    private function queryValue(QueryBuilder $queryBuilder, array $parameters): string
-    {
-        $result = $queryBuilder->setParameters($parameters)
+            ->andWhere('oxshopid = :oxshopid')
+            ->setParameters($parameters)
             ->setMaxResults(1)
             ->execute();
 
