@@ -1,0 +1,7 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+
+  OxidEsales\ModuleTemplate\Greeting\Repository:
+    public: true

@@ -1,0 +1,7 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+
+  OxidEsales\ModuleTemplate\Tracker\Repository:
+    public: true

@@ -7,12 +7,11 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker;
 
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Repository;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 final class RepositoryTest extends IntegrationTestCase
@@ -44,16 +43,6 @@ final class RepositoryTest extends IntegrationTestCase
         $this->assertSame('_notexisting', $tracker->getFieldData('oxuserid'));
     }
 
-    public function testGetSavedUserGreeting(): void
-    {
-        $this->prepareTestData();
-
-        $repo = $this->getServiceFromContainer(Repository::class);
-
-        $this->assertSame(self::TEST_GREETING, $repo->getSavedUserGreeting(self::TEST_USER_ID));
-        $this->assertSame('', $repo->getSavedUserGreeting('_notexisting'));
-    }
-
     private function prepareTestData(): void
     {
         $tracker = oxNew(GreetingTracker::class);
@@ -66,14 +55,5 @@ final class RepositoryTest extends IntegrationTestCase
             ]
         );
         $tracker->save();
-
-        $user = oxNew(EshopModelUser::class);
-        $user->assign(
-            [
-                'oxid'         => self::TEST_USER_ID,
-                'oemtgreeting' => self::TEST_GREETING,
-            ]
-        );
-        $user->save();
     }
 }

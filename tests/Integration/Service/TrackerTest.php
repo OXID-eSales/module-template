@@ -11,9 +11,9 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Service\Tracker as TrackerService;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Repository;
 
 final class TrackerTest extends IntegrationTestCase
 {
@@ -25,27 +25,34 @@ final class TrackerTest extends IntegrationTestCase
 
     public function testUpdateTrackerNoGreetingChange(): void
     {
-        $repo = $this->getRepositoryMock(self::TEST_GREETING);
+        $greetingRepository = $this->createStub(\OxidEsales\ModuleTemplate\Greeting\Repository::class);
+        $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING);
 
-        $repo->expects($this->never())
-            ->method('getTrackerByUserId');
+        $repo = $this->createPartialMock(Repository::class, ['getTrackerByUserId']);
+        $repo->expects($this->never())->method('getTrackerByUserId');
 
         /** @var TrackerService $tracker */
-        $tracker = new TrackerService($repo);
+        $tracker = new TrackerService(
+            $repo,
+            $greetingRepository
+        );
 
         $tracker->updateTracker($this->getUserModel());
     }
 
     public function testUpdateTrackerGreetingChange(): void
     {
-        $repo = $this->getRepositoryMock(self::TEST_GREETING . ' with a change');
+        $greetingRepository = $this->createStub(\OxidEsales\ModuleTemplate\Greeting\Repository::class);
+        $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING . ' with a change');
 
-        $repo->expects($this->once())
-            ->method('getTrackerByUserId')
-            ->willReturn($this->getGreetingTrackerMock());
+        $repo = $this->createPartialMock(Repository::class, ['getTrackerByUserId']);
+        $repo->expects($this->once())->method('getTrackerByUserId')->willReturn($this->getGreetingTrackerMock());
 
         /** @var TrackerService $tracker */
-        $tracker = new TrackerService($repo);
+        $tracker = new TrackerService(
+            $repo,
+            $greetingRepository
+        );
 
         $tracker->updateTracker($this->getUserModel());
     }
@@ -76,18 +83,5 @@ final class TrackerTest extends IntegrationTestCase
             ->method('countUp');
 
         return $tracker;
-    }
-
-    private function getRepositoryMock(string $result): Repository
-    {
-        $repo = $this->getMockBuilder(Repository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $repo->expects($this->once())
-            ->method('getSavedUserGreeting')
-            ->willReturn($result);
-
-        return $repo;
     }
 }
