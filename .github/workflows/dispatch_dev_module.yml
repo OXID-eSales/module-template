@@ -1,4 +1,4 @@
-name: Manual trigger for testing github actions development
+name: Manual trigger on DEV Github Actions
 # Matrix workflow using re-usable github actions
 
 on:

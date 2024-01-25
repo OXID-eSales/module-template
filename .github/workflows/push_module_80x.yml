@@ -1,4 +1,4 @@
-name: Automatically triggered on push to 8.0.x
+name: Auto trigger on Push to 8.0.x*
 
 on:
   push:

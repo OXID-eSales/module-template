@@ -1,4 +1,4 @@
-name: Automatically triggered on pull request to the 7.1.x branch
+name: Auto trigger on PR to 7.1.x*
 
 on:
   pull_request:
