@@ -37,6 +37,7 @@ runtest:
 sonarcloud:
   matrix:
     testplan: '["-"]'
+  strip_path: '/var/www/dev-packages/{{ print $ids }}/'
   project_key: 'OXID-eSales_{{ print $name }}'
   project_name: *package_name
   parameters: |
