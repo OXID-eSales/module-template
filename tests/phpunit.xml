@@ -1,30 +1,40 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         backupGlobals="true"
-         backupStaticAttributes="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         cacheResultFile=".phpunit.cache/test-results"
+         executionOrder="depends,defects"
+         forceCoversAnnotation="false"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="false"
+         beStrictAboutTodoAnnotatedTests="false"
+         convertDeprecationsToExceptions="true"
+         beStrictAboutTestsThatDoNotTestAnything="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         forceCoversAnnotation="false"
          processIsolation="false"
          stopOnError="false"
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         beStrictAboutTestsThatDoNotTestAnything="false"
-         verbose="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
-    <include>
-      <directory suffix=".php">../src</directory>
-    </include>
-  </coverage>
-  <testsuites>
-    <testsuite name="Unit">
-      <directory>Unit/</directory>
-    </testsuite>
-    <testsuite name="Integration">
-      <directory>Integration/</directory>
-    </testsuite>
-  </testsuites>
+         backupGlobals="true"
+         backupStaticAttributes="false"
+         colors="true"
+         testdox="false"
+         verbose="false">
+    <coverage includeUncoveredFiles="true"
+              processUncoveredFiles="false"
+              cacheDirectory=".phpunit.cache/code-coverage">
+        <include>
+            <directory suffix=".php">../src</directory>
+        </include>
+    </coverage>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>Unit/</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>Integration/</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
