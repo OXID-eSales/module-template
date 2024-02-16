@@ -1,7 +1,9 @@
 .idea
 .DS_Store
-.php_cs.cache
+
 vendor/
 composer.lock
-tests/reports/
+
+.php_cs.cache
 tests/.phpunit.result.cache
+tests/.phpunit.cache

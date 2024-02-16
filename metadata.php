@@ -24,7 +24,8 @@ $aModule = [
     'email'       => '',
     'extend'      => [
         \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Model\User::class,
-        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class
+        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class,
+        \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Model\Basket::class
     ],
     'controllers' => [
         'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
