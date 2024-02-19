@@ -1,4 +1,4 @@
-name: Manual stable trigger
+name: Manual trigger
 # Matrix workflow using re-usable github actions
 
 on:
