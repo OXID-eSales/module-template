@@ -21,12 +21,12 @@ install_module:
 
 phpunit:
   matrix:
-    testplan: '["tests/github_actions/defaults/module_phpunit_unit.yml","tests/github_actions/defaults/module_phpunit_integration.yml"]'
+    testplan: '["~/defaults/module_phpunit_unit.yml","~/defaults/module_phpunit_integration.yml"]'
   load_shop: *install_module_prefix
 
 codeception:
   matrix:
-    testplan: '["tests/github_actions/defaults/module_codeception_acceptance.yml"]'
+    testplan: '["~/defaults/module_codeception_acceptance.yml"]'
   load_shop: *install_module_prefix
 
 runtest:

@@ -6,11 +6,12 @@ on:
 
 jobs:
   scheduled_70x:
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
     with:
-      testplan: 'tests/github_actions/php8.0_mysql5.7_only.yml,tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
+      testplan: '~/defaults/7.0.x.yml,~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v3'
+      defaults: 'v4alpha'
+      plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -23,11 +24,11 @@ jobs:
 
   scheduled_71x:
     needs: scheduled_70x
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
     with:
-      testplan: 'tests/github_actions/php8.0_mysql5.7_only.yml,tests/github_actions/defaults/7.1.x.yml,tests/github_actions/module-template.yml'
+      testplan: '~/defaults/7.1.x.yml,~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v3'
+      defaults: 'v4alpha'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -40,11 +41,12 @@ jobs:
 
   scheduled_80x:
     needs: scheduled_71x
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
     with:
-      testplan: 'tests/github_actions/php8.0_mysql5.7_only.yml,tests/github_actions/module-template.yml'
+      testplan: '~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v3'
+      defaults: 'v4alpha'
+      plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
