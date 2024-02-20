@@ -15,8 +15,17 @@ on:
         description: 'Choose test scenario'
       limit:
         type: choice
-        options: ['yes', 'no']
-        default: 'yes'
+        options: 
+          - 'no'
+          - 'PHP8.0/MySQL5.7'
+          - 'PHP8.0/MySQL8.0'
+          - 'PHP8.1/MySQL5.7'
+          - 'PHP8.1/MySQL8.0'
+          - 'PHP8.2/MySQL5.7'
+          - 'PHP8.2/MySQL8.0'
+          - 'PHP8.3/MySQL5.7'
+          - 'PHP8.3/MySQL8.0'
+        default: 'PHP8.1/MySQL5.7'
         description: 'Limit to one PHP/MySQL combination'
       custom_testplan:
         type: string
@@ -33,10 +42,6 @@ on:
         options: ['no', 'v0', 'v4alpha']
         description: 'Use the dev version of github actions'
         default: 'no'
-      debug:
-        type: boolean
-        description: 'Create debugging script'
-        default: false
 
 jobs:
   build_testplan:
@@ -48,12 +53,21 @@ jobs:
         id: build
         run: |
           # Build testplan
-          if [ '${{inputs.limit}}' == 'yes' ]; then
-            # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
-            LIMIT='~/defaults/php8.1_mysql5.7_only.yml,'
-          else
-            LIMIT=''
-          fi
+          # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
+          case '${{inputs.limit}}' in
+            "no") LIMIT='';;
+            "PHP8.0/MySQL5.7") LIMIT='~/defaults/php8.0_mysql5.7_only.yml,' ;;
+            "PHP8.0/MySQL8.0") LIMIT='~/defaults/php8.0_mysql8.0_only.yml,' ;;
+            "PHP8.1/MySQL5.7") LIMIT='~/defaults/php8.1_mysql5.7_only.yml,' ;;
+            "PHP8.1/MySQL8.0") LIMIT='~/defaults/php8.1_mysql8.0_only.yml,' ;;
+            "PHP8.2/MySQL5.7") LIMIT='~/defaults/php8.2_mysql5.7_only.yml,' ;;
+            "PHP8.2/MySQL8.0") LIMIT='~/defaults/php8.2_mysql8.0_only.yml,' ;;
+            "PHP8.3/MySQL5.7") LIMIT='~/defaults/php8.3_mysql5.7_only.yml,' ;;
+            "PHP8.3/MySQL8.0") LIMIT='~/defaults/php8.3_mysql8.0_only.yml,' ;;
+            *) echo "Illegal choice, fix the workflow"
+               exit 1
+               ;;
+          esac
           case '${{ inputs.scenario}}' in
             "7.0.x")
               # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
@@ -125,7 +139,6 @@ jobs:
       runs_on: ${{ inputs.runs_on }}
       defaults: 'v4alpha'
       plan_folder: '.github/oxid-esales'
-      debug: ${{ inputs.debug }}
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
