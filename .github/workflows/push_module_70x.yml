@@ -9,7 +9,7 @@ jobs:
   push_module:
     uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
     with:
-      testplan: 'tests/github_actions/defaults/7.0.x.yml,tests/github_actions/module-template.yml'
+      testplan: '~/defaults/7.0.x.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v4alpha'
       plan_folder: '.github/oxid-esales'
