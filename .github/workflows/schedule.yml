@@ -6,11 +6,11 @@ on:
 
 jobs:
   scheduled_70x:
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
     with:
       testplan: '~/defaults/7.0.x.yml,~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v4alpha'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
@@ -24,11 +24,11 @@ jobs:
 
   scheduled_71x:
     needs: scheduled_70x
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
     with:
       testplan: '~/defaults/7.1.x.yml,~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v4alpha'
+      defaults: 'v4'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -41,11 +41,11 @@ jobs:
 
   scheduled_80x:
     needs: scheduled_71x
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
     with:
       testplan: '~/defaults/php8.1_mysql5.7_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v4alpha'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}

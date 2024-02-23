@@ -39,7 +39,7 @@ on:
         default: '"ubuntu-latest"'
       use_dev_version:
         type: choice
-        options: ['no', 'v0', 'v4alpha']
+        options: ['no', 'v0']
         description: 'Use the dev version of github actions'
         default: 'no'
 
@@ -95,11 +95,11 @@ jobs:
   dispatch_stable:
     if: ${{ inputs.use_dev_version == 'no' }}
     needs: build_testplan
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v3
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
     with:
       testplan: ${{ needs.build_testplan.outputs.testplan }}
       runs_on: ${{ inputs.runs_on }}
-      defaults: 'v3'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
@@ -119,25 +119,6 @@ jobs:
       testplan: ${{ needs.build_testplan.outputs.testplan }}
       runs_on: ${{ inputs.runs_on }}
       defaults: 'v0'
-      plan_folder: '.github/oxid-esales'
-    secrets:
-      DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-      CACHE_ENDPOINT: ${{ secrets.CACHE_ENDPOINT }}
-      CACHE_ACCESS_KEY: ${{ secrets.CACHE_ACCESS_KEY }}
-      CACHE_SECRET_KEY: ${{ secrets.CACHE_SECRET_KEY }}
-      enterprise_github_token: ${{ secrets.enterprise_github_token }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  dispatch_v4alpha:
-    if: ${{ inputs.use_dev_version == 'v4alpha' }}
-    needs: build_testplan
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
-    with:
-      testplan: ${{ needs.build_testplan.outputs.testplan }}
-      runs_on: ${{ inputs.runs_on }}
-      defaults: 'v4alpha'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}

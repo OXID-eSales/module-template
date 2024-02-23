@@ -7,11 +7,11 @@ on:
 
 jobs:
   push_module:
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4alpha
+    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
     with:
       testplan: '~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v4alpha'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
