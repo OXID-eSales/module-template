@@ -64,6 +64,9 @@
         ]
     },
     "config": {
-        "allow-plugins": false
+        "allow-plugins": {
+            "oxid-esales/oxideshop-composer-plugin": false,
+            "oxid-esales/oxideshop-unified-namespace-generator": true
+        }
     }
 }
