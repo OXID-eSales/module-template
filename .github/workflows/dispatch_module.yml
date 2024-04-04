@@ -8,23 +8,17 @@ on:
         type: choice
         options:
           - 7.0.x
-          - 7.1.x
-          - 8.0.x
           - use custom testplan
         default: '7.0.x'
         description: 'Choose test scenario'
       limit:
         type: choice
-        options: 
+        options:
           - 'no'
           - 'PHP8.0/MySQL5.7'
           - 'PHP8.0/MySQL8.0'
           - 'PHP8.1/MySQL5.7'
           - 'PHP8.1/MySQL8.0'
-          - 'PHP8.2/MySQL5.7'
-          - 'PHP8.2/MySQL8.0'
-          - 'PHP8.3/MySQL5.7'
-          - 'PHP8.3/MySQL8.0'
         default: 'PHP8.1/MySQL5.7'
         description: 'Limit to one PHP/MySQL combination'
       custom_testplan:
@@ -60,10 +54,6 @@ jobs:
             "PHP8.0/MySQL8.0") LIMIT='~/defaults/php8.0_mysql8.0_only.yml,' ;;
             "PHP8.1/MySQL5.7") LIMIT='~/defaults/php8.1_mysql5.7_only.yml,' ;;
             "PHP8.1/MySQL8.0") LIMIT='~/defaults/php8.1_mysql8.0_only.yml,' ;;
-            "PHP8.2/MySQL5.7") LIMIT='~/defaults/php8.2_mysql5.7_only.yml,' ;;
-            "PHP8.2/MySQL8.0") LIMIT='~/defaults/php8.2_mysql8.0_only.yml,' ;;
-            "PHP8.3/MySQL5.7") LIMIT='~/defaults/php8.3_mysql5.7_only.yml,' ;;
-            "PHP8.3/MySQL8.0") LIMIT='~/defaults/php8.3_mysql8.0_only.yml,' ;;
             *) echo "Illegal choice, fix the workflow"
                exit 1
                ;;
@@ -72,14 +62,6 @@ jobs:
             "7.0.x")
               # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
               TESTPLAN="~/defaults/7.0.x.yml,${LIMIT}~/module-template.yml"
-              ;;
-            "7.1.x")
-              # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
-              TESTPLAN="~/defaults/7.1.x.yml,${LIMIT}~/module-template.yml"
-              ;;
-            "8.0.x")
-              # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
-              TESTPLAN="${LIMIT}~/module-template.yml"
               ;;
             "use custom testplan")
               # shellcheck disable=SC2088 # Tilde expansion happens in the workflow and not by bash
