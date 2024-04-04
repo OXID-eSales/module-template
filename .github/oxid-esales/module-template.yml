@@ -1,10 +1,10 @@
+# {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
+# {{ $org := "oxid-esales" }}organisation: {{ print $org }}
+# {{ $name := "module-template" }}name: {{ print $name }}
 prepare_shop:
   git:
     shop_ref: '{{ .Data.global.git.default_ref }}'
 
-# {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
-# {{ $org := "oxid-esales" }}organisation: {{ print $org }}
-# {{ $name := "module-template" }}name: {{ print $name }}
 install_module:
   matrix:
     testplan: '["-"]'
@@ -21,12 +21,12 @@ install_module:
 
 phpunit:
   matrix:
-    testplan: '["tests/github_actions/defaults/module_phpunit_unit.yml","tests/github_actions/defaults/module_phpunit_integration.yml"]'
+    testplan: '["~/defaults/module_phpunit_unit.yml","~/defaults/module_phpunit_integration.yml"]'
   load_shop: *install_module_prefix
 
 codeception:
   matrix:
-    testplan: '["tests/github_actions/defaults/module_codeception_acceptance.yml"]'
+    testplan: '["~/defaults/module_codeception_acceptance.yml"]'
   load_shop: *install_module_prefix
 
 runtest:
@@ -37,6 +37,7 @@ runtest:
 sonarcloud:
   matrix:
     testplan: '["-"]'
+  strip_path: '/var/www/dev-packages/{{ print $ids }}/'
   project_key: 'OXID-eSales_{{ print $name }}'
   project_name: *package_name
   parameters: |

@@ -24,6 +24,8 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  *
  * This is a brand new (module own) controller which extends from the
  * shop frontend controller class.
+ *
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class GreetingController extends FrontendController
 {

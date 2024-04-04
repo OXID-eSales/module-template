@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cleanup module activation/deactivation from tests, use OxideshopModules codeception module
 - Specify reports location for static analyzers. Fix missing phpmd reports to be available
 
+### Changed
+- Change license from GNU GPL to oxid module and component license
+
 ## [v2.0.0] - 2023-06-02
 
 ### Added
