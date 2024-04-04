@@ -15,6 +15,8 @@ use OxidEsales\Eshop\Core\Model\BaseModel;
  * @extendable-class
  * This is no shop extension.
  * This is a model class based on shop's BaseModel.
+ *
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
 class GreetingTracker extends BaseModel
 {
