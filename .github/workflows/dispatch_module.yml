@@ -23,16 +23,22 @@ on:
           - 'PHP8.3/MySQL8.0'
         default: 'PHP8.1/MySQL5.7'
         description: 'Limit to one PHP/MySQL combination'
+      # custom_testplan is useful for workflow testing cases in feature branches
+      # for main dev branches like b-X.0.x we should avoid using it
       custom_testplan:
         type: string
         required: true
         description: 'URL/PATH of the testplan to run'
         default: '~/defaults/7.0.x.yml,~/module-template.yml'
+      # runs_on is useful for workflow testing cases in feature branches
+      # for main dev branches like b-X.0.x we should avoid using it
       runs_on:
         type: string
         description: 'JSON string/array describing the runner'
         required: true
         default: '"ubuntu-latest"'
+      # use_dev_version is useful for workflow testing cases in feature branches
+      # for main dev branches like b-X.0.x we should avoid using it
       use_dev_version:
         type: choice
         options: ['no', 'v0']
