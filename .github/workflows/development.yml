@@ -1,7 +1,8 @@
-name: Development trigger example
+name: Development workflow example
 
 on:
-  push:
+  workflow_call:
+  workflow_dispatch:
 
 jobs:
   example:
