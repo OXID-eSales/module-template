@@ -2,23 +2,13 @@ name: Auto trigger on Push to 7.1.x*
 
 on:
   push:
-    branches:
-      - 'b-7.1.x**'
 
 jobs:
-  push_module:
-    uses: oxid-eSales/github-actions/.github/workflows/call-universal_test_workflow.yml@v4
+  p80m57both:
+    name: 'Php-8.0-Mysql-5.7'
+    uses: ./.github/workflows/development.yml
+    secrets: inherit
     with:
-      testplan: '~/7.1.x.yml,~/module-template.yml'
-      runs_on: '"ubuntu-latest"'
-      defaults: 'v4'
-      plan_folder: '.github/oxid-esales'
-    secrets:
-      DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
-      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-      CACHE_ENDPOINT: ${{ secrets.CACHE_ENDPOINT }}
-      CACHE_ACCESS_KEY: ${{ secrets.CACHE_ACCESS_KEY }}
-      CACHE_SECRET_KEY: ${{ secrets.CACHE_SECRET_KEY }}
-      enterprise_github_token: ${{ secrets.enterprise_github_token }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      php: '8.1'
+      mysql: '5.7.37'
+      report_sonarcloud: true

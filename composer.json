@@ -23,7 +23,15 @@
         "phpmd/phpmd": "^2.11",
         "oxid-esales/oxideshop-ce": "dev-b-7.1.x",
         "phpunit/phpunit": "^9.6",
-        "mikey179/vfsstream": "~1.6.8"
+        "mikey179/vfsstream": "~1.6.8",
+        "codeception/codeception": "*",
+        "codeception/module-asserts": "*",
+        "codeception/module-db": "*",
+        "codeception/module-filesystem": "*",
+        "codeception/module-webdriver": "*",
+        "oxid-esales/codeception-modules": "dev-b-7.1.x",
+        "oxid-esales/codeception-page-objects": "dev-b-7.1.x",
+        "oxid-esales/developer-tools": "dev-b-7.1.x"
     },
     "conflict": {
         "oxid-esales/oxideshop-ce": "<7.1"
@@ -55,7 +63,10 @@
         "tests-integration": "XDEBUG_MODE=coverage vendor/bin/phpunit --bootstrap=/var/www/source/bootstrap.php --config=tests/ --testsuite=Integration",
         "tests-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --bootstrap=/var/www/source/bootstrap.php --config=tests/ --coverage-html=tests/reports/coverage",
 
-        "tests-codeception": "(cd /var/www/ && THEME_ID=apex MODULE_IDS=oe_moduletemplate /var/www/vendor/bin/codecept run acceptance -c /var/www/vendor/oxid-esales/module-template/tests/codeception.yml -g oe_moduletemplate)",
+        "tests-codeception": [
+            "Composer\\Config::disableProcessTimeout",
+            "THEME_ID=apex MODULE_IDS=oe_moduletemplate SHOP_ROOT_PATH=/var/www vendor/bin/codecept run acceptance -c tests/codeception.yml --no-redirect"
+        ],
 
         "tests-all": [
             "@tests-unit",
