@@ -13,7 +13,6 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
  * @eshopExtension
@@ -21,11 +20,11 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  * This is an example for a module extension (chain extend) of
  * the shop start controller.
  * NOTE: class must not be final.
+ *
+ * @mixin \OxidEsales\Eshop\Application\Controller\StartController
  */
 class StartController extends StartController_parent
 {
-    use ServiceContainer;
-
     /**
      * All we need here is to fetch the information we need from a service.
      * As in our example we extend a block of a template belonging ONLY
@@ -35,7 +34,7 @@ class StartController extends StartController_parent
      */
     public function getOemtGreeting(): string
     {
-        $service = $this->getServiceFromContainer(GreetingMessage::class);
+        $service = $this->getService(GreetingMessage::class);
 
         $user   = is_a($this->getUser(), EshopModelUser::class) ? $this->getUser() : null;
         $result = $service->getGreeting($user);
@@ -47,7 +46,7 @@ class StartController extends StartController_parent
 
     public function canUpdateOemtGreeting(): bool
     {
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->getService(ModuleSettings::class);
 
         return is_a($this->getUser(), EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode();
     }

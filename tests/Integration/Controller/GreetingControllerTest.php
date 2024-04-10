@@ -25,8 +25,6 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  */
 final class GreetingControllerTest extends IntegrationTestCase
 {
-    use ServiceContainer;
-
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'oh dear';
@@ -38,7 +36,7 @@ final class GreetingControllerTest extends IntegrationTestCase
      */
     public function testUpdateGreeting(bool $hasUser, string $mode, string $expected, int $count): void
     {
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
         $_POST[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME] = $expected;
 
@@ -55,7 +53,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $user->load(self::TEST_USER_ID);
         $this->assertSame($expected, $user->getPersonalGreeting());
 
-        $tracker = $this->getServiceFromContainer(Repository::class)
+        $tracker = $this->get(Repository::class)
             ->getTrackerByUserId(self::TEST_USER_ID);
         $this->assertSame($count, $tracker->getCount());
     }
@@ -67,7 +65,7 @@ final class GreetingControllerTest extends IntegrationTestCase
     {
         $this->createTestTracker();
 
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(GreetingController::class);

@@ -24,32 +24,23 @@ final class BeforeModelUpdateTest extends IntegrationTestCase
     {
         $event = new BeforeModelUpdateEvent(oxNew(GreetingTracker::class));
 
-        $handler = $this->getMockBuilder(BeforeModelUpdate::class)
-            ->onlyMethods(['getServiceFromContainer'])
-            ->getMock();
-        $handler->expects($this->never())
-            ->method('getServiceFromContainer');
+        $sut = new BeforeModelUpdate(
+            tracker: $trackerSpy = $this->createMock(Tracker::class)
+        );
+        $trackerSpy->expects($this->never())->method('updateTracker');
 
-        $handler->handle($event);
+        $sut->handle($event);
     }
 
     public function testHandleEventWithMatchingPayload(): void
     {
         $event = new BeforeModelUpdateEvent(oxNew(EshopModelUser::class));
 
-        $tracker = $this->getMockBuilder(Tracker::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $tracker->expects($this->once())
-            ->method('updateTracker');
+        $sut = new BeforeModelUpdate(
+            tracker: $trackerSpy = $this->createMock(Tracker::class)
+        );
+        $trackerSpy->expects($this->once())->method('updateTracker');
 
-        $handler = $this->getMockBuilder(BeforeModelUpdate::class)
-            ->onlyMethods(['getServiceFromContainer'])
-            ->getMock();
-        $handler->method('getServiceFromContainer')
-            ->with($this->equalTo(Tracker::class))
-            ->willReturn($tracker);
-
-        $handler->handle($event);
+        $sut->handle($event);
     }
 }

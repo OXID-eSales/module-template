@@ -24,8 +24,6 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  */
 final class StartControllerTest extends IntegrationTestCase
 {
-    use ServiceContainer;
-
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'oh dear';
@@ -35,7 +33,7 @@ final class StartControllerTest extends IntegrationTestCase
      */
     public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, string $expect): void
     {
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(EshopStartController::class);
@@ -54,7 +52,7 @@ final class StartControllerTest extends IntegrationTestCase
      */
     public function testGetOemtGreeting(bool $hasUser, string $mode, $expect): void
     {
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettings::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(EshopStartController::class);

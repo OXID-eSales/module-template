@@ -39,14 +39,12 @@ final class BasketIntegrationTest extends IntegrationTestCase
 
     public function testAddToBasket(): void
     {
-        $loggerMock = $this->createMock(BasketItemLogger::class);
-        $loggerMock
-            ->expects($this->once())
-            ->method('log');
+        $loggerSpy = $this->createMock(BasketItemLogger::class);
+        $loggerSpy->expects($this->once())->method('log');
 
-        $basket = $this->createPartialMock(Basket::class, ['getServiceFromContainer']);
-        $basket->method('getServiceFromContainer')->willReturnMap([
-            [BasketItemLogger::class, $loggerMock]
+        $basket = $this->createPartialMock(Basket::class, ['getService']);
+        $basket->method('getService')->willReturnMap([
+            [BasketItemLogger::class, $loggerSpy]
         ]);
 
         $basket->addToBasket(self::TEST_PRODUCT_ID, 1, null, null, false, false, null);

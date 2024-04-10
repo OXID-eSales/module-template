@@ -16,8 +16,6 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 
 class RepositoryTest extends IntegrationTestCase
 {
-    use ServiceContainer;
-
     public const TEST_USER_ID = '_testuser';
     public const TEST_GREETING = 'Hi there';
 
@@ -25,7 +23,7 @@ class RepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $repo = $this->getServiceFromContainer(Repository::class);
+        $repo = $this->get(Repository::class);
 
         $this->assertSame(self::TEST_GREETING, $repo->getSavedUserGreeting(self::TEST_USER_ID));
         $this->assertSame('', $repo->getSavedUserGreeting('_notexisting'));

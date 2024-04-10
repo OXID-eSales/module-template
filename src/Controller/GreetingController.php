@@ -17,7 +17,6 @@ use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 /**
  * @extendable-class
@@ -29,8 +28,6 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
  */
 class GreetingController extends FrontendController
 {
-    use ServiceContainer;
-
     /**
      * Current view template
      *
@@ -46,8 +43,8 @@ class GreetingController extends FrontendController
     public function render()
     {
         $template = parent::render();
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
-        $repository = $this->getServiceFromContainer(Repository::class);
+        $moduleSettings = $this->getService(ModuleSettings::class);
+        $repository = $this->getService(Repository::class);
 
         /** @var TemplateModelUser $user */
         $user = $this->getUser();
@@ -73,7 +70,7 @@ class GreetingController extends FrontendController
      */
     public function updateGreeting(): void
     {
-        $moduleSettings = $this->getServiceFromContainer(ModuleSettings::class);
+        $moduleSettings = $this->getService(ModuleSettings::class);
 
         /** @var EshopModelUser $user */
         $user = $this->getUser();
@@ -82,7 +79,7 @@ class GreetingController extends FrontendController
             return;
         }
 
-        $greetingService = $this->getServiceFromContainer(GreetingMessage::class);
+        $greetingService = $this->getService(GreetingMessage::class);
         $greetingService->saveGreeting($user);
     }
 }

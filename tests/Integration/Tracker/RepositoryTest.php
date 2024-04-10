@@ -16,8 +16,6 @@ use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 final class RepositoryTest extends IntegrationTestCase
 {
-    use ServiceContainer;
-
     public const TEST_TRACKER_ID = '_testoxid';
 
     public const TEST_USER_ID = '_testuser';
@@ -28,7 +26,7 @@ final class RepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $repo    = $this->getServiceFromContainer(Repository::class);
+        $repo    = $this->get(Repository::class);
         $tracker = $repo->getTrackerByUserId(self::TEST_USER_ID);
 
         $this->assertSame(self::TEST_TRACKER_ID, $tracker->getId());
@@ -36,7 +34,7 @@ final class RepositoryTest extends IntegrationTestCase
 
     public function testGetNotExistingTrackerByUserId(): void
     {
-        $repo    = $this->getServiceFromContainer(Repository::class);
+        $repo    = $this->get(Repository::class);
         $tracker = $repo->getTrackerByUserId('_notexisting');
 
         $this->assertEmpty($tracker->getId());
