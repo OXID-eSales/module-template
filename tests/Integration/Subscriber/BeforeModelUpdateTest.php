@@ -43,4 +43,10 @@ final class BeforeModelUpdateTest extends IntegrationTestCase
 
         $sut->handle($event);
     }
+
+    public function testSubscribedEvents(): void
+    {
+        $handlers = BeforeModelUpdate::getSubscribedEvents();
+        $this->assertArrayHasKey(BeforeModelUpdateEvent::class, $handlers);
+    }
 }
