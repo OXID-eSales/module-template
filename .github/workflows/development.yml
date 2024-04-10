@@ -79,11 +79,18 @@ jobs:
       - name: Install dependencies and reset shop
         run: |
           docker compose exec -T php composer update --no-interaction
-          
+
+      - name: Start all other not running containers in advance
+        run: |
+          make up
+          sleep 2
+
+      - name: Setup shop and activate modules/themes
           docker compose exec php vendor/bin/oe-console oe:setup:shop --db-host=mysql --db-port=3306 --db-name=example --db-user=root \
             --db-password=root --shop-url=http://localhost.local/ --shop-directory=/var/www/source/ \
             --compile-directory=/var/www/source/tmp/
 
+          docker compose exec -T php vendor/bin/oe-console oe:theme:activate apex
           docker compose exec -T php vendor/bin/oe-console oe:module:activate oe_moduletemplate
 
       - name: Install module dependencies
@@ -109,15 +116,9 @@ jobs:
       - name: Run codeception tests
         if: always()
         run: |
-          make up
           docker compose exec -T \
             --workdir=/var/www/test-module \
             php composer tests-codeception
-
-      - name: Stop containers
-        run: |
-          docker compose down
-          sleep 2
 
       - name: Show docker log
         if: always()
