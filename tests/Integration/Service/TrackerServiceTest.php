@@ -11,11 +11,11 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Service\Tracker as TrackerService;
+use OxidEsales\ModuleTemplate\Service\TrackerService as TrackerService;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
 
-final class TrackerTest extends IntegrationTestCase
+final class TrackerServiceTest extends IntegrationTestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
 

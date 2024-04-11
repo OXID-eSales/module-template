@@ -10,17 +10,18 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\ModuleTemplate\Greeting\Repository as GreetingRepository;
 use OxidEsales\ModuleTemplate\Model\User as ModelUser;
-use OxidEsales\ModuleTemplate\Tracker\Repository as RepositoryService;
+use OxidEsales\ModuleTemplate\Tracker\Repository as TrackerRepository;
 
 /**
- * @extendable-class
+ * Example which we can decorate
  */
-class Tracker
+class TrackerService implements TrackerServiceInterface
 {
     public function __construct(
-        private RepositoryService $repository,
-        private \OxidEsales\ModuleTemplate\Greeting\Repository $greetingRepository,
+        private TrackerRepository $repository,
+        private GreetingRepository $greetingRepository,
     ) {
     }
 

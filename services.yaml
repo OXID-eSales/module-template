@@ -48,7 +48,7 @@ services:
     class: OxidEsales\ModuleTemplate\Service\ModuleSettings
     public: true
 
-  OxidEsales\ModuleTemplate\Service\TrackerService:
+  OxidEsales\ModuleTemplate\Service\TrackerServiceInterface:
     class: OxidEsales\ModuleTemplate\Service\TrackerService
     public: true
 
