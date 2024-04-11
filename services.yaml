@@ -40,8 +40,16 @@ services:
       $logFilePath: '%app.log_file_path%'
       $logLevel: !php/const Psr\Log\LogLevel::DEBUG
 
-  OxidEsales\ModuleTemplate\Service\:
-    resource: 'src/Service/*'
+  OxidEsales\ModuleTemplate\Service\GreetingMessage:
+    class: OxidEsales\ModuleTemplate\Service\GreetingMessage
+    public: true
+
+  OxidEsales\ModuleTemplate\Service\ModuleSettings:
+    class: OxidEsales\ModuleTemplate\Service\ModuleSettings
+    public: true
+
+  OxidEsales\ModuleTemplate\Service\TrackerService:
+    class: OxidEsales\ModuleTemplate\Service\TrackerService
     public: true
 
   OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
