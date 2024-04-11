@@ -13,36 +13,23 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as EshopRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings as ModuleSettingsService;
 
 /**
  * @extendable-class
  */
 class GreetingMessage
 {
-    /**
-     * @var ModuleSettingsService
-     */
-    private $settings;
-
-    /**
-     * @var EshopRequest
-     */
-    private $request;
-
     public function __construct(
-        ModuleSettingsService $settings,
-        EshopRequest $request
+        private ModuleSettingsInterface $moduleSettings,
+        private EshopRequest $shopRequest
     ) {
-        $this->settings = $settings;
-        $this->request = $request;
     }
 
     public function getGreeting(?EshopModelUser $user = null): string
     {
         $result = ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
-        if (ModuleSettingsService::GREETING_MODE_PERSONAL == $this->settings->getGreetingMode()) {
+        if (ModuleSettingsInterface::GREETING_MODE_PERSONAL == $this->moduleSettings->getGreetingMode()) {
             $result = $this->getUserGreeting($user);
         }
 
@@ -59,7 +46,7 @@ class GreetingMessage
 
     private function getRequestOemtGreeting(): string
     {
-        $input = (string)$this->request->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
+        $input = (string)$this->shopRequest->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
         return (string)substr($input, 0, 253);

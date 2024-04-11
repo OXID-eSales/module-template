@@ -15,16 +15,8 @@ use OxidEsales\ModuleTemplate\Core\Module;
 /**
  * @extendable-class
  */
-class ModuleSettings
+class ModuleSettings implements ModuleSettingsInterface
 {
-    public const GREETING_MODE = 'oemoduletemplate_GreetingMode';
-
-    public const GREETING_MODE_GENERIC = 'generic';
-
-    public const GREETING_MODE_PERSONAL = 'personal';
-
-    public const LOGGER_STATUS = 'oemoduletemplate_LoggerEnabled';
-
     public const GREETING_MODE_VALUES = [
         self::GREETING_MODE_GENERIC,
         self::GREETING_MODE_PERSONAL,

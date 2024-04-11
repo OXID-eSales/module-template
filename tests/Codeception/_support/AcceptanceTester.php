@@ -14,6 +14,7 @@ use OxidEsales\Codeception\Page\Home;
 use OxidEsales\Facts\Facts;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 
 /**
  * Inherited Methods
@@ -53,16 +54,16 @@ final class AcceptanceTester extends \Codeception\Actor
     {
         $I = $this;
 
-        $I->getServiceFromContainer(ModuleSettings::class)
-            ->saveGreetingMode(ModuleSettings::GREETING_MODE_PERSONAL);
+        $I->getServiceFromContainer(ModuleSettingsInterface::class)
+            ->saveGreetingMode(ModuleSettingsInterface::GREETING_MODE_PERSONAL);
     }
 
     public function setGreetingModeGeneric(): void
     {
         $I = $this;
 
-        $I->getServiceFromContainer(ModuleSettings::class)
-            ->saveGreetingMode(ModuleSettings::GREETING_MODE_GENERIC);
+        $I->getServiceFromContainer(ModuleSettingsInterface::class)
+            ->saveGreetingMode(ModuleSettingsInterface::GREETING_MODE_GENERIC);
     }
 
     public function getDemoUserName(): string

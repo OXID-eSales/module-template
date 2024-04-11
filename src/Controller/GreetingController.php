@@ -15,7 +15,7 @@ use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
 
 /**
@@ -43,7 +43,7 @@ class GreetingController extends FrontendController
     public function render()
     {
         $template = parent::render();
-        $moduleSettings = $this->getService(ModuleSettings::class);
+        $moduleSettings = $this->getService(ModuleSettingsInterface::class);
         $repository = $this->getService(Repository::class);
 
         /** @var TemplateModelUser $user */
@@ -70,7 +70,7 @@ class GreetingController extends FrontendController
      */
     public function updateGreeting(): void
     {
-        $moduleSettings = $this->getService(ModuleSettings::class);
+        $moduleSettings = $this->getService(ModuleSettingsInterface::class);
 
         /** @var EshopModelUser $user */
         $user = $this->getUser();

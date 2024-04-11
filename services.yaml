@@ -44,7 +44,7 @@ services:
     class: OxidEsales\ModuleTemplate\Service\GreetingMessage
     public: true
 
-  OxidEsales\ModuleTemplate\Service\ModuleSettings:
+  OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface:
     class: OxidEsales\ModuleTemplate\Service\ModuleSettings
     public: true
 

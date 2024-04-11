@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller;
 use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
@@ -33,7 +33,7 @@ final class StartControllerTest extends IntegrationTestCase
      */
     public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, string $expect): void
     {
-        $moduleSettings = $this->get(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettingsInterface::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(EshopStartController::class);
@@ -52,7 +52,7 @@ final class StartControllerTest extends IntegrationTestCase
      */
     public function testGetOemtGreeting(bool $hasUser, string $mode, $expect): void
     {
-        $moduleSettings = $this->get(ModuleSettings::class);
+        $moduleSettings = $this->get(ModuleSettingsInterface::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(EshopStartController::class);
@@ -72,22 +72,22 @@ final class StartControllerTest extends IntegrationTestCase
         return [
             'without_user_generic' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettings::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
                 'assert'        => 'assertFalse',
             ],
             'without_user_personal' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettings::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
                 'assert'        => 'assertFalse',
             ],
             'with_user_generic' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettings::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
                 'assert'        => 'assertFalse',
             ],
             'with_user_personal' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettings::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
                 'assert'        => 'assertTrue',
             ],
         ];
@@ -98,22 +98,22 @@ final class StartControllerTest extends IntegrationTestCase
         return [
             'without_user_generic' => [
                 'user'                   => false,
-                'greeting_mode'          => ModuleSettings::GREETING_MODE_GENERIC,
+                'greeting_mode'          => ModuleSettingsInterface::GREETING_MODE_GENERIC,
                 'expect'                 => 'OEMODULETEMPLATE_GREETING_GENERIC',
             ],
             'without_user_personal' => [
                 'user'                   => false,
-                'greeting_mode'          => ModuleSettings::GREETING_MODE_PERSONAL,
+                'greeting_mode'          => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
                 'expect'                 => '',
             ],
             'with_user_generic' => [
                 'user'                   => true,
-                'greeting_mode'          => ModuleSettings::GREETING_MODE_GENERIC,
+                'greeting_mode'          => ModuleSettingsInterface::GREETING_MODE_GENERIC,
                 'expect'                 => 'OEMODULETEMPLATE_GREETING_GENERIC',
             ],
             'with_user_personal' => [
                 'user'                   => true,
-                'greeting_mode'          => ModuleSettings::GREETING_MODE_PERSONAL,
+                'greeting_mode'          => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
                 'expect'                 => self::TEST_GREETING,
             ],
         ];

@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Service;
 
 use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
@@ -27,7 +27,7 @@ final class BasketItemLoggerTest extends TestCase
                 sprintf(BasketItemLogger::MESSAGE, self::TEST_PRODUCT_ID)
             );
 
-        $moduleSettings = $this->createMock(ModuleSettings::class);
+        $moduleSettings = $this->createMock(ModuleSettingsInterface::class);
         $moduleSettings->expects($this->once())
             ->method('isLoggingEnabled')
             ->willReturn(true);
@@ -42,7 +42,7 @@ final class BasketItemLoggerTest extends TestCase
         $psrLoggerMock->expects($this->never())
             ->method('info');
 
-        $moduleSettings = $this->createMock(ModuleSettings::class);
+        $moduleSettings = $this->createMock(ModuleSettingsInterface::class);
         $moduleSettings->expects($this->once())
             ->method('isLoggingEnabled')
             ->willReturn(false);
