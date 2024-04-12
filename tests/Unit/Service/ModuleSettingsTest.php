@@ -31,7 +31,7 @@ final class ModuleSettingsTest extends TestCase
         $this->assertSame($expected, $sut->getGreetingMode());
     }
 
-    public function getGreetingModeDataProvider(): array
+    public static function getGreetingModeDataProvider(): array
     {
         return [
             [
@@ -67,7 +67,7 @@ final class ModuleSettingsTest extends TestCase
         $this->assertSame($expected, $sut->isPersonalGreetingMode());
     }
 
-    public function isPersonalGreetingModeDataProvider(): array
+    public static function isPersonalGreetingModeDataProvider(): array
     {
         return [
             [

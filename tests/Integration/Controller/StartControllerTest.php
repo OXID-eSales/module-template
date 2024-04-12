@@ -67,7 +67,7 @@ final class StartControllerTest extends IntegrationTestCase
         );
     }
 
-    public function providerCanUpdateOemtGreeting(): array
+    public static function providerCanUpdateOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -93,7 +93,7 @@ final class StartControllerTest extends IntegrationTestCase
         ];
     }
 
-    public function providerGetOemtGreeting(): array
+    public static function providerGetOemtGreeting(): array
     {
         return [
             'without_user_generic' => [

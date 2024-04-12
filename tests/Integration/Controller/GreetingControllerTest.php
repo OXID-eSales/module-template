@@ -80,7 +80,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $this->assertSame($expected['counter'], $viewData[ModuleCore::OEMT_COUNTER_TEMPLATE_VARNAME]);
     }
 
-    public function providerOemtGreeting(): array
+    public static function providerOemtGreeting(): array
     {
         return [
             'without_user_generic' => [
@@ -110,7 +110,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         ];
     }
 
-    public function providerRender(): array
+    public static function providerRender(): array
     {
         return [
             'without_user_generic' => [

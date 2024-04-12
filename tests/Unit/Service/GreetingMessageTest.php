@@ -33,7 +33,7 @@ final class GreetingMessageTest extends TestCase
         $this->assertSame($expected, $service->getGreeting());
     }
 
-    public function getGreetingDataProvider(): array
+    public static function getGreetingDataProvider(): array
     {
         return [
             [
