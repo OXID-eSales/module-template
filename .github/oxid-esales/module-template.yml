@@ -1,42 +1,42 @@
 # {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
 # {{ $org := "oxid-esales" }}organisation: {{ print $org }}
 # {{ $name := "module-template" }}name: {{ print $name }}
-prepare_shop:
+
+install_shop_with_modules:
   git:
     shop_ref: '{{ .Data.global.git.default_ref }}'
+    transform: |
+      {
+          "preferred-install": {
+            "oxid-esales/*": "source",
+            "oxid-professional-services/*": "source",
+            "ddoe/*": "source"
+          },
+          "require": {
+              "oxid-esales/twig-component": "{{ .Data.global.composer.def_ref }}",
+              "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.def_ref }}",
+              "oxid-esales/apex-theme": "{{ .Data.global.composer.def_ref }}",
+              "{{ $org }}/${{ $name }}": "dev-{{ .Github.RefName }}"
+          }
+      }
 
-install_module:
+runscript:
   matrix:
-    testplan: '["-"]'
-  cache:
-    prefix: &install_module_prefix 'moduleInstallation-ce-{{ .Github.SHA }}-{{ .Github.RunID }}'
-  ids: &ids '{{ print $ids }}'
-  activate: *ids
-  git:
-    module:
-      url: &git_module_url '{{ .Github.Repository }}'
-      ref: '{{ .Github.RefName }}'
-  package_name: &package_name '{{ print $org }}/{{ print $name }}'
-  path: *ids
-
-phpunit:
-  matrix:
-    testplan: '["~/defaults/module_phpunit_unit.yml","~/defaults/module_phpunit_integration.yml"]'
-  load_shop: *install_module_prefix
-
-codeception:
-  matrix:
-    testplan: '["~/defaults/module_codeception_acceptance.yml"]'
-  load_shop: *install_module_prefix
-
-runtest:
-  matrix:
-    testplan: 'skip'
-  load_shop: *install_module_prefix
+    script: |
+      [
+        "tests-unit",
+        "tests-integration",
+        "tests-codeception",
+        "phpcs-report",
+        "phpmd-report",
+        "phpstan-report"
+      ]
+  path: 'vendor/{{ $org}}/{{ $name }}'
 
 sonarcloud:
   matrix:
-    testplan: '["-"]'
+    testplan: 'skip'
+    # testplan: '["-"]'
   strip_path: '/var/www/dev-packages/{{ print $ids }}/'
   project_key: 'OXID-eSales_{{ print $name }}'
   project_name: *package_name
@@ -46,15 +46,5 @@ sonarcloud:
     -Dsonar.sources=src
     -Dsonar.tests=tests
 
-phpcs_tests:
-  skip: true
-
-styles:
-  matrix:
-    testplan: '["-"]'
-  load_shop: *install_module_prefix
-  path: *ids
-  module_ids: *ids
-
 finish:
-  slack_title: 'Module {{ print $name }} ({{ .Data.global.git.shop_ref }}) on {{ .Github.Repository }} by {{ .Github.Actor }}'
+  slack_title: '{{ print $name }} ({{ .Data.global.git.shop_ref }}) by {{ .Github.Actor }}'
