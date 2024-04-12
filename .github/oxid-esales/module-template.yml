@@ -1,7 +1,6 @@
-# {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
-# {{ $org := "oxid-esales" }}organisation: {{ print $org }}
-# {{ $name := "module-template" }}name: {{ print $name }}
-# {{ $repo := "OXID-eSales/module-template" }}repo: {{ print $repo }}
+# {{ $org := "oxid-esales" }}organisation: {{ $org }}
+# {{ $name := "module-template" }}name: {{ $name }}
+# {{ $repo := "OXID-eSales/module-template" }}repo: {{ $repo }}
 
 install_shop_with_modules:
   git:
@@ -19,7 +18,7 @@ install_shop_with_modules:
               "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.dev_ref }}",
               "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}",
               "{{ $org }}/{{ $name }}": "dev-{{ .Github.RefName }}"
-          }
+          },
           "repositories": {
             "{{ $org }}/{{ $name }}": {
               "type": "git",
@@ -45,7 +44,7 @@ sonarcloud:
   matrix:
     testplan: 'skip'
     # testplan: '["-"]'
-  strip_path: '/var/www/dev-packages/{{ print $ids }}/'
+  strip_path: '/var/www/vendor/{{ print $org }}/{{ print $name}}/'
   project_key: 'OXID-eSales_{{ print $name }}'
   project_name: '{{ $org}}/{{ $name }}'
   parameters: |
