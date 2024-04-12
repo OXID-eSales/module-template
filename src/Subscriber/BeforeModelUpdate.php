@@ -13,7 +13,7 @@ namespace OxidEsales\ModuleTemplate\Subscriber;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
-use OxidEsales\ModuleTemplate\Service\TrackerServiceInterface;
+use OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

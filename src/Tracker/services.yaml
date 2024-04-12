@@ -6,3 +6,7 @@ services:
   OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface:
     class: OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository
     public: true
+
+  OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface:
+    class: OxidEsales\ModuleTemplate\Tracker\Service\TrackerService
+    public: true

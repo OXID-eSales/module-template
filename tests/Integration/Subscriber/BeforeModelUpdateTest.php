@@ -12,9 +12,9 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Subscriber;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Service\TrackerServiceInterface;
 use OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface;
 
 final class BeforeModelUpdateTest extends IntegrationTestCase
 {
