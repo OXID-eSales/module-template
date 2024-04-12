@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Service\GreetingMessage;
+use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
@@ -20,7 +20,7 @@ final class GreetingMessageTest extends IntegrationTestCase
 {
     public function testModuleGenericGreetingModeEmptyUser(): void
     {
-        $service = new GreetingMessage(
+        $service = new GreetingMessageService(
             $this->getSettingsMock(ModuleSettingsInterface::GREETING_MODE_GENERIC),
             oxNew(CoreRequest::class)
         );
@@ -31,7 +31,7 @@ final class GreetingMessageTest extends IntegrationTestCase
 
     public function testModulePersonalGreetingModeEmptyUser(): void
     {
-        $service = new GreetingMessage(
+        $service = new GreetingMessageService(
             $this->getSettingsMock(),
             oxNew(CoreRequest::class)
         );
@@ -42,7 +42,7 @@ final class GreetingMessageTest extends IntegrationTestCase
 
     public function testModuleGenericGreeting(): void
     {
-        $service = new GreetingMessage(
+        $service = new GreetingMessageService(
             $this->getSettingsMock(ModuleSettingsInterface::GREETING_MODE_GENERIC),
             oxNew(CoreRequest::class)
         );
@@ -54,7 +54,7 @@ final class GreetingMessageTest extends IntegrationTestCase
 
     public function testModulePersonalGreeting(): void
     {
-        $service = new GreetingMessage(
+        $service = new GreetingMessageService(
             $this->getSettingsMock(),
             oxNew(CoreRequest::class)
         );

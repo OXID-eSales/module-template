@@ -14,7 +14,7 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
-use OxidEsales\ModuleTemplate\Service\GreetingMessage;
+use OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
 
@@ -79,7 +79,7 @@ class GreetingController extends FrontendController
             return;
         }
 
-        $greetingService = $this->getService(GreetingMessage::class);
+        $greetingService = $this->getService(GreetingMessageServiceInterface::class);
         $greetingService->saveGreeting($user);
     }
 }

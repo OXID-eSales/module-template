@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
-use OxidEsales\ModuleTemplate\Service\GreetingMessage;
+use OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 
 /**
@@ -34,7 +34,7 @@ class StartController extends StartController_parent
      */
     public function getOemtGreeting(): string
     {
-        $service = $this->getService(GreetingMessage::class);
+        $service = $this->getService(GreetingMessageServiceInterface::class);
 
         $user   = is_a($this->getUser(), EshopModelUser::class) ? $this->getUser() : null;
         $result = $service->getGreeting($user);

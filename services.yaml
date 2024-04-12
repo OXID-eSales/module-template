@@ -40,8 +40,8 @@ services:
       $logFilePath: '%app.log_file_path%'
       $logLevel: !php/const Psr\Log\LogLevel::DEBUG
 
-  OxidEsales\ModuleTemplate\Service\GreetingMessage:
-    class: OxidEsales\ModuleTemplate\Service\GreetingMessage
+  OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface:
+    class: OxidEsales\ModuleTemplate\Service\GreetingMessageService
     public: true
 
   OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface:

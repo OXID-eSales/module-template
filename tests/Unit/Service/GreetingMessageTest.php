@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Service\GreetingMessage;
+use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ final class GreetingMessageTest extends TestCase
         $moduleSettingsStub = $this->createMock(ModuleSettingsInterface::class);
         $moduleSettingsStub->method('getGreetingMode')->willReturn($mode);
 
-        $service = new GreetingMessage(
+        $service = new GreetingMessageService(
             $moduleSettingsStub,
             $this->createStub(CoreRequest::class)
         );

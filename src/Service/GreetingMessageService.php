@@ -14,10 +14,7 @@ use OxidEsales\Eshop\Core\Request as EshopRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 
-/**
- * @extendable-class
- */
-class GreetingMessage
+class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
         private ModuleSettingsInterface $moduleSettings,
