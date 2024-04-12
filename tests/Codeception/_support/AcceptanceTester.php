@@ -11,9 +11,8 @@ namespace OxidEsales\ModuleTemplate\Tests\Codeception;
 
 use Codeception\Util\Fixtures;
 use OxidEsales\Codeception\Page\Home;
-use OxidEsales\Facts\Facts;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsService;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\Facts\Facts;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 
 /**

@@ -12,7 +12,6 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
-use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
 final class RepositoryTest extends IntegrationTestCase
 {

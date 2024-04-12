@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
-use OxidEsales\ModuleTemplate\Model\Basket;
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
+use OxidEsales\ModuleTemplate\Model\Basket;
 use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
