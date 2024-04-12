@@ -3,6 +3,8 @@
 # {{ $repo := "OXID-eSales/module-template" }}repo: {{ $repo }}
 
 install_shop_with_modules:
+  cache:
+    prepared_shop: false
   git:
     shop_ref: '{{ .Data.global.git.default_ref }}'
   composer:
