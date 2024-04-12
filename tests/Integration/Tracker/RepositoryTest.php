@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker;
 
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
-use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
+use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
 final class RepositoryTest extends IntegrationTestCase
 {
@@ -25,7 +25,7 @@ final class RepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $repo    = $this->get(TrackerRepository::class);
+        $repo    = $this->get(TrackerRepositoryInterface::class);
         $tracker = $repo->getTrackerByUserId(self::TEST_USER_ID);
 
         $this->assertSame(self::TEST_TRACKER_ID, $tracker->getId());
@@ -33,7 +33,7 @@ final class RepositoryTest extends IntegrationTestCase
 
     public function testGetNotExistingTrackerByUserId(): void
     {
-        $repo    = $this->get(TrackerRepository::class);
+        $repo    = $this->get(TrackerRepositoryInterface::class);
         $tracker = $repo->getTrackerByUserId('_notexisting');
 
         $this->assertEmpty($tracker->getId());

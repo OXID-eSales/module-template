@@ -17,7 +17,7 @@ use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 /**
  * @extendable-class
  */
-class TrackerRepository
+class TrackerRepository implements TrackerRepositoryInterface
 {
     /** @var QueryBuilderFactoryInterface */
     private $queryBuilderFactory;

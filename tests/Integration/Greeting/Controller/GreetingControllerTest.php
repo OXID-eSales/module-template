@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
-use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
+use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
 /*
  * We want to test controller behavior going 'full way'.
@@ -52,7 +52,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $user->load(self::TEST_USER_ID);
         $this->assertSame($expected, $user->getPersonalGreeting());
 
-        $tracker = $this->get(TrackerRepository::class)
+        $tracker = $this->get(TrackerRepositoryInterface::class)
             ->getTrackerByUserId(self::TEST_USER_ID);
         $this->assertSame($count, $tracker->getCount());
     }

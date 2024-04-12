@@ -3,5 +3,6 @@ services:
     public: false
     autowire: true
 
-  OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository:
+  OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface:
+    class: OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository
     public: true
