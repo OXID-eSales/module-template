@@ -4,11 +4,20 @@ on:
   push:
 
 jobs:
-  p80m57both:
-    name: 'Php-8.0-Mysql-5.7'
+  php81mysql57:
+    name: 'Php-8.1-Mysql-5.7'
     uses: ./.github/workflows/development.yml
     secrets: inherit
     with:
       php: '8.1'
       mysql: '5.7.37'
+      report_sonarcloud: true
+
+  php82mysql80:
+    name: 'Php-8.2-Mysql-8.0'
+    uses: ./.github/workflows/development.yml
+    secrets: inherit
+    with:
+      php: '8.2'
+      mysql: '8.0'
       report_sonarcloud: true
