@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;

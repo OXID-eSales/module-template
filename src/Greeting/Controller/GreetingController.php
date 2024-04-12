@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Controller;
+namespace OxidEsales\ModuleTemplate\Greeting\Controller;
 
 use OxidEsales\Eshop\Application\Controller\FrontendController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
