@@ -1,3 +1,4 @@
+# {{ $ids := "oe_moduletemplate" }}ids: {{ $ids }}
 # {{ $org := "oxid-esales" }}organisation: {{ $org }}
 # {{ $name := "module-template" }}name: {{ $name }}
 # {{ $repo := "OXID-eSales/module-template" }}repo: {{ $repo }}
@@ -28,6 +29,9 @@ install_shop_with_modules:
             }
           }
       }
+  custom_script_container: |
+    OE_CONSOLE=$(find . -iname "oe-console" -type f|head -1|sed -e "s|^$(pwd)/||")
+    ${OE_CONSOLE} oe:module:activate "{{ $ids }}"
 
 runscript:
   matrix:
