@@ -43,6 +43,10 @@
         }
     },
     "scripts": {
+        "post-install-cmd": "@install-pre-commit-hook",
+        "post-update-cmd": "@install-pre-commit-hook",
+        "install-pre-commit-hook": "git config --local core.hooksPath .github/commit-hooks",
+
         "phpcs": "phpcs --standard=tests/phpcs.xml  --report=full",
         "phpcs-report": "phpcs --standard=tests/phpcs.xml --report=json --report-file=tests/reports/phpcs.report.json",
         "phpcbf": "phpcbf --standard=tests/phpcs.xml",

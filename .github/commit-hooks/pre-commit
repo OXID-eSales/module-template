@@ -1,0 +1,1 @@
+docker compose exec --workdir /var/www/vendor/oxid-esales/module-template php composer static
