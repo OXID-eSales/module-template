@@ -51,8 +51,8 @@
             "@phpmd"
         ],
 
-        "tests-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --config=tests/ --testsuite=Unit",
-        "tests-integration": "XDEBUG_MODE=coverage vendor/bin/phpunit --bootstrap=/var/www/source/bootstrap.php --config=tests/ --testsuite=Integration",
+        "tests-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --config=tests/ --testsuite=Unit --coverage-clover=tests/reports/coverage-unit-module-template.xml",
+        "tests-integration": "XDEBUG_MODE=coverage vendor/bin/phpunit --bootstrap=/var/www/source/bootstrap.php --config=tests/ --testsuite=Integration --coverage-clover=tests/reports/coverage-integration-module-template.xml",
         "tests-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --bootstrap=/var/www/source/bootstrap.php --config=tests/ --coverage-html=tests/reports/coverage",
 
         "tests-codeception": "(cd /var/www/ && THEME_ID=apex MODULE_IDS=oe_moduletemplate /var/www/vendor/bin/codecept run acceptance -c /var/www/vendor/oxid-esales/module-template/tests/codeception.yml -g oe_moduletemplate)",
