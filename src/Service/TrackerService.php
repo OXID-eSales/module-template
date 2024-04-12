@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Service;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Model\User as ModelUser;
-use OxidEsales\ModuleTemplate\Tracker\Repository as TrackerRepository;
+use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository as TrackerRepository;
 
 /**
  * Example which we can decorate

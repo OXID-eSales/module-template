@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tracker;
+namespace OxidEsales\ModuleTemplate\Tracker\Repository;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
@@ -17,7 +17,7 @@ use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 /**
  * @extendable-class
  */
-class Repository
+class TrackerRepository
 {
     /** @var QueryBuilderFactoryInterface */
     private $queryBuilderFactory;

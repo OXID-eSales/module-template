@@ -14,7 +14,7 @@ use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Service\TrackerService as TrackerService;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
-use OxidEsales\ModuleTemplate\Tracker\Repository;
+use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 
 final class TrackerServiceTest extends IntegrationTestCase
 {
@@ -29,7 +29,7 @@ final class TrackerServiceTest extends IntegrationTestCase
         $greetingRepository = $this->createStub(GreetingRepositoryInterface::class);
         $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING);
 
-        $repo = $this->createPartialMock(Repository::class, ['getTrackerByUserId']);
+        $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
         $repo->expects($this->never())->method('getTrackerByUserId');
 
         /** @var TrackerService $tracker */
@@ -46,7 +46,7 @@ final class TrackerServiceTest extends IntegrationTestCase
         $greetingRepository = $this->createStub(GreetingRepositoryInterface::class);
         $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING . ' with a change');
 
-        $repo = $this->createPartialMock(Repository::class, ['getTrackerByUserId']);
+        $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
         $repo->expects($this->once())->method('getTrackerByUserId')->willReturn($this->getGreetingTrackerMock());
 
         /** @var TrackerService $tracker */
