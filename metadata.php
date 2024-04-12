@@ -30,20 +30,9 @@ $aModule = [
     'controllers' => [
         'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
     ],
-    'templates'   => [
-        '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
-    ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',
         'onDeactivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onDeactivate'
-    ],
-    'blocks'      => [
-        [
-            //It is possible to replace blocks by theme, to do so add 'theme' => '<theme_name>' key/value in here
-            'template' => 'page/shop/start.tpl',
-            'block' => 'start_welcome_text',
-            'file' => 'views/smarty/blocks/oemt_start_welcome_text.tpl'
-        ]
     ],
     'settings' => [
         /** Main */
