@@ -1,10 +1,12 @@
 # {{ $ids := "oe_moduletemplate" }}ids: {{ print $ids }}
 # {{ $org := "oxid-esales" }}organisation: {{ print $org }}
 # {{ $name := "module-template" }}name: {{ print $name }}
+# {{ $repo := "OXID-eSales/module-template" }}repo: {{ print $repo }}
 
 install_shop_with_modules:
   git:
     shop_ref: '{{ .Data.global.git.default_ref }}'
+  composer:
     transform: |
       {
           "preferred-install": {
@@ -17,6 +19,12 @@ install_shop_with_modules:
               "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.def_ref }}",
               "oxid-esales/apex-theme": "{{ .Data.global.composer.def_ref }}",
               "{{ $org }}/${{ $name }}": "dev-{{ .Github.RefName }}"
+          }
+          "repositories": {
+            "{{ $org }}/${{ $name }}": {
+              "type": "git",
+              "url": "https://github.com/{{ $repo }}.git"
+            }
           }
       }
 
