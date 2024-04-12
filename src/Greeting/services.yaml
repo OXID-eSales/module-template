@@ -2,6 +2,13 @@ services:
   _defaults:
     public: false
     autowire: true
+    bind:
+      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
 
-  OxidEsales\ModuleTemplate\Greeting\Repository:
+  OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface:
+    class: OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepository
+    public: true
+
+  OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageServiceInterface:
+    class: OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService
     public: true

@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
+use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\TestCase;
 

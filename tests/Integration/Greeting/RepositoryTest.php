@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting;
 
-use OxidEsales\ModuleTemplate\Greeting\Repository;
+use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 
 class RepositoryTest extends IntegrationTestCase
 {
@@ -23,7 +23,7 @@ class RepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $repo = $this->get(Repository::class);
+        $repo = $this->get(GreetingRepositoryInterface::class);
 
         $this->assertSame(self::TEST_GREETING, $repo->getSavedUserGreeting(self::TEST_USER_ID));
         $this->assertSame('', $repo->getSavedUserGreeting('_notexisting'));

@@ -7,13 +7,13 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Greeting;
+namespace OxidEsales\ModuleTemplate\Greeting\Repository;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\ModuleTemplate\Model\User;
 
-class Repository
+class GreetingRepository implements GreetingRepositoryInterface
 {
     public function __construct(
         private QueryBuilderFactoryInterface $queryBuilderFactory,

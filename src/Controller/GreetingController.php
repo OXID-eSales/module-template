@@ -12,9 +12,9 @@ namespace OxidEsales\ModuleTemplate\Controller;
 use OxidEsales\Eshop\Application\Controller\FrontendController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageServiceInterface;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
-use OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
 

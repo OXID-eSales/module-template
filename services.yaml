@@ -11,8 +11,6 @@ services:
   _defaults:
     public: false
     autowire: true
-    bind:
-      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
 
   OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
@@ -39,10 +37,6 @@ services:
       $loggerName: 'Basket Logger'
       $logFilePath: '%app.log_file_path%'
       $logLevel: !php/const Psr\Log\LogLevel::DEBUG
-
-  OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface:
-    class: OxidEsales\ModuleTemplate\Service\GreetingMessageService
-    public: true
 
   OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface:
     class: OxidEsales\ModuleTemplate\Service\ModuleSettingsService

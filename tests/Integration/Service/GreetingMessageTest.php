@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
+use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 

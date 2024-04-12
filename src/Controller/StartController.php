@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
-use OxidEsales\ModuleTemplate\Service\GreetingMessageServiceInterface;
+use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageServiceInterface;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 
 /**
