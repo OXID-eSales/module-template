@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Service;
 
-interface ModuleSettingsInterface
+interface ModuleSettingsServiceInterface
 {
     public const GREETING_MODE = 'oemoduletemplate_GreetingMode';
 

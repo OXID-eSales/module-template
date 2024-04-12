@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class GreetingMessageTest extends IntegrationTestCase
@@ -21,7 +21,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     public function testModuleGenericGreetingModeEmptyUser(): void
     {
         $service = new GreetingMessageService(
-            $this->getSettingsMock(ModuleSettingsInterface::GREETING_MODE_GENERIC),
+            $this->getSettingsMock(ModuleSettingsServiceInterface::GREETING_MODE_GENERIC),
             oxNew(CoreRequest::class)
         );
         $user = oxNew(EshopModelUser::class);
@@ -43,7 +43,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     public function testModuleGenericGreeting(): void
     {
         $service = new GreetingMessageService(
-            $this->getSettingsMock(ModuleSettingsInterface::GREETING_MODE_GENERIC),
+            $this->getSettingsMock(ModuleSettingsServiceInterface::GREETING_MODE_GENERIC),
             oxNew(CoreRequest::class)
         );
         $user = oxNew(EshopModelUser::class);
@@ -65,9 +65,9 @@ final class GreetingMessageTest extends IntegrationTestCase
     }
 
     private function getSettingsMock(
-        string $mode = ModuleSettingsInterface::GREETING_MODE_PERSONAL
-    ): ModuleSettingsInterface {
-        $moduleSettingsStub = $this->createMock(ModuleSettingsInterface::class);
+        string $mode = ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL
+    ): ModuleSettingsServiceInterface {
+        $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class);
         $moduleSettingsStub->method('getGreetingMode')->willReturn($mode);
 
         return $moduleSettingsStub;

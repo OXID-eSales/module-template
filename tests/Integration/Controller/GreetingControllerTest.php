@@ -14,7 +14,7 @@ use OxidEsales\ModuleTemplate\Controller\GreetingController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository;
 
@@ -35,7 +35,7 @@ final class GreetingControllerTest extends IntegrationTestCase
      */
     public function testUpdateGreeting(bool $hasUser, string $mode, string $expected, int $count): void
     {
-        $moduleSettings = $this->get(ModuleSettingsInterface::class);
+        $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
         $moduleSettings->saveGreetingMode($mode);
         $_POST[ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME] = $expected;
 
@@ -64,7 +64,7 @@ final class GreetingControllerTest extends IntegrationTestCase
     {
         $this->createTestTracker();
 
-        $moduleSettings = $this->get(ModuleSettingsInterface::class);
+        $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
         $moduleSettings->saveGreetingMode($mode);
 
         $controller = oxNew(GreetingController::class);
@@ -85,25 +85,25 @@ final class GreetingControllerTest extends IntegrationTestCase
         return [
             'without_user_generic' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
                 'expected'      => '',
                 'count'         => 0,
             ],
             'without_user_personal' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
                 'expected'      => '',
                 'count'         => 0,
             ],
             'with_user_generic' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
                 'expect'        => self::TEST_GREETING,
                 'count'         => 0,
             ],
             'with_user_personal' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
                 'expect'        => self::TEST_GREETING_UPDATED,
                 'count'         => 1,
             ],
@@ -115,7 +115,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         return [
             'without_user_generic' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
                 'expected'      => [
                     'greeting' => '',
                     'counter'  => 0,
@@ -123,7 +123,7 @@ final class GreetingControllerTest extends IntegrationTestCase
             ],
             'without_user_personal' => [
                 'user'          => false,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
                 'expected'      => [
                     'greeting' => '',
                     'counter'  => 0,
@@ -131,7 +131,7 @@ final class GreetingControllerTest extends IntegrationTestCase
             ],
             'with_user_generic' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
                 'expected'      => [
                     'greeting' => '',
                     'counter'  => 0,
@@ -139,7 +139,7 @@ final class GreetingControllerTest extends IntegrationTestCase
             ],
             'with_user_personal' => [
                 'user'          => true,
-                'greeting_mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
+                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
                 'expected'      => [
                     'greeting' => self::TEST_GREETING,
                     'counter'  => 67,

@@ -11,7 +11,7 @@ namespace OxidEsales\EshopCommunity\modules\oe\moduletemplate\tests\Unit\Service
 
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\ModuleTemplate\Core\Module;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\String\UnicodeString;
 
@@ -24,10 +24,10 @@ final class ModuleSettingsTest extends TestCase
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getString']);
         $mssMock->method('getString')->willReturnMap([
-            [ModuleSettings::GREETING_MODE, Module::MODULE_ID, new UnicodeString($value)]
+            [ModuleSettingsService::GREETING_MODE, Module::MODULE_ID, new UnicodeString($value)]
         ]);
 
-        $sut = new ModuleSettings($mssMock);
+        $sut = new ModuleSettingsService($mssMock);
         $this->assertSame($expected, $sut->getGreetingMode());
     }
 
@@ -36,19 +36,19 @@ final class ModuleSettingsTest extends TestCase
         return [
             [
                 'value' => '',
-                'expected' => ModuleSettings::GREETING_MODE_GENERIC
+                'expected' => ModuleSettingsService::GREETING_MODE_GENERIC
             ],
             [
                 'value' => 'someUnpredictable',
-                'expected' => ModuleSettings::GREETING_MODE_GENERIC
+                'expected' => ModuleSettingsService::GREETING_MODE_GENERIC
             ],
             [
-                'value' => ModuleSettings::GREETING_MODE_GENERIC,
-                'expected' => ModuleSettings::GREETING_MODE_GENERIC
+                'value' => ModuleSettingsService::GREETING_MODE_GENERIC,
+                'expected' => ModuleSettingsService::GREETING_MODE_GENERIC
             ],
             [
-                'value' => ModuleSettings::GREETING_MODE_PERSONAL,
-                'expected' => ModuleSettings::GREETING_MODE_PERSONAL
+                'value' => ModuleSettingsService::GREETING_MODE_PERSONAL,
+                'expected' => ModuleSettingsService::GREETING_MODE_PERSONAL
             ],
         ];
     }
@@ -60,10 +60,10 @@ final class ModuleSettingsTest extends TestCase
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getString']);
         $mssMock->method('getString')->willReturnMap([
-            [ModuleSettings::GREETING_MODE, Module::MODULE_ID, new UnicodeString($value)]
+            [ModuleSettingsService::GREETING_MODE, Module::MODULE_ID, new UnicodeString($value)]
         ]);
 
-        $sut = new ModuleSettings($mssMock);
+        $sut = new ModuleSettingsService($mssMock);
         $this->assertSame($expected, $sut->isPersonalGreetingMode());
     }
 
@@ -71,11 +71,11 @@ final class ModuleSettingsTest extends TestCase
     {
         return [
             [
-                'value' => ModuleSettings::GREETING_MODE_GENERIC,
+                'value' => ModuleSettingsService::GREETING_MODE_GENERIC,
                 'expected' => false
             ],
             [
-                'value' => ModuleSettings::GREETING_MODE_PERSONAL,
+                'value' => ModuleSettingsService::GREETING_MODE_PERSONAL,
                 'expected' => true
             ],
         ];
@@ -87,12 +87,12 @@ final class ModuleSettingsTest extends TestCase
 
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['saveString']);
         $mssMock->expects($this->atLeastOnce())->method('saveString')->with(
-            ModuleSettings::GREETING_MODE,
+            ModuleSettingsService::GREETING_MODE,
             $value,
             Module::MODULE_ID
         );
 
-        $sut = new ModuleSettings($mssMock);
+        $sut = new ModuleSettingsService($mssMock);
         $sut->saveGreetingMode($value);
     }
 
@@ -100,10 +100,10 @@ final class ModuleSettingsTest extends TestCase
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
         $mssMock->method('getBoolean')->willReturnMap([
-            [ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, true]
+            [ModuleSettingsService::LOGGER_STATUS, Module::MODULE_ID, true]
         ]);
 
-        $sut = new ModuleSettings($mssMock);
+        $sut = new ModuleSettingsService($mssMock);
         $result = $sut->isLoggingEnabled();
 
         $this->assertTrue($result);
@@ -113,10 +113,10 @@ final class ModuleSettingsTest extends TestCase
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
         $mssMock->method('getBoolean')->willReturnMap([
-            [ModuleSettings::LOGGER_STATUS, Module::MODULE_ID, false]
+            [ModuleSettingsService::LOGGER_STATUS, Module::MODULE_ID, false]
         ]);
 
-        $sut = new ModuleSettings($mssMock);
+        $sut = new ModuleSettingsService($mssMock);
         $result = $sut->isLoggingEnabled();
 
         $this->assertFalse($result);

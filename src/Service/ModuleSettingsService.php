@@ -15,7 +15,7 @@ use OxidEsales\ModuleTemplate\Core\Module;
 /**
  * @extendable-class
  */
-class ModuleSettings implements ModuleSettingsInterface
+class ModuleSettingsService implements ModuleSettingsServiceInterface
 {
     public const GREETING_MODE_VALUES = [
         self::GREETING_MODE_GENERIC,

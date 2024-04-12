@@ -17,7 +17,7 @@ use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
-        private ModuleSettingsInterface $moduleSettings,
+        private ModuleSettingsServiceInterface $moduleSettings,
         private EshopRequest $shopRequest
     ) {
     }
@@ -26,7 +26,7 @@ class GreetingMessageService implements GreetingMessageServiceInterface
     {
         $result = ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST;
 
-        if (ModuleSettingsInterface::GREETING_MODE_PERSONAL == $this->moduleSettings->getGreetingMode()) {
+        if (ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL == $this->moduleSettings->getGreetingMode()) {
             $result = $this->getUserGreeting($user);
         }
 

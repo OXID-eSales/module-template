@@ -44,8 +44,8 @@ services:
     class: OxidEsales\ModuleTemplate\Service\GreetingMessageService
     public: true
 
-  OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface:
-    class: OxidEsales\ModuleTemplate\Service\ModuleSettings
+  OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface:
+    class: OxidEsales\ModuleTemplate\Service\ModuleSettingsService
     public: true
 
   OxidEsales\ModuleTemplate\Service\TrackerServiceInterface:

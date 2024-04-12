@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Service\GreetingMessageService;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 final class GreetingMessageTest extends TestCase
@@ -22,7 +22,7 @@ final class GreetingMessageTest extends TestCase
      */
     public function testGenericGreetingNoUser(string $mode, string $expected): void
     {
-        $moduleSettingsStub = $this->createMock(ModuleSettingsInterface::class);
+        $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class);
         $moduleSettingsStub->method('getGreetingMode')->willReturn($mode);
 
         $service = new GreetingMessageService(
@@ -37,11 +37,11 @@ final class GreetingMessageTest extends TestCase
     {
         return [
             [
-                'mode' => ModuleSettingsInterface::GREETING_MODE_GENERIC,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
                 'expected' => ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST
             ],
             [
-                'mode' => ModuleSettingsInterface::GREETING_MODE_PERSONAL,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
                 'expected' => ''
             ]
         ];

@@ -20,7 +20,7 @@ class BasketItemLogger implements LoggerInterface
 
     public function __construct(
         private PsrLoggerInterface $logger,
-        private ModuleSettingsInterface $moduleSettingService,
+        private ModuleSettingsServiceInterface $moduleSettingService,
     ) {
     }
 

@@ -12,9 +12,9 @@ namespace OxidEsales\ModuleTemplate\Tests\Codeception;
 use Codeception\Util\Fixtures;
 use OxidEsales\Codeception\Page\Home;
 use OxidEsales\Facts\Facts;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsService;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsInterface;
+use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 
 /**
  * Inherited Methods
@@ -54,16 +54,16 @@ final class AcceptanceTester extends \Codeception\Actor
     {
         $I = $this;
 
-        $I->getServiceFromContainer(ModuleSettingsInterface::class)
-            ->saveGreetingMode(ModuleSettingsInterface::GREETING_MODE_PERSONAL);
+        $I->getServiceFromContainer(ModuleSettingsServiceInterface::class)
+            ->saveGreetingMode(ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL);
     }
 
     public function setGreetingModeGeneric(): void
     {
         $I = $this;
 
-        $I->getServiceFromContainer(ModuleSettingsInterface::class)
-            ->saveGreetingMode(ModuleSettingsInterface::GREETING_MODE_GENERIC);
+        $I->getServiceFromContainer(ModuleSettingsServiceInterface::class)
+            ->saveGreetingMode(ModuleSettingsServiceInterface::GREETING_MODE_GENERIC);
     }
 
     public function getDemoUserName(): string
