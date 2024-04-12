@@ -26,8 +26,9 @@ final class TrackerServiceTest extends IntegrationTestCase
 
     public function testUpdateTrackerNoGreetingChange(): void
     {
-        $greetingRepository = $this->createStub(GreetingRepositoryInterface::class);
-        $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING);
+        $greetingRepository = $this->createConfiguredStub(GreetingRepositoryInterface::class, [
+            'getSavedUserGreeting' => self::TEST_GREETING
+        ]);
 
         $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
         $repo->expects($this->never())->method('getTrackerByUserId');
@@ -43,8 +44,9 @@ final class TrackerServiceTest extends IntegrationTestCase
 
     public function testUpdateTrackerGreetingChange(): void
     {
-        $greetingRepository = $this->createStub(GreetingRepositoryInterface::class);
-        $greetingRepository->method('getSavedUserGreeting')->willReturn(self::TEST_GREETING . ' with a change');
+        $greetingRepository = $this->createConfiguredStub(GreetingRepositoryInterface::class, [
+            'getSavedUserGreeting' => self::TEST_GREETING . ' with a change'
+        ]);
 
         $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
         $repo->expects($this->once())->method('getTrackerByUserId')->willReturn($this->getGreetingTrackerMock());
@@ -66,7 +68,7 @@ final class TrackerServiceTest extends IntegrationTestCase
         $user = oxNew(EshopModelUser::class);
         $user->assign(
             [
-                'oxid'         => self::TEST_USER_ID,
+                'oxid' => self::TEST_USER_ID,
                 'oemtgreeting' => self::TEST_GREETING,
             ]
         );

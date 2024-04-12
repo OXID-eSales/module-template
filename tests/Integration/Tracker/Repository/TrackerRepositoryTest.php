@@ -7,13 +7,13 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Repository;
 
 use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
-final class RepositoryTest extends IntegrationTestCase
+final class TrackerRepositoryTest extends IntegrationTestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
 

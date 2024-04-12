@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-class RepositoryTest extends IntegrationTestCase
+class GreetingRepositoryTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
     public const TEST_GREETING = 'Hi there';
