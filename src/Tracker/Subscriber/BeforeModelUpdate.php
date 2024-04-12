@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Subscriber;
+namespace OxidEsales\ModuleTemplate\Tracker\Subscriber;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;

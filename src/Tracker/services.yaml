@@ -10,3 +10,7 @@ services:
   OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface:
     class: OxidEsales\ModuleTemplate\Tracker\Service\TrackerService
     public: true
+
+  OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate:
+    class: OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate
+    tags: [ 'kernel.event_subscriber' ]

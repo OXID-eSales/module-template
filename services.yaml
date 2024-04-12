@@ -41,7 +41,3 @@ services:
   OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface:
     class: OxidEsales\ModuleTemplate\Service\ModuleSettingsService
     public: true
-
-  OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
-    class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
-    tags: [ 'kernel.event_subscriber' ]
