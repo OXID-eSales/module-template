@@ -15,6 +15,7 @@ jobs:
         id: build
         run: |
           # Build testplan
+          # shellcheck disable=SC2088
           PLAN="~/module-template.yml"
           if [ '${{  github.event_name }}' == 'pull_request' ]; then
             REF_TO_CHECK='refs/heads/${{ github.base_ref }}'

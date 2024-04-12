@@ -54,6 +54,7 @@ jobs:
         id: build
         run: |
           # Build testplan
+          # shellcheck disable=SC2088
           PLAN="~/module-template.yml"
           # shellcheck disable=SC2088
           case "${{ inputs.limit }}" in
