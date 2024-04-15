@@ -4,6 +4,7 @@ parameters:
 imports:
   - { resource: src/Command/services.yaml }
   - { resource: src/Greeting/services.yaml }
+  - { resource: src/Logging/services.yaml }
   - { resource: src/Tracker/services.yaml }
 
 services:
@@ -15,28 +16,6 @@ services:
   OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
     public: true
-
-  OxidEsales\ModuleTemplate\Service\BasketItemLogger:
-    class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
-    public: true
-    arguments:
-      $logger: '@OxidEsales\ModuleTemplate\Logger'
-
-  OxidEsales\ModuleTemplate\Logger:
-    class: Monolog\Logger
-    factory: [ '@OxidEsales\ModuleTemplate\Logger\Factory', 'create' ]
-
-  OxidEsales\ModuleTemplate\Logger\Factory:
-    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Factory\MonologLoggerFactory
-    arguments:
-      $configuration: '@OxidEsales\ModuleTemplate\Logger\Configuration'
-
-  OxidEsales\ModuleTemplate\Logger\Configuration:
-    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
-    arguments:
-      $loggerName: 'Basket Logger'
-      $logFilePath: '%app.log_file_path%'
-      $logLevel: !php/const Psr\Log\LogLevel::DEBUG
 
   OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface:
     class: OxidEsales\ModuleTemplate\Service\ModuleSettingsService

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Model;
 
-use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
 
 /**
  * @mixin \OxidEsales\Eshop\Application\Model\Basket

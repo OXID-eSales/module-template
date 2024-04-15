@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Service;
 
-use OxidEsales\ModuleTemplate\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
 use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
