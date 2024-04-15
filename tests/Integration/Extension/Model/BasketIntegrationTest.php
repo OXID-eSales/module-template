@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Extension\Model;
 
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
 use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;

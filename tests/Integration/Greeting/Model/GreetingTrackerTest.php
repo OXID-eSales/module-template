@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Model;
 
 use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
