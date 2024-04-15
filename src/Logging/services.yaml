@@ -3,6 +3,13 @@ services:
     public: false
     autowire: true
 
+  OxidEsales\ModuleTemplate\Logging\Command\ReadLogsCommand:
+    class: OxidEsales\ModuleTemplate\Logging\Command\ReadLogsCommand
+    arguments:
+      $logFilePath: '%app.log_file_path%'
+    tags:
+      - { name: 'console.command', command: 'oetemplate:logger:read' }
+
   OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger:
     class: OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger
     public: true
