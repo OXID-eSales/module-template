@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Logging\Service;
 
 use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
+use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 

@@ -13,7 +13,7 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
+use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class GreetingMessageTest extends IntegrationTestCase

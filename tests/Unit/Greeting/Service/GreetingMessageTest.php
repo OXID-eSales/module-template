@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Greeting\Service;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
+use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 final class GreetingMessageTest extends TestCase

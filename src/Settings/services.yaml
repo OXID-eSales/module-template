@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    public: false
+    autowire: true
+
+  OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface:
+    class: OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService
+    public: true

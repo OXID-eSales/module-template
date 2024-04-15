@@ -4,6 +4,7 @@ parameters:
 imports:
   - { resource: src/Greeting/services.yaml }
   - { resource: src/Logging/services.yaml }
+  - { resource: src/Settings/services.yaml }
   - { resource: src/Tracker/services.yaml }
 
 services:
@@ -14,8 +15,4 @@ services:
 
   OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
-    public: true
-
-  OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface:
-    class: OxidEsales\ModuleTemplate\Service\ModuleSettingsService
     public: true

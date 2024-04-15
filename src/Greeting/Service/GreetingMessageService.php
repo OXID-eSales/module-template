@@ -13,12 +13,12 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Request as EshopRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsServiceInterface;
+use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 
 class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
-        private ModuleSettingsServiceInterface $moduleSettings,
+        private \OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface $moduleSettings,
         private EshopRequest $shopRequest
     ) {
     }

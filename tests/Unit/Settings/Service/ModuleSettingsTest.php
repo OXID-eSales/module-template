@@ -7,11 +7,11 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\EshopCommunity\modules\oe\moduletemplate\tests\Unit\Service;
+namespace OxidEsales\ModuleTemplate\Tests\Settings\Service;
 
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\ModuleTemplate\Core\Module;
-use OxidEsales\ModuleTemplate\Service\ModuleSettingsService;
+use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\String\UnicodeString;
 
@@ -44,7 +44,7 @@ final class ModuleSettingsTest extends TestCase
             ],
             [
                 'value' => ModuleSettingsService::GREETING_MODE_GENERIC,
-                'expected' => ModuleSettingsService::GREETING_MODE_GENERIC
+                'expected' => \OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService::GREETING_MODE_GENERIC
             ],
             [
                 'value' => ModuleSettingsService::GREETING_MODE_PERSONAL,
@@ -71,7 +71,7 @@ final class ModuleSettingsTest extends TestCase
     {
         return [
             [
-                'value' => ModuleSettingsService::GREETING_MODE_GENERIC,
+                'value' => \OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService::GREETING_MODE_GENERIC,
                 'expected' => false
             ],
             [
@@ -100,7 +100,7 @@ final class ModuleSettingsTest extends TestCase
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getBoolean']);
         $mssMock->method('getBoolean')->willReturnMap([
-            [ModuleSettingsService::LOGGER_STATUS, Module::MODULE_ID, true]
+            [\OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService::LOGGER_STATUS, Module::MODULE_ID, true]
         ]);
 
         $sut = new ModuleSettingsService($mssMock);
