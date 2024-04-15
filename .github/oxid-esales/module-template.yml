@@ -6,8 +6,6 @@
 install_shop_with_modules:
   cache:
     prepared_shop: false
-  git:
-    shop_ref: '{{ .Data.global.git.default_ref }}'
   composer:
     transform: |
       {
@@ -37,14 +35,15 @@ runscript:
   matrix:
     script: |
       [
-        "tests-unit",
-        "tests-integration",
-        "tests-codeception",
-        "phpcs-report",
-        "phpmd-report",
-        "phpstan-report"
+        "module_template:tests-unit",
+        "module_template:tests-integration",
+        "module_template:tests-codeception",
+        "module_template:phpcs-report",
+        "module_template:phpmd-report",
+        "module_template:phpstan-report"
       ]
-  path: 'vendor/{{ $org}}/{{ $name }}'
+  module_template:
+    path: 'vendor/{{ $org}}/{{ $name }}'
 
 sonarcloud:
   matrix:
