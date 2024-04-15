@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 use OxidEsales\ModuleTemplate\Tracker\Service\TrackerService as TrackerService;

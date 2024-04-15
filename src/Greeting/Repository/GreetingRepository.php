@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Greeting\Repository;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use OxidEsales\ModuleTemplate\Model\User;
+use OxidEsales\ModuleTemplate\Extension\Model\User;
 
 class GreetingRepository implements GreetingRepositoryInterface
 {

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Model;
+namespace OxidEsales\ModuleTemplate\Greeting\Model;
 
 use OxidEsales\Eshop\Core\Model\BaseModel;
 

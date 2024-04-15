@@ -21,6 +21,7 @@ use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
  * Always use the unified namespace name of the class instantiated with oxNew()
  * when testing.
  */
+
 final class StartControllerTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
@@ -61,7 +62,7 @@ final class StartControllerTest extends IntegrationTestCase
         }
 
         $this->assertSame(
-            (string) EshopRegistry::getLang()->translateString($expect),
+            (string)EshopRegistry::getLang()->translateString($expect),
             $controller->getOemtGreeting()
         );
     }
@@ -70,24 +71,24 @@ final class StartControllerTest extends IntegrationTestCase
     {
         return [
             'without_user_generic' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'assert'        => 'assertFalse',
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expect' => 'assertFalse',
             ],
             'without_user_personal' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'assert'        => 'assertFalse',
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expect' => 'assertFalse',
             ],
             'with_user_generic' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'assert'        => 'assertFalse',
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expect' => 'assertFalse',
             ],
             'with_user_personal' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'assert'        => 'assertTrue',
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expect' => 'assertTrue',
             ],
         ];
     }
@@ -96,24 +97,24 @@ final class StartControllerTest extends IntegrationTestCase
     {
         return [
             'without_user_generic' => [
-                'user'                   => false,
-                'greeting_mode'          => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expect'                 => 'OEMODULETEMPLATE_GREETING_GENERIC',
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expect' => 'OEMODULETEMPLATE_GREETING_GENERIC',
             ],
             'without_user_personal' => [
-                'user'                   => false,
-                'greeting_mode'          => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expect'                 => '',
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expect' => '',
             ],
             'with_user_generic' => [
-                'user'                   => true,
-                'greeting_mode'          => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expect'                 => 'OEMODULETEMPLATE_GREETING_GENERIC',
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expect' => 'OEMODULETEMPLATE_GREETING_GENERIC',
             ],
             'with_user_personal' => [
-                'user'                   => true,
-                'greeting_mode'          => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expect'                 => self::TEST_GREETING,
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expect' => self::TEST_GREETING,
             ],
         ];
     }
@@ -123,7 +124,7 @@ final class StartControllerTest extends IntegrationTestCase
         $user = oxNew(EshopModelUser::class);
         $user->assign(
             [
-                'oxid'         => self::TEST_USER_ID,
+                'oxid' => self::TEST_USER_ID,
                 'oemtgreeting' => self::TEST_GREETING,
             ]
         );

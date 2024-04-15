@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Model;
+namespace OxidEsales\ModuleTemplate\Extension\Model;
 
 /**
  * @eshopExtension

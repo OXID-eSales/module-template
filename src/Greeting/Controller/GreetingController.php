@@ -12,9 +12,9 @@ namespace OxidEsales\ModuleTemplate\Greeting\Controller;
 use OxidEsales\Eshop\Application\Controller\FrontendController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Extension\Model\User as TemplateModelUser;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageServiceInterface;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
@@ -50,7 +50,7 @@ class GreetingController extends FrontendController
         $user = $this->getUser();
 
         if (is_a($user, EshopModelUser::class) && $moduleSettings->isPersonalGreetingMode()) {
-            /** @var GreetingTracker $tracker */
+            /** @var \OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker $tracker */
             $tracker = $repository->getTrackerByUserId($user->getId());
             $greeting = $user->getPersonalGreeting();
             $counter = $tracker->getCount();

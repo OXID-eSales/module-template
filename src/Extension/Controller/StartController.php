@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Controller;
+namespace OxidEsales\ModuleTemplate\Extension\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;

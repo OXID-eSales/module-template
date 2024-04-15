@@ -207,7 +207,7 @@ Story:
 ### Extend shop functionality
 
 #### Sometimes we just need to extend what the shop is already offering us:
-* extending a shop model (`OxidEsales\ModuleTemplate\Model\User`) / (`OxidEsales\ModuleTemplate\Model\Basket`)
+* extending a shop model (`OxidEsales\ModuleTemplate\Extension\Model\User`) / (`OxidEsales\ModuleTemplate\Extension\Model\Basket`)
 * extending a shop controller (`OxidEsales\ModuleTemplate\Controller\StartController`)
 * extending a shop database table (`oxuser`)
 * extending a shop template block (`start_welcome_text`)
@@ -225,7 +225,7 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * own module controller (`oemtgreeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
 * event subscriber (`OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate`)
-* model with a database (`OxidEsales\ModuleTemplate\Model\GreetingTracker`)
+* model with a database (`OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker`)
 * DI service examples
 
 #### Whatever you do, ensure it is covered with tests

@@ -11,9 +11,9 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Extension\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
@@ -22,6 +22,7 @@ use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
  * We want to test controller behavior going 'full way'.
  * No mocks, we go straight to the database (full integration)).
  */
+
 final class GreetingControllerTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
@@ -84,28 +85,28 @@ final class GreetingControllerTest extends IntegrationTestCase
     {
         return [
             'without_user_generic' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expected'      => '',
-                'count'         => 0,
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expected' => '',
+                'count' => 0,
             ],
             'without_user_personal' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expected'      => '',
-                'count'         => 0,
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expected' => '',
+                'count' => 0,
             ],
             'with_user_generic' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expect'        => self::TEST_GREETING,
-                'count'         => 0,
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expected' => self::TEST_GREETING,
+                'count' => 0,
             ],
             'with_user_personal' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expect'        => self::TEST_GREETING_UPDATED,
-                'count'         => 1,
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expected' => self::TEST_GREETING_UPDATED,
+                'count' => 1,
             ],
         ];
     }
@@ -114,35 +115,35 @@ final class GreetingControllerTest extends IntegrationTestCase
     {
         return [
             'without_user_generic' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expected'      => [
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expected' => [
                     'greeting' => '',
-                    'counter'  => 0,
+                    'counter' => 0,
                 ],
             ],
             'without_user_personal' => [
-                'user'          => false,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expected'      => [
+                'hasUser' => false,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expected' => [
                     'greeting' => '',
-                    'counter'  => 0,
+                    'counter' => 0,
                 ],
             ],
             'with_user_generic' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expected'      => [
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
+                'expected' => [
                     'greeting' => '',
-                    'counter'  => 0,
+                    'counter' => 0,
                 ],
             ],
             'with_user_personal' => [
-                'user'          => true,
-                'greeting_mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expected'      => [
+                'hasUser' => true,
+                'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
+                'expected' => [
                     'greeting' => self::TEST_GREETING,
-                    'counter'  => 67,
+                    'counter' => 67,
                 ],
             ],
         ];
@@ -153,7 +154,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $user = oxNew(EshopModelUser::class);
         $user->assign(
             [
-                'oxid'         => self::TEST_USER_ID,
+                'oxid' => self::TEST_USER_ID,
                 'oemtgreeting' => self::TEST_GREETING,
             ]
         );
@@ -167,8 +168,8 @@ final class GreetingControllerTest extends IntegrationTestCase
         $tracker = oxNew(GreetingTracker::class);
         $tracker->assign(
             [
-                'oxuserid'  => self::TEST_USER_ID,
-                'oxshopid'  => 1,
+                'oxuserid' => self::TEST_USER_ID,
+                'oxshopid' => 1,
                 'oemtcount' => '67',
             ]
         );

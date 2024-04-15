@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tracker\Repository;
 
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 
 /**
  * @extendable-class

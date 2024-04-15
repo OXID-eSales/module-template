@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tracker\Repository;
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Transition\Utility\ContextInterface;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 
 /**
  * @extendable-class

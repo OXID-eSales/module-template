@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Model;
 
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class GreetingTrackerTest extends IntegrationTestCase
@@ -19,7 +19,7 @@ final class GreetingTrackerTest extends IntegrationTestCase
     public function testGetCount(): void
     {
         $this->prepareTestData(22);
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(\OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker::class);
         $tracker->load(self::TEST_ID);
 
         $this->assertSame(22, $tracker->getCount());

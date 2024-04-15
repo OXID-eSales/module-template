@@ -23,9 +23,9 @@ $aModule = [
     'url'         => '',
     'email'       => '',
     'extend'      => [
-        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class,
-        \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Model\Basket::class,
-        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Model\User::class,
+        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Extension\Controller\StartController::class,
+        \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Extension\Model\Basket::class,
+        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Extension\Model\User::class,
     ],
     'controllers' => [
         'oemtgreeting' => \OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController::class
