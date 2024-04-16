@@ -20,6 +20,11 @@ install_shop_with_modules:
               "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.dev_ref }}",
               "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}",
               "{{ $org }}/{{ $name }}": "dev-{{ .Github.RefName }}"
+              "codeception/codeception": "^5.0",
+              "codeception/module-asserts": "^3.0",
+              "codeception/module-db": "^3.0",
+              "codeception/module-filesystem": "^3.0",
+              "codeception/module-webdriver": "^3.1",
           },
           "repositories": {
             "{{ $org }}/{{ $name }}": {
