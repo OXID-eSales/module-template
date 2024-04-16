@@ -29,27 +29,32 @@ install_shop_with_modules:
           }
       }
   custom_script_container: |
-    OE_CONSOLE=$(find . -iname "oe-console" -type f|head -1|sed -e "s|^$(pwd)/||")
-    ${OE_CONSOLE} oe:module:activate "{{ $ids }}"
+    vendor/bin/oe-console oe:module:activate "{{ $ids }}"
 
-runscript:
+runscript: &runscript
   matrix:
     script: |
       [
         "module_template:tests-unit",
         "module_template:tests-integration",
-        "module_template:tests-codeception",
-        "module_template:phpcs-report",
-        "module_template:phpmd-report",
-        "module_template:phpstan-report"
+        "module_template:tests-codeception"
       ]
   module_template:
     path: 'vendor/{{ $org}}/{{ $name }}'
 
+runslim:
+  <<: *runscript
+  matrix:
+    script: |
+      [
+        "module_template:phpcs-report",
+        "module_template:phpmd-report",
+        "module_template:phpstan-report"
+      ]
+
 sonarcloud:
   matrix:
-    testplan: 'skip'
-    # testplan: '["-"]'
+    testplan: '["-"]'
   strip_path: '/var/www/vendor/{{ print $org }}/{{ print $name}}/'
   project_key: 'OXID-eSales_{{ print $name }}'
   project_name: '{{ $org}}/{{ $name }}'
@@ -58,6 +63,7 @@ sonarcloud:
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
     -Dsonar.tests=tests
+    -Donar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
 
 finish:
   slack_title: '{{ print $name }} ({{ .Data.global.git.shop_ref }}) by {{ .Github.Actor }}'
