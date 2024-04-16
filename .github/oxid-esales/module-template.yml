@@ -24,7 +24,7 @@ install_shop_with_modules:
               "codeception/module-asserts": "^3.0",
               "codeception/module-db": "^3.0",
               "codeception/module-filesystem": "^3.0",
-              "codeception/module-webdriver": "^3.1",
+              "codeception/module-webdriver": "^3.1"
           },
           "repositories": {
             "{{ $org }}/{{ $name }}": {
