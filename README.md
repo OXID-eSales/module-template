@@ -47,7 +47,8 @@ installation/usage methods.
 
 This module is in working state and can be directly installed via composer:
 ```
- composer require oxid-esales/module-template
+composer require oxid-esales/module-template
+./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
 and [activate the module](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).

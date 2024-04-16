@@ -11,8 +11,6 @@ namespace OxidEsales\ModuleTemplate\Core;
 
 /**
  * Class defines what module does on Shop events.
- *
- * @codeCoverageIgnore
  */
 final class ModuleEvents
 {
@@ -21,9 +19,8 @@ final class ModuleEvents
      */
     public static function onActivate(): void
     {
-        // execute module migrations
-        $migrationExecutor = new ModuleMigrationExecutor();
-        $migrationExecutor->executeModuleMigrations(Module::MODULE_ID);
+        // execute some calculations or actions on module activation.
+        // think twice before putting anything here, maybe it can be solved differently?
     }
 
     /**
@@ -31,6 +28,7 @@ final class ModuleEvents
      */
     public static function onDeactivate(): void
     {
-        //nothing to be done here for this module right now
+        // execute some calculations or actions on module deactivation.
+        // think twice before putting anything here, maybe it can be solved differently?
     }
 }

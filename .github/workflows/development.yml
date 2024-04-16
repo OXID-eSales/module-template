@@ -79,6 +79,7 @@ jobs:
       - name: Install dependencies and reset shop
         run: |
           docker compose exec -T php composer update --no-interaction
+          docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:migrate
 
       - name: Start all other not running containers in advance
         run: |
