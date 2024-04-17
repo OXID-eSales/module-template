@@ -19,7 +19,7 @@ install_shop_with_modules:
               "oxid-esales/twig-component": "{{ .Data.global.composer.dev_ref }}",
               "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.dev_ref }}",
               "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}",
-              "{{ $org }}/{{ $name }}": "dev-{{ .Github.RefName }}"
+              "{{ $org }}/{{ $name }}": "{{ .Data.global.composer.ref_name }}"
           },
           "repositories": {
             "{{ $org }}/{{ $name }}": {
