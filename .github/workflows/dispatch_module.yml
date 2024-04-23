@@ -14,13 +14,6 @@ on:
           - 'PHP8.1/MySQL8.0'
         default: 'PHP8.1/MySQL5.7'
         description: 'Limit to one PHP/MySQL combination'
-      # runs_on is useful for workflow testing cases in feature branches
-      # for main dev branches like b-X.0.x we should avoid using it
-      runs_on:
-        type: string
-        description: 'JSON string/array describing the runner'
-        required: true
-        default: '"ubuntu-latest"'
       # use_dev_version is useful for workflow testing cases in feature branches
       # for main dev branches like b-X.0.x we should avoid using it
       use_dev_version:
@@ -31,7 +24,7 @@ on:
 
 jobs:
   build_testplan:
-    runs-on: ${{ fromJson(inputs.runs_on) }}
+    runs-on: ubuntu-latest
     outputs:
       testplan: '${{ steps.build.outputs.testplan }}'
     steps:
@@ -64,7 +57,7 @@ jobs:
     uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v0
     with:
       testplan: ${{ needs.build_testplan.outputs.testplan }}
-      runs_on: ${{ inputs.runs_on }}
+      runs_on: '"ubuntu-latest"'
       defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
