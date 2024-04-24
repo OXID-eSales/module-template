@@ -4,13 +4,6 @@ name: Manual trigger
 on:
   workflow_dispatch:
     inputs:
-      scenario:
-        type: choice
-        options:
-          - 7.1.x
-          - use custom testplan
-        default: '7.1.x'
-        description: 'Choose test scenario'
       limit:
         type: choice
         options:
@@ -71,17 +64,7 @@ jobs:
               ;;
           esac
           # shellcheck disable=SC2088
-          case '${{ inputs.scenario}}' in
-            "7.0.x") TESTPLAN="~/defaults/7.0.x.yml,${LIMIT}${PLAN}" ;;
-            "7.1.x") TESTPLAN="~/defaults/7.1.x.yml,${LIMIT}${PLAN}" ;;
-            "7.2.x") TESTPLAN="~/defaults/7.2.x.yml,${LIMIT}${PLAN}" ;;
-            "8.0.x") TESTPLAN="~/defaults/8.0.x.yml,${LIMIT}${PLAN}" ;;
-            "use custom testplan") TESTPLAN="${{ inputs.custom_testplan }}" ;;
-            *)
-              echo "Illegal choice, fix the workflow"
-              exit 1
-              ;;
-          esac
+          TESTPLAN="~/defaults/7.1.x.yml,${LIMIT}~/module-template.yml"
           echo "testplan=${TESTPLAN}" | tee -a "${GITHUB_OUTPUT}"
 
   dispatch_stable:
