@@ -29,7 +29,7 @@ jobs:
     if: always()
     uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v0
     with:
-      testplan: '~/defaults/7.2.x.yml,~/defaults/scheduled.yml,~/module-template.yml'
+      testplan: '~/defaults/7.1.x.yml,~/defaults/scheduled.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v0'
       plan_folder: '.github/oxid-esales'
