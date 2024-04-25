@@ -6,49 +6,12 @@ on:
   push: {}
 
 jobs:
-  build_testplan:
-    runs-on: 'ubuntu-latest'
-    outputs:
-      testplan: '${{ steps.build.outputs.testplan }}'
-    steps:
-      - name: 'Build testplan'
-        id: build
-        run: |
-          # Build testplan
-          # shellcheck disable=SC2088
-          PLAN="~/module-template.yml"
-          if [ '${{  github.event_name }}' == 'pull_request' ]; then
-            REF_TO_CHECK='refs/heads/${{ github.base_ref }}'
-            LIMIT70=""
-            LIMIT=""
-          else
-            REF_TO_CHECK='${{ github.ref }}'
-            # shellcheck disable=SC2088
-            LIMIT70="~/defaults/php8.1_mysql5.7_only.yml,"
-            # shellcheck disable=SC2088
-            LIMIT="~/defaults/php8.2_mysql5.7_only.yml,"
-          fi
-          # shellcheck disable=SC2088
-          case "${REF_TO_CHECK}" in
-            refs/heads/b-7.0.x*) TESTPLAN="~/defaults/7.0.x.yml,${LIMIT70}${PLAN}" ;;
-            refs/heads/b-7.1.x*) TESTPLAN="~/defaults/7.1.x.yml,${LIMIT}${PLAN}" ;;
-            refs/heads/b-7.2.x*) TESTPLAN="~/defaults/7.2.x.yml,${LIMIT}${PLAN}" ;;
-            refs/heads/b-8.0.x*) TESTPLAN="~/defaults/8.0.x.yml,${LIMIT}~/${PLAN}" ;;
-            *)
-              echo "Can't match ${REF_TO_CHECK} to a version, can't determine test plan."
-              echo "Branch names should start with b-<major>.<minor>.x"
-              exit 1
-              ;;
-          esac
-          echo "testplan=${TESTPLAN}" | tee -a "${GITHUB_OUTPUT}"
-
-  module_template:
-    needs: build_testplan
-    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v0
+  module_template_php82_mysql_80:
+    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v4
     with:
-      testplan: ${{ needs.build_testplan.outputs.testplan }}
+      testplan: '~/defaults/7.0.x.yml,~/defaults/php8.2_mysql8.0_only.yml,~/module-template.yml'
       runs_on: '"ubuntu-latest"'
-      defaults: 'v0'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
