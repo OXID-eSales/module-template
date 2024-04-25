@@ -42,11 +42,11 @@ jobs:
 
   dispatch_stable:
     needs: build_testplan
-    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v0
+    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v4
     with:
       testplan: ${{ needs.build_testplan.outputs.testplan }}
       runs_on: '"ubuntu-latest"'
-      defaults: 'v0'
+      defaults: 'v4'
       plan_folder: '.github/oxid-esales'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
