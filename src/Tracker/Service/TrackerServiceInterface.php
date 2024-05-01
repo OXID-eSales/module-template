@@ -9,9 +9,10 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tracker\Service;
 
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\ModuleTemplate\Greeting\Model\PersonalGreetingUserInterface;
 
 interface TrackerServiceInterface
 {
-    public function updateTracker(EshopModelUser $user): void;
+    public function updateTracker(User&PersonalGreetingUserInterface $user): void;
 }

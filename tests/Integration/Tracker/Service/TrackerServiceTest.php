@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Service;
 
+use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Greeting\Model\PersonalGreetingUserInterface;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
@@ -63,7 +65,7 @@ final class TrackerServiceTest extends IntegrationTestCase
     /**
      * NOTE: this user model is NOT saved to database
      */
-    private function getUserModel(): EshopModelUser
+    private function getUserModel(): User&PersonalGreetingUserInterface
     {
         $user = oxNew(EshopModelUser::class);
         $user->assign(

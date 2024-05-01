@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Tracker\Subscriber;
 
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
+use OxidEsales\ModuleTemplate\Extension\Model\User;
 use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface;
 use OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate;
@@ -37,7 +37,7 @@ final class BeforeModelUpdateTest extends TestCase
     public function testHandleEventWithMatchingPayload(): void
     {
         $event = $this->createConfiguredStub(BeforeModelUpdateEvent::class, [
-            'getModel' => $this->createStub(EshopModelUser::class)
+            'getModel' => $this->createStub(User::class)
         ]);
 
         $sut = new BeforeModelUpdate(
