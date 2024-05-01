@@ -12,9 +12,11 @@ namespace OxidEsales\ModuleTemplate\Tests\Settings\Service;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingService;
 use OxidEsales\ModuleTemplate\Core\Module;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\String\UnicodeString;
 
+#[CoversClass(ModuleSettingsService::class)]
 final class ModuleSettingsTest extends TestCase
 {
     /**

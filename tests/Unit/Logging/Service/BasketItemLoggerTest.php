@@ -11,9 +11,11 @@ namespace OxidEsales\ModuleTemplate\Tests\Logging\Service;
 
 use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
+#[CoversClass(BasketItemLogger::class)]
 final class BasketItemLoggerTest extends TestCase
 {
     private const TEST_PRODUCT_ID = 'itemId';
