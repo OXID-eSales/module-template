@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Extension\Model;
 
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
-use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Logging\Service\BasketProductLoggerServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
 final class BasketIntegrationTest extends IntegrationTestCase
@@ -38,12 +38,12 @@ final class BasketIntegrationTest extends IntegrationTestCase
 
     public function testAddToBasket(): void
     {
-        $loggerSpy = $this->createMock(BasketItemLogger::class);
+        $loggerSpy = $this->createMock(BasketProductLoggerServiceInterface::class);
         $loggerSpy->expects($this->once())->method('log');
 
         $basket = $this->createPartialMock(\OxidEsales\ModuleTemplate\Extension\Model\Basket::class, ['getService']);
         $basket->method('getService')->willReturnMap([
-            [BasketItemLogger::class, $loggerSpy]
+            [BasketProductLoggerServiceInterface::class, $loggerSpy]
         ]);
 
         $basket->addToBasket(self::TEST_PRODUCT_ID, 1, null, null, false, false, null);

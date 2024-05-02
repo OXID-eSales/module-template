@@ -10,8 +10,8 @@ services:
     tags:
       - { name: 'console.command', command: 'oetemplate:logger:read' }
 
-  OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger:
-    class: OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger
+  OxidEsales\ModuleTemplate\Logging\Service\BasketProductLoggerServiceInterface:
+    class: OxidEsales\ModuleTemplate\Logging\Service\BasketProductLoggerService
     public: true
     arguments:
       $logger: '@OxidEsales\ModuleTemplate\Logger'

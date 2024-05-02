@@ -9,14 +9,14 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Logging\Service;
 
-use OxidEsales\ModuleTemplate\Logging\Service\BasketItemLogger;
+use OxidEsales\ModuleTemplate\Logging\Service\BasketProductLoggerService;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
-#[CoversClass(BasketItemLogger::class)]
-final class BasketItemLoggerTest extends TestCase
+#[CoversClass(BasketProductLoggerService::class)]
+final class BasketProductLoggerServiceTest extends TestCase
 {
     private const TEST_PRODUCT_ID = 'itemId';
 
@@ -26,7 +26,7 @@ final class BasketItemLoggerTest extends TestCase
         $psrLoggerMock->expects($this->once())
             ->method('info')
             ->with(
-                sprintf(BasketItemLogger::MESSAGE, self::TEST_PRODUCT_ID)
+                sprintf(BasketProductLoggerService::MESSAGE, self::TEST_PRODUCT_ID)
             );
 
         $moduleSettings = $this->createMock(ModuleSettingsServiceInterface::class);
@@ -34,7 +34,7 @@ final class BasketItemLoggerTest extends TestCase
             ->method('isLoggingEnabled')
             ->willReturn(true);
 
-        $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
+        $basketItemLogger = new BasketProductLoggerService($psrLoggerMock, $moduleSettings);
         $basketItemLogger->log(self::TEST_PRODUCT_ID);
     }
 
@@ -49,7 +49,7 @@ final class BasketItemLoggerTest extends TestCase
             ->method('isLoggingEnabled')
             ->willReturn(false);
 
-        $basketItemLogger = new BasketItemLogger($psrLoggerMock, $moduleSettings);
+        $basketItemLogger = new BasketProductLoggerService($psrLoggerMock, $moduleSettings);
         $basketItemLogger->log(self::TEST_PRODUCT_ID);
     }
 }

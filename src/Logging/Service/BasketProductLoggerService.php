@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface as PsrLoggerInterface;
 /**
  * Class logs items which goes to basket.
  */
-class BasketItemLogger implements LoggerInterface
+class BasketProductLoggerService implements BasketProductLoggerServiceInterface
 {
     public const MESSAGE = 'Adding item with id \'%s\'.';
 
@@ -28,7 +28,7 @@ class BasketItemLogger implements LoggerInterface
     public function log(string $productID): void
     {
         if ($this->moduleSettingService->isLoggingEnabled()) {
-            $message = sprintf(BasketItemLogger::MESSAGE, $productID);
+            $message = sprintf(BasketProductLoggerService::MESSAGE, $productID);
             $this->logger->info($message);
         }
     }
