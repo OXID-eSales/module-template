@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Greeting\Model;
 
 use OxidEsales\Eshop\Core\Model\BaseModel;
 
-/** @mixin BaseModel */
+/** @phpstan-require-extends BaseModel */
 trait PersonalGreetingUser
 {
     public function getPersonalGreeting(): string
