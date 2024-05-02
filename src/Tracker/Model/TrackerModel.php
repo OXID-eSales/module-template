@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Greeting\Model;
+namespace OxidEsales\ModuleTemplate\Tracker\Model;
 
 use OxidEsales\Eshop\Core\Model\BaseModel;
 
@@ -18,7 +18,7 @@ use OxidEsales\Eshop\Core\Model\BaseModel;
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  */
-class GreetingTracker extends BaseModel
+class TrackerModel extends BaseModel
 {
     protected $_sCoreTable = 'oemt_tracker';
 

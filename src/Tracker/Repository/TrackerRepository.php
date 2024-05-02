@@ -12,7 +12,7 @@ namespace OxidEsales\ModuleTemplate\Tracker\Repository;
 use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Internal\Transition\Utility\ContextInterface;
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 
 /**
  * @extendable-class
@@ -33,9 +33,9 @@ class TrackerRepository implements TrackerRepositoryInterface
         $this->context = $context;
     }
 
-    public function getTrackerByUserId(string $userId): GreetingTracker
+    public function getTrackerByUserId(string $userId): TrackerModel
     {
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(TrackerModel::class);
         $trackerId = $this->getGreetingTrackerId($userId);
 
         if ($trackerId) {

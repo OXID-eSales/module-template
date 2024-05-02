@@ -13,9 +13,9 @@ use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Extension\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController;
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
 /*
@@ -165,7 +165,7 @@ final class GreetingControllerTest extends IntegrationTestCase
 
     private function createTestTracker(): void
     {
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(TrackerModel::class);
         $tracker->assign(
             [
                 'oxuserid' => self::TEST_USER_ID,

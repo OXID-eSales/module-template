@@ -11,7 +11,7 @@ namespace OxidEsales\ModuleTemplate\Tests\Unit\Tracker\Subscriber;
 
 use OxidEsales\EshopCommunity\Internal\Transition\ShopEvents\BeforeModelUpdateEvent;
 use OxidEsales\ModuleTemplate\Extension\Model\User;
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Service\TrackerServiceInterface;
 use OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,7 +23,7 @@ final class BeforeModelUpdateTest extends TestCase
     public function testHandleEventWithNotMatchingPayload(): void
     {
         $event = $this->createConfiguredStub(BeforeModelUpdateEvent::class, [
-            'getModel' => $this->createStub(GreetingTracker::class)
+            'getModel' => $this->createStub(TrackerModel::class)
         ]);
 
         $sut = new BeforeModelUpdate(

@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Repository;
 
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 
 final class TrackerRepositoryTest extends IntegrationTestCase
@@ -42,7 +42,7 @@ final class TrackerRepositoryTest extends IntegrationTestCase
 
     private function prepareTestData(): void
     {
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(TrackerModel::class);
         $tracker->assign(
             [
                 'oxid'      => self::TEST_TRACKER_ID,

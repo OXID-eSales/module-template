@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 
-final class GreetingMessageTest extends IntegrationTestCase
+final class GreetingMessageServiceTest extends IntegrationTestCase
 {
     public function testModuleGenericGreetingModeEmptyUser(): void
     {

@@ -7,19 +7,19 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Model;
+namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Model;
 
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 
-final class GreetingTrackerTest extends IntegrationTestCase
+final class TrackerModelTest extends IntegrationTestCase
 {
     public const TEST_ID = '_testoxid';
 
     public function testGetCount(): void
     {
         $this->prepareTestData(22);
-        $tracker = oxNew(\OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker::class);
+        $tracker = oxNew(\OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel::class);
         $tracker->load(self::TEST_ID);
 
         $this->assertSame(22, $tracker->getCount());
@@ -28,7 +28,7 @@ final class GreetingTrackerTest extends IntegrationTestCase
     public function testCountUp(): void
     {
         $this->prepareTestData(10);
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(TrackerModel::class);
         $tracker->load(self::TEST_ID);
 
         $tracker->countUp();
@@ -40,7 +40,7 @@ final class GreetingTrackerTest extends IntegrationTestCase
 
     private function prepareTestData(int $count = 0): string
     {
-        $tracker = oxNew(GreetingTracker::class);
+        $tracker = oxNew(TrackerModel::class);
         $tracker->assign(
             [
                 'oxid'      => self::TEST_ID,

@@ -11,10 +11,10 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Service;
 
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
-use OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker;
 use OxidEsales\ModuleTemplate\Greeting\Model\PersonalGreetingUserInterface;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 use OxidEsales\ModuleTemplate\Tracker\Service\TrackerService as TrackerService;
 
@@ -78,9 +78,9 @@ final class TrackerServiceTest extends IntegrationTestCase
         return $user;
     }
 
-    private function getGreetingTrackerMock(): GreetingTracker
+    private function getGreetingTrackerMock(): TrackerModel
     {
-        $tracker = $this->getMockBuilder(GreetingTracker::class)
+        $tracker = $this->getMockBuilder(TrackerModel::class)
             ->disableOriginalConstructor()
             ->getMock();
 

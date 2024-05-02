@@ -28,7 +28,7 @@ class BasketProductLoggerService implements BasketProductLoggerServiceInterface
     public function log(string $productID): void
     {
         if ($this->moduleSettingService->isLoggingEnabled()) {
-            $message = sprintf(BasketProductLoggerService::MESSAGE, $productID);
+            $message = sprintf(self::MESSAGE, $productID);
             $this->logger->info($message);
         }
     }

@@ -226,7 +226,7 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * own module controller (`oemtgreeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
 * event subscriber (`OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate`)
-* model with a database (`OxidEsales\ModuleTemplate\Greeting\Model\GreetingTracker`)
+* model with a database (`OxidEsales\ModuleTemplate\Tracker\Model\GreetingTracker`)
 * DI service examples
 
 #### Whatever you do, ensure it is covered with tests

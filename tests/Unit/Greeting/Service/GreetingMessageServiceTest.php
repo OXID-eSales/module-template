@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(GreetingMessageService::class)]
-final class GreetingMessageTest extends TestCase
+final class GreetingMessageServiceTest extends TestCase
 {
     /**
      * @dataProvider getGreetingDataProvider
