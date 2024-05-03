@@ -9,67 +9,49 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Service;
 
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Language as CoreLanguage;
 use OxidEsales\Eshop\Core\Request as CoreRequest;
-use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
+use OxidEsales\ModuleTemplate\Extension\Model\User;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(GreetingMessageService::class)]
 final class GreetingMessageServiceTest extends IntegrationTestCase
 {
-    public function testModuleGenericGreetingModeEmptyUser(): void
+    public function testGenericGreetingWithUserForPersonalMode(): void
     {
         $service = new GreetingMessageService(
-            $this->getSettingsMock(ModuleSettingsServiceInterface::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
+            moduleSettings: $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class),
+            shopRequest: $this->createStub(CoreRequest::class),
+            shopLanguage: $langStub = $this->createStub(CoreLanguage::class),
         );
-        $user = oxNew(EshopModelUser::class);
 
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
+        $moduleSettingsStub->method('getGreetingMode')
+            ->willReturn(ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL);
+
+        $personalGreeting = 'someUserPersonalGreeting';
+        /** @var User $userStub */
+        $userStub = $this->createStub(User::class);
+        $userStub->method('getPersonalGreeting')->willReturn($personalGreeting);
+
+        $expectedTranslation = 'translatedGreeting';
+        $langStub->method('translateString')
+            ->with($personalGreeting)
+            ->willReturn($expectedTranslation);
+
+        $this->assertSame($expectedTranslation, $service->getGreeting($userStub));
     }
 
-    public function testModulePersonalGreetingModeEmptyUser(): void
-    {
-        $service = new GreetingMessageService(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
+    private function getSut(
+        ModuleSettingsServiceInterface $moduleSettings = null,
+        CoreRequest $shopRequest = null,
+    ): GreetingMessageService {
+        return new GreetingMessageService(
+            moduleSettings: $moduleSettings ?? $this->createStub(ModuleSettingsServiceInterface::class),
+            shopRequest: $shopRequest ?? $this->createStub(CoreRequest::class),
+            shopLanguage: $shopLanguage ?? $this->createStub(CoreLanguage::class),
         );
-        $user = oxNew(EshopModelUser::class);
-
-        $this->assertSame('', $service->getGreeting($user));
-    }
-
-    public function testModuleGenericGreeting(): void
-    {
-        $service = new GreetingMessageService(
-            $this->getSettingsMock(ModuleSettingsServiceInterface::GREETING_MODE_GENERIC),
-            oxNew(CoreRequest::class)
-        );
-        $user = oxNew(EshopModelUser::class);
-        $user->setPersonalGreeting('Hi sweetie!');
-
-        $this->assertSame(ModuleCore::DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST, $service->getGreeting($user));
-    }
-
-    public function testModulePersonalGreeting(): void
-    {
-        $service = new GreetingMessageService(
-            $this->getSettingsMock(),
-            oxNew(CoreRequest::class)
-        );
-        $user = oxNew(EshopModelUser::class);
-        $user->setPersonalGreeting('Hi sweetie!');
-
-        $this->assertSame('Hi sweetie!', $service->getGreeting($user));
-    }
-
-    private function getSettingsMock(
-        string $mode = ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL
-    ): ModuleSettingsServiceInterface {
-        $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class);
-        $moduleSettingsStub->method('getGreetingMode')->willReturn($mode);
-
-        return $moduleSettingsStub;
     }
 }

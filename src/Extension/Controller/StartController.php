@@ -37,11 +37,7 @@ class StartController extends StartController_parent
         $service = $this->getService(GreetingMessageServiceInterface::class);
 
         $user   = is_a($this->getUser(), EshopModelUser::class) ? $this->getUser() : null;
-        $result = $service->getGreeting($user);
-
-        $result = EshopRegistry::getLang()->translateString($result);
-        //Language::translateString() returns either array or string, so we need to handle this
-        return is_array($result) ? (string) array_pop($result) : $result;
+        return $service->getGreeting($user);
     }
 
     public function canUpdateOemtGreeting(): bool

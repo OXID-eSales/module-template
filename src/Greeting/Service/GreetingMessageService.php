@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Greeting\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Language as EshopLanguage;
 use OxidEsales\Eshop\Core\Request as EshopRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Extension\Model\User as TemplateModelUser;
@@ -18,8 +19,9 @@ use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
-        private \OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface $moduleSettings,
-        private EshopRequest $shopRequest
+        private ModuleSettingsServiceInterface $moduleSettings,
+        private EshopRequest $shopRequest,
+        private EshopLanguage $shopLanguage,
     ) {
     }
 
@@ -31,9 +33,22 @@ class GreetingMessageService implements GreetingMessageServiceInterface
             $result = $this->getUserGreeting($user);
         }
 
-        return $result;
+        return $this->translate($result);
     }
 
+    /**
+     * @todo: logic should be extracted to separate class that handles calls to shop translation mechanism
+     */
+    private function translate(string $toTranslate): string
+    {
+        $result = $toTranslate ? $this->shopLanguage->translateString($toTranslate) : '';
+        return is_array($result) ? (string)array_pop($result) : $result;
+    }
+
+    /**
+     * @todo: why do we save the user movel here, we have repository :/ extract there.
+     * @todo: type hinting is too general. You dont have setPersonalGreeting in this general User.
+     */
     public function saveGreeting(EshopModelUser $user): bool
     {
         /** @var TemplateModelUser $user */
@@ -42,6 +57,9 @@ class GreetingMessageService implements GreetingMessageServiceInterface
         return (bool)$user->save();
     }
 
+    /**
+     * @todo: missplaced responsibility, extract to some Request class
+     */
     private function getRequestOemtGreeting(): string
     {
         $input = (string)$this->shopRequest->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
@@ -50,15 +68,16 @@ class GreetingMessageService implements GreetingMessageServiceInterface
         return (string)substr($input, 0, 253);
     }
 
+    /**
+     * @todo: can be simplified by correctly type hinting, also use-cases should be double-checked
+     */
     private function getUserGreeting(?EshopModelUser $user = null): string
     {
-        $result = '';
-
         if (is_object($user)) {
             /** @var TemplateModelUser $user */
             $result = $user->getPersonalGreeting();
         }
 
-        return $result;
+        return $result ?? '';
     }
 }

@@ -11,9 +11,6 @@ namespace OxidEsales\ModuleTemplate\Greeting\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 
-/**
- * @extendable-class
- */
 interface GreetingMessageServiceInterface
 {
     public function getGreeting(?EshopModelUser $user = null): string;
