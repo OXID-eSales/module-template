@@ -10,35 +10,28 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Logging\Command;
 
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use OxidEsales\ModuleTemplate\Logging\Command\ReadLogsCommand;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-final class ReadLogsCommandTest extends IntegrationTestCase
+#[CoversClass(ReadLogsCommand::class)]
+final class ReadLogsCommandTest extends TestCase
 {
     private const VFS_ROOT_DIRECTORY = 'vfsRoot';
-
-    /** @var vfsStreamDirectory */
-    private $vfsRoot;
-
-    public function setUp(): void
-    {
-        $this->vfsRoot = vfsStream::setup(self::VFS_ROOT_DIRECTORY);
-        parent::setUp();
-    }
 
     public function testExecute(): void
     {
         $fileContents = 'Test log file contents...';
-        $basketLogFilePath = $this->getFileFromVfsSteam($fileContents);
+        $basketLogFilePath = $this->getVirtualTestLogFilePath($fileContents);
+
+        $sut = new ReadLogsCommand($basketLogFilePath);
 
         $application = new Application();
-        $command = new ReadLogsCommand($basketLogFilePath);
-        $application->add($command);
+        $application->add($sut);
 
-        $commandTester = new CommandTester($command);
+        $commandTester = new CommandTester($sut);
         $commandTester->execute([]);
 
         $this->assertStringContainsString($fileContents, $commandTester->getDisplay());
@@ -47,12 +40,13 @@ final class ReadLogsCommandTest extends IntegrationTestCase
     public function testExecuteLogNotFound(): void
     {
         $nonExistentFilePath = '/none/existent/file.log';
-        $command = new ReadLogsCommand($nonExistentFilePath);
+
+        $sut = new ReadLogsCommand($nonExistentFilePath);
 
         $application = new Application();
-        $application->add($command);
+        $application->add($sut);
 
-        $commandTester = new CommandTester($command);
+        $commandTester = new CommandTester($sut);
         $commandTester->execute([]);
 
         $this->assertStringContainsString('was not found', $commandTester->getDisplay());
@@ -61,15 +55,17 @@ final class ReadLogsCommandTest extends IntegrationTestCase
     /**
      * Use VfsStream to not write to file system.
      */
-    private function getFileFromVfsSteam(string $fileContents): string
+    private function getVirtualTestLogFilePath(string $fileContents): string
     {
+        $vfsRoot = vfsStream::setup(self::VFS_ROOT_DIRECTORY);
+
         $fileName = 'basket.txt';
         vfsStream::newFile($fileName, 0755)
             ->withContent($fileContents)
-            ->at($this->vfsRoot);
+            ->at($vfsRoot);
 
-        $this->assertTrue($this->vfsRoot->hasChild($fileName));
-        $this->assertSame($fileContents, $this->vfsRoot->getChild($fileName)->getContent());
+        $this->assertTrue($vfsRoot->hasChild($fileName));
+        $this->assertSame($fileContents, $vfsRoot->getChild($fileName)->getContent());
 
         return vfsStream::url(self::VFS_ROOT_DIRECTORY . DIRECTORY_SEPARATOR . $fileName);
     }
