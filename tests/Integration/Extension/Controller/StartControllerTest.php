@@ -11,22 +11,40 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Extension\Controller;
 
 use OxidEsales\Eshop\Application\Controller\StartController as EshopStartController;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Registry as EshopRegistry;
+use OxidEsales\ModuleTemplate\Extension\Controller\StartController;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /*
  * Here we have full integration test cases for a what we call 'chain extended' shop class.
  * Current module might not be the only one extending the same class/method.
  * Always use the unified namespace name of the class instantiated with oxNew()
  * when testing.
+ *
+ * @todo: rework this fully to test only controller logic. probably, together with method extraction.
  */
-
+#[CoversClass(StartController::class)]
 final class StartControllerTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'oh dear';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->cleanUpUsers();
+    }
+
+    public function tearDown(): void
+    {
+        Registry::getSession()->setUser(null);
+        parent::tearDown();
+    }
 
     /**
      * @dataProvider providerCanUpdateOemtGreeting

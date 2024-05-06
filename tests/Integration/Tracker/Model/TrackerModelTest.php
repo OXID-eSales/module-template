@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Model;
 
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -17,6 +18,20 @@ use PHPUnit\Framework\Attributes\CoversClass;
 final class TrackerModelTest extends IntegrationTestCase
 {
     public const TEST_ID = '_testoxid';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->cleanUpTrackers();
+    }
+
+    private function cleanUpTrackers()
+    {
+        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
+        $queryBuilder->delete('oemt_tracker');
+        $queryBuilder->execute();
+    }
 
     public function testGetCount(): void
     {

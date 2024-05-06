@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Controller;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Extension\Model\User as ModuleUser;
 use OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController;
@@ -24,7 +26,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
  * No mocks, we go straight to the database (full integration)).
  *
  * @todo: why no mocks? Unnecessary coupling. Whole system functionality should be checked with Acceptance test instead.
- * @todo: rework this fully.
+ * @todo: rework this fully to test only controller logic
  */
 #[CoversClass(GreetingController::class)]
 final class GreetingControllerTest extends IntegrationTestCase
@@ -34,6 +36,20 @@ final class GreetingControllerTest extends IntegrationTestCase
     public const TEST_GREETING = 'oh dear';
 
     public const TEST_GREETING_UPDATED = 'shopping addict';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->cleanUpTrackers();
+        $this->cleanUpUsers();
+    }
+
+    public function tearDown(): void
+    {
+        Registry::getSession()->setUser(null);
+        parent::tearDown();
+    }
 
     /**
      * @dataProvider providerOemtGreeting

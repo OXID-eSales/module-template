@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Repository;
 
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
@@ -23,6 +25,20 @@ final class TrackerRepositoryTest extends IntegrationTestCase
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'Hi there';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->cleanUpTrackers();
+    }
+
+    private function cleanUpTrackers()
+    {
+        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
+        $queryBuilder->delete('oemt_tracker');
+        $queryBuilder->execute();
+    }
 
     public function testGetExistingTrackerByUserId(): void
     {

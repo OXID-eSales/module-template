@@ -9,44 +9,21 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration;
 
-use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use PHPUnit\Framework\TestCase;
 
-class IntegrationTestCase extends TestCase
+class IntegrationTestCase extends \OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase
 {
-    /**
-     * @var object|QueryBuilderFactoryInterface|null
-     */
-    private $queryBuilderFactory;
-
-    public function setUp(): void
+    protected function cleanUpUsers()
     {
-        $this->queryBuilderFactory = $this->get(QueryBuilderFactoryInterface::class);
-        $this->cleanUpUsers();
-        $this->cleanUpTrackers();
-
-        parent::setUp();
-    }
-
-    public function tearDown(): void
-    {
-        Registry::getSession()->setUser(null);
-
-        parent::tearDown();
-    }
-
-    private function cleanUpUsers()
-    {
-        $queryBuilder = $this->queryBuilderFactory->create();
+        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
         $queryBuilder->delete('oxuser');
         $queryBuilder->execute();
     }
 
-    private function cleanUpTrackers()
+    protected function cleanUpTrackers()
     {
-        $queryBuilder = $this->queryBuilderFactory->create();
+        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
         $queryBuilder->delete('oemt_tracker');
         $queryBuilder->execute();
     }

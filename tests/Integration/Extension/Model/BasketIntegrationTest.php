@@ -10,9 +10,12 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Extension\Model;
 
 use OxidEsales\Eshop\Application\Model\Article as EshopModelArticle;
+use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Extension\Model\Basket;
 use OxidEsales\ModuleTemplate\Logging\Service\BasketProductLoggerServiceInterface;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(Basket::class)]
 final class BasketIntegrationTest extends IntegrationTestCase
 {
     private const TEST_PRODUCT_ID = 'testArticleId';

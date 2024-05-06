@@ -22,6 +22,8 @@ use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
  * NOTE: class must not be final.
  *
  * @mixin \OxidEsales\Eshop\Application\Controller\StartController
+ *
+ * @todo: extract methods to domain
  */
 class StartController extends StartController_parent
 {
