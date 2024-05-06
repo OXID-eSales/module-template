@@ -14,15 +14,19 @@ use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Extension\Model\User;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
 #[CoversClass(GreetingMessageService::class)]
-final class GreetingMessageServiceTest extends IntegrationTestCase
+/**
+ * @todo: whole strategy could be reworked so the greeting would come from repository BY the user,
+ *        but not FROM/THROUGH the user, then User extension will not be needed at all
+ */
+final class GreetingMessageServiceTest extends TestCase
 {
     public function testGenericGreetingWithUserForPersonalMode(): void
     {
-        $service = new GreetingMessageService(
+        $sut = new GreetingMessageService(
             moduleSettings: $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class),
             shopRequest: $this->createStub(CoreRequest::class),
             shopLanguage: $langStub = $this->createStub(CoreLanguage::class),
@@ -41,7 +45,7 @@ final class GreetingMessageServiceTest extends IntegrationTestCase
             ->with($personalGreeting)
             ->willReturn($expectedTranslation);
 
-        $this->assertSame($expectedTranslation, $service->getGreeting($userStub));
+        $this->assertSame($expectedTranslation, $sut->getGreeting($userStub));
     }
 
     private function getSut(

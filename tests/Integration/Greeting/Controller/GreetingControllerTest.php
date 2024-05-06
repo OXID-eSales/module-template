@@ -17,12 +17,16 @@ use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /*
  * We want to test controller behavior going 'full way'.
  * No mocks, we go straight to the database (full integration)).
+ *
+ * @todo: why no mocks? Unnecessary coupling. Whole system functionality should be checked with Acceptance test instead.
+ * @todo: rework this fully.
  */
-
+#[CoversClass(GreetingController::class)]
 final class GreetingControllerTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';

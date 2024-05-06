@@ -10,9 +10,13 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Repository;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
+use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
+use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepository;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(GreetingRepository::class)]
 class GreetingRepositoryTest extends IntegrationTestCase
 {
     public const TEST_USER_ID = '_testuser';
@@ -30,6 +34,8 @@ class GreetingRepositoryTest extends IntegrationTestCase
 
     private function prepareTestData(): void
     {
+        $this->cleanUpUsers();
+
         $user = oxNew(EshopModelUser::class);
         $user->assign(
             [
@@ -38,5 +44,12 @@ class GreetingRepositoryTest extends IntegrationTestCase
             ]
         );
         $user->save();
+    }
+
+    private function cleanUpUsers()
+    {
+        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
+        $queryBuilder->delete('oxuser');
+        $queryBuilder->execute();
     }
 }
