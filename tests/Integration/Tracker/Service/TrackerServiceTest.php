@@ -9,16 +9,18 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Service;
 
-use OxidEsales\Eshop\Application\Model\User;
-use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Application\Model\User as ShopUser;
+use OxidEsales\ModuleTemplate\Extension\Model\User;
 use OxidEsales\ModuleTemplate\Greeting\Model\PersonalGreetingUserInterface;
 use OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface;
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 use OxidEsales\ModuleTemplate\Tracker\Service\TrackerService as TrackerService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 
-final class TrackerServiceTest extends IntegrationTestCase
+#[CoversClass(TrackerService::class)]
+final class TrackerServiceTest extends TestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
 
@@ -35,13 +37,12 @@ final class TrackerServiceTest extends IntegrationTestCase
         $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
         $repo->expects($this->never())->method('getTrackerByUserId');
 
-        /** @var TrackerService $tracker */
-        $tracker = new \OxidEsales\ModuleTemplate\Tracker\Service\TrackerService(
+        $tracker = new TrackerService(
             $repo,
             $greetingRepository
         );
 
-        $tracker->updateTracker($this->getUserModel());
+        $tracker->updateTracker($this->getUserWithPersonalGreetingStub());
     }
 
     public function testUpdateTrackerGreetingChange(): void
@@ -50,43 +51,27 @@ final class TrackerServiceTest extends IntegrationTestCase
             'getSavedUserGreeting' => self::TEST_GREETING . ' with a change'
         ]);
 
-        $repo = $this->createPartialMock(TrackerRepository::class, ['getTrackerByUserId']);
-        $repo->expects($this->once())->method('getTrackerByUserId')->willReturn($this->getGreetingTrackerMock());
+        $repo = $this->createConfiguredStub(TrackerRepository::class, [
+            'getTrackerByUserId' => $trackerSpy = $this->createMock(TrackerModel::class)
+        ]);
+        $trackerSpy->expects($this->once())->method('countUp');
 
-        /** @var \OxidEsales\ModuleTemplate\Tracker\Service\TrackerService $tracker */
-        $tracker = new \OxidEsales\ModuleTemplate\Tracker\Service\TrackerService(
+        $sut = new TrackerService(
             $repo,
             $greetingRepository
         );
 
-        $tracker->updateTracker($this->getUserModel());
+        $sut->updateTracker($this->getUserWithPersonalGreetingStub());
     }
 
-    /**
-     * NOTE: this user model is NOT saved to database
-     */
-    private function getUserModel(): User&PersonalGreetingUserInterface
+    private function getUserWithPersonalGreetingStub(): ShopUser&PersonalGreetingUserInterface
     {
-        $user = oxNew(EshopModelUser::class);
-        $user->assign(
-            [
-                'oxid' => self::TEST_USER_ID,
-                'oemtgreeting' => self::TEST_GREETING,
-            ]
-        );
+        /** @var ShopUser&PersonalGreetingUserInterface $stub */
+        $stub = $this->createConfiguredStub(User::class, [
+            'getId' => self::TEST_USER_ID,
+            'getPersonalGreeting' => self::TEST_GREETING,
+        ]);
 
-        return $user;
-    }
-
-    private function getGreetingTrackerMock(): TrackerModel
-    {
-        $tracker = $this->getMockBuilder(TrackerModel::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $tracker->expects($this->once())
-            ->method('countUp');
-
-        return $tracker;
+        return $stub;
     }
 }

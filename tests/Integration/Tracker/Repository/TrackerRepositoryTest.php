@@ -9,10 +9,13 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Repository;
 
-use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
+use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
+use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(TrackerRepository::class)]
 final class TrackerRepositoryTest extends IntegrationTestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
@@ -25,16 +28,16 @@ final class TrackerRepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $repo    = $this->get(TrackerRepositoryInterface::class);
-        $tracker = $repo->getTrackerByUserId(self::TEST_USER_ID);
+        $sut = $this->get(TrackerRepositoryInterface::class);
+        $tracker = $sut->getTrackerByUserId(self::TEST_USER_ID);
 
         $this->assertSame(self::TEST_TRACKER_ID, $tracker->getId());
     }
 
     public function testGetNotExistingTrackerByUserId(): void
     {
-        $repo    = $this->get(TrackerRepositoryInterface::class);
-        $tracker = $repo->getTrackerByUserId('_notexisting');
+        $sut = $this->get(TrackerRepositoryInterface::class);
+        $tracker = $sut->getTrackerByUserId('_notexisting');
 
         $this->assertEmpty($tracker->getId());
         $this->assertSame('_notexisting', $tracker->getFieldData('oxuserid'));
@@ -45,9 +48,9 @@ final class TrackerRepositoryTest extends IntegrationTestCase
         $tracker = oxNew(TrackerModel::class);
         $tracker->assign(
             [
-                'oxid'      => self::TEST_TRACKER_ID,
-                'oxshopid'  => '1',
-                'oxuserid'  => self::TEST_USER_ID,
+                'oxid' => self::TEST_TRACKER_ID,
+                'oxshopid' => '1',
+                'oxuserid' => self::TEST_USER_ID,
                 'oemtcount' => 5,
             ]
         );

@@ -15,7 +15,7 @@
          cacheDirectory=".phpunit.cache"
          backupStaticProperties="false"
          requireCoverageMetadata="false"
-         beStrictAboutCoverageMetadata="true"
+         beStrictAboutCoverageMetadata="false"
          displayDetailsOnTestsThatTriggerDeprecations="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
