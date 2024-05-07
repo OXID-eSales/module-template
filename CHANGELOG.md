@@ -6,8 +6,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v3.0.0] - Unreleased
 
+### Added
+- All quality and testing tools are now running from module directory. Run `composer update` in module root directory and check "scripts" section in `composer.json` 
+- The BeforeModelUpdate event handler test.
+- Coverage pointers to tests, so we could see more precisely, what we have tested and what was covered unintensionnally
+- Interfaces extracted and used where possible
+
+### Changed
+- Github workflow examples updated to use our new reusable workflow. Its possible for anyone to easily run quality tools and tests on this example now with minimal effort.
+- All classes have been splitted by domains: Greeting/Logging/Settings/Tracker. Also there is Extension directory for shop extending classes.
+- Pre-commit hook example to run our static analysis tools before commit.
+- PhpUnit updated to 10+
+
 ### Removed
 - `ServiceContainer` trait and its usage
+- Example with static access rule exclusion. Now, the standard case have an example with exclusion of Symfony Filesystem\Path component.
+- PHP 8.0 support removed
+- Smarty support
+- Migration are not triggered anymore on module activation. Ensure you run them separately after module **Installation**.
 
 ## [v2.1.0] - Unreleased
 
