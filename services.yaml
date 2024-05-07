@@ -2,46 +2,17 @@ parameters:
   app.log_file_path: '/var/www/source/log/oe_moduletemplate.log'
 
 imports:
-  - { resource: src/Command/services.yaml }
+  - { resource: src/Greeting/services.yaml }
+  - { resource: src/Logging/services.yaml }
+  - { resource: src/Settings/services.yaml }
+  - { resource: src/Tracker/services.yaml }
 
 services:
 
   _defaults:
     public: false
     autowire: true
-    bind:
-      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
 
   OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
     public: true
-
-  OxidEsales\ModuleTemplate\Service\BasketItemLogger:
-    class: OxidEsales\ModuleTemplate\Service\BasketItemLogger
-    public: true
-    arguments:
-      $logger: '@OxidEsales\ModuleTemplate\Logger'
-
-  OxidEsales\ModuleTemplate\Logger:
-    class: Monolog\Logger
-    factory: [ '@OxidEsales\ModuleTemplate\Logger\Factory', 'create' ]
-
-  OxidEsales\ModuleTemplate\Logger\Factory:
-    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Factory\MonologLoggerFactory
-    arguments:
-      $configuration: '@OxidEsales\ModuleTemplate\Logger\Configuration'
-
-  OxidEsales\ModuleTemplate\Logger\Configuration:
-    class: OxidEsales\EshopCommunity\Internal\Framework\Logger\Configuration\MonologConfiguration
-    arguments:
-      $loggerName: 'Basket Logger'
-      $logFilePath: '%app.log_file_path%'
-      $logLevel: !php/const Psr\Log\LogLevel::DEBUG
-
-  OxidEsales\ModuleTemplate\Service\:
-    resource: 'src/Service/*'
-    public: true
-
-  OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
-    class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
-    tags: [ 'kernel.event_subscriber' ]

@@ -47,7 +47,8 @@ installation/usage methods.
 
 This module is in working state and can be directly installed via composer:
 ```
- composer require oxid-esales/module-template
+composer require oxid-esales/module-template
+./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
 and [activate the module](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).
@@ -207,7 +208,7 @@ Story:
 ### Extend shop functionality
 
 #### Sometimes we just need to extend what the shop is already offering us:
-* extending a shop model (`OxidEsales\ModuleTemplate\Model\User`) / (`OxidEsales\ModuleTemplate\Model\Basket`)
+* extending a shop model (`OxidEsales\ModuleTemplate\Extension\Model\User`) / (`OxidEsales\ModuleTemplate\Extension\Model\Basket`)
 * extending a shop controller (`OxidEsales\ModuleTemplate\Controller\StartController`)
 * extending a shop database table (`oxuser`)
 * extending a shop template block (`start_welcome_text`)
@@ -224,8 +225,8 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 #### Sometimes we need to bring our own
 * own module controller (`oemtgreeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
-* event subscriber (`OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate`)
-* model with a database (`OxidEsales\ModuleTemplate\Model\GreetingTracker`)
+* event subscriber (`OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate`)
+* model with a database (`OxidEsales\ModuleTemplate\Tracker\Model\GreetingTracker`)
 * DI service examples
 
 #### Whatever you do, ensure it is covered with tests

@@ -9,15 +9,15 @@ declare(strict_types=1);
 
 class_alias(
     \OxidEsales\Eshop\Application\Model\User::class,
-    \OxidEsales\ModuleTemplate\Model\User_parent::class
+    \OxidEsales\ModuleTemplate\Extension\Model\User_parent::class
 );
 
 class_alias(
     \OxidEsales\Eshop\Application\Controller\StartController::class,
-    \OxidEsales\ModuleTemplate\Controller\StartController_parent::class
+    \OxidEsales\ModuleTemplate\Extension\Controller\StartController_parent::class
 );
 
 class_alias(
     \OxidEsales\Eshop\Application\Model\Basket::class,
-    \OxidEsales\ModuleTemplate\Model\Basket_parent::class
+    \OxidEsales\ModuleTemplate\Extension\Model\Basket_parent::class
 );
