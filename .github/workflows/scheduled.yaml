@@ -1,15 +1,17 @@
-name: Auto trigger on push or pull requests
+name: Scheduled weekly run
 # Matrix workflow using re-usable github actions
 
 on:
-  pull_request: {}
-  push: {}
+  schedule:
+    # This cron job runs at 1:16 AM every 7th day of the month, every month of the year.
+    - cron: '16 1 */7 * *'
 
 jobs:
-  module_template_php82_mysql_80:
-    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yml@v4
+  module_template_71x_nightly:
+    if: always()
+    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v4
     with:
-      testplan: '~/defaults/7.1.x.yml,~/defaults/php8.2_mysql8.0_only.yml,~/module-template.yml'
+      testplan: '~/defaults/7.1.x.yaml,~/defaults/scheduled.yaml,~/module-template.yaml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v4'
       plan_folder: '.github/oxid-esales'
