@@ -1,6 +1,6 @@
 # OXID eShop Module Template
 
-[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/push_module_70x.yml/badge.svg?branch=b-7.0.x)](https://github.com/OXID-eSales/module-template/actions/workflows/push_module_70x.yml)
+[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml/badge.svg?branch=b-7.1.x)](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml)
 [![Latest Version](https://img.shields.io/packagist/v/OXID-eSales/module-template?logo=composer&label=latest&include_prereleases&color=orange)](https://packagist.org/packages/oxid-esales/module-template)
 [![PHP Version](https://img.shields.io/packagist/php-v/oxid-esales/module-template)](https://github.com/oxid-esales/module-template)
 
@@ -20,7 +20,8 @@ This module also comes with all the quality tools OXID recommends to use.
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
 * b-6.5.x branch / v1.0.0 version -compatible with OXID eShop compilation b-6.5.x 
-* b-7.0.x branch is compatible with OXID eShop compilation b-7.0.x
+* b-7.0.x branch is compatible with OXID eShop compilation 7.0.x and the respective branch
+* b-7.1.x branch is compatible with OXID eShop compilation 7.1.x and the respective branch
 
 ## Installation
 
@@ -51,13 +52,13 @@ composer require oxid-esales/module-template
 ./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
-and [activate the module](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).
+and [activate the module](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).
 
 ### Use as a base for own module
 
 In case you'd like to use this module as a template for your own module, this section is for you.
 
-**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.x. For Shop 6.x please refer 
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.1.x. For Shop 6.x please refer 
 to branch b-6.5.x README.md.
 
 Before starting to do something, please, read the whole section once, then decide on required questions, decide 
@@ -73,7 +74,7 @@ First, lets decide on terms:
     our case it is `oe_moduletemplate`. 
   * It is recommended to use only alphanumeric characters, in case you need a 
     separator you can use underscore. More information about module id can be 
-    found [here](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
+    found [here](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
 * Module is installable to `vendor/<yourPackageName>` directory. The package name looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
   what will be your new module package name.
 * Decide on your module's namespace - `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
@@ -92,10 +93,9 @@ First, lets decide on terms:
   ```
 
 **NOTE:** From OXID eShop 7.0 on, module code will no longer be duplicated into source/modules directory. This means that after normal composer install
-your module code will only be located in the vendor directory. Still we suggest that for development, you git clone your module into
-the shop's source/modules folder, register this path as local repository and then composer install your module using symlink.
+your module code will only be located in the vendor directory.
 
-* In the procedure, we will use our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/6.4/development/modules_components_themes/module/tutorials/module_setup.html)
+* In the procedure, we will use our best practices on [module installation for development](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/tutorials/module_setup.html)
   to make your development process as smooth and easy as possible.
 
 #### Procedure
@@ -104,7 +104,7 @@ The following procedure describes how to create a base for your further module, 
 installation for development process:
 
 1. Click on the "Use this template" button on the template [main page](https://github.com/OXID-eSales/module-template) to 
-   create your module repository from the given template. Please make to choose the 'take all branches' option. As the outcome, you should have a repository with
+   create your module repository from the given template. Please make sure to choose the 'take all branches' option. As the outcome, you should have a repository with
    a copy of everything we have in the template repository.
 
 2. Clone your created repository to your local shop modules directory:
@@ -159,7 +159,7 @@ Please note that the module comes with a database table, translations and some t
 names. Just keep an eye on all that's prefixed 'OEMT', 'oemt', 'OEMODULETEMPLATE' etc.
 
 Also, you will need to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
-credentials and names - check the env section there. For running SonarCloud as part of the steps in GitHub workflow you
+credentials and names. For running SonarCloud as part of the steps in GitHub workflow you
 will need to configure SonarCloud and to create a secret environment variable for your repository called SONAR_TOKEN.
 The token itself is provided from SonarCloud.
 
@@ -209,14 +209,14 @@ Story:
 
 #### Sometimes we just need to extend what the shop is already offering us:
 * extending a shop model (`OxidEsales\ModuleTemplate\Extension\Model\User`) / (`OxidEsales\ModuleTemplate\Extension\Model\Basket`)
-* extending a shop controller (`OxidEsales\ModuleTemplate\Controller\StartController`)
+* extending a shop controller (`OxidEsales\ModuleTemplate\Extension\Controller\StartController`)
 * extending a shop database table (`oxuser`)
 * extending a shop template block (`start_welcome_text`)
 
 **HINT**: only extend the shop core if there is no other way like listen and handle shop events,
-extend/replace some DI service. Your module might be one of many in the class chain and you should 
+decorate/replace some DI service. Your module might be one of many in the class chain and you should 
 act accordingly (always ensure to call the parent method and return the result). When extending
-shop classes with additional methods, best prefix those methods in order not to end up with another 
+shop classes with additional methods, best prefix those methods in order to not end up with another 
 module picking the same method name and wreacking havoc.
 In case there is no other way than to extend existing shop methods try the minimal invasion principle. 
 Put module business logic to a service (which make it easier to test as well) and call the service in the extended shop class.
@@ -241,7 +241,6 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * to redirect or not to redirect from inside the shop core
 * graphql query/mutation example
 * extending the internal part
-* split by domains
 
 ## Things to be aware of
 
@@ -256,12 +255,11 @@ The module template is intended to act as a tutorial module so keep your eyes op
 * migrations are intended to bump the database (and eventual existing data) to a new module version (this also goes for first time installation).
 * ensure migrations are stable against rerun
 
-Migrations have to be run via console command (`./vendor/bin/oe-console` if shop was installed from metapackage, `./bin/oe-console` otherwise)
+Migrations have to be run via console command (`./vendor/bin/oe-eshop-doctrine_migration`)
 
 ```bash
 ./vendor/bin/oe-eshop-doctrine_migration migration:migrate oe_moduletemplate
 ```
-unless we ensure they are run when the module is activated (tied to onActivate event) like done here.
 
 NOTE: Existing migrations must not be changed. If the database needs a change, add a new migration file and change to your needs:
 
@@ -300,16 +298,19 @@ $ composer phpmd
 ### Integration/Acceptance tests
 
 - install this module into a running OXID eShop
+- run `composer update` in module root directory
 
 ```bash
-# Unit tests
-$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml --testsuite=Unit
+$ cd vendor/oxid-esales/module-template
+$ composer update
+```
 
-# Integration tests
-$ vendor/bin/phpunit -c vendor/oxid-esales/module-template/tests/phpunit.xml --testsuite=Integration --bootstrap=/var/www/source/bootstrap.php
+After this done, check the "scripts" section of module `composer.json` file to see how we run tests.
 
-# Acceptance tests
-$ vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml
+```bash
+$ composer tests-unit
+$ composer tests-integration
+$ composer tests-codeception
 ```
 
 NOTE: From OXID eShop 7.0.x on database reset needs to be done with this command (please fill in your credentials)
@@ -347,9 +348,6 @@ In our case, we cover the reaction of the startpage to the different possibiliti
 The great thing about codeception tests is - they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
 
-**NOTE:** You should add groups to the codeception tests, generic test group for module and then
-group by topic. Makes it convenient to just run `vendor/bin/codecept run acceptance -c vendor/oxid-esales/module-template/tests/codeception.yml -g somegroup`.
-
 ### Development Environment - Docker SDK
 
 You can install the shop on whatever system fits your needs, but please check the 
@@ -362,10 +360,7 @@ we are constantly trying to improve them.
 The module template comes complete with a github actions workflow. No need to rig up some separate continuous integration
 infrastructure to run tests, it's all there in [github](https://github.com/OXID-eSales/module-template/actions).
 You will see three files in `.github/workflow` directory. The workflow from
-`.github/workflow/development.yml` starts on every `push` and `pull_request` to run the code quality checks and all the module tests.
-For generating code coverage reports there's `.github/workflow/coverage.yml` which can be triggered manually. You will probably ask 
-for code coverage when some task is to be completed but not on every tiny work in progress commit.
-And then we have the possibility to run all the shop tests with an active module on demand. Here's why:
+`.github/workflow/trigger.yaml` starts on every `push` and `pull_request` to run the code quality checks and all the module tests.
 
 In our experience it is useful to run the shop tests with the module installed and activated from time to time.
 For sure those shop tests have been written with only the shop itself in mind. Your module, depending on what it is doing, 
