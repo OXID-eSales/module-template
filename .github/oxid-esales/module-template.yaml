@@ -48,6 +48,7 @@ sonarcloud:
   strip_path: '/var/www/vendor/oxid-esales/module-template/'
   project_key: 'OXID-eSales_module-template'
   project_name: 'oxid-esales/module-template'
+  organization: 'oxid-esales'
   parameters: |
     -Dsonar.language=php
     -Dsonar.scm.provider=git
