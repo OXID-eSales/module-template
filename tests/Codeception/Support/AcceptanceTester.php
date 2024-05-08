@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Codeception;
+namespace OxidEsales\ModuleTemplate\Tests\Codeception\Support;
 
 use Codeception\Util\Fixtures;
 use OxidEsales\Codeception\Page\Home;

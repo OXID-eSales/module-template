@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Codeception\Helper;
 
 use OxidEsales\Codeception\Module\Translation\Translator;
-use OxidEsales\ModuleTemplate\Tests\Codeception\AcceptanceTester;
+use OxidEsales\ModuleTemplate\Tests\Codeception\Support\AcceptanceTester;
 
 /**
  * @group oe_moduletemplate

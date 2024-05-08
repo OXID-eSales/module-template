@@ -13,4 +13,4 @@ use Symfony\Component\Filesystem\Path;
 require_once Path::join((new \OxidEsales\Facts\Facts())->getShopRootPath(), 'source', 'bootstrap.php');
 
 $helper = new \OxidEsales\Codeception\Module\FixturesHelper();
-$helper->loadRuntimeFixtures(__DIR__ . '/../_data/fixtures.php');
+$helper->loadRuntimeFixtures(__DIR__ . '/../Support/Data/fixtures.php');

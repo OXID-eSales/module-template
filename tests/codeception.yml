@@ -1,12 +1,13 @@
 namespace: OxidEsales\ModuleTemplate\Tests\Codeception
+support_namespace: Support
 
 params:
   - Codeception/Config/params.php
 paths:
   tests: Codeception
   output: Output
-  data: Codeception/_data
-  support: Codeception/_support
+  data: Codeception/Support/Data
+  support: Codeception/Support
   envs: Codeception/_envs
   actor_suffix: Tester
 
