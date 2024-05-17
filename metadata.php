@@ -35,6 +35,7 @@ $aModule = [
         'onDeactivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onDeactivate'
     ],
     'settings' => [
+        //TODO: add help texts for settings to explain possibilities and point out which ones only serve as example
         /** Main */
         [
             'group'       => 'oemoduletemplate_main',
