@@ -23,29 +23,19 @@ $aModule = [
     'url'         => '',
     'email'       => '',
     'extend'      => [
-        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Model\User::class,
-        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Controller\StartController::class,
-        \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Model\Basket::class
+        \OxidEsales\Eshop\Application\Controller\StartController::class => \OxidEsales\ModuleTemplate\Extension\Controller\StartController::class,
+        \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Extension\Model\Basket::class,
+        \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Extension\Model\User::class,
     ],
     'controllers' => [
-        'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
-    ],
-    'templates'   => [
-        '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
+        'oemtgreeting' => \OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController::class
     ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',
         'onDeactivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onDeactivate'
     ],
-    'blocks'      => [
-        [
-            //It is possible to replace blocks by theme, to do so add 'theme' => '<theme_name>' key/value in here
-            'template' => 'page/shop/start.tpl',
-            'block' => 'start_welcome_text',
-            'file' => 'views/smarty/blocks/oemt_start_welcome_text.tpl'
-        ]
-    ],
     'settings' => [
+        //TODO: add help texts for settings to explain possibilities and point out which ones only serve as example
         /** Main */
         [
             'group'       => 'oemoduletemplate_main',

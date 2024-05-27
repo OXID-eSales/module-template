@@ -1,0 +1,60 @@
+install_shop_with_modules:
+  cache:
+    prepared_shop: false
+  composer:
+    transform: |
+      {
+          "require": {
+              "oxid-esales/oxideshop-ce": "{{ .Data.global.composer.dev_ref }}",
+              "oxid-esales/twig-component": "{{ .Data.global.composer.dev_ref }}",
+              "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.dev_ref }}",
+              "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}",
+              "oxid-esales/module-template": "{{ .Data.global.composer.ref_name }}"
+          },
+          "repositories": {
+            "oxid-esales/module-template": {
+              "type": "git",
+              "url": "https://github.com/OXID-eSales/module-template.git"
+            }
+          }
+      }
+  custom_script_container: |
+    vendor/bin/oe-console oe:module:activate oe_moduletemplate
+
+runscript: &runscript
+  matrix:
+    script: |
+      [
+        "module_template:tests-unit",
+        "module_template:tests-integration",
+        "module_template:tests-codeception"
+      ]
+  module_template:
+    path: 'vendor/oxid-esales/module-template'
+
+runslim:
+  <<: *runscript
+  matrix:
+    script: |
+      [
+        "module_template:phpcs-report",
+        "module_template:phpmd-report",
+        "module_template:phpstan-report"
+      ]
+
+sonarcloud:
+  matrix:
+    testplan: '["-"]'
+  strip_path: '/var/www/vendor/oxid-esales/module-template/'
+  project_key: 'OXID-eSales_module-template'
+  project_name: 'oxid-esales/module-template'
+  organization: 'oxid-esales'
+  parameters: |
+    -Dsonar.language=php
+    -Dsonar.scm.provider=git
+    -Dsonar.sources=src
+    -Dsonar.tests=tests
+    -Donar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
+
+finish:
+  slack_title: 'Module template ({{ .Data.global.git.shop_ref }}) by {{ .Github.Actor }}'

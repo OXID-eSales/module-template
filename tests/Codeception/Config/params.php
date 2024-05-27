@@ -12,6 +12,10 @@ use OxidEsales\Facts\Config\ConfigFile;
 use OxidEsales\Facts\Facts;
 use Symfony\Component\Filesystem\Path;
 
+if ($shopRootPath = getenv('SHOP_ROOT_PATH')){
+    require_once(Path::join($shopRootPath, 'source', 'bootstrap.php'));
+}
+
 $facts = new Facts();
 
 return [
@@ -37,12 +41,12 @@ return [
 
 function getTemporaryDataDumpFilePath(): string
 {
-    return Path::join(__DIR__, '..', '_data', 'generated', 'dump.sql');
+    return Path::join(__DIR__, '../Support', '_generated', 'dump.sql');
 }
 
 function getCodeceptionSpecificFixtureFilePath(): string
 {
-    return Path::join(__DIR__, '..', '_data', 'fixtures.sql');
+    return Path::join(__DIR__, '../Support/Data', 'fixtures.sql');
 }
 
 function getMysqlConfigPath(): string

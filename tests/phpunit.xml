@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
-         cacheResultFile=".phpunit.cache/test-results"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          executionOrder="depends,defects"
-         forceCoversAnnotation="false"
-         beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="false"
-         beStrictAboutTodoAnnotatedTests="false"
-         convertDeprecationsToExceptions="true"
          beStrictAboutTestsThatDoNotTestAnything="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnError="false"
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          backupGlobals="true"
-         backupStaticAttributes="false"
          colors="true"
          testdox="false"
-         verbose="false">
-    <coverage includeUncoveredFiles="true"
-              processUncoveredFiles="false"
-              cacheDirectory=".phpunit.cache/code-coverage">
-        <include>
-            <directory suffix=".php">../src</directory>
-        </include>
-    </coverage>
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false"
+         requireCoverageMetadata="false"
+         beStrictAboutCoverageMetadata="false"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
     <testsuites>
         <testsuite name="Unit">
             <directory>Unit/</directory>
@@ -37,4 +28,9 @@
             <directory>Integration/</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">../src</directory>
+        </include>
+    </source>
 </phpunit>

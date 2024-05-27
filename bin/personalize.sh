@@ -15,9 +15,7 @@ echo
 echo "Please enter package name (original: $package_name):"
 read -r package_name_input
 sed -ri "s#$package_name#$package_name_input#g;" ./composer.json
-sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/development.yml
-sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/shop.yml
-sed -ri "s#$package_name#$package_name_input#g;" ./.github/workflows/coverage.yml
+sed -ri "s#$package_name#$package_name_input#g;" ./.github/oxid-esales/module-template.yaml
 echo
 
 echo "Please enter module namespace (original: $namespace):"
@@ -63,15 +61,14 @@ composed_target_directory="${vendor_prefix}/${module_root_directory}"
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./composer.json
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./metadata.php
 perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./tests/Codeception/acceptance.suite.yml
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/workflows/development.yml
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/workflows/coverage.yml
+perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/oxid-esales/module-template.yaml
 
 #update acceptance suite
 perl -pi -e "s#$package_name#$package_name_input#g;" ./tests/Codeception/acceptance.suite.yml
 
 # Prepare ./.github/workflows/development.yml file
-perl -pi -e "s#SONARCLOUD_ORGANIZATION: 'oxid-esales'#SONARCLOUD_ORGANIZATION: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/workflows/development.yml
-perl -pi -e "s#SONARCLOUD_PROJECT_KEY: 'OXID-eSales_module-template'#SONARCLOUD_PROJECT_KEY: 'CHANGE SONARCLOUD PROJECT KEY'#g;" ./.github/workflows/development.yml
+perl -pi -e "s#project_key: 'OXID-eSales_module-template'#project_key: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#organization: 'oxid-esales'#organization: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
 
 # Prepare ./migration/migrations.yml file
 perl -pi -e "s#name: OXID Module Template#name: $vendor_name $module_name#g;" ./migration/migrations.yml
