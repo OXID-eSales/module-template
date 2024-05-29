@@ -49,7 +49,7 @@ final class StartControllerTest extends IntegrationTestCase
     /**
      * @dataProvider providerCanUpdateOemtGreeting
      */
-    public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, string $expect): void
+    public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, bool $expected): void
     {
         $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
         $moduleSettings->saveGreetingMode($mode);
@@ -60,7 +60,7 @@ final class StartControllerTest extends IntegrationTestCase
             $controller->setUser($this->getTestUser());
         }
 
-        $this->$expect($controller->canUpdateOemtGreeting());
+        $this->assertEquals($expected, $controller->canUpdateOemtGreeting());
     }
 
     /**
@@ -91,22 +91,22 @@ final class StartControllerTest extends IntegrationTestCase
             'without_user_generic' => [
                 'hasUser' => false,
                 'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expect' => 'assertFalse',
+                'expected' => false,
             ],
             'without_user_personal' => [
                 'hasUser' => false,
                 'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expect' => 'assertFalse',
+                'expected' => false,
             ],
             'with_user_generic' => [
                 'hasUser' => true,
                 'mode' => ModuleSettingsServiceInterface::GREETING_MODE_GENERIC,
-                'expect' => 'assertFalse',
+                'expected' => false,
             ],
             'with_user_personal' => [
                 'hasUser' => true,
                 'mode' => ModuleSettingsServiceInterface::GREETING_MODE_PERSONAL,
-                'expect' => 'assertTrue',
+                'expected' => true,
             ],
         ];
     }
