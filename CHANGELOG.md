@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Smarty support
 - Migration are not triggered anymore on module activation. Ensure you run them separately after module **Installation**.
 
-## [v2.1.0] - Unreleased
+## [v2.1.0] - 2024-05-30
 
 ### Added
 - New example service to extend basket class and logs it 
