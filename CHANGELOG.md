@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v2.1.0] - Unreleased
+## [v2.1.0] - 2024-05-30
 
 ### Added
 - New example service to extend basket class and logs it 
