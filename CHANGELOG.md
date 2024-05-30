@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v3.0.0] - Unreleased
+## [v3.0.0-rc.1] - 2024-05-30
 
 ### Added
 - All quality and testing tools are now running from module directory. Run `composer update` in module root directory and check "scripts" section in `composer.json` 
