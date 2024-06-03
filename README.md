@@ -258,13 +258,13 @@ The module template is intended to act as a tutorial module so keep your eyes op
 Migrations have to be run via console command (`./vendor/bin/oe-eshop-doctrine_migration`)
 
 ```bash
-./vendor/bin/oe-eshop-doctrine_migration migration:migrate oe_moduletemplate
+./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
 NOTE: Existing migrations must not be changed. If the database needs a change, add a new migration file and change to your needs:
 
 ```bash
-./vendor/bin/oe-eshop-doctrine_migration migration:generate oe_moduletemplate
+./vendor/bin/oe-eshop-doctrine_migration migrations:generate oe_moduletemplate
 ```
 
 For more information, check the [developer documentation](https://docs.oxid-esales.com/developer/en/latest/development/tell_me_about/migrations.html).
