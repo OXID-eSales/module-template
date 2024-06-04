@@ -120,6 +120,9 @@ installation for development process:
    ./source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>/bin/personalize.sh
    ```
 
+   NOTE: This personalization script will automatically suggest a module id. Please make sure it fits the above mentioned
+   [requirements for a module id](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html). 
+
 4. **(Optional)** In case you'd like to have a clean skeleton for your module but keeping all the quality tools,
    test configuration, github workflows prepared, additionally use the ``cleanexamples.sh`` script, which removes
    all example solutions code.
