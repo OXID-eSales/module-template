@@ -398,7 +398,7 @@ Ps: a failing shop test might also turn up issues in your module, in that case f
 
 ### Contact us
 
-* [Open a new issue on our bug tracker](https://bugs.oxid-esales.com)
+* In case of issues / bugs, use "Issues" section on github, to report the problem.
 * [Join our community forum](https://forum.oxid-esales.com/)
 * [Use the contact form](https://www.oxid-esales.com/en/contact/contact-us.html)
 
