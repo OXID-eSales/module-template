@@ -19,9 +19,9 @@ This module also comes with all the quality tools OXID recommends to use.
 ## Branch compatibility
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
-* b-6.5.x branch / v1.0.0 version -compatible with OXID eShop compilation b-6.5.x 
-* b-7.0.x branch is compatible with OXID eShop compilation 7.0.x and the respective branch
-* b-7.1.x branch is compatible with OXID eShop compilation 7.1.x and the respective branch
+* b-6.5.x branch / v1.0.0 version - compatible with OXID eShop compilation b-6.5.x 
+* b-7.0.x branch / v2.x version - compatible with OXID eShop compilation b-7.0.x
+* b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
 
 ## Installation
 
@@ -119,6 +119,9 @@ installation for development process:
    cd <shopRoot>
    ./source/modules/<yourVendorPrefix>/<yourModuleRootDirectory>/bin/personalize.sh
    ```
+
+   NOTE: This personalization script will automatically suggest a module id. Please make sure it fits the above mentioned
+   [requirements for a module id](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html). 
 
 4. **(Optional)** In case you'd like to have a clean skeleton for your module but keeping all the quality tools,
    test configuration, github workflows prepared, additionally use the ``cleanexamples.sh`` script, which removes
@@ -258,13 +261,13 @@ The module template is intended to act as a tutorial module so keep your eyes op
 Migrations have to be run via console command (`./vendor/bin/oe-eshop-doctrine_migration`)
 
 ```bash
-./vendor/bin/oe-eshop-doctrine_migration migration:migrate oe_moduletemplate
+./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
 NOTE: Existing migrations must not be changed. If the database needs a change, add a new migration file and change to your needs:
 
 ```bash
-./vendor/bin/oe-eshop-doctrine_migration migration:generate oe_moduletemplate
+./vendor/bin/oe-eshop-doctrine_migration migrations:generate oe_moduletemplate
 ```
 
 For more information, check the [developer documentation](https://docs.oxid-esales.com/developer/en/latest/development/tell_me_about/migrations.html).
@@ -395,7 +398,7 @@ Ps: a failing shop test might also turn up issues in your module, in that case f
 
 ### Contact us
 
-* [Open a new issue on our bug tracker](https://bugs.oxid-esales.com)
+* In case of issues / bugs, use "Issues" section on github, to report the problem.
 * [Join our community forum](https://forum.oxid-esales.com/)
 * [Use the contact form](https://www.oxid-esales.com/en/contact/contact-us.html)
 
