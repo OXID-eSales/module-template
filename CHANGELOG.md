@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v3.0.0] - 2024-06-27
+
+This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc.1.
+
 ## [v3.0.0-rc.1] - 2024-05-30
 
 ### Added
