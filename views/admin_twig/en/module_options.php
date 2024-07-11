@@ -9,6 +9,13 @@ declare(strict_types=1);
 
 $aLang = [
     'charset' => 'UTF-8',
+    'tbcluser_greetings' => 'Greetings',
+
+    'OEMODULETEMPLATE_GREETING_TITLE' => 'Admin controller example',
+    'OEMODULETEMPLATE_GREETING_MESSAGE_TEXT' => 'Greeting message: ',
+    'OEMODULETEMPLATE_NO_GREETING_TEXT' => 'No greeting message added!',
+
+    # Module settings
     'SHOP_MODULE_GROUP_oemoduletemplate_main' => 'Settings',
     'SHOP_MODULE_oemoduletemplate_GreetingMode' => 'Greeting mode',
     'SHOP_MODULE_oemoduletemplate_GreetingMode_generic' => 'generic',

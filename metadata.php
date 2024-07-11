@@ -28,7 +28,8 @@ $aModule = [
         \OxidEsales\Eshop\Application\Model\Basket::class => \OxidEsales\ModuleTemplate\Model\Basket::class
     ],
     'controllers' => [
-        'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class
+        'oemtgreeting' => \OxidEsales\ModuleTemplate\Controller\GreetingController::class,
+        'oemt_admin_greeting' => \OxidEsales\ModuleTemplate\Controller\Admin\GreetingAdminController::class,
     ],
     'templates'   => [
         '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
