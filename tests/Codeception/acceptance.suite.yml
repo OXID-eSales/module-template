@@ -35,6 +35,10 @@ modules:
         depends:
           - WebDriver
           - Db
+    - \OxidEsales\Codeception\Module\OxideshopAdmin:
+        depends:
+          - WebDriver
+          - \OxidEsales\Codeception\Module\Oxideshop
     - \OxidEsales\Codeception\Module\Database:
         depends: Db
     - \OxidEsales\Codeception\Module\SelectTheme:
