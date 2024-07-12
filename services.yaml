@@ -45,3 +45,6 @@ services:
   OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate:
     class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
     tags: [ 'kernel.event_subscriber' ]
+
+  OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactoryInterface:
+    class:   OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactory
