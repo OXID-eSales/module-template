@@ -33,6 +33,7 @@ $aModule = [
     ],
     'templates'   => [
         '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
+        '@oe_moduletemplate/templates/admin/user_greetings.tpl' => 'views/smarty/templates/admin/user_greetings.tpl',
     ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',
@@ -44,6 +45,11 @@ $aModule = [
             'template' => 'page/shop/start.tpl',
             'block' => 'start_welcome_text',
             'file' => 'views/smarty/blocks/oemt_start_welcome_text.tpl'
+        ],
+        [
+            'template' => 'user_main.tpl',
+            'block'    => 'admin_user_main_form',
+            'file'     => 'views/smarty/blocks/admin/admin_user_main_form.tpl'
         ]
     ],
     'settings' => [

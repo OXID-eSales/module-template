@@ -1,6 +1,6 @@
 {% include "headitem.html.twig" with {title: "GENERAL_ADMIN_TITLE"|translate} %}
 
-<form name="transfer" id="transfer" action="{{ oViewConf.getSelfLink() }}" method="post">
+<form action="{{ oViewConf.getSelfLink() }}" method="post">
     {{ oViewConf.getHiddenSid()|raw }}
     <input type="hidden" name="oxid" value="{{ oxid }}">
     <input type="hidden" name="cl" value="oemt_admin_greeting">
@@ -13,7 +13,6 @@
 {% else %}
     <div>{{ translate({ ident: "OEMODULETEMPLATE_NO_GREETING_TEXT" }) }}</div>
 {% endif %}
-
 
 {% include "bottomnaviitem.html.twig" %}
 {% include "bottomitem.html.twig" %}
