@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<OX>
+    <OXMENU id="NAVIGATION_ESHOPADMIN">
+        <MAINMENU id="mxuadmin">
+            <SUBMENU id="mxusers">
+                <TAB id="tbcluser_greetings" cl="oemt_admin_greeting" />
+            </SUBMENU>
+        </MAINMENU>
+    </OXMENU>
+</OX>
