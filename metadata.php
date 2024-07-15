@@ -33,7 +33,7 @@ $aModule = [
     ],
     'templates'   => [
         '@oe_moduletemplate/templates/greetingtemplate.tpl' => 'views/smarty/templates/greetingtemplate.tpl',
-        '@oe_moduletemplate/templates/admin/user_greetings.tpl' => 'views/smarty/templates/admin/user_greetings.tpl',
+        '@oe_moduletemplate/admin/user_greetings.tpl' => 'views/smarty/admin/user_greetings.tpl',
     ],
     'events' => [
         'onActivate' => '\OxidEsales\ModuleTemplate\Core\ModuleEvents::onActivate',
