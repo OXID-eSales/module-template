@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [undecided] - unreleased
+
+### Added
+- Admin controller
+- Template for admin controller
+- Example of extending of current admin template
+- ``oxNew`` object factory example
+
 ## [v3.0.0] - 2024-06-27
 
 This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc.1.
