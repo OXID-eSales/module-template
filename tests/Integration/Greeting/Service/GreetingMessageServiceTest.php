@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Greeting\Service;
 
 use OxidEsales\Eshop\Core\Language as CoreLanguage;
-use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Extension\Model\User;
 use OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService;
+use OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactoryInterface;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +28,7 @@ final class GreetingMessageServiceTest extends TestCase
     {
         $sut = new GreetingMessageService(
             moduleSettings: $moduleSettingsStub = $this->createMock(ModuleSettingsServiceInterface::class),
-            shopRequest: $this->createStub(CoreRequest::class),
+            coreRequestFactory: $this->createStub(CoreRequestFactoryInterface::class),
             shopLanguage: $langStub = $this->createStub(CoreLanguage::class),
         );
 
@@ -50,11 +50,11 @@ final class GreetingMessageServiceTest extends TestCase
 
     private function getSut(
         ModuleSettingsServiceInterface $moduleSettings = null,
-        CoreRequest $shopRequest = null,
+        CoreRequestFactoryInterface $coreRequestFactory = null,
     ): GreetingMessageService {
         return new GreetingMessageService(
             moduleSettings: $moduleSettings ?? $this->createStub(ModuleSettingsServiceInterface::class),
-            shopRequest: $shopRequest ?? $this->createStub(CoreRequest::class),
+            coreRequestFactory: $coreRequestFactory ?? $this->createStub(CoreRequestFactoryInterface::class),
             shopLanguage: $shopLanguage ?? $this->createStub(CoreLanguage::class),
         );
     }
