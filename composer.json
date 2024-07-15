@@ -69,7 +69,7 @@
 
         "tests-codeception": [
             "Composer\\Config::disableProcessTimeout",
-            "THEME_ID=flow MODULE_IDS=oe_moduletemplate SHOP_ROOT_PATH=/var/www vendor/bin/codecept run acceptance -c tests/codeception.yml --no-redirect"
+            "THEME_ID=apex MODULE_IDS=oe_moduletemplate SHOP_ROOT_PATH=/var/www vendor/bin/codecept run acceptance -c tests/codeception.yml --no-redirect"
         ],
 
         "tests-all": [

@@ -49,9 +49,9 @@ modules:
     - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
         shop_path: '%SHOP_SOURCE_PATH%'
         paths:
-          - Application/views/flow/translations
-          - Application/views/admin_smarty
-          - ../vendor/oxid-esales/module-template/views/admin_smarty
+          - Application/views/apex
+          - Application/views/admin_twig
+          - ../vendor/oxid-esales/module-template/views/admin_twig
           - ../vendor/oxid-esales/module-template/translations
     - \OxidEsales\Codeception\Module\OxideshopModules
 step_decorators:
