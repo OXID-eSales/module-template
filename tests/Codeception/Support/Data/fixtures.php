@@ -13,4 +13,9 @@ return [
         'email' => 'user@oxid-esales.com',
         'password' => 'useruser',
     ],
+    'adminUser' => [
+        'OXID' => 'oxadminuser',
+        'email' => 'admin@oxid-esales.com',
+        'password' => 'useruser',
+    ],
 ];
