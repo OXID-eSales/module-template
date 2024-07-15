@@ -210,7 +210,8 @@ Story:
 * extending a shop model (`OxidEsales\ModuleTemplate\Model\User`) / (`OxidEsales\ModuleTemplate\Model\Basket`)
 * extending a shop controller (`OxidEsales\ModuleTemplate\Controller\StartController`)
 * extending a shop database table (`oxuser`)
-* extending a shop template block (`start_welcome_text`)
+* extending a shop template block (`start_newest_articles`)
+* extending a shop admin template block (`admin_user_main_form`)
 
 **HINT**: only extend the shop core if there is no other way like listen and handle shop events,
 extend/replace some DI service. Your module might be one of many in the class chain and you should 
@@ -223,10 +224,12 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 
 #### Sometimes we need to bring our own
 * own module controller (`oemtgreeting` with own template and own translations)
+* own module admin controller (`oemt_admin_greeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
 * event subscriber (`OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate`)
 * model with a database (`OxidEsales\ModuleTemplate\Model\GreetingTracker`)
 * DI service examples
+* ``oxNew`` object factory example (`OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactory`)
 
 #### Whatever you do, ensure it is covered with tests
 * unit/integration test
