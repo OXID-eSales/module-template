@@ -20,10 +20,10 @@ class CoreRequestFactoryTest extends TestCase
 {
     public function testCreateProducesCorrectTypeOfObjects(): void
     {
-        $coreThemeFactoryMock = $this->getMockBuilder(CoreRequestFactory::class)
+        $coreRequestFactoryMock = $this->getMockBuilder(CoreRequestFactory::class)
             ->onlyMethods(['create'])
             ->getMock();
 
-        $this->assertInstanceOf(Request::class, $coreThemeFactoryMock->create());
+        $this->assertInstanceOf(Request::class, $coreRequestFactoryMock->create());
     }
 }

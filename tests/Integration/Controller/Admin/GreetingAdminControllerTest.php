@@ -12,10 +12,6 @@ namespace OxidEsales\ModuleTemplate\Tests\Integration\Controller\Admin;
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\ModuleTemplate\Controller\Admin\GreetingAdminController;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Model\GreetingTracker;
-use OxidEsales\ModuleTemplate\Model\User as ModuleUser;
-use OxidEsales\ModuleTemplate\Service\ModuleSettings;
-use OxidEsales\ModuleTemplate\Service\Repository;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Traits\ServiceContainer;
 
@@ -30,8 +26,6 @@ final class GreetingAdminControllerTest extends IntegrationTestCase
     public const TEST_USER_ID = '_testuser';
 
     public const TEST_GREETING = 'Hello there!';
-
-    public const TEST_GREETING_UPDATED = 'shopping addict';
 
     public function testRender(): void
     {
