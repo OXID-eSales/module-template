@@ -215,7 +215,7 @@ Story:
 * extending a shop controller (`OxidEsales\ModuleTemplate\Extension\Controller\StartController`)
 * extending a shop database table (`oxuser`)
 * extending a shop template block (`start_newest_articles`)
-* extending a shop admin template block (`admin_user_main_form`)
+* extending a shop admin template block (`admin_user_main_form` - only an extension of a block, without functionality)
 
 **HINT**: only extend the shop core if there is no other way like listen and handle shop events,
 decorate/replace some DI service. Your module might be one of many in the class chain and you should 
