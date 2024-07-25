@@ -15,7 +15,7 @@ $aLang = [
     'OEMODULETEMPLATE_GREETING_MESSAGE_TEXT' => 'Greeting message: ',
     'OEMODULETEMPLATE_NO_GREETING_TEXT' => 'No greeting message added!',
     'OEMODULETEMPLATE_ALLOW_GREETING' => 'Allow user to set greeting',
-    'OEMODULETEMPLATE_HELP_ALLOW_GREETING' => 'Example of extending admin template',
+    'OEMODULETEMPLATE_HELP_ALLOW_GREETING' => 'This is an example of extending admin template. There is no functionality implemented behind this checkbox and does not save anything to the database',
 
     # Module settings
     'SHOP_MODULE_GROUP_oemoduletemplate_main' => 'Settings',

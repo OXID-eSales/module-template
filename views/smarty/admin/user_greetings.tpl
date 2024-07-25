@@ -1,6 +1,6 @@
 [{include file="headitem.tpl" title="GENERAL_ADMIN_TITLE"|oxmultilangassign box="list"}]
 
-<form action="[{$oViewConf->getSelfLink()}]" method="post">
+<form name="transfer" id="transfer" action="[{$oViewConf->getSelfLink()}]" method="post">
     [{$oViewConf->getHiddenSid()}]
     <input type="hidden" name="oxid" value="[{$oxid}]">
     <input type="hidden" name="cl" value="oemt_admin_greeting">
