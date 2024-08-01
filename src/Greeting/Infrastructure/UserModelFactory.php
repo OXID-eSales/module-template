@@ -9,15 +9,15 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Greeting\Infrastructure;
 
-use OxidEsales\Eshop\Core\Request;
+use OxidEsales\Eshop\Application\Model\User;
 
-class CoreRequestFactory implements CoreRequestFactoryInterface
+class UserModelFactory implements UserModelFactoryInterface
 {
     /**
      * @inheritDoc
      */
-    public function create(): Request
+    public function create(): User
     {
-        return oxNew(Request::class);
+        return oxNew(User::class);
     }
 }

@@ -11,16 +11,16 @@ namespace OxidEsales\ModuleTemplate\Greeting\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
 use OxidEsales\Eshop\Core\Language as EshopLanguage;
+use OxidEsales\Eshop\Core\Request as EshopRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Extension\Model\User as TemplateModelUser;
-use OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactoryInterface;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 
 class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
         private ModuleSettingsServiceInterface $moduleSettings,
-        private CoreRequestFactoryInterface $coreRequestFactory,
+        private EshopRequest $shopRequest,
         private EshopLanguage $shopLanguage,
     ) {
     }
@@ -62,8 +62,7 @@ class GreetingMessageService implements GreetingMessageServiceInterface
      */
     private function getRequestOemtGreeting(): string
     {
-        $coreRequestService = $this->coreRequestFactory->create();
-        $input = (string)$coreRequestService->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
+        $input = (string)$this->shopRequest->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
         return (string)substr($input, 0, 253);

@@ -3,6 +3,7 @@ services:
     public: false
     autowire: true
     bind:
+      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
       OxidEsales\Eshop\Core\Language: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getLang()'
 
   OxidEsales\ModuleTemplate\Greeting\Repository\GreetingRepositoryInterface:
@@ -13,5 +14,9 @@ services:
     class: OxidEsales\ModuleTemplate\Greeting\Service\GreetingMessageService
     public: true
 
-  OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactoryInterface:
-    class: OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactory
+  OxidEsales\ModuleTemplate\Greeting\Infrastructure\UserModelFactoryInterface:
+    class: OxidEsales\ModuleTemplate\Greeting\Infrastructure\UserModelFactory
+
+  OxidEsales\ModuleTemplate\Greeting\Service\UserServiceInterface:
+    class: OxidEsales\ModuleTemplate\Greeting\Service\UserService
+    public: true

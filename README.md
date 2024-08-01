@@ -233,7 +233,7 @@ If you need to extend the shop class chain by overwriting, try to stick to the p
 * event subscriber (`OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate`)
 * model with a database (`OxidEsales\ModuleTemplate\Tracker\Model\GreetingTracker`)
 * DI service examples
-* ``oxNew`` object factory example (`OxidEsales\ModuleTemplate\Greeting\Infrastructure\CoreRequestFactory`)
+* ``oxNew`` object factory example (`OxidEsales\ModuleTemplate\Greeting\Infrastructure\UserModelFactory`)
 
 #### Whatever you do, ensure it is covered with tests
 * unit/integration test
