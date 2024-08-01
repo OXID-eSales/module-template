@@ -9,21 +9,21 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Infrastructure;
 
-use OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactory;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\ModuleTemplate\Infrastructure\UserModelFactory;
 use PHPUnit\Framework\TestCase;
-use OxidEsales\Eshop\Core\Request;
 
 /**
- * @covers \OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactory
+ * @covers \OxidEsales\ModuleTemplate\Infrastructure\UserModelFactory
  */
-class CoreRequestFactoryTest extends TestCase
+class UserModelFactoryTest extends TestCase
 {
     public function testCreateProducesCorrectTypeOfObjects(): void
     {
-        $coreRequestFactoryMock = $this->getMockBuilder(CoreRequestFactory::class)
+        $coreRequestFactoryMock = $this->getMockBuilder(UserModelFactory::class)
             ->onlyMethods(['create'])
             ->getMock();
 
-        $this->assertInstanceOf(Request::class, $coreRequestFactoryMock->create());
+        $this->assertInstanceOf(User::class, $coreRequestFactoryMock->create());
     }
 }

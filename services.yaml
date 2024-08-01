@@ -9,6 +9,8 @@ services:
   _defaults:
     public: false
     autowire: true
+    bind:
+      OxidEsales\Eshop\Core\Request: '@=service("OxidEsales\\ModuleTemplate\\Core\\Registry").getRequest()'
 
   OxidEsales\ModuleTemplate\Core\Registry:
     class: OxidEsales\Eshop\Core\Registry
@@ -44,5 +46,9 @@ services:
     class: OxidEsales\ModuleTemplate\Subscriber\BeforeModelUpdate
     tags: [ 'kernel.event_subscriber' ]
 
-  OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactoryInterface:
-    class:   OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactory
+  OxidEsales\ModuleTemplate\Infrastructure\UserModelFactoryInterface:
+    class: OxidEsales\ModuleTemplate\Infrastructure\UserModelFactory
+
+  OxidEsales\ModuleTemplate\Service\UserServiceInterface:
+    class: OxidEsales\ModuleTemplate\Service\UserService
+    public: true

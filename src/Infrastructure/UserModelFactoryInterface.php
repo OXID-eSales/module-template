@@ -7,12 +7,12 @@
 
 namespace OxidEsales\ModuleTemplate\Infrastructure;
 
-use OxidEsales\Eshop\Core\Request;
+use OxidEsales\Eshop\Application\Model\User;
 
-interface CoreRequestFactoryInterface
+interface UserModelFactoryInterface
 {
     /**
-     * @return Request
+     * @return User
      */
-    public function create(): Request;
+    public function create(): User;
 }

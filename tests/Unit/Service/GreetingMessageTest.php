@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Service;
 
+use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactoryInterface;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +24,7 @@ final class GreetingMessageTest extends TestCase
     {
         $service = new GreetingMessage(
             $this->createConfiguredMock(ModuleSettings::class, ['getGreetingMode' => $mode]),
-            $this->createMock(CoreRequestFactoryInterface::class)
+            $this->createStub(CoreRequest::class)
         );
 
         $this->assertSame($expected, $service->getGreeting());

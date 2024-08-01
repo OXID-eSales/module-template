@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Service;
 
 use OxidEsales\Eshop\Application\Model\User as EshopModelUser;
+use OxidEsales\Eshop\Core\Request as CoreRequest;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
-use OxidEsales\ModuleTemplate\Infrastructure\CoreRequestFactoryInterface;
 use OxidEsales\ModuleTemplate\Service\GreetingMessage;
 use OxidEsales\ModuleTemplate\Service\ModuleSettings;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
@@ -22,7 +22,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            $this->createMock(CoreRequestFactoryInterface::class)
+            $this->createStub(CoreRequest::class)
         );
         $user    = oxNew(EshopModelUser::class);
 
@@ -33,7 +33,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(),
-            $this->createMock(CoreRequestFactoryInterface::class)
+            $this->createStub(CoreRequest::class)
         );
         $user    = oxNew(EshopModelUser::class);
 
@@ -44,7 +44,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(ModuleSettings::GREETING_MODE_GENERIC),
-            $this->createMock(CoreRequestFactoryInterface::class)
+            $this->createStub(CoreRequest::class)
         );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
@@ -56,7 +56,7 @@ final class GreetingMessageTest extends IntegrationTestCase
     {
         $service = new GreetingMessage(
             $this->getSettingsMock(),
-            $this->createMock(CoreRequestFactoryInterface::class)
+            $this->createStub(CoreRequest::class)
         );
         $user    = oxNew(EshopModelUser::class);
         $user->setPersonalGreeting('Hi sweetie!');
