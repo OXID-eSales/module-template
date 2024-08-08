@@ -18,4 +18,6 @@ final class Module
     public const OEMT_COUNTER_TEMPLATE_VARNAME = 'oemt_greeting_counter';
 
     public const DEFAULT_PERSONAL_GREETING_LANGUAGE_CONST = 'OEMODULETEMPLATE_GREETING_GENERIC';
+
+    public const OEMT_ADMIN_GREETING_TEMPLATE_VARNAME = 'greeting_message';
 }

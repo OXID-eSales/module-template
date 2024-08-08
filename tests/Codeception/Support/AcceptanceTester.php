@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace OxidEsales\ModuleTemplate\Tests\Codeception\Support;
 
 use Codeception\Util\Fixtures;
+use OxidEsales\Codeception\Admin\AdminLoginPage;
+use OxidEsales\Codeception\Admin\AdminPanel;
 use OxidEsales\Codeception\Page\Home;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\Facts\Facts;
@@ -89,6 +91,21 @@ final class AcceptanceTester extends \Codeception\Actor
         $facts = new Facts();
 
         return $facts->getShopUrl();
+    }
+
+    public function openAdmin(): AdminLoginPage
+    {
+        $I = $this;
+        $adminLogin = new AdminLoginPage($I);
+        $I->amOnPage($adminLogin->URL);
+        return $adminLogin;
+    }
+
+    public function loginAdmin(): AdminPanel
+    {
+        $adminPage = $this->openAdmin();
+        $admin = Fixtures::get('adminUser');
+        return $adminPage->login($admin['email'], $admin['password']);
     }
 
     protected function getServiceFromContainer(string $serviceName)
