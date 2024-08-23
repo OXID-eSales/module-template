@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace OxidEsales\ModuleTemplate\Tests\Codeception\Helper;
+namespace OxidEsales\ModuleTemplate\Tests\Codeception\Acceptance;
 
 use OxidEsales\Codeception\Module\Translation\Translator;
 use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;

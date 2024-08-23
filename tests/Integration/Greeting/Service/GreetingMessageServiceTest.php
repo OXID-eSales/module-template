@@ -54,7 +54,7 @@ final class GreetingMessageServiceTest extends TestCase
     ): GreetingMessageService {
         return new GreetingMessageService(
             moduleSettings: $moduleSettings ?? $this->createStub(ModuleSettingsServiceInterface::class),
-            shopRequest: $shopRequest ?? $this->createStub(CoreRequest::class),
+            shopRequest: $this->createStub(CoreRequest::class),
             shopLanguage: $shopLanguage ?? $this->createStub(CoreLanguage::class),
         );
     }

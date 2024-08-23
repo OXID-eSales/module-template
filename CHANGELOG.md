@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v3.1.0] - unreleased
+
+### Added
+- Admin controller example in Greeting namespace
+- Template for special greeting admin controller
+- Example with extending of current admin template
+- ``oxNew`` model object factory example in Greeting namespace infrastructure
+
+### Fixed
+- "the input device is not a TTY" error message during github hook if problems found
+
+## [v3.1.0] - Unreleased
+
+### Removed
+- PHP 8.1 support removed
+
 ## [v3.0.0] - 2024-06-27
 
 This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc.1.
@@ -28,6 +44,14 @@ This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc
 - PHP 8.0 support removed
 - Smarty support
 - Migration are not triggered anymore on module activation. Ensure you run them separately after module **Installation**.
+
+## [v2.2.0] - unreleased
+
+### Added
+- Admin controller
+- Template for admin controller
+- Example of extending of current admin template
+- ``oxNew`` object factory example
 
 ## [v2.1.0] - 2024-05-30
 
