@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v3.2.0] - Unreleased
+
+### Removed
+- PHP 8.1 support removed
+
 ## [v3.1.0] - unreleased
 
 ### Added
@@ -14,11 +19,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - "the input device is not a TTY" error message during github hook if problems found
-
-## [v3.1.0] - Unreleased
-
-### Removed
-- PHP 8.1 support removed
 
 ## [v3.0.0] - 2024-06-27
 
