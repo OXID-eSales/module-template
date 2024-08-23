@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Example with extending of current admin template
 - ``oxNew`` model object factory example in Greeting namespace infrastructure
 
+### Fixed
+- "the input device is not a TTY" error message during github hook if problems found
+
 ## [v3.0.0] - 2024-06-27
 
 This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc.1.
