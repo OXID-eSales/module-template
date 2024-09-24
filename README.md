@@ -331,7 +331,7 @@ $ bin/oe-console oe:admin:create-user --admin-email <admin-email> --admin-passow
 ```
 for example
 ```bash
-$ bin/oe-console oe:admin:create-user --admin-email admin@admin.com --admin-password admin
+$ bin/oe-console oe:admin:create-user --admin-email admin@oxid-esales.com --admin-password admin
 ```
 
 
