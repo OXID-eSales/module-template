@@ -17,7 +17,7 @@ use OxidEsales\ModuleTemplate\Extension\Model\User;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(User::class)]
-final class UserModelTest extends IntegrationTestCase
+final class UserTest extends IntegrationTestCase
 {
     public function setUp(): void
     {
@@ -74,6 +74,11 @@ final class UserModelTest extends IntegrationTestCase
         $user->setId('_newuser');
         $user->save();
         $user->setPersonalGreeting('some information about me');
+        $user->assign([
+            'oxusername' => null,
+            'oxpassword' => null,
+            'oxregister' => null,
+        ]);
         $user->save();
         unset($user);
 
