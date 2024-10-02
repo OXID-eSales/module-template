@@ -54,7 +54,7 @@ sonarcloud:
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
     -Dsonar.tests=tests
-    -Donar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
+    -Dsonar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
 
 finish:
   slack_title: 'Module template ({{ .Data.global.git.shop_ref }}) by {{ .Github.Actor }}'
