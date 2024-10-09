@@ -10,8 +10,6 @@
     "license": [
         "GPL-3.0"
     ],
-    "prefer-stable": true,
-    "prefer-dist": true,
     "require": {
         "php": "^8.2",
         "symfony/filesystem": "^6.0"
@@ -29,17 +27,22 @@
         "codeception/module-db": "*",
         "codeception/module-filesystem": "*",
         "codeception/module-webdriver": "*",
-        "oxid-esales/codeception-modules": "dev-b-7.1.x",
-        "oxid-esales/codeception-page-objects": "dev-b-7.1.x",
-        "oxid-esales/developer-tools": "dev-b-7.1.x"
+        "oxid-esales/codeception-modules": "dev-b-7.2.x",
+        "oxid-esales/codeception-page-objects": "dev-b-7.2.x",
+        "oxid-esales/developer-tools": "dev-b-7.2.x"
     },
     "conflict": {
         "oxid-esales/oxideshop-ce": "<7.1"
     },
     "autoload": {
         "psr-4": {
-            "OxidEsales\\ModuleTemplate\\": "src/",
-            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/"
+            "OxidEsales\\ModuleTemplate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/",
+            "OxidEsales\\EshopCommunity\\Tests\\": "./vendor/oxid-esales/oxideshop-ce/tests"
         }
     },
     "scripts": {
@@ -80,7 +83,7 @@
     },
     "config": {
         "allow-plugins": {
-            "oxid-esales/oxideshop-composer-plugin": false,
+            "oxid-esales/oxideshop-composer-plugin": true,
             "oxid-esales/oxideshop-unified-namespace-generator": true
         }
     }
