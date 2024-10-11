@@ -8,7 +8,7 @@
         <!-- Allow logged in user to change his greeting text -->
         {% if oView.canUpdateOemtGreeting() %}
             <!-- Use seo_url function to output SEO style url -->
-            <a id='oemt_update_greeting' class="btn btn-primary" href="{{ seo_url({ ident: oViewConf.getSelfLink()|cat("cl=oemtgreeting") }) }}">{{ translate({ ident: "OEMODULETEMPLATE_GREETING_UPDATE" }) }}</a>
+            <a id='oemt_update_greeting' class="btn btn-primary" href="{{ seo_url({ ident: oViewConf.getSelfLink() ~ "cl=oemt_greeting" }) }}">{{ translate({ ident: "OEMODULETEMPLATE_GREETING_UPDATE" }) }}</a>
         {% endif %}
     </p>
 

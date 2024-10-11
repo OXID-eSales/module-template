@@ -16,12 +16,24 @@ like OXID suggests it could be implemented.
 
 This module also comes with all the quality tools OXID recommends to use.
 
+## Table of contents
+1. [Branch compatibility](#branch-compatibility)
+1. [Installation](#installation)
+   1. [Install and try it out](#install-and-try-it-out)
+   1. [Use as a base for own module](#use-as-a-base-for-own-module)
+   1. [Development installation](#development-installation)
+1. [Idea](#idea)
+1. [Things to be aware of](#things-to-be-aware-of) 
+1. [Running tests and quality tools](#running-tests-and-quality-tools) 
+1. [Additional info](#additional-info) 
+
 ## Branch compatibility
 
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
 * b-6.5.x branch / v1.0.0 version - compatible with OXID eShop compilation b-6.5.x 
 * b-7.0.x branch / v2.x version - compatible with OXID eShop compilation b-7.0.x
-* b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
+* b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x
+* b-7.2.x branch - compatible with OXID eShop compilation 7.2.x
 
 ## Installation
 
@@ -110,7 +122,7 @@ installation for development process:
 2. Clone your created repository to your local shop modules directory:
    ```
    cd <shopRoot>
-   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorPrefix>/<yourModuleRootDirectory> --branch=b-7.0.x
+   git clone <yourModuleGithubRepositoryUrl> source/modules/<yourVendorPrefix>/<yourModuleRootDirectory> --branch=b-7.2.x
    ```
 
 3. Next step is to personalize the original OXID traces with your own vendor, module id, namespace etc. We prepared 
@@ -173,7 +185,7 @@ Installation example for improving and develop the current module is provided he
 1. Clone the module
     ```
     cd <shopRoot>
-    git clone https://github.com/OXID-eSales/module-template source/modules/oe/moduletemplate --branch=b-7.0.x
+    git clone https://github.com/OXID-eSales/module-template source/modules/oe/moduletemplate --branch=b-7.2.x
     ```
 
 2. Install the module from local path
@@ -227,7 +239,7 @@ Put module business logic to a service (which make it easier to test as well) an
 If you need to extend the shop class chain by overwriting, try to stick to the public methods.
 
 #### Sometimes we need to bring our own
-* own module controller (`oemtgreeting` with own template and own translations)
+* own module controller (`oemt_greeting` with own template and own translations)
 * own module admin controller (`oemt_admin_greeting` with own template and own translations)
 * module setting (`oemoduletemplate_GreetingMode`)
 * event subscriber (`OxidEsales\ModuleTemplate\Tracker\Subscriber\BeforeModelUpdate`)
@@ -389,6 +401,8 @@ And then there are some few shop tests marked as `@group quarantine` in the doc 
 be excluded as well.
 
 Ps: a failing shop test might also turn up issues in your module, in that case fix the module and let the test live ;) 
+
+## Additional info
 
 ### Useful links
 

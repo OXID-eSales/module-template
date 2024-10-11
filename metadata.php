@@ -28,7 +28,7 @@ $aModule = [
         \OxidEsales\Eshop\Application\Model\User::class => \OxidEsales\ModuleTemplate\Extension\Model\User::class,
     ],
     'controllers' => [
-        'oemtgreeting' => \OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController::class,
+        'oemt_greeting' => \OxidEsales\ModuleTemplate\Greeting\Controller\GreetingController::class,
         'oemt_admin_greeting' => \OxidEsales\ModuleTemplate\Greeting\Controller\Admin\GreetingAdminController::class,
     ],
     'events' => [

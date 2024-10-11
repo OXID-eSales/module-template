@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v3.2.0] - Unreleased
 
+### Changed
+- Controller name `oemtgreeting` to `oemt_greeting` making it consistent with the other one (`oemt_admin_greeting`)
+
 ### Removed
 - PHP 8.1 support removed
 

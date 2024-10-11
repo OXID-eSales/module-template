@@ -108,7 +108,7 @@ final class UpdateGreetingCest
         $I->wantToTest('not logged in user accessing module controller');
 
         $I->openShop();
-        $I->amOnUrl($I->getShopUrl() . '?cl=oemtgreeting');
+        $I->amOnUrl($I->getShopUrl() . '?cl=oemt_greeting');
 
         $I->see(Translator::translate('OEMODULETEMPLATE_GREETING_UPDATE_COUNT') . '0');
         $I->fillField(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME, 'Hi shopping addict');
