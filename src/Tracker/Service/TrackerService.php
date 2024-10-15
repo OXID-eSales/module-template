@@ -17,7 +17,7 @@ use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 /**
  * Example which we can decorate
  */
-class TrackerService implements TrackerServiceInterface
+readonly class TrackerService implements TrackerServiceInterface
 {
     public function __construct(
         private TrackerRepositoryInterface $trackerRepository,

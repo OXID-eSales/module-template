@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface as PsrLoggerInterface;
 /**
  * Class logs items which goes to basket.
  */
-class BasketProductLoggerService implements BasketProductLoggerServiceInterface
+readonly class BasketProductLoggerService implements BasketProductLoggerServiceInterface
 {
     public const MESSAGE = 'Adding item with id \'%s\'.';
 

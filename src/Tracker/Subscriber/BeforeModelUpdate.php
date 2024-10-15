@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * @extendable-class
  */
-class BeforeModelUpdate implements EventSubscriberInterface
+readonly class BeforeModelUpdate implements EventSubscriberInterface
 {
     public function __construct(
         private TrackerServiceInterface $trackerService

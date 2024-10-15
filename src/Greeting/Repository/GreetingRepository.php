@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Greeting\Repository;
 
-use Doctrine\DBAL\Query\QueryBuilder;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
 use OxidEsales\ModuleTemplate\Extension\Model\User;
 
-class GreetingRepository implements GreetingRepositoryInterface
+readonly class GreetingRepository implements GreetingRepositoryInterface
 {
     public function __construct(
         private QueryBuilderFactoryInterface $queryBuilderFactory,
@@ -22,7 +21,6 @@ class GreetingRepository implements GreetingRepositoryInterface
 
     public function getSavedUserGreeting(string $userId): string
     {
-        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->queryBuilderFactory->create();
 
         $parameters = [

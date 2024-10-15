@@ -15,17 +15,11 @@ use OxidEsales\ModuleTemplate\Greeting\Infrastructure\UserModelFactoryInterface;
 /**
  * @extendable-class
  */
-class UserService implements UserServiceInterface
+readonly class UserService implements UserServiceInterface
 {
-    /**
-     * @var UserModelFactoryInterface
-     */
-    private $userModelFactory;
-
     public function __construct(
-        UserModelFactoryInterface $userModelFactory
+        private UserModelFactoryInterface $userModelFactory,
     ) {
-        $this->userModelFactory = $userModelFactory;
     }
 
     public function getUserById(string $userId): EshopModelUser

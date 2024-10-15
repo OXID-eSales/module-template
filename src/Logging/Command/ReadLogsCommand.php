@@ -21,8 +21,9 @@ class ReadLogsCommand extends Command
     private const LOG_FILE_CONTENT = 'Log file content:';
     public const LOG_FILE_ERROR = '<error>Log file - %s was not found</error>';
 
-    public function __construct(private string $logFilePath)
-    {
+    public function __construct(
+        private readonly string $logFilePath,
+    ) {
         parent::__construct();
     }
 

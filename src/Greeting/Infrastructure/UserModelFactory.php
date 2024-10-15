@@ -13,9 +13,6 @@ use OxidEsales\Eshop\Application\Model\User;
 
 class UserModelFactory implements UserModelFactoryInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function create(): User
     {
         return oxNew(User::class);

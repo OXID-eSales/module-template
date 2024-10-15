@@ -15,7 +15,7 @@ use OxidEsales\ModuleTemplate\Core\Module;
 /**
  * @extendable-class
  */
-class ModuleSettingsService implements ModuleSettingsServiceInterface
+readonly class ModuleSettingsService implements ModuleSettingsServiceInterface
 {
     public const GREETING_MODE_VALUES = [
         self::GREETING_MODE_GENERIC,
@@ -23,7 +23,7 @@ class ModuleSettingsService implements ModuleSettingsServiceInterface
     ];
 
     public function __construct(
-        private ModuleSettingServiceInterface $moduleSettingService
+        private ModuleSettingServiceInterface $moduleSettingService,
     ) {
     }
 

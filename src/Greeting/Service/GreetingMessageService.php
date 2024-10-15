@@ -16,7 +16,7 @@ use OxidEsales\ModuleTemplate\Core\Module as ModuleCore;
 use OxidEsales\ModuleTemplate\Extension\Model\User as TemplateModelUser;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 
-class GreetingMessageService implements GreetingMessageServiceInterface
+readonly class GreetingMessageService implements GreetingMessageServiceInterface
 {
     public function __construct(
         private ModuleSettingsServiceInterface $moduleSettings,
@@ -65,7 +65,7 @@ class GreetingMessageService implements GreetingMessageServiceInterface
         $input = (string)$this->shopRequest->getRequestParameter(ModuleCore::OEMT_GREETING_TEMPLATE_VARNAME);
 
         //in real life add some input validation
-        return (string)substr($input, 0, 253);
+        return substr($input, 0, 253);
     }
 
     /**
