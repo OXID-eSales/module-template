@@ -17,11 +17,11 @@ use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 /**
  * @extendable-class
  */
-class TrackerRepository implements TrackerRepositoryInterface
+readonly class TrackerRepository implements TrackerRepositoryInterface
 {
     public function __construct(
-        private readonly QueryBuilderFactoryInterface $queryBuilderFactory,
-        private readonly ContextInterface $context,
+        private QueryBuilderFactoryInterface $queryBuilderFactory,
+        private ContextInterface $context,
     ) {
     }
 
