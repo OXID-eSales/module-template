@@ -1,25 +1,31 @@
-install_shop_with_modules:
+install:
   cache:
     prepared_shop: false
+  git:
+    repository: 'OXID-eSales/module-template'
+    ref: &ref '{{ .Github.RefName }}'
+    shop_url: 'https://github.com/OXID-eSales/module-template.git'
+    shop_ref: *ref
   composer:
+    root_url: ''
     transform: |
       {
           "require": {
               "oxid-esales/oxideshop-ce": "{{ .Data.global.composer.dev_ref }}",
-              "oxid-esales/twig-component": "{{ .Data.global.composer.dev_ref }}",
               "oxid-esales/twig-admin-theme": "{{ .Data.global.composer.dev_ref }}",
-              "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}",
-              "oxid-esales/module-template": "{{ .Data.global.composer.ref_name }}"
-          },
-          "repositories": {
-            "oxid-esales/module-template": {
-              "type": "git",
-              "url": "https://github.com/OXID-eSales/module-template.git"
-            }
+              "oxid-esales/apex-theme": "{{ .Data.global.composer.dev_ref }}"
           }
       }
   custom_script_container: |
+    vendor/bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 --db-name=example --db-user=root --db-password=root --force
+    vendor/bin/oe-console oe:module:install ./
+    vendor/bin/oe-eshop-doctrine_migration migrations:migrate
     vendor/bin/oe-console oe:module:activate oe_moduletemplate
+    vendor/bin/oe-console oe:theme:activate apex
+
+install_shop_with_modules:
+  composer:
+    root_url: ''
 
 runscript: &runscript
   matrix:
@@ -30,7 +36,7 @@ runscript: &runscript
         "module_template:tests-codeception"
       ]
   module_template:
-    path: 'vendor/oxid-esales/module-template'
+    path: ''
 
 runslim:
   <<: *runscript
@@ -45,7 +51,7 @@ runslim:
 sonarcloud:
   matrix:
     testplan: '["-"]'
-  strip_path: '/var/www/vendor/oxid-esales/module-template/'
+  strip_path: '/var/www/'
   project_key: 'OXID-eSales_module-template'
   project_name: 'oxid-esales/module-template'
   organization: 'oxid-esales'
@@ -54,7 +60,7 @@ sonarcloud:
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
     -Dsonar.tests=tests
-    -Donar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
+    -Dsonar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
 
 finish:
   slack_title: 'Module template ({{ .Data.global.git.shop_ref }}) by {{ .Github.Actor }}'

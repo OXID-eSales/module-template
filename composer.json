@@ -10,9 +10,8 @@
     "license": [
         "GPL-3.0"
     ],
-    "prefer-stable": true,
     "require": {
-        "php": "^8.2|^8.3",
+        "php": "^8.2",
         "symfony/filesystem": "^6.3"
     },
     "minimum-stability": "dev",
@@ -37,8 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "OxidEsales\\ModuleTemplate\\": "src/",
-            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/"
+            "OxidEsales\\ModuleTemplate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/",
+            "OxidEsales\\EshopCommunity\\Tests\\": "./vendor/oxid-esales/oxideshop-ce/tests"
         }
     },
     "scripts": {
@@ -64,7 +68,7 @@
 
         "tests-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --config=tests/ --testsuite=Unit --coverage-clover=tests/Reports/coverage_unit_module-template.xml",
         "tests-integration": "XDEBUG_MODE=coverage vendor/bin/phpunit --bootstrap=/var/www/source/bootstrap.php --config=tests/ --testsuite=Integration --coverage-clover=tests/Reports/coverage_integration_module-template.xml",
-        "tests-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --bootstrap=/var/www/source/bootstrap.php --config=tests/ --coverage-html=tests/reports/coverage",
+        "tests-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --bootstrap=/var/www/source/bootstrap.php --config=tests/ --coverage-html=tests/Reports/CoverageHtml",
 
         "tests-codeception": [
             "Composer\\Config::disableProcessTimeout",
@@ -79,7 +83,7 @@
     },
     "config": {
         "allow-plugins": {
-            "oxid-esales/oxideshop-composer-plugin": false,
+            "oxid-esales/oxideshop-composer-plugin": true,
             "oxid-esales/oxideshop-unified-namespace-generator": true
         }
     }
