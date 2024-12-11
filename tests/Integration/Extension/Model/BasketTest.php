@@ -38,6 +38,7 @@ final class BasketTest extends IntegrationTestCase
             'oxvarcount' => null,
             'oxstockflag' => null,
             'oxshopid' => null,
+            'oxlowstockactive' => 0
         ]);
         $product->save();
     }

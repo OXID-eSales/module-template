@@ -13,15 +13,14 @@ use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServ
 use OxidEsales\ModuleTemplate\Core\Module;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsService;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\String\UnicodeString;
 
 #[CoversClass(ModuleSettingsService::class)]
 final class ModuleSettingsTest extends TestCase
 {
-    /**
-     * @dataProvider getGreetingModeDataProvider
-     */
+    #[DataProvider('getGreetingModeDataProvider')]
     public function testGetGreetingMode(string $value, string $expected): void
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getString']);
@@ -55,9 +54,7 @@ final class ModuleSettingsTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider isPersonalGreetingModeDataProvider
-     */
+    #[DataProvider('isPersonalGreetingModeDataProvider')]
     public function testIsPersonalGreetingMode(string $value, bool $expected): void
     {
         $mssMock = $this->createPartialMock(ModuleSettingService::class, ['getString']);

@@ -14,7 +14,6 @@ use OxidEsales\Codeception\Admin\AdminLoginPage;
 use OxidEsales\Codeception\Admin\AdminPanel;
 use OxidEsales\Codeception\Page\Home;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\Facts\Facts;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 
 /**
@@ -88,9 +87,7 @@ final class AcceptanceTester extends \Codeception\Actor
 
     public function getShopUrl(): string
     {
-        $facts = new Facts();
-
-        return $facts->getShopUrl();
+        return getenv('OXID_SHOP_BASE_URL');
     }
 
     public function openAdmin(): AdminLoginPage

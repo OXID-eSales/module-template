@@ -9,15 +9,16 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\Tracker\Repository;
 
+use Codeception\PHPUnit\TestCase;
+use OxidEsales\EshopCommunity\Core\Di\ContainerFacade;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\QueryBuilderFactoryInterface;
-use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepository;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(TrackerRepository::class)]
-final class TrackerRepositoryTest extends IntegrationTestCase
+final class TrackerRepositoryTest extends TestCase
 {
     public const TEST_TRACKER_ID = '_testoxid';
 
@@ -34,7 +35,7 @@ final class TrackerRepositoryTest extends IntegrationTestCase
 
     private function cleanUpTrackers()
     {
-        $queryBuilder = $this->get(QueryBuilderFactoryInterface::class)->create();
+        $queryBuilder = ContainerFacade::get(QueryBuilderFactoryInterface::class)->create();
         $queryBuilder->delete('oemt_tracker');
         $queryBuilder->execute();
     }
@@ -43,7 +44,7 @@ final class TrackerRepositoryTest extends IntegrationTestCase
     {
         $this->prepareTestData();
 
-        $sut = $this->get(TrackerRepositoryInterface::class);
+        $sut = ContainerFacade::get(TrackerRepositoryInterface::class);
         $tracker = $sut->getTrackerByUserId(self::TEST_USER_ID);
 
         $this->assertSame(self::TEST_TRACKER_ID, $tracker->getId());
@@ -51,7 +52,7 @@ final class TrackerRepositoryTest extends IntegrationTestCase
 
     public function testGetNotExistingTrackerByUserId(): void
     {
-        $sut = $this->get(TrackerRepositoryInterface::class);
+        $sut = ContainerFacade::get(TrackerRepositoryInterface::class);
         $tracker = $sut->getTrackerByUserId('_notexisting');
 
         $this->assertEmpty($tracker->getId());

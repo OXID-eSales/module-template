@@ -20,6 +20,7 @@ use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use OxidEsales\ModuleTemplate\Tracker\Model\TrackerModel;
 use OxidEsales\ModuleTemplate\Tracker\Repository\TrackerRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /*
  * We want to test controller behavior going 'full way'.
@@ -51,9 +52,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerOemtGreeting
-     */
+    #[DataProvider('providerOemtGreeting')]
     public function testUpdateGreeting(bool $hasUser, string $mode, string $expected, int $count): void
     {
         $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
@@ -78,9 +77,7 @@ final class GreetingControllerTest extends IntegrationTestCase
         $this->assertSame($count, $tracker->getCount());
     }
 
-    /**
-     * @dataProvider providerRender
-     */
+    #[DataProvider('providerRender')]
     public function testRender(bool $hasUser, string $mode, array $expected): void
     {
         $this->createTestTracker();

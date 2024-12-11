@@ -12,11 +12,17 @@ modules:
         license: '%license_key%'
     - WebDriver:
         url: '%SHOP_URL%'
-        host: '%SELENIUM_SERVER_HOST%'
-        browser: '%BROWSER_NAME%'
+        browser: '%BROWSER%'
         port: '%SELENIUM_SERVER_PORT%'
-        window_size: 1920x1080
+        host: '%SELENIUM_SERVER_HOST%'
+        window_size: maximize
         clear_cookies: true
+        restart: true
+        capabilities:
+          chromeOptions:
+            excludeSwitches: [ 'enable-automation' ]
+            prefs:
+              'credentials_enable_service': false
     - Db:
         dsn: 'mysql:host=%DB_HOST%;dbname=%DB_NAME%;charset=utf8'
         user: '%DB_USERNAME%'
@@ -48,7 +54,7 @@ modules:
           - \OxidEsales\Codeception\Module\Database
           - Db
     - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
-        shop_path: '%SHOP_SOURCE_PATH%'
+        shop_path: '%PROJECT_ROOT%/source'
         paths:
           - 'Application/views/apex'
           - 'Application/views/admin_twig'

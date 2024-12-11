@@ -9,18 +9,28 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Integration\ProductVote\Dao;
 
-use OxidEsales\EshopCommunity\Tests\Integration\IntegrationTestCase;
+use OxidEsales\EshopCommunity\Tests\ContainerTrait;
 use OxidEsales\ModuleTemplate\ProductVote\Dao\ProductVoteDaoInterface;
 use OxidEsales\ModuleTemplate\ProductVote\Dao\VoteResultDao;
 use OxidEsales\ModuleTemplate\ProductVote\Dao\VoteResultDaoInterface;
 use OxidEsales\ModuleTemplate\ProductVote\DataObject\ProductVote;
+use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 
 #[CoversClass(VoteResultDao::class)]
 final class ResultDaoTest extends IntegrationTestCase
 {
+    use ContainerTrait;
+
     private const TEST_PRODUCT_ID = '_testproduct';
+
+    protected function tearDown(): void
+    {
+        $this->cleanUpVotes();
+
+        parent::tearDown();
+    }
 
     #[Test]
     public function calculateNoVotes(): void

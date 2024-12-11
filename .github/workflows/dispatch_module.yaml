@@ -12,7 +12,7 @@ on:
           - 'PHP8.2/MariaDB11'
           - 'PHP8.3/MySQL8.0'
           - 'PHP8.3/MariaDB11'
-        default: 'PHP8.2/MySQL8.0'
+        default: 'PHP8.3/MySQL8.0'
         description: 'Limit to one PHP/MySQL combination'
       use_dev_version:
         type: choice
@@ -42,7 +42,7 @@ jobs:
               ;;
           esac
           # shellcheck disable=SC2088
-          TESTPLAN="~/defaults/7.2.x.yaml,${LIMIT}~/module-template.yaml"
+          TESTPLAN="~/defaults/8.0.x.yaml,${LIMIT}~/module-template.yaml"
           echo "testplan=${TESTPLAN}" | tee -a "${GITHUB_OUTPUT}"
 
   dispatch_stable:

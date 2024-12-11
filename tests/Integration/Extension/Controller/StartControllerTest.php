@@ -17,6 +17,7 @@ use OxidEsales\ModuleTemplate\Extension\Controller\StartController;
 use OxidEsales\ModuleTemplate\Settings\Service\ModuleSettingsServiceInterface;
 use OxidEsales\ModuleTemplate\Tests\Integration\IntegrationTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /*
  * Here we have full integration test cases for a what we call 'chain extended' shop class.
@@ -46,9 +47,7 @@ final class StartControllerTest extends IntegrationTestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider providerCanUpdateOemtGreeting
-     */
+    #[DataProvider('providerCanUpdateOemtGreeting')]
     public function testCanUpdateOemtGreeting(bool $hasUser, string $mode, bool $expected): void
     {
         $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
@@ -64,10 +63,9 @@ final class StartControllerTest extends IntegrationTestCase
     }
 
     /**
-     * @dataProvider providerGetOemtGreeting
-     *
      * @param mixed $expect
      */
+    #[DataProvider('providerGetOemtGreeting')]
     public function testGetOemtGreeting(bool $hasUser, string $mode, $expect): void
     {
         $moduleSettings = $this->get(ModuleSettingsServiceInterface::class);
