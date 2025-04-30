@@ -29,7 +29,8 @@ This module also comes with all the quality tools OXID recommends to use.
 
 ## Branch compatibility
 
-* b-7.2.x branch - compatible with OXID eShop compilation 7.2.x and the respective branch
+* b-7.3.x branch - compatible with OXID eShop compilation 7.3.x and the respective branch
+* b-7.2.x branch / v4.x version - compatible with OXID eShop compilation 7.2.x and the respective branch
 * b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
 * b-7.0.x branch / v2.x version - compatible with OXID eShop compilation b-7.0.x
 * b-6.5.x branch / v1.0.0 version - compatible with OXID eShop compilation b-6.5.x

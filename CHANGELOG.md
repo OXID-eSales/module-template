@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Rename DataType namespace to DataObject in ProductVote domain
 
+### Added
+- PHP 8.4 support
+
 ### Removed
 - Remove unnecessary DataMapper functionality in ProductVote domain
 
