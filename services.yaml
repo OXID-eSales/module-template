@@ -1,19 +1,5 @@
-parameters:
-  app.log_file_path: '/var/www/source/log/oe_moduletemplate.log'
-
-imports:
-  - { resource: src/Greeting/services.yaml }
-  - { resource: src/Logging/services.yaml }
-  - { resource: src/ProductVote/services.yaml }
-  - { resource: src/Settings/services.yaml }
-  - { resource: src/Tracker/services.yaml }
-
 services:
 
   _defaults:
     public: false
     autowire: true
-
-  OxidEsales\ModuleTemplate\Core\Registry:
-    class: OxidEsales\Eshop\Core\Registry
-    public: true

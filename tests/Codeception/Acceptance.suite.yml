@@ -49,7 +49,7 @@ modules:
           - Db
     - \OxidEsales\Codeception\Module\Translation\TranslationsModule:
         shop_path: '%SHOP_SOURCE_PATH%'
-        paths:
+        paths: "Application/views/flow/translations,Application/views/admin"
           - 'Application/views/apex'
           - 'Application/views/admin_twig'
           - '%SOURCE_RELATIVE_PACKAGE_PATH%/translations'

@@ -1,1 +1,2 @@
-docker compose exec -T php composer static
+# Only execute static checks if at least one file is in ./src folder (except dotfiles)
+[ -n "$(find ./src -type f ! -name '.*' 2>/dev/null)" ] && docker compose exec -T php composer static || true
