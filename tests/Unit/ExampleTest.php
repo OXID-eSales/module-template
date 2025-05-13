@@ -9,12 +9,14 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit;
 
+use OxidEsales\ModuleTemplate\Example;
 use PHPUnit\Framework\TestCase;
 
 final class ExampleTest extends TestCase
 {
     public function testUnitExample(): void
     {
-        $this->assertTrue(true);
+        $example = new Example();
+        $this->assertTrue($example->test());
     }
 }
