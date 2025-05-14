@@ -20,12 +20,11 @@ This module also comes with all the quality tools OXID recommends to use.
 1. [Branch compatibility](#branch-compatibility)
 2. [The Idea](#the-idea)
 3. [Goals](#goals)
-4. [Examples](#examples)
-5. [Install and try it out](#install-and-try-it-out)
-6. [Use as a base for own module](#use-as-a-base-for-own-module)
-7. [Things to be aware of](#things-to-be-aware-of)
-8. [Running tests and quality tools](#running-tests-and-quality-tools)
-9. [Additional info](#additional-info)
+4. [Install and try it out](#install-and-try-it-out)
+5. [Use as a base for own module](#use-as-a-base-for-own-module)
+6. [Things to be aware of](#things-to-be-aware-of)
+7. [Running tests and quality tools](#running-tests-and-quality-tools)
+8. [Additional info](#additional-info)
 
 ## Branch compatibility
 
@@ -38,93 +37,16 @@ This module also comes with all the quality tools OXID recommends to use.
 
 ## The Idea
 
-OXID eSales would like to provide a lightweight reusable example module incorporating
-our best practices recommendations to be used as a template for developing own module solutions.
-
-Story:
-- Module will extend a block on shop start page to show a greeting message (visible when module is active).
-- Module will have a setting to switch between generic greeting message for a logged in user and a personal custom greeting. The Admin's choice which way it will be.
-- A logged in user will be able to set a custom greeting depending on module setting. Press the button on start page and be redirected to a module controller which handles the input.
-- User custom greetings are saved via shop model save method. We subscribe to BeforeModelUpdate to track how often a user changed his personal greeting.
-- Tracking of this information will be done in a new database table to serve as an example for module's own shop model.
-- Module will extend the shop's basket model to add info to module specific log file when an item is added into basket. Logging  can be enabled or disabled depending on module setting.
-- Module will have console command `oetemplate:logger:read` to read log file.
-
-```bash
-./vendor/bin/oe-console oetemplate:logger:read
-```
+OXID eSales would like to provide a lightweight reusable module to be used as a template for developing own module solutions.
 
 ## Goals
 
-There are three main goals this repository is intended to help with:
+There are two main goals this repository is intended to help with:
 
-* Install and try out the module with simple examples to most common development questions.
 * The provided solution can be used as a base for your own module. It will help creating
-  the personalized module base with all the examples listed in the Examples section.
+  the personalized module base
 * The repository can be used for creating a clean skeleton with only preconfigured
   OXID recommended quality tools for your new module.
-
-Please jump to the section that fits your needs.
-
-## Examples
-
-The repository contains examples of following cases and more:
-
-* [Extending of shop controllers and models](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/metadata.php#L25)
-  * extending a shop model (`OxidEsales\ModuleTemplate\Extension\Model\User`) / (`OxidEsales\ModuleTemplate\Extension\Model\Basket`)
-  * extending a shop controller (`OxidEsales\ModuleTemplate\Extension\Controller\StartController`)
-
-* [New controllers](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/metadata.php#L30)
-  * own module controller (`oemtgreeting` with own template and own translations)
-  * own module admin controller (`oemt_admin_greeting` with own template and own translations)
-
-* [Using Symfony DI](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/services.yaml)
-  * [Injection of Registry classes with bind](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/src/Greeting/services.yaml#L5)
-
-* [Migrations](https://github.com/OXID-eSales/module-template/tree/b-7.2.x/migration)
-  * extending a shop database table (`oxuser`)
-
-* Accessing the database
-  * model with a database (`OxidEsales\ModuleTemplate\Tracker\Model\GreetingTracker`)
-  * ``oxNew`` object factory example (`OxidEsales\ModuleTemplate\Greeting\Infrastructure\UserModelFactory`)
-  * [DAO](src/ProductVote/Dao)
-
-* [Various types of module settings](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/metadata.php#L38)
-
-* Templates
-  * [creating templates for your module](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/views/twig/templates/greetingtemplate.html.twig)
-  * [extending of oxid theme templates or blocks](https://github.com/OXID-eSales/module-template/tree/b-7.2.x/views/twig/extensions/themes)
-    * extending a shop admin template block (`admin_user_main_form` - only an extension of a block, without functionality)
-    * extending a shop template block (`start_newest_articles`)
-
-* Using the translations for your module specific phrases
-  * [in admin](https://github.com/OXID-eSales/module-template/tree/b-7.2.x/views/admin_twig)
-  * [in frontend](https://github.com/OXID-eSales/module-template/tree/b-7.2.x/translations)
-
-* Events and listeners
-  * [Subscribing to shop events](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/src/Tracker/Subscriber/BeforeModelUpdate.php)
-
-* Testing your module backend and frontend part
-  * [Composer aliases for easy running of tests and quality tools](https://github.com/OXID-eSales/module-template/blob/b-7.2.x/composer.json#L48)
-  * [Using the github actions as CI tool with all recommended tools preconfigured for you.](https://github.com/OXID-eSales/module-template/tree/b-7.2.x/.github)
-
-**HINTS**:
-* Only extend the shop core if there is no other way like listen and handle shop events,
-  decorate/replace some DI service. 
-* Your module might be one of many in the class chain and you should act accordingly (always ensure 
-  to call the parent method and return the result). 
-* When extending shop classes with additional methods, best prefix those methods in order to not end 
-  up with another module picking the same method name and wreacking havoc.
-* In case there is no other way than to extend existing shop methods try the minimal invasion principle.
-  Put module business logic to a service (which make it easier to test as well) and call the service in the extended shop class.
-  If you need to extend the shop class chain by overwriting, try to stick to the public methods.
-
-#### Not yet in here but might come later:
-* example for payment gateway extension
-* seo url for module controller
-* to redirect or not to redirect from inside the shop core
-* graphql query/mutation example
-* extending the internal part
 
 ## Install and try it out
 
@@ -144,7 +66,7 @@ and [activate the module](https://docs.oxid-esales.com/developer/en/latest/devel
 
 In case you'd like to use this module as a template for your own module, this section is for you.
 
-**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.2.x. For other
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.3.x. For other
 versions, refer to the version specific branch.
 
 Before starting to do something, please, read the whole section once, then decide on required questions, decide 
@@ -199,10 +121,6 @@ As an outcome of this step, you should have a repository with one "Initial commi
 
 To personalize the module, use the "bin/personalize.sh" script. This script will prompt you for required information and do the work.
 
-To cleanup the module from all current examples and make it a clean skeleton, use the "bin/cleanexamples.sh" script. This script will remove all example solutions code.
-
-Its not mandatory to cleanup the module from examples, but you have this option if you want to start from the clean skeleton.
-
 For this step, clone your module repository anywhere to your local directory and run the desired scripts.
 
 ```bash
@@ -212,15 +130,9 @@ cd myModule
 // Run the personalize script
 ./bin/personalize.sh
 
-// Run the clean examples script if you want to start from the clean skeleton
-./bin/cleanexamples.sh
-
-git commit -am "Personalize and cleanup the module"
+git commit -am "Personalize the module"
 git push origin
 ```
-
-Please note that the module comes with a database table, translations, settings and some templates which still have the original
-names after personalization, if cleanup was not done. Just keep an eye on all that's prefixed 'OEMT', 'oemt', 'OEMODULETEMPLATE' etc.
 
 Also, you will need to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
 credentials and names. For running SonarCloud as part of the steps in GitHub workflow you
@@ -235,25 +147,41 @@ or do it any other way you prefer, but make sure to reconfigure our preconfigure
 ### Development installation
 
 We recommend developing the module as independent as possible. This means that the module for development should
-be installed as a root package, with its own strict dependencies if such are needed.
+be installed as a [root package](https://getcomposer.org/doc/04-schema.md#root-package), with its own strict dependencies if such are needed.
 
-Consider using our docker based SDK and our ["Recipes"](https://github.com/OXID-eSales/docker-eshop-sdk-recipes) to 
-install this module development variant. Make sure you have all your current docker containers stopped before starting on this.
+The next section shows how to install the module as a root package by using the OXID eShop SDK.
 
-```bash
-cd ~/Projects
-echo ModuleTemplate && git clone https://github.com/OXID-eSales/docker-eshop-sdk.git $_ && cd $_
-git clone --recurse-submodules https://github.com/OXID-eSales/docker-eshop-sdk-recipes recipes/oxid-esales
+In case of different environment usage, please adjust by your own needs.
 
-// Important: In case you want to develop your module created from module template, edit the recipe with your 
-// module repository and module id first
+### Development installation on OXID eShop SDK
 
-./recipes/oxid-esales/module-template/b-7.2.x-root.sh -eCE
+The installation instructions below are shown for the current [SDK](https://github.com/OXID-eSales/docker-eshop-sdk)
+for shop 7.3. Make sure your system meets the requirements of the SDK.
+
+0. Ensure all docker containers are down to avoid port conflicts
+
+1. Clone the SDK for the new project
+```shell
+echo MyProject && git clone https://github.com/OXID-eSales/docker-eshop-sdk.git $_ && cd $_
 ```
+
+2. Clone the repository to the source directory
+```shell
+git clone --recurse-submodules https://github.com/OXID-eSales/graphql-base-module.git --branch=b-7.3.x ./source
+```
+
+3. Run the recipe to setup the development environment, you can decide which shop edition to install. Omitting the flag installs EE.
+```shell
+./source/recipes/setup-development.sh -s CE
+```
+
+You should be able to access the shop with http://localhost.local and the admin panel with http://localhost.local/admin
+(credentials: noreply@oxid-esales.com / admin)
+
 
 ## Things to be aware of
 
-The module template is intended to act as a tutorial module so keep your eyes open for comments in the code.
+The module template is intended to act as a skeleton module so keep your eyes open for comments in the code.
 
 **NOTES:** 
 * Acceptance tests are way easier to write if you put an id on relevant fields and buttons in the templates. 
@@ -270,12 +198,6 @@ Migrations have to be run via console command (`./vendor/bin/oe-eshop-doctrine_m
 ./vendor/bin/oe-eshop-doctrine_migration migrations:migrate oe_moduletemplate
 ```
 
-NOTE: Existing migrations must not be changed. If the database needs a change, add a new migration file and change to your needs:
-
-```bash
-./vendor/bin/oe-eshop-doctrine_migration migrations:generate oe_moduletemplate
-```
-
 For more information, check the [developer documentation](https://docs.oxid-esales.com/developer/en/latest/development/tell_me_about/migrations.html).
 
 
@@ -284,10 +206,15 @@ As already mentioned above, in the 7.x versions of OXID eShop, the module code o
 namespace needs to point there. In our case this looks like
 
 ```bash
-   "autoload": {
+    "autoload": {
         "psr-4": {
-            "OxidEsales\\ModuleTemplate\\": "src/",
-            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/"
+            "OxidEsales\\ModuleTemplate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OxidEsales\\ModuleTemplate\\Tests\\": "tests/",
+            "OxidEsales\\EshopCommunity\\Tests\\": "./vendor/oxid-esales/oxideshop-ce/tests"
         }
     },
 ```
@@ -345,24 +272,10 @@ Codeception tests take a while to run, so try to navigate the way between coveri
 cases and overtesting. 
 
 We definitely need some acceptance tests if the module affects the 
-frontend like in our example. If the module breaks the frontend, we need to see it asap.
-
-In our case, we cover the reaction of the startpage to the different possibilities
-* generic greeting mode (with/without logged in user)
-* personal greeting mode (with/without logged in user)
-* updating the greeting mode
-* ensure module can be activated/deactivated without destroying the shop
-* ensure edge case safety like not logged in user directly calling module controller
+frontend. If the module breaks the frontend, we need to see it asap.
 
 The great thing about codeception tests is - they can create screenshot and html
 output in failure case, so you literally get a picture of the fail (`tests/Coreception/_output/`).
-
-### Development Environment - Docker SDK
-
-You can install the shop on whatever system fits your needs, but please check the 
-[OXID Docker SDK recipes](https://github.com/OXID-eSales/docker-eshop-sdk-recipes).
-That's what we use in OXID Development to quickly set up whatever development environment we need and
-we are constantly trying to improve them.
 
 ### Github Actions Workflow
 
@@ -401,7 +314,6 @@ Ps: a failing shop test might also turn up issues in your module, in that case f
 * Bug tracker - https://bugs.oxid-esales.com
 * Developer Documentation - https://docs.oxid-esales.com/developer/en/latest/
 * Quality Tools and Requirements - https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/quality.html
-* Docker SDK recipes - https://github.com/OXID-eSales/docker-eshop-sdk-recipes
 * Docker SDK - https://github.com/OXID-eSales/docker-eshop-sdk
 
 ### Contact us
