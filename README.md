@@ -1,6 +1,6 @@
 # OXID eShop Module Template
 
-[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml/badge.svg?branch=b-7.1.x)](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml)
+[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml/badge.svg?branch=b-7.3.x)](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml)
 [![Latest Version](https://img.shields.io/packagist/v/OXID-eSales/module-template?logo=composer&label=latest&include_prereleases&color=orange)](https://packagist.org/packages/oxid-esales/module-template)
 [![PHP Version](https://img.shields.io/packagist/php-v/oxid-esales/module-template)](https://github.com/oxid-esales/module-template)
 
@@ -10,9 +10,6 @@
 
 
 Reusable module template for extending OXID eShop core functionality.
-
-The module template contains examples for the most common use cases (see below)
-like OXID suggests it could be implemented. 
 
 This module also comes with all the quality tools OXID recommends to use.
 
