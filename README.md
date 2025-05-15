@@ -234,7 +234,6 @@ $ composer phpmd
 - run `composer update` in module root directory
 
 ```bash
-$ cd vendor/oxid-esales/module-template
 $ composer update
 ```
 

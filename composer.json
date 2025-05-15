@@ -8,7 +8,7 @@
         "eShop"
     ],
     "license": [
-        "GPL-3.0"
+        "proprietary"
     ],
     "require": {
         "php": "^8.2",
