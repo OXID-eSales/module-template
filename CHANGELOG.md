@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - PHP 8.4 support
+- Improved information on the next steps in the personalization script
 
 ## [v4.0.0] - 2024-11-28
 This is stable release for v4.0.0. No changes have been made since v4.0.0-rc.1.

@@ -67,10 +67,12 @@ perl -pi -e "s#name: OXID Module Template#name: $vendor_name $module_name#g;" ./
 
 # Prepare ./CHANGELOG.md file
 perl -pi -e "s#OXID eShop Module Template#$vendor_name $module_name#g;" ./CHANGELOG.md
-perl -0777pi\
-  -e 's#(^.*?\#\# \[1\.0\.0\] - Unreleased)(.*?)$#\1#gs'\
-  ./CHANGELOG.md
+perl -0777 -pe 's/^## .*\z/## [v1.0.0] - Unreleased/ms' CHANGELOG.md > CHANGELOG.tmp && mv CHANGELOG.tmp CHANGELOG.md
+
+# Clean the LICENSE file
+echo "TODO: Your license content goes here" > ./LICENSE
 
 echo -e "\e[42mYour module is now ready to go and be adapted to your needs. Please review and commit the changes.\e[0m"
 echo -e "\e[43mPlease search for TODO text and adjust there!\e[0m"
-echo -e "\e[43mRemember to remove the personalization script and Update your README!\e[0m"
+echo -e "\e[43mRemember to remove the personalization script!\e[0m"
+echo -e "\e[43mRemember to update your README and LICENSE files!\e[0m"
