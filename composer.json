@@ -1,6 +1,6 @@
 {
     "name": "oxid-esales/module-template",
-    "description": "Module with solution examples",
+    "description": "Module Template – Clean Skeleton for OXID Modules",
     "type": "oxideshop-module",
     "keywords": [
         "oxid",

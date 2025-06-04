@@ -7,7 +7,6 @@ package_name='oxid-esales/module-template'
 namespace='OxidEsales\ModuleTemplate'
 module_id='oe_moduletemplate'
 company='OXID eSales AG'
-target_directory='oe/moduletemplate'
 
 echo -e "\nIn order to convert this module template to your own, you will be asked for some information."
 echo -e "\nPlease enter package name (original: $package_name):"
@@ -53,13 +52,6 @@ perl -pi -e "s#OxidEsales Module Template \(OEMT\)#CHANGE MY TITLE#g;" ./metadat
 echo -e "\nPlease enter company name (original: $company)"
 read company_input
 find . -type f \( ! -name "personalize.sh" \) -exec grep -l "$company" {} \; |xargs perl -pi -e "s#$company#$company_input#g;"
-
-#target directory
-composed_target_directory="${vendor_prefix}/${module_root_directory}"
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./composer.json
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./metadata.php
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./tests/Codeception/Acceptance.suite.yml
-perl -pi -e "s#$target_directory#$composed_target_directory#g;" ./.github/oxid-esales/module-template.yaml
 
 #update acceptance suite
 perl -pi -e "s#$package_name#$package_name_input#g;" ./tests/Codeception/Acceptance.suite.yml

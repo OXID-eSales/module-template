@@ -2,9 +2,9 @@ install:
   cache:
     prepared_shop: false
   git:
-    repository: 'OXID-eSales/module-template'
+    repository: '<yourVendorName>/<yourModuleName>'
     ref: &ref '{{ .Github.RefName }}'
-    shop_url: 'https://github.com/OXID-eSales/module-template.git'
+    shop_url: '<LinkToModuleRepository>'
     shop_ref: *ref
   composer:
     root_url: ''
@@ -53,9 +53,9 @@ sonarcloud:
   matrix:
     testplan: '["-"]'
   strip_path: '/var/www/'
-  project_key: 'OXID-eSales_module-template'
-  project_name: 'oxid-esales/module-template'
-  organization: 'oxid-esales'
+  project_key: '<yourVendorName>_<yourModuleName>'
+  project_name: '<yourVendorName>/<yourModuleName>'
+  organization: '<yourVendorName>>'
   parameters: |
     -Dsonar.language=php \
     -Dsonar.scm.provider=git \

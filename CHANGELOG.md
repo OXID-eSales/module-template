@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Rename DataType namespace to DataObject in ProductVote domain
+- Moved examples to [Example Module](https://github.com/OXID-eSales/examples-module)
+- Change module to provide clean skeleton only
 
 ### Added
 - PHP 8.4 support
