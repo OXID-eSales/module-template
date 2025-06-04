@@ -7,15 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [v5.0.0] - Unreleased
 
 ### Changed
-- Rename DataType namespace to DataObject in ProductVote domain
 - Moved examples to [Example Module](https://github.com/OXID-eSales/examples-module)
 - Change module to provide clean skeleton only
 
 ### Added
 - PHP 8.4 support
-
-### Removed
-- Remove unnecessary DataMapper functionality in ProductVote domain
 
 ## [v4.0.0] - 2024-11-28
 This is stable release for v4.0.0. No changes have been made since v4.0.0-rc.1.

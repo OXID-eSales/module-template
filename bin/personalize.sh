@@ -17,9 +17,9 @@ perl -pi -e "s#$package_name#$package_name_input#g;" ./composer.json
 # Prepare ./.github/workflows/module-template.yaml
 perl -pi -e "s#$package_name#$package_name_input#g;" ./.github/oxid-esales/module-template.yaml
 perl -pi -e "s#repository: 'OXID-eSales/module-template'#repository: '$package_name_input'#g;" ./.github/oxid-esales/module-template.yaml
-perl -pi -e "s#shop_url: '.*?'#shop_url: 'LINK TO MY REPO'#g;" ./.github/oxid-esales/module-template.yaml
-perl -pi -e "s#project_key: 'OXID-eSales_module-template'#project_key: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
-perl -pi -e "s#organization: 'oxid-esales'#organization: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#shop_url: '.*?'#shop_url: 'TODO: PUT THE LINK TO MY REPO'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#project_key: 'OXID-eSales_module-template'#project_key: 'TODO: CHANGE SONARCLOUD PROJECT KEY'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#organization: 'oxid-esales'#organization: 'TODO: CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
 
 echo -e "\nPlease enter module namespace (original: $namespace):"
 # Prepare original namespace for replacement in composer.json file
@@ -41,9 +41,9 @@ namespace=$(echo "$namespace" | perl -pe 's#\\\\\\\\#\\\\#g')
 namespace_input=$(echo "$namespace_input" | perl -pe 's#\\\\\\\\#\\\\#g')
 find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$namespace" {} \; |xargs perl -pi -e "s#$namespace#$namespace_input#g;"
 
-services_namespace=$(echo "$namespace" | perl -pe 's#\\\\#\\\\\\\\#g')
-services_namespace_input=$(echo "$namespace_input" | perl -pe 's#\\\\#\\\\\\\\#g')
-find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$services_namespace" {} \; |xargs perl -pi -e "s#$services_namespace#$services_namespace_input#g;"
+#services_namespace=$(echo "$namespace" | perl -pe 's#\\\\#\\\\\\\\#g')
+#services_namespace_input=$(echo "$namespace_input" | perl -pe 's#\\\\#\\\\\\\\#g')
+#find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$services_namespace" {} \; |xargs perl -pi -e "s#$services_namespace#$services_namespace_input#g;"
 
 echo -e "\nPlease enter module id (original: $module_id):"
 read -r composed_module_id
@@ -52,7 +52,7 @@ read -r composed_module_id
 find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$module_id" {} \; |xargs perl -pi -e "s#$module_id#$composed_module_id#g;"
 
 # Change title in metadata.php file
-perl -pi -e "s#OxidEsales Module Template \(OEMT\)#CHANGE MY TITLE#g;" ./metadata.php
+perl -pi -e "s#OxidEsales Module Template \(OEMT\)#TODO: CHANGE MY TITLE#g;" ./metadata.php
 
 #File headers
 echo -e "\nPlease enter company name (original: $company)"
@@ -71,4 +71,6 @@ perl -0777pi\
   -e 's#(^.*?\#\# \[1\.0\.0\] - Unreleased)(.*?)$#\1#gs'\
   ./CHANGELOG.md
 
-echo -e "Please review and commit the changes. Your module is now ready to go and be adapted to your needs."
+echo -e "\e[42mYour module is now ready to go and be adapted to your needs. Please review and commit the changes.\e[0m"
+echo -e "\e[43mPlease search for TODO text and adjust there!\e[0m"
+echo -e "\e[43mRemember to remove the personalization script and Update your README!\e[0m"
