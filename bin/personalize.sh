@@ -13,7 +13,13 @@ echo -e "\nPlease enter package name (original: $package_name):"
 read -r package_name_input
 
 perl -pi -e "s#$package_name#$package_name_input#g;" ./composer.json
+
+# Prepare ./.github/workflows/module-template.yaml
 perl -pi -e "s#$package_name#$package_name_input#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#repository: 'OXID-eSales/module-template'#repository: '$package_name_input'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#shop_url: '.*?'#shop_url: 'LINK TO MY REPO'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#project_key: 'OXID-eSales_module-template'#project_key: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
+perl -pi -e "s#organization: 'oxid-esales'#organization: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
 
 echo -e "\nPlease enter module namespace (original: $namespace):"
 # Prepare original namespace for replacement in composer.json file
@@ -55,10 +61,6 @@ find . -type f \( ! -name "personalize.sh" \) -exec grep -l "$company" {} \; |xa
 
 #update acceptance suite
 perl -pi -e "s#$package_name#$package_name_input#g;" ./tests/Codeception/Acceptance.suite.yml
-
-# Prepare ./.github/workflows/development.yml file
-perl -pi -e "s#project_key: 'OXID-eSales_module-template'#project_key: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
-perl -pi -e "s#organization: 'oxid-esales'#organization: 'CHANGE SONARCLOUD ORGANIZATION'#g;" ./.github/oxid-esales/module-template.yaml
 
 # Prepare ./migration/migrations.yml file
 perl -pi -e "s#name: OXID Module Template#name: $vendor_name $module_name#g;" ./migration/migrations.yml
