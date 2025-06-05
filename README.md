@@ -13,6 +13,8 @@ Reusable module template for extending OXID eShop core functionality.
 
 This module also comes with all the quality tools OXID recommends to use.
 
+If you are looking for a module with code examples, please check out the [examples-module](https://github.com/OXID-eSales/examples-module).
+
 ## Table of contents
 1. [Branch compatibility](#branch-compatibility)
 2. [The Idea](#the-idea)
@@ -121,12 +123,16 @@ To personalize the module, use the "bin/personalize.sh" script. This script will
 For this step, clone your module repository anywhere to your local directory and run the desired scripts.
 
 ```bash
+// Clone your module repository anywhere
 git clone <yourGitRepositoryUrl> myModule
 cd myModule
 
 // Run the personalize script
 ./bin/personalize.sh
 
+// Search for the "TODO" keywords in the code and replace them with your information
+
+// Commit and push your personalized module, after this, install it for development and continue from there 
 git commit -am "Personalize the module"
 git push origin
 ```
@@ -306,6 +312,7 @@ Ps: a failing shop test might also turn up issues in your module, in that case f
 
 ### Useful links
 
+* Module with useful code examples - https://github.com/OXID-eSales/examples-module
 * Vendor home page - https://www.oxid-esales.com
 * Bug tracker - https://bugs.oxid-esales.com
 * Developer Documentation - https://docs.oxid-esales.com/developer/en/latest/
