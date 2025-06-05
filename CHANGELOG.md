@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v5.0.0] - Unreleased
+## [v5.0.0-rc.1] - 2025-06-05
 
 ### Changed
 - Moved examples to [Example Module](https://github.com/OXID-eSales/examples-module)

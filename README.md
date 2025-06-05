@@ -27,7 +27,7 @@ If you are looking for a module with code examples, please check out the [exampl
 
 ## Branch compatibility
 
-* b-7.3.x branch - compatible with OXID eShop compilation 7.3.x and the respective branch
+* b-7.3.x branch / v5.x version - compatible with OXID eShop compilation 7.3.x and the respective branch
 * b-7.2.x branch / v4.x version - compatible with OXID eShop compilation 7.2.x and the respective branch
 * b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
 * b-7.0.x branch / v2.x version - compatible with OXID eShop compilation b-7.0.x
@@ -175,7 +175,7 @@ git clone --recurse-submodules https://github.com/OXID-eSales/module-template.gi
 
 3. Run the recipe to setup the development environment, you can decide which shop edition to install. Omitting the flag installs EE.
 ```shell
-./source/recipes/setup-development.sh -s CE
+./source/recipes/setup-development.sh -e CE
 ```
 
 You should be able to access the shop with http://localhost.local and the admin panel with http://localhost.local/admin
