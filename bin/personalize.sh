@@ -47,8 +47,11 @@ read -r composed_module_id
 # Replace module id everywhere except in this file
 find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$module_id" {} \; |xargs perl -pi -e "s#$module_id#$composed_module_id#g;"
 
-# Change title in metadata.php file
-perl -pi -e "s#OxidEsales Module Template \(OEMT\)#TODO: CHANGE MY TITLE#g;" ./metadata.php
+# Change title and version in metadata.php file
+perl -pi \
+  -e "s#OxidEsales Module Template \(OEMT\)#TODO: CHANGE MY TITLE#g;" \
+  -e "s/'version'\s*=>\s*'[^']*'/'version' => '1.0.0'/" \
+  ./metadata.php
 
 #File headers
 echo -e "\nPlease enter company name (original: $company)"
