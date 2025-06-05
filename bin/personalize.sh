@@ -41,10 +41,6 @@ namespace=$(echo "$namespace" | perl -pe 's#\\\\\\\\#\\\\#g')
 namespace_input=$(echo "$namespace_input" | perl -pe 's#\\\\\\\\#\\\\#g')
 find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$namespace" {} \; |xargs perl -pi -e "s#$namespace#$namespace_input#g;"
 
-#services_namespace=$(echo "$namespace" | perl -pe 's#\\\\#\\\\\\\\#g')
-#services_namespace_input=$(echo "$namespace_input" | perl -pe 's#\\\\#\\\\\\\\#g')
-#find . -type f \( ! -name "personalize.sh" -and ! -name "README.md" \) -exec grep -l "$services_namespace" {} \; |xargs perl -pi -e "s#$services_namespace#$services_namespace_input#g;"
-
 echo -e "\nPlease enter module id (original: $module_id):"
 read -r composed_module_id
 
