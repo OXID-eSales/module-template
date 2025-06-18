@@ -15,7 +15,7 @@ $sMetadataVersion = '2.1';
  */
 $aModule = [
     'id'          => 'oe_moduletemplate',
-    'title'       => 'OxidEsales Module Template (OEMT)',
+    'title'       => 'OXID eSales Module Template (OEMT)',
     'description' => 'Module Template – Clean Skeleton for OXID Modules',
     'thumbnail'   => 'pictures/logo.png',
     'version'     => '5.0.0-rc.1',
