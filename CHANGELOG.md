@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v5.0.0] - 2025-06-30
+This is the stable release for v5.0.0. No changes have been made since v5.0.0-rc.1.
+
 ## [v5.0.0-rc.1] - 2025-06-05
 
 ### Changed
@@ -129,6 +132,7 @@ This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc
 ### Added
 - First version of our reusable examples
 
-[v5.0.0]: https://github.com/OXID-eSales/module-template/compare/v4.0.0...b-7.3.x
+[v5.0.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0-rc.1...v5.0.0
+[v5.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/v4.0.0...v5.0.0-rc.1
 [v4.0.0]: https://github.com/OXID-eSales/module-template/compare/v4.0.0-rc.1...v4.0.0
 [v4.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/v3.0.0...v4.0.0-rc.1
