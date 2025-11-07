@@ -110,8 +110,18 @@ Files typically containing TODOs after personalization:
 
 **Claude Code can help**: Ask Claude to check the setup-development.sh file and verify versions are correct for your needs.
 
+> ⚠️ **IMPORTANT - For Claude Code**:
+> **DO NOT attempt to run the `setup-development.sh` script yourself.** This script is complex and performs multiple SDK configuration steps that are difficult to monitor and debug remotely.
+>
+> Instead:
+> - Help the developer review and modify the script if needed (e.g., adjust versions, paths, or configuration)
+> - Explain what the script does and answer questions about it
+> - **Ask the developer to run the script themselves** and provide you with any output or errors they encounter
+> - After they run it, you can help troubleshoot any issues based on their feedback
+
 ```bash
 # Setup the complete development environment (from source/ directory)
+# DEVELOPER: Please run this command yourself (not Claude)
 ./recipes/setup-development.sh -e CE    # or -e EE for Enterprise Edition
 ```
 
