@@ -4,7 +4,7 @@ on:
   pull_request: {}
   push:
     branches:
-      - 'b-7.3.x**'
+      - 'b-7.4.x**'
 
 jobs:
   php82_mysql80:

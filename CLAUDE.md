@@ -104,7 +104,7 @@ Files typically containing TODOs after personalization:
 **Location**: Run from `source/` directory
 
 **Before running**: Review and adjust `recipes/setup-development.sh` for:
-- **Shop branch version** (currently set to b-7.3.x) - verify this matches your target OXID version
+- **Shop branch version** (currently set to b-7.4.x) - verify this matches your target OXID version
 - **PHP version** (currently set to 8.2) - confirm compatibility with your OXID version
 - **MySQL version** (check if matches your requirements) - may need adjustment
 
@@ -120,7 +120,7 @@ Files typically containing TODOs after personalization:
 2. Adds services: adminer, selenium-chrome, node
 3. Configures PHP and MySQL versions, Apache (source/source/ path)
 4. Builds and starts containers
-5. Installs OXID eShop CE/EE (dev-b-7.3.x by default)
+5. Installs OXID eShop CE/EE (dev-b-7.4.x by default)
 6. Installs Twig components and apex theme
 7. Sets up database (no demodata)
 8. Installs and activates the module
@@ -254,10 +254,10 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:sta
 docker compose exec -T php vendor/bin/oe-eshop-db_views_generate
 
 # Reset database
-docker compose exec -T php bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 --db-name=example --db-user=root --db-password=root --force
+docker compose exec -T php vendor/bin/oe-console oe:database:reset --db-host=mysql --db-port=3306 --db-name=example --db-user=root --db-password=root --force
 
 # Create admin user
-docker compose exec -T php bin/oe-console oe:admin:create-user --admin-email admin@oxid-esales.com --admin-password admin
+docker compose exec -T php vendor/bin/oe-console oe:admin:create-user --admin-email admin@oxid-esales.com --admin-password admin
 ```
 
 ### Working with Composer
@@ -312,7 +312,11 @@ docker compose exec -T php composer clear-cache
 - Required for module installation/updates
 - Must be idempotent (safe to rerun)
 
-**Important**: Do not read files from `vendor/oxid-esales/oxideshop-pe/` or `vendor/oxid-esales/oxideshop-ee/` as these contain proprietary OXID Professional/Enterprise Edition code. Community Edition (`oxideshop-ce`) and module code in `src/` are fine to read.
+> ⚠️ **CRITICAL**: Never read or access files from:
+> - `vendor/oxid-esales/oxideshop-pe/` (Professional Edition - proprietary)
+> - `vendor/oxid-esales/oxideshop-ee/` (Enterprise Edition - proprietary)
+>
+> These contain proprietary OXID code. Only Community Edition (`oxideshop-ce`) and module code in `src/` are safe to read.
 
 ### Quality Tool Configuration
 
@@ -475,10 +479,12 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:gen
 
 ## Branch Compatibility
 
-Current branch compatibility (check metadata.php and composer.json for exact versions):
-- **b-7.4.x** - OXID eShop 7.4.x, PHP 8.2, MySQL 8.0
-- **b-7.3.x** - OXID eShop 7.3.x, PHP 8.2, MySQL 8.0
+Current branch (b-7.4.x) is compatible with:
+- **OXID eShop**: 7.4.x
+- **PHP**: 8.2
+- **MySQL**: 8.0
 
+Check metadata.php and composer.json for exact version constraints.
 Refer to README.md for full branch compatibility matrix.
 
 ## Useful Resources
