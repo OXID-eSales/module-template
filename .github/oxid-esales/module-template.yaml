@@ -7,7 +7,6 @@ install:
       {
         "require": {
           "oxid-esales/apex-theme": "{{ .Data.install.composer.dev_ref }}",
-          "oxid-esales/oxideshop-ce": "{{ .Data.install.composer.dev_ref }}",
           "oxid-esales/twig-admin-theme": "{{ .Data.install.composer.dev_ref }}",
           "oxid-esales/twig-component": "{{ .Data.install.composer.dev_ref }}"
         }
