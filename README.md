@@ -8,12 +8,12 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=OXID-eSales_module-template&metric=coverage)](https://sonarcloud.io/dashboard?id=OXID-eSales_module-template)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=OXID-eSales_module-template&metric=sqale_index)](https://sonarcloud.io/dashboard?id=OXID-eSales_module-template)
 
-
 Reusable module template for extending OXID eShop core functionality.
 
 This module also comes with all the quality tools OXID recommends to use.
 
 If you are looking for a module with code examples, please check out the [examples-module](https://github.com/OXID-eSales/examples-module).
+
 
 ## Table of contents
 1. [Branch compatibility](#branch-compatibility)
@@ -25,8 +25,10 @@ If you are looking for a module with code examples, please check out the [exampl
 7. [Running tests and quality tools](#running-tests-and-quality-tools)
 8. [Additional info](#additional-info)
 
+
 ## Branch compatibility
 
+* b-7.4.x branch / v6.x version - compatible with OXID eShop compilation 7.4.x and the respective branch
 * b-7.3.x branch / v5.x version - compatible with OXID eShop compilation 7.3.x and the respective branch
 * b-7.2.x branch / v4.x version - compatible with OXID eShop compilation 7.2.x and the respective branch
 * b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
@@ -34,18 +36,17 @@ If you are looking for a module with code examples, please check out the [exampl
 * b-6.5.x branch / v1.0.0 version - compatible with OXID eShop compilation b-6.5.x
 * b-6.4.x branch is compatible with OXID eShop compilation b-6.4.x 
 
+
 ## The Idea
 
 OXID eSales would like to provide a lightweight reusable module to be used as a template for developing own module solutions.
 
+
 ## Goals
 
-There are two main goals this repository is intended to help with:
+The repository can be used for creating a clean skeleton with only preconfigured 
+OXID recommended quality tools for your new module.
 
-* The provided solution can be used as a base for your own module. It will help creating
-  the personalized module base
-* The repository can be used for creating a clean skeleton with only preconfigured
-  OXID recommended quality tools for your new module.
 
 ## Install and try it out
 
@@ -61,54 +62,40 @@ composer require oxid-esales/module-template
 
 and [activate the module](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/installation_setup/setup.html#setup-activation).
 
+
 ## Use as a base for own module
 
 In case you'd like to use this module as a template for your own module, this section is for you.
 
-**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.3.x. For other
+The following procedure describes how to create a base for your further module, and shows the basic installation for the development process.
+
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.4.x. For other
 versions, refer to the version specific branch.
 
-Before starting to do something, please, read the whole section once, then decide on required questions, decide 
-what you want to achieve, and follow the procedure.
+**Please note there are different approaches presented, so before the start, please, read the whole section once, decide 
+what you want to achieve, and follow the selected process.** 
+
+**In case there are multiple ways given, please select the One you prefer, do not mix them together unless you 
+fully understand what you are doing.**
 
 ### Terms
 
 First, lets decide on terms:
 
-* Module is installable to `vendor/<yourPackageName>` directory. The package name is **lowercased** and 
-  looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide 
+* Live module is installable to `vendor/<yourPackageName>` directory. The package name is **lowercased** and
+  looks like: `<yourVendorName>/<yourModuleName>`, example: `oxid-esales/module-template`. Decide
   what will be your new module package name.
-  * Please note that combination of `<yourVendorName>` and `<yourModuleRootDirectory>` should be unique. Based on this
-    information your module id will be composed and will look like: `<yourVendorPrefix>_<yourModuleRootDirectory>`. In
-    our case it is `oe_moduletemplate`.
-  * It is recommended to use only alphanumeric characters, in case you need a separator you can use dash ("-") or underscore("_").
+    * Please note that combination of `<yourVendorName>` and `<yourModuleRootDirectory>` should be unique.
+    * It is recommended to use only alphanumeric characters, in case you need a separator you can use the dash ("-") or the underscore("_").
 * Decide on your module's namespace - `<YourVendorName>\<YourModuleName>`, example: `OxidEsales\ModuleTemplate`.
 * Decide on your module's ID - `<YourVendorPrefix>_<yourModuleName alphanumeric part>`, example: `oe_moduletemplate`.
-  * It is recommended to use only alphanumeric characters, in case you need a separator you can use underscore. More 
-    information about module id can be found [here](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
+    * It is recommended to use only alphanumeric characters, in case you need a separator you can use underscore. More
+      information about module id can be found [here](https://docs.oxid-esales.com/developer/en/latest/development/modules_components_themes/module/skeleton/metadataphp/amodule/id.html).
 
-In the following examples, your information required places will be shown as placeholders: `<yourPackageName>`, it means
-you should put your package name at that place, without brackets, for example:
+### 1. Use the Template
 
-```
-composer config repositories.<yourPackageName> path source/modules/<yourVendorName>/<yourModuleName>
-```
-will possibly look like:
-```
-composer config repositories.my-vendor-name/my-module-name path source/modules/mvn/mymodulerootdir
-```
-in our case it is:
-```
-composer config repositories.oxid-esales/module-template path source/modules/oe/module-template
-```
-
-### Procedure
-
-The following procedure describes how to create a base for your further module, and shows the basic installation for the development process:
-
-#### 1. Use the Template
-
-Click on the "Use this template" button on the template [main page](https://github.com/OXID-eSales/module-template) to 
+In all the cases, first of all, you want to have your module in your own repository, so Click on the 
+"Use this template" button on the template [main page](https://github.com/OXID-eSales/module-template) to 
 create your module repository from the given template. 
 
 Please make sure to NOT choose the 'take all branches' option, as this will clone the repository with everything 
@@ -116,70 +103,87 @@ we have in our repository. Having all branches also will trigger the github acti
 
 As an outcome of this step, you should have a repository with one "Initial commit" of our current latest repository state.
 
-#### 2. Personalize and cleanup the module
+### 2a. Use the OXID SDK for your new module development
 
-To personalize the module, use the "bin/personalize.sh" script. This script will prompt you for required information and do the work.
-
-For this step, clone your module repository anywhere to your local directory and run the desired scripts.
-
-```bash
-// Clone your module repository anywhere
-git clone <yourGitRepositoryUrl> myModule
-cd myModule
-
-// Run the personalize script
-./bin/personalize.sh
-
-// Search for the "TODO" keywords in the code and replace them with your information
-
-// Commit and push your personalized module, after this, install it for development and continue from there 
-git commit -am "Personalize the module"
-git push origin
-```
-
-Also, you will need to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
-credentials and names. For running SonarCloud as part of the steps in GitHub workflow you
-will need to configure SonarCloud and to create a secret environment variable for your repository called SONAR_TOKEN.
-The token itself is provided by SonarCloud.
-
-#### 3. Install the module for Development
-
-For installing the module for development our recommended way, check the "Development installation section", 
-or do it any other way you prefer, but make sure to reconfigure our preconfigured quality tools to fit your installation.
-
-### Development installation
+This section shows our recommended way to go with OXID module development, by using the [OXID SDK](https://github.com/OXID-eSales/docker-eshop-sdk) and recommended 
+development structure. Make sure your system meets the requirements of the SDK.
 
 We recommend developing the module as independent as possible. This means that the module for development should
 be installed as a [root package](https://getcomposer.org/doc/04-schema.md#root-package), with its own strict dependencies if such are needed.
 
-The next section shows how to install the module as a root package by using the OXID eShop SDK.
+#### 0. Ensure all docker containers are down to avoid port conflicts!
 
-In case of different environment usage, please adjust by your own needs.
+#### 1. Clone the SDK for the new project
 
-### Development installation on OXID eShop SDK
+    echo MyProject && git clone https://github.com/OXID-eSales/docker-eshop-sdk.git $_ && cd $_
 
-The installation instructions below are shown for the current [SDK](https://github.com/OXID-eSales/docker-eshop-sdk)
-for shop 7.3. Make sure your system meets the requirements of the SDK.
+#### 2. Clone your new module repository
 
-0. Ensure all docker containers are down to avoid port conflicts
+Clone the repository which you just created with using the template button to the SDK source directory.
+**Please make sure you replace the github repository url to your own in the command!**
 
-1. Clone the SDK for the new project
-```shell
-echo MyProject && git clone https://github.com/OXID-eSales/docker-eshop-sdk.git $_ && cd $_
-```
+    git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.3.x ./source
 
-2. Clone the repository to the source directory
-```shell
-git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.3.x ./source
-```
+#### 3a. Personalize the module 
 
-3. Run the recipe to setup the development environment, you can decide which shop edition to install. Omitting the flag installs EE.
-```shell
-./source/recipes/setup-development.sh -e CE
-```
+This can be done in two ways. Check 3a. if you are the user of Claude.ai and 3b. in case you want to do it by hand.
 
-You should be able to access the shop with http://localhost.local and the admin panel with http://localhost.local/admin
+3a. Navigate to source, run claude
+
+    cd ./source
+    claude
+   
+3b. If you dont use Claude to help you with the personalization, you can do it yourself with running the personalization 
+script directly:
+
+    ./source/bin/personalize.sh
+   
+Afterwards, Search for the "TODO" keywords in the code and replace them with your information
+
+#### 4. Start the development environment
+
+This can be done with the `./source/recipes/setup-development.sh` script.
+
+First, check the contents of it and ensure all the versions (branches) described there are as you expect.
+Run the recipe to setup the development environment(you can decide which shop edition to install. Omitting the flag installs EE):
+
+    ./source/recipes/setup-development.sh -e CE
+
+When this was done, you should be able to access the shop with http://localhost.local and the admin panel with http://localhost.local/admin
 (credentials: noreply@oxid-esales.com / admin)
+
+### 2b. Personalize and cleanup the module without the OXID SDK installation
+
+This section shows the case when you dont want to go with the OXID SDK or our recommended way, but still want to use the template.
+
+You still have the possibility to personalize the module through the use of the "bin/personalize.sh" script. This script will 
+prompt you for required information and do the work.
+
+Clone your module repository anywhere to your local directory, run the personalization script and push the personalized 
+module to your repository.
+
+    // Clone your module repository anywhere
+    git clone <yourGitRepositoryUrl> myModule
+    cd myModule
+    
+    // Run the personalize script
+    ./bin/personalize.sh
+    
+    // Search for the "TODO" keywords in the code and replace them with your information
+    
+    // Commit and push your personalized module, after this, install it for development and continue from there 
+    git commit -am "Personalize the module"
+    git push origin
+
+After personalization, make sure to reconfigure our preconfigured quality tools to fit your directory structure and
+your prefered way of development.
+
+### 3. Final steps before you start on your module special logic
+
+Remember to adjust the README, CHANGELOG, LICENSE, metadata and the GitHub workflow file, with your
+credentials and names. For running SonarCloud as part of the steps in GitHub workflow you
+will need to configure SonarCloud and to create a secret environment variable for your repository called SONAR_TOKEN.
+The token itself is provided by SonarCloud.
 
 
 ## Things to be aware of
@@ -266,7 +270,6 @@ for example
 $ bin/oe-console oe:admin:create-user --admin-email admin@oxid-esales.com --admin-password admin
 ```
 
-
 ### Writing Codeception tests
 
 As a rule of thumb, use codeception tests to ensure the frontend is behaving as expected.
@@ -307,6 +310,7 @@ And then there are some few shop tests marked as `@group quarantine` in the doc 
 be excluded as well.
 
 Ps: a failing shop test might also turn up issues in your module, in that case fix the module and let the test live ;)
+
 
 ## Additional info
 
