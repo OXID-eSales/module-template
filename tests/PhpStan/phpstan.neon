@@ -1,9 +1,6 @@
 parameters:
     bootstrapFiles:
         - phpstan-bootstrap.php
-    stubFiles:
-        - stubs/EshopUser.stub
-        - stubs/StartController.stub
     level: 8
     scanFiles:
         - ../../vendor/oxid-esales/oxideshop-ce/source/oxfunctions.php
