@@ -128,10 +128,11 @@ Clone the repository which you just created with using the template button to th
 
 This can be done in two ways. Check 3a. if you are the user of Claude.ai and 3b. in case you want to do it by hand.
 
-3a. Navigate to source, run claude
+3a. Navigate to source, run claude and ask to help
 
     cd ./source
     claude
+    personalize
    
 3b. If you dont use Claude to help you with the personalization, you can do it yourself with running the personalization 
 script directly:
