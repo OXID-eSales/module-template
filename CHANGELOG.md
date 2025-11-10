@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v5.1.0] - Unreleased
+
+### Added
+- CLAUDE.md file with instructions for Claude to help with:
+  - personalization process first steps
+  - dealing with TODO's after the first personalization step
+  - development process
+- Require examples module as dev requirement to help Claude in development process
+- Basic .editorconfig file to help standardize the coding style
+
+### Changed
+- Improved the process to be much more simple and not require multiple checking outs
+- Updated the phpcs development dependency version to ^4.0
+
+
 ## [v5.0.0] - 2025-06-30
 This is the stable release for v5.0.0. No changes have been made since v5.0.0-rc.1.
 
@@ -132,6 +147,7 @@ This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc
 ### Added
 - First version of our reusable examples
 
+[v5.1.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0...v5.1.0
 [v5.0.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0-rc.1...v5.0.0
 [v5.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/v4.0.0...v5.0.0-rc.1
 [v4.0.0]: https://github.com/OXID-eSales/module-template/compare/v4.0.0-rc.1...v4.0.0
