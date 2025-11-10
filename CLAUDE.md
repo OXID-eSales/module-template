@@ -170,6 +170,8 @@ git commit -m "Personalize module template for [your module name]"
 
 This is the normal development workflow used after personalization is complete.
 
+**Before starting development**: It's recommended to explore the Examples Module (`vendor/oxid-esales/examples-module`) to understand proven implementation patterns for the features you plan to develop.
+
 ### Environment Management
 
 **Start the environment** (from SDK root):
@@ -372,6 +374,42 @@ docker compose exec -T php composer clear-cache
 - Other secrets inherited from OXID workflows
 
 ## Development Best Practices
+
+### Learning from Examples
+- **Use the Examples Module** (`vendor/oxid-esales/examples-module`) **as a reference** for good code practices
+- It's installed as a dev requirement and provides proven implementation patterns for:
+  - Module structure and organization
+  - Class extensions and service definitions
+  - Database migrations
+  - Testing approaches (unit, integration, acceptance)
+  - Dependency injection and service configuration
+- When unsure about implementation details, read files from the examples module for proven patterns
+
+### Code Quality Standards
+- **Clean Code**: Follow clean code principles for maintainability and readability
+  - Use meaningful names for classes, methods, and variables
+  - Keep methods small and focused on a single responsibility
+  - Avoid code duplication (DRY principle)
+  - Write self-documenting code with clear intent
+- **Dependency Inversion**: Use interfaces for dependency inversion and easier testing
+  - Define interfaces for service contracts
+  - Depend on abstractions, not concrete implementations
+  - Makes code more testable and flexible for future changes
+  - Easier to mock dependencies in unit tests
+- **Test-Driven Development (TDD)**: Write code following TDD approach
+  - Write tests first, then implement the functionality
+  - Red-Green-Refactor cycle: write failing test → make it pass → refactor
+  - Ensures code is testable from the start
+  - Leads to better design and higher test coverage
+- **Type Safety and Documentation**:
+  - Always declare `declare(strict_types=1);` at the top of PHP files
+  - Use type hints as strictly as possible (parameter types, return types, property types)
+  - Don't add docblocks where they are not needed (when type hints are sufficient)
+  - Only use docblocks for unclear cases (e.g., complex array structures, generics)
+- **Immutability and Finality**:
+  - Prefer making classes `final` by default (prevents unintended inheritance)
+  - Make properties `readonly` when they should not be changed after initialization
+  - Use immutability where possible to prevent unintended state changes
 
 ### Testing Strategy
 - **Unit tests**: Fast, isolated, no shop dependencies - test business logic
