@@ -95,6 +95,10 @@ Files typically containing TODOs after personalization:
 - `metadata.php` - Update module title
 - `.github/oxid-esales/module-template.yaml` - SonarCloud project key, organization, repository URL
 - `LICENSE` - Add your license text
+- `CHANGELOG.md` - Update the version comparison URLs at the end of the file:
+  - Keep at least one initial comparison URL as a template/reference
+  - Update the repository path from `OXID-eSales/module-template` to your new repository path
+  - This provides a pattern for future version comparisons
 - `README.md` - **Important**: Clean up and update the README thoroughly:
   - Remove all generic module template information and instructions
   - Keep badges but update their URLs to point to your new module's repository
