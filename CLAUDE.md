@@ -95,7 +95,14 @@ Files typically containing TODOs after personalization:
 - `metadata.php` - Update module title
 - `.github/oxid-esales/module-template.yaml` - SonarCloud project key, organization, repository URL
 - `LICENSE` - Add your license text
-- `README.md` - Update project description, badges, documentation
+- `README.md` - **Important**: Clean up and update the README thoroughly:
+  - Remove all generic module template information and instructions
+  - Keep badges but update their URLs to point to your new module's repository
+  - Remove template-specific references and boilerplate text
+  - Keep only information that's relevant and accurate for your new module
+  - Update project description to reflect your module's actual purpose
+  - Update installation instructions, features, and usage examples to match your module
+  - Ensure compatibility information, requirements, and branch matrix reflect your module's needs
 
 **After completing Steps 1 & 2**: The personalization script (`bin/personalize.sh`) can be removed as it's no longer needed.
 
