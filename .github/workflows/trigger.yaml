@@ -10,7 +10,7 @@ jobs:
   php82_mysql80:
     uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v5
     with:
-      testplan: '~/defaults/7.3.x.yaml,~/defaults/php8.2_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
+      testplan: '~/defaults/7.4.x.yaml,~/defaults/php8.2_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v5'
       plan_folder: '.github/oxid-esales'

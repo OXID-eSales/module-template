@@ -34,7 +34,7 @@
         "oxid-esales/examples-module": "dev-b-7.3.x"
     },
     "conflict": {
-        "oxid-esales/oxideshop-ce": "<7.3"
+        "oxid-esales/oxideshop-ce": "<7.4"
     },
     "autoload": {
         "psr-4": {

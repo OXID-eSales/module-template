@@ -442,8 +442,8 @@ docker compose exec -T php composer clear-cache
 - Commit hooks installed automatically (`.github/commit-hooks`)
 - Pre-commit runs quality tools
 - Branch naming pattern: `{base-branch}-{description}-{task-number}`
-  - Example: `b-7.3.x-add-user-preferences-OXDEV-123`
-  - Base branch is typically the current main branch (e.g., b-7.3.x, b-7.4.x)
+  - Example: `b-7.4.x-add-user-preferences-OXDEV-123`
+  - Base branch is typically the current main branch (e.g., b-7.4.x)
 - **IMPORTANT**: Do not mention "Claude" or "Claude Code" in commit messages
   - Commit messages should be tool-agnostic and professional
   - Focus on what was changed and why, not which tool was used
