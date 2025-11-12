@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - development process
 - Require examples module as dev requirement to help Claude in development process
 - Basic .editorconfig file to help standardize the coding style
+- Example for module dependencies file - dependencies.yaml.dist
 
 ### Changed
 - Improved the process to be much more simple and not require multiple checking outs
