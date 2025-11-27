@@ -28,8 +28,8 @@ If you are looking for a module with code examples, please check out the [exampl
 
 ## Branch compatibility
 
-* b-7.4.x branch / v6.x version - compatible with OXID eShop compilation 7.4.x and the respective branch
-* b-7.3.x branch / v5.x version - compatible with OXID eShop compilation 7.3.x and the respective branch
+* b-7.4.x branch / v5.1.x version - compatible with OXID eShop compilation 7.4.x and the respective branch
+* b-7.3.x branch / v5.0.x version - compatible with OXID eShop compilation 7.3.x and the respective branch
 * b-7.2.x branch / v4.x version - compatible with OXID eShop compilation 7.2.x and the respective branch
 * b-7.1.x branch / v3.x version - compatible with OXID eShop compilation 7.1.x and the respective branch
 * b-7.0.x branch / v2.x version - compatible with OXID eShop compilation b-7.0.x
