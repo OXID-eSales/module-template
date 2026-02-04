@@ -1,6 +1,6 @@
 # OXID eShop Module Template
 
-[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml/badge.svg?branch=b-7.4.x)](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml)
+[![Development](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml/badge.svg?branch=b-7.5.x)](https://github.com/OXID-eSales/module-template/actions/workflows/trigger.yaml)
 [![Latest Version](https://img.shields.io/packagist/v/OXID-eSales/module-template?logo=composer&label=latest&include_prereleases&color=orange)](https://packagist.org/packages/oxid-esales/module-template)
 [![PHP Version](https://img.shields.io/packagist/php-v/oxid-esales/module-template)](https://github.com/oxid-esales/module-template)
 
@@ -28,6 +28,7 @@ If you are looking for a module with code examples, please check out the [exampl
 
 ## Branch compatibility
 
+* b-7.5.x branch / v5.2.x version - compatible with OXID eShop compilation 7.5.x and the respective branch
 * b-7.4.x branch / v5.1.x version - compatible with OXID eShop compilation 7.4.x and the respective branch
 * b-7.3.x branch / v5.0.x version - compatible with OXID eShop compilation 7.3.x and the respective branch
 * b-7.2.x branch / v4.x version - compatible with OXID eShop compilation 7.2.x and the respective branch
@@ -69,7 +70,7 @@ In case you'd like to use this module as a template for your own module, this se
 
 The following procedure describes how to create a base for your further module, and shows the basic installation for the development process.
 
-**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.4.x. For other
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.5.x. For other
 versions, refer to the version specific branch.
 
 **Please note there are different approaches presented, so before the start, please, read the whole section once, decide 
@@ -122,7 +123,7 @@ be installed as a [root package](https://getcomposer.org/doc/04-schema.md#root-p
 Clone the repository which you just created with using the template button to the SDK source directory.
 **Please make sure you replace the github repository url to your own in the command!**
 
-    git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.4.x ./source
+    git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.5.x ./source
 
 #### 3a. Personalize the module 
 

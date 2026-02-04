@@ -20,7 +20,7 @@
         "phpstan/phpstan": "^2.0.2",
         "squizlabs/php_codesniffer": "^4.0",
         "phpmd/phpmd": "^2.15",
-        "oxid-esales/oxideshop-ce": "dev-b-7.4.x",
+        "oxid-esales/oxideshop-ce": "dev-b-7.5.x",
         "phpunit/phpunit": "~10.5.17",
         "mikey179/vfsstream": "~1.6.8",
         "codeception/codeception": "^5.1",
@@ -28,13 +28,13 @@
         "codeception/module-db": "^3.1",
         "codeception/module-filesystem": "^3.0",
         "codeception/module-webdriver": "^4.0",
-        "oxid-esales/codeception-modules": "dev-b-7.4.x",
-        "oxid-esales/codeception-page-objects": "dev-b-7.4.x",
-        "oxid-esales/developer-tools": "dev-b-7.4.x",
-        "oxid-esales/examples-module": "dev-b-7.4.x"
+        "oxid-esales/codeception-modules": "dev-b-7.5.x",
+        "oxid-esales/codeception-page-objects": "dev-b-7.5.x",
+        "oxid-esales/developer-tools": "dev-b-7.5.x",
+        "oxid-esales/examples-module": "dev-b-7.5.x"
     },
     "conflict": {
-        "oxid-esales/oxideshop-ce": "<7.4"
+        "oxid-esales/oxideshop-ce": "<7.5"
     },
     "autoload": {
         "psr-4": {

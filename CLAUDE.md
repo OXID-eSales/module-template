@@ -115,7 +115,7 @@ Files typically containing TODOs after personalization:
 **Location**: Run from `source/` directory
 
 **Before running**: Review and adjust `recipes/setup-development.sh` for:
-- **Shop branch version** (currently set to b-7.4.x) - verify this matches your target OXID version
+- **Shop branch version** (currently set to b-7.5.x) - verify this matches your target OXID version
 - **PHP version** (currently set to 8.2) - confirm compatibility with your OXID version
 - **MySQL version** (check if matches your requirements) - may need adjustment
 
@@ -141,7 +141,7 @@ Files typically containing TODOs after personalization:
 2. Adds services: adminer, selenium-chrome, node
 3. Configures PHP and MySQL versions, Apache (source/source/ path)
 4. Builds and starts containers
-5. Installs OXID eShop CE/EE (dev-b-7.4.x by default)
+5. Installs OXID eShop CE/EE (dev-b-7.5.x by default)
 6. Installs Twig components and apex theme
 7. Sets up database (no demodata)
 8. Installs and activates the module
@@ -442,8 +442,8 @@ docker compose exec -T php composer clear-cache
 - Commit hooks installed automatically (`.github/commit-hooks`)
 - Pre-commit runs quality tools
 - Branch naming pattern: `{base-branch}-{description}-{task-number}`
-  - Example: `b-7.4.x-add-user-preferences-OXDEV-123`
-  - Base branch is typically the current main branch (e.g., b-7.4.x)
+  - Example: `b-7.5.x-add-user-preferences-OXDEV-123`
+  - Base branch is typically the current main branch (e.g., b-7.5.x)
 - **IMPORTANT**: Do not mention "Claude" or "Claude Code" in commit messages
   - Commit messages should be tool-agnostic and professional
   - Focus on what was changed and why, not which tool was used
@@ -514,7 +514,7 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:gen
 ## Environment Variables
 
 **SDK (.env in SDK root)**:
-- `PHP_VERSION` - PHP version (8.2 recommended for OXID 7.3.x/7.4.x)
+- `PHP_VERSION` - PHP version (8.3 recommended for OXID 7.5.x)
 - `MYSQL_VERSION` - MySQL version (5.7 or 8.0)
 - `MYSQL_ROOT_PASSWORD` - root password (default: root)
 - `MYSQL_DATABASE` - database name (default: example)
@@ -538,9 +538,9 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:gen
 
 ## Branch Compatibility
 
-Current branch (b-7.4.x) is compatible with:
-- **OXID eShop**: 7.4.x
-- **PHP**: 8.2
+Current branch (b-7.5.x) is compatible with:
+- **OXID eShop**: 7.5.x
+- **PHP**: 8.3
 - **MySQL**: 8.0
 
 Check metadata.php and composer.json for exact version constraints.

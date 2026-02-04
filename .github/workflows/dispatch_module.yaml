@@ -7,14 +7,15 @@ on:
         type: choice
         options:
           - 'no'
-          - 'PHP8.2/MySQL8.0'
-          - 'PHP8.2/MariaDB11'
           - 'PHP8.3/MySQL8.0'
           - 'PHP8.3/MySQL8.4'
           - 'PHP8.3/MariaDB11'
           - 'PHP8.4/MySQL8.0'
           - 'PHP8.4/MySQL8.4'
-          - 'PHP8.4/MariaDb11'
+          - 'PHP8.4/MariaDB11'
+          - 'PHP8.5/MySQL8.0'
+          - 'PHP8.5/MySQL8.4'
+          - 'PHP8.5/MariaDB11'
         default: 'PHP8.3/MySQL8.0'
         description: 'Limit to one PHP/MySQL combination'
       use_dev_version:
@@ -36,20 +37,21 @@ jobs:
           # shellcheck disable=SC2088
           case "${{ inputs.limit }}" in
             "no") LIMIT='';;
-            "PHP8.2/MySQL8.0") LIMIT='~/defaults/php8.2_mysql8.0_only.yaml,' ;;
-            "PHP8.2/MariaDB11") LIMIT='~/defaults/php8.2_mariadb11_only.yaml,' ;;
             "PHP8.3/MySQL8.0") LIMIT='~/defaults/php8.3_mysql8.0_only.yaml,' ;;
             "PHP8.3/MySQL8.4") LIMIT='~/defaults/php8.3_mysql8.4_only.yaml,' ;;
             "PHP8.3/MariaDB11") LIMIT='~/defaults/php8.3_mariadb11_only.yaml,' ;;
             "PHP8.4/MySQL8.0") LIMIT='~/defaults/php8.4_mysql8.0_only.yaml,' ;;
             "PHP8.4/MySQL8.4") LIMIT='~/defaults/php8.4_mysql8.4_only.yaml,' ;;
-            "PHP8.4/MariaDb11") LIMIT='~/defaults/php8.4_mariadb11_only.yaml,' ;;
+            "PHP8.4/MariaDB11") LIMIT='~/defaults/php8.4_mariadb11_only.yaml,' ;;
+            "PHP8.5/MySQL8.0") LIMIT='~/defaults/php8.5_mysql8.0_only.yaml,' ;;
+            "PHP8.5/MySQL8.4") LIMIT='~/defaults/php8.5_mysql8.4_only.yaml,' ;;
+            "PHP8.5/MariaDB11") LIMIT='~/defaults/php8.5_mariadb11_only.yaml,' ;;
             *) echo "Illegal choice, fix the workflow"
               exit 1
               ;;
           esac
           # shellcheck disable=SC2088
-          TESTPLAN="~/defaults/7.4.x.yaml,${LIMIT}~/module-template.yaml"
+          TESTPLAN="~/defaults/7.5.x.yaml,${LIMIT}~/module-template.yaml"
           echo "testplan=${TESTPLAN}" | tee -a "${GITHUB_OUTPUT}"
 
   dispatch_stable:

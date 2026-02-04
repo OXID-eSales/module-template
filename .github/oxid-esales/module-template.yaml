@@ -49,7 +49,7 @@ sonarcloud:
   organization: 'oxid-esales'
   project_name: 'oxid-esales/module-template'
   project_key: 'OXID-eSales_module-template'
-  target_branch: 'b-7.4.x'
+  target_branch: 'b-7.5.x'
   parameters: >
     -Dsonar.language=php
     -Dsonar.scm.provider=git

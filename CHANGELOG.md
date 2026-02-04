@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v5.2.0] - Unreleased
+
+### Changed
+- Updated for OXID eShop 7.5.x compatibility
+- PHP 8.3-8.5 support (removed PHP 8.2)
+- Updated all OXID dependencies to dev-b-7.5.x
+
 ## [v5.1.0] - 2025-11-27
 
 ### Added
@@ -148,6 +155,7 @@ This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc
 ### Added
 - First version of our reusable examples
 
+[v5.2.0]: https://github.com/OXID-eSales/module-template/compare/v5.1.0...v5.2.0
 [v5.1.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0...v5.1.0
 [v5.0.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0-rc.1...v5.0.0
 [v5.0.0-rc.1]: https://github.com/OXID-eSales/module-template/compare/v4.0.0...v5.0.0-rc.1

@@ -4,19 +4,19 @@ on:
   pull_request: {}
   push:
     branches:
-      - 'b-7.4.x**'
+      - 'b-7.5.x**'
 
 jobs:
-  php82_mysql80:
+  php83_mysql80:
     uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v5
     with:
-      testplan: '~/defaults/7.4.x.yaml,~/defaults/php8.2_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
+      testplan: '~/defaults/7.5.x.yaml,~/defaults/php8.3_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v5'
       plan_folder: '.github/oxid-esales'
       custom_testplan_yaml: |
         finish:
-          slack_title: 'PHP82-MySQL80-{{ .Github.EventName }}-{{ .Github.RefName }}'
+          slack_title: 'PHP83-MySQL80-{{ .Github.EventName }}-{{ .Github.RefName }}'
     secrets:
       DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
       DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
