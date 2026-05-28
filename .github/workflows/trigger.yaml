@@ -4,13 +4,13 @@ on:
   pull_request: {}
   push:
     branches:
-      - 'b-7.5.x**'
+      - 'b-7.6.x**'
 
 jobs:
   php83_mysql80:
     uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v5
     with:
-      testplan: '~/defaults/7.5.x.yaml,~/defaults/php8.3_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
+      testplan: '~/defaults/7.6.x.yaml,~/defaults/php8.3_mysql8.0_only.yaml,~/module-template.yaml,~/_custom.yaml'
       runs_on: '"ubuntu-latest"'
       defaults: 'v5'
       plan_folder: '.github/oxid-esales'
