@@ -124,7 +124,7 @@ be installed as a [root package](https://getcomposer.org/doc/04-schema.md#root-p
 Clone the repository which you just created with using the template button to the SDK source directory.
 **Please make sure you replace the github repository url to your own in the command!**
 
-    git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.5.x ./source
+    git clone --recurse-submodules https://github.com/OXID-eSales/module-template.git --branch=b-7.6.x ./source
 
 #### 3a. Personalize the module 
 
