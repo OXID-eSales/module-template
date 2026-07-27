@@ -16,6 +16,11 @@ install_shop_with_modules:
               "type": "git",
               "url": "https://github.com/OXID-eSales/module-template.git"
             }
+          },
+          "config": {
+            "audit": {
+              "block-insecure": false
+            }
           }
       }
   custom_script_container: |
