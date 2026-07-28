@@ -61,6 +61,7 @@ sonarcloud:
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
     -Dsonar.tests=tests
+    -Dsonar.branch.target=b-7.2.x
     -Dsonar.php.phpstan.reportPaths=coverage-reports/phpstan.report.json
 
 finish:
