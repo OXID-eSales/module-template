@@ -16,7 +16,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "symfony/filesystem": "^6.4",
         "phpstan/phpstan": "^2.0.2",
         "squizlabs/php_codesniffer": "^4.0",
         "phpmd/phpmd": "^2.15",
@@ -87,6 +86,9 @@
         "allow-plugins": {
             "oxid-esales/oxideshop-composer-plugin": true,
             "oxid-esales/oxideshop-unified-namespace-generator": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     }
 }
