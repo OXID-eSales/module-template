@@ -56,7 +56,7 @@ sonarcloud:
   project_key: 'OXID-eSales_module-template'
   project_name: 'oxid-esales/module-template'
   organization: 'oxid-esales'
-  parameters: |
+  parameters: >
     -Dsonar.language=php
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
