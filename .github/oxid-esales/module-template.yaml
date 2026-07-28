@@ -56,6 +56,7 @@ sonarcloud:
     -Dsonar.scm.provider=git
     -Dsonar.sources=src
     -Dsonar.tests=tests
+    -Dsonar.branch.target=b-7.3.x
 
 finish:
   slack_title: 'Module template ({{ .Data.install.git.ref }}) by {{ .Github.Actor }}'
