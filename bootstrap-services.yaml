@@ -1,0 +1,9 @@
+services:
+
+  _defaults:
+    public: false
+    autowire: true
+
+  OxidEsales\ModuleTemplate\Setup\ModuleLifecycleSubscriber:
+    tags:
+      - { name: kernel.event_subscriber }
