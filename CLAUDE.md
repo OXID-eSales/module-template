@@ -310,7 +310,8 @@ docker compose exec -T php composer clear-cache
   - **migrations.yml**: Configuration (table name, namespace, paths)
   - **data/**: Migration files
 - **metadata.php**: Module metadata (id, title, version, extend)
-- **services.yaml**: Symfony DI container services (autowire enabled)
+- **services.yaml**: Symfony DI container services, loaded while the module is active (autowire enabled)
+- **bootstrap-services.yaml**: Symfony DI container services loaded for the installed module regardless of activation state (e.g. module lifecycle event subscribers)
 - **composer.json**: Package definition, autoloading, scripts
 
 ### OXID eShop Integration
@@ -318,12 +319,17 @@ docker compose exec -T php composer clear-cache
 **Module metadata** (`metadata.php`):
 - Module ID, title, version, author
 - Extended classes (class chain) - define in 'extend' array
-- Settings, blocks, events
+- Settings, blocks
 
 **Dependency Injection** (`services.yaml`):
 - Define services with autowiring enabled by default
 - Public: false by default
 - Access via container in controllers/services
+
+**Module lifecycle** (`bootstrap-services.yaml`):
+- React to your module being activated/deactivated by subscribing to the DI events `FinalizingModuleActivationEvent` / `BeforeModuleDeactivationEvent` / `FinalizingModuleDeactivationEvent` (each carries the module id and shop id)
+- Register the subscriber in `bootstrap-services.yaml` so it is loaded regardless of activation state; guard handlers by the module id
+- Preferred over the deprecated metadata.php `onActivate` / `onDeactivate` events; see `src/Setup/ModuleLifecycleSubscriber.php`
 
 **Class Extension**:
 - Use `extend` in metadata.php to extend shop classes

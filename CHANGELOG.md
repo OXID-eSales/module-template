@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [v5.3.0] - unreleased
 
+### Added
+- Example `bootstrap-services.yaml` with a module lifecycle event subscriber
+
 ### Changed
 - Update module to work with OXID eShop 7.6
 - Update PHPUnit to 12.5
