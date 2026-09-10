@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Setup;
 
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\BeforeModuleDeactivationEvent;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\FinalizingModuleActivationEvent;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\FinalizingModuleDeactivationEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,7 +26,7 @@ final class ModuleLifecycleSubscriber implements EventSubscriberInterface
     {
         return [
             FinalizingModuleActivationEvent::class => 'onActivate',
-            FinalizingModuleDeactivationEvent::class => 'onDeactivate',
+            BeforeModuleDeactivationEvent::class => 'onDeactivate',
         ];
     }
 
@@ -39,7 +39,7 @@ final class ModuleLifecycleSubscriber implements EventSubscriberInterface
         $this->logger->info(sprintf('Module %s activated for shop %d', self::MODULE_ID, $event->getShopId()));
     }
 
-    public function onDeactivate(FinalizingModuleDeactivationEvent $event): void
+    public function onDeactivate(BeforeModuleDeactivationEvent $event): void
     {
         if ($event->getModuleId() !== self::MODULE_ID) {
             return;

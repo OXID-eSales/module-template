@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace OxidEsales\ModuleTemplate\Tests\Unit\Setup;
 
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\BeforeModuleDeactivationEvent;
 use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\FinalizingModuleActivationEvent;
-use OxidEsales\EshopCommunity\Internal\Framework\Module\Setup\Event\FinalizingModuleDeactivationEvent;
 use OxidEsales\ModuleTemplate\Setup\ModuleLifecycleSubscriber;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -24,7 +24,7 @@ final class ModuleLifecycleSubscriberTest extends TestCase
         $this->assertSame(
             [
                 FinalizingModuleActivationEvent::class => 'onActivate',
-                FinalizingModuleDeactivationEvent::class => 'onDeactivate',
+                BeforeModuleDeactivationEvent::class => 'onDeactivate',
             ],
             ModuleLifecycleSubscriber::getSubscribedEvents()
         );
@@ -54,7 +54,7 @@ final class ModuleLifecycleSubscriberTest extends TestCase
         $logger->expects($this->once())->method('info');
 
         (new ModuleLifecycleSubscriber($logger))
-            ->onDeactivate(new FinalizingModuleDeactivationEvent(1, self::MODULE_ID));
+            ->onDeactivate(new BeforeModuleDeactivationEvent(1, self::MODULE_ID));
     }
 
     public function testDeactivationIsIgnoredForOtherModules(): void
@@ -63,6 +63,6 @@ final class ModuleLifecycleSubscriberTest extends TestCase
         $logger->expects($this->never())->method('info');
 
         (new ModuleLifecycleSubscriber($logger))
-            ->onDeactivate(new FinalizingModuleDeactivationEvent(1, 'other_module'));
+            ->onDeactivate(new BeforeModuleDeactivationEvent(1, 'other_module'));
     }
 }
