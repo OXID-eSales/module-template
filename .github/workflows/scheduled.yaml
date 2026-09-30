@@ -7,7 +7,7 @@ on:
 
 jobs:
   matrix_76x_weekly:
-    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v5
+    uses: oxid-eSales/github-actions/.github/workflows/universal_workflow_light.yaml@v4
     with:
       testplan: '~/defaults/7.6.x.yaml,~/defaults/scheduled.yaml,~/module-template.yaml,~/_custom.yaml'
       runs_on: '"ubuntu-latest"'
