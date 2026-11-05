@@ -115,8 +115,8 @@ Files typically containing TODOs after personalization:
 **Location**: Run from `source/` directory
 
 **Before running**: Review and adjust `recipes/setup-development.sh` for:
-- **Shop branch version** (currently set to b-7.5.x) - verify this matches your target OXID version
-- **PHP version** (currently set to 8.2) - confirm compatibility with your OXID version
+- **Shop branch version** (currently set to b-7.6.x) - verify this matches your target OXID version
+- **PHP version** (currently set to 8.3) - confirm compatibility with your OXID version
 - **MySQL version** (check if matches your requirements) - may need adjustment
 
 **Claude Code can help**: Ask Claude to check the setup-development.sh file and verify versions are correct for your needs.
@@ -141,7 +141,7 @@ Files typically containing TODOs after personalization:
 2. Adds services: adminer, selenium-chrome, node
 3. Configures PHP and MySQL versions, Apache (source/source/ path)
 4. Builds and starts containers
-5. Installs OXID eShop CE/EE (dev-b-7.5.x by default)
+5. Installs OXID eShop CE/EE (dev-b-7.6.x by default)
 6. Installs Twig components and apex theme
 7. Sets up database (no demodata)
 8. Installs and activates the module
@@ -448,8 +448,8 @@ docker compose exec -T php composer clear-cache
 - Commit hooks installed automatically (`.github/commit-hooks`)
 - Pre-commit runs quality tools
 - Branch naming pattern: `{base-branch}-{description}-{task-number}`
-  - Example: `b-7.5.x-add-user-preferences-OXDEV-123`
-  - Base branch is typically the current main branch (e.g., b-7.5.x)
+  - Example: `b-7.6.x-add-user-preferences-OXDEV-123`
+  - Base branch is typically the current main branch (e.g., b-7.6.x)
 - **IMPORTANT**: Do not mention "Claude" or "Claude Code" in commit messages
   - Commit messages should be tool-agnostic and professional
   - Focus on what was changed and why, not which tool was used
@@ -520,8 +520,8 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:gen
 ## Environment Variables
 
 **SDK (.env in SDK root)**:
-- `PHP_VERSION` - PHP version (8.3 recommended for OXID 7.5.x)
-- `MYSQL_VERSION` - MySQL version (5.7 or 8.0)
+- `PHP_VERSION` - PHP version (8.3, 8.4 or 8.5 for OXID 7.6.x)
+- `MYSQL_VERSION` - MySQL version (8.0 or 8.4; MariaDB 11 is also supported)
 - `MYSQL_ROOT_PASSWORD` - root password (default: root)
 - `MYSQL_DATABASE` - database name (default: example)
 - `HOST_USER_ID`, `HOST_GROUP_ID` - Synced with your system user for proper file permissions
@@ -544,10 +544,10 @@ docker compose exec -T php vendor/bin/oe-eshop-doctrine_migration migrations:gen
 
 ## Branch Compatibility
 
-Current branch (b-7.5.x) is compatible with:
-- **OXID eShop**: 7.5.x
-- **PHP**: 8.3
-- **MySQL**: 8.0
+Current branch (b-7.6.x) is compatible with:
+- **OXID eShop**: 7.6.x
+- **PHP**: 8.3, 8.4, 8.5
+- **MySQL**: 8.0, 8.4 (MariaDB 11)
 
 Check metadata.php and composer.json for exact version constraints.
 Refer to README.md for full branch compatibility matrix.
