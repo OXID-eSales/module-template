@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [v5.3.0] - unreleased
+## [v5.3.0] - 2026-11-06
 
 ### Changed
 - Update module to work with OXID eShop 7.6
@@ -161,6 +161,7 @@ This is the stable release for v3.0.0. No changes have been made since v3.0.0-rc
 ### Added
 - First version of our reusable examples
 
+[v5.3.0]: https://github.com/OXID-eSales/module-template/compare/v5.2.0...v5.3.0
 [v5.2.0]: https://github.com/OXID-eSales/module-template/compare/v5.1.0...v5.2.0
 [v5.1.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0...v5.1.0
 [v5.0.0]: https://github.com/OXID-eSales/module-template/compare/v5.0.0-rc.1...v5.0.0
