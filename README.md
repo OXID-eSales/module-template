@@ -71,7 +71,7 @@ In case you'd like to use this module as a template for your own module, this se
 
 The following procedure describes how to create a base for your further module, and shows the basic installation for the development process.
 
-**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.5.x. For other
+**Important** Instructions here are for the case you intend to develop a module for OXID eShop 7.6.x. For other
 versions, refer to the version specific branch.
 
 **Please note there are different approaches presented, so before the start, please, read the whole section once, decide 
